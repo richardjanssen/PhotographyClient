@@ -72,7 +72,9 @@
               "browserTarget": "PhotographyClient:build:production"
             },
             "development": {
-              "browserTarget": "PhotographyClient:build:development"
+              "browserTarget": "PhotographyClient:build:development",
+              "port": 4200,
+              "ssl": true
             }
           },
           "defaultConfiguration": "development"
