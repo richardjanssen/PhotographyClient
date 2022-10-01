@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "pre-commit-checks": "pretty-quick --staged"
+    "pre-commit-checks": "ng lint"
   },
   "private": true,
   "dependencies": {
