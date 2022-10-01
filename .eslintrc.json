@@ -1,50 +1,127 @@
 {
-  "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "*.ts"
-      ],
-      "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
-    }
-  ]
+    "root": true,
+    "ignorePatterns": ["projects/**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parserOptions": {
+                "project": ["tsconfig.json", "e2e/tsconfig.json"],
+                "createDefaultProgram": true
+            },
+            "plugins": ["deprecation"],
+            "extends": [
+                "plugin:@angular-eslint/ng-cli-compat",
+                "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+                "plugin:@angular-eslint/template/process-inline-templates"
+            ],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                // Always use T[] for arrays
+                "@typescript-eslint/array-type": [
+                    "error",
+                    {
+                        "default": "array"
+                    }
+                ],
+                // Define types as much as possible using interfaces
+                "@typescript-eslint/consistent-type-definitions": "error",
+                // Allow square brackets to access object property
+                "@typescript-eslint/dot-notation": "off",
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        // This rule has a lot of possible granularity, choices made here are:
+                        // - Get/set accessors are not bound to a specific position so they can be used in both a method like fashion
+                        //   and in a property like syntax with a backing field.
+                        // - Instance field accessibility order is not enforced (contrary to methods/statics), to allow for property like get/set constructs
+                        //   with a private backing field that is grouped and located near the public fields, without having to use ESLint rule disable comments.
+                        // - Constructor accessibility is not subdivided and ordered as typescript only supports 1 constructor per class.
+                        // - Decorated and abstract members are not separately forced in specific order.
+                        // - Statics fields and methods are assigned a specific position in the class.
+                        // Some of our conventions are thus left to the code reviewer to check.
+                        "default": [
+                            "private-static-field",
+                            "protected-static-field",
+                            "public-static-field",
+                            "field",
+                            "constructor",
+                            "public-method",
+                            "protected-method",
+                            "private-method",
+                            "public-static-method",
+                            "protected-static-method",
+                            "private-static-method"
+                        ]
+                    }
+                ],
+                // Allow specifying type for simple types
+                "@typescript-eslint/no-inferrable-types": [
+                    "error",
+                    {
+                        "ignoreParameters": true,
+                        "ignoreProperties": true
+                    }
+                ],
+                "@typescript-eslint/no-non-null-assertion": "off",
+                "@typescript-eslint/no-unused-expressions": [
+                    "error",
+                    {
+                        "allowTernary": true
+                    }
+                ],
+                // Disable base rule in favour of typescript rule
+                "no-unused-expressions": "off",
+                // Disallow var foo = require("foo")
+                "@typescript-eslint/no-var-requires": "error",
+                // Enforce parentheses around arrow function parameters
+                "arrow-parens": ["error", "as-needed"],
+                // Enforce consistent brace style for blocks
+                "brace-style": ["error", "1tbs"],
+                // Warn about deprecated code
+                "deprecation/deprecation": "warn",
+                // Do not require newline at end of file
+                "eol-last": "off",
+                // Do not enforce identifiers to match expression
+                "id-match": "off",
+                "max-classes-per-file": ["error", 1],
+                "max-len": [
+                    "error",
+                    {
+                        // Regex is meant to match:
+                        // Any usage of import at the start of a line.
+                        // Any usage of export at the start of a line, followed by a space and either text contained in {} or a * (literal, not a wildcard).
+                        "ignorePattern": "^import |^export (\\{(.*?)\\}|\\*)",
+                        "code": 140
+                    }
+                ],
+                // Disallow duplicate case in switch expressions
+                "no-duplicate-case": "error",
+                // Disallow redeclaring variables
+                "no-redeclare": "error",
+                "no-trailing-spaces": "off",
+                "no-underscore-dangle": "off",
+                "prefer-arrow/prefer-arrow-functions": "off"
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": ["plugin:@angular-eslint/template/recommended"],
+            "rules": {}
+        }
+    ]
 }

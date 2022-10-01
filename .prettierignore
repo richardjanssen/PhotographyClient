@@ -1,0 +1,23 @@
+# Angular / NPM files
+package.json
+package-lock.json
+
+.husky/**
+node_modules/**
+dist/**
+
+# Images
+*.ico
+
+# Config files
+environment.ts
+environment.prod.ts
+
+# README
+README.md
+
+# Git
+.gitignore
+
+# Prettier
+.prettierignore
