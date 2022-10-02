@@ -84,6 +84,7 @@
                         "allowTernary": true
                     }
                 ],
+                "@typescript-eslint/explicit-function-return-type": ["error"],
                 // Disable base rule in favour of typescript rule
                 "no-unused-expressions": "off",
                 // Disallow var foo = require("foo")

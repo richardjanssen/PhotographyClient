@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  tokenName: 'PhotographyApi_Admin_Token'
 };

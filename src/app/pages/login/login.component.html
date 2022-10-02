@@ -1,0 +1,8 @@
+<div class="login-form login-form__container">
+    <form [formGroup]="loginForm">
+        <input type="text" class="form-control login-form__input" name="userName" formControlName="userName" placeholder="Gebruikersnaam" />
+        <input type="password" class="form-control" name="password login-form__input" formControlName="password" placeholder="Wachtwoord" />
+    </form>
+
+    <button class="btn-primary login-form__submit-button" (click)="submitLogin()">Login</button>
+</div>

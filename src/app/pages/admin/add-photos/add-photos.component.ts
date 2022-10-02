@@ -1,5 +1,5 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { PhotosService } from 'src/app/core/services/photos.service';
 
 @Component({
@@ -14,18 +14,17 @@ export class AddPhotosComponent {
     file: File;
     fileName = '';
 
-    constructor(private http: HttpClient, private readonly _photoService: PhotosService) {}
+    constructor(private readonly _photoService: PhotosService) {}
 
-    onFileSelected(event: any) {
+    onFileSelected(event: any): void {
         const file: File = event.target.files[0];
-        console.log(event);
         if (file) {
             this.file = file;
             this.fileUploaded = true;
         }
     }
 
-    onSubmit() {
+    onSubmit(): void {
         if (this.file) {
             const formData = new FormData();
             formData.append('file', this.file, this.file.name);

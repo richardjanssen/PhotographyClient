@@ -1,0 +1,15 @@
+.login-form {
+    &__container {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__input {
+        margin-bottom: 1em;
+    }
+
+    &__submit-button {
+        margin-top: 1em;
+    }
+}

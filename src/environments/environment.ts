@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseApiUrl: 'http://localhost:5025/api/',
+  tokenName: 'PhotographyApi_Admin_Token'
 };
 
 /*
