@@ -1,0 +1,16 @@
+.homepage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.logo-container {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar {
+    z-index: 2000;
+}

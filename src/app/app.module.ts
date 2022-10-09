@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './pages/home/header/header.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         AddPhotosComponent,
         HomeComponent,
         UnauthorizedComponent,
-        LoginComponent
+        LoginComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,

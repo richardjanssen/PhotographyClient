@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+    --poker-green: #30413c;
+    --poker-green-light: #475a54;
+    --poker-green-verylight: #5b716b;
+    --poker-green-dark: #172622;
+    --off-white: #f8f9fa;
+    --light-grey: #afafaf;
+}
+
+body {
+    background-color: var(--off-white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+body .inter-bold {
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 750px) {
+    .content-container {
+        max-width: 95% !important;
+    }
+}
+
+.content-container {
+    margin-top: 15px;
+    display: block;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-container {
+    display: block;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a:link {
+    text-decoration: none;
+    color: var(--poker-green-verylight);
+}
+
+a:visited {
+    text-decoration: none;
+    color: var(--poker-green-verylight);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--poker-green);
+}
+
+h2 {
+    color: var(--poker-green);
+}
+
+.poker-green-light {
+    color: var(--poker-green-light) !important;
+}
+
+.poker-green-verylight {
+    color: var(--poker-green-verylight) !important;
+}
+
+.off-white {
+    color: var(--off-white) imp !important;
+}
