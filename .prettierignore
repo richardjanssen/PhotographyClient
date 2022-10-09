@@ -8,6 +8,7 @@ dist/**
 
 # Images
 *.ico
+*.svg
 
 # Config files
 environment.ts
