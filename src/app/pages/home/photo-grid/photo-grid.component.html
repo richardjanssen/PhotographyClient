@@ -1,0 +1,15 @@
+<div #gridContainer class="photo-grid" [style.height.px]="gridHeight">
+    <div
+        *ngFor="let item of gridItems"
+        class="grid-item"
+        [style.width.px]="item.width"
+        [style.height.px]="item.height"
+        [style.marginTop.px]="item.offsetTop"
+        [style.marginLeft.px]="item.offsetLeft"
+    >
+        <a routerLink="/photo">
+            <img class="grid-item__image" [src]="item.imagePath" />
+            <div class="grid-item__image-overlay"></div>
+        </a>
+    </div>
+</div>

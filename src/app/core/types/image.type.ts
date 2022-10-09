@@ -1,5 +1,5 @@
 export interface Image {
     widthPx: number;
-    heightPx: Date;
+    heightPx: number;
     path: string;
 }

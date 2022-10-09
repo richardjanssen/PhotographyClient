@@ -13,6 +13,7 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './pages/home/header/header.component';
+import { PhotoGridComponent } from './pages/home/photo-grid/photo-grid.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { HeaderComponent } from './pages/home/header/header.component';
         HomeComponent,
         UnauthorizedComponent,
         LoginComponent,
-        HeaderComponent
+        HeaderComponent,
+        PhotoGridComponent
     ],
     imports: [
         BrowserModule,
