@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/authentication-service';
 
@@ -7,21 +7,13 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent {
     loginForm: FormGroup = new FormGroup({
         userName: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required])
     });
 
-    constructor(private readonly _authenticationService: AuthenticationService) {
-        console.log('here');
-    }
-    ngOnDestroy(): void {
-        console.log('destroy');
-    }
-    ngOnInit(): void {
-        console.log('init');
-    }
+    constructor(private readonly _authenticationService: AuthenticationService) {}
 
     submitLogin(): void {
         if (this.loginForm.valid) {

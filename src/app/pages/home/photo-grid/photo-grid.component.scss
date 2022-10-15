@@ -1,5 +1,9 @@
 .photo-grid {
     // height: set programmatically
+    display: block;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 
     .grid-item {
         // width: set programmatically

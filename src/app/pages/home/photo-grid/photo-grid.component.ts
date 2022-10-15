@@ -61,21 +61,21 @@ export class PhotoGridComponent implements OnInit {
          * and offsets are determined. Additionally, the total grid height is calculated.
          */
         let gridItems: GridItem[] = [];
-        let currentOffsetTop: number = 0;
+        let currentOffsetTop = 0;
         const containerWidth: number = this.container.nativeElement.clientWidth;
         for (let i = 1; i <= array.length; i++) {
-            let currentRowHeight: number = 0;
+            let currentRowHeight = 0;
             const subArray = array.slice(0, i);
 
-            // Size image based on width
             if (containerWidth < this.minContainerWidth) {
+                // Size image based on width
                 if (subArray.length > 1) {
-                    throw new Error('At most one image was expected in the array here');
+                    throw new Error('Exactly one image was expected in the array here');
                 }
                 gridItems = [...gridItems, this.mapGridItemByWidth(subArray[0], containerWidth, currentOffsetTop)];
                 currentRowHeight = this.getHeightByWidth(subArray[0], containerWidth);
-                // Size image(s) based on height
             } else if ((currentRowHeight = this.getImagesHeightForWidth(subArray, containerWidth)) < this.maxRowHeight) {
+                // Size image(s) based on height
                 gridItems = [...gridItems, ...this.getGridItemsForRowHeight(subArray, currentRowHeight, currentOffsetTop)];
             } else {
                 continue;
