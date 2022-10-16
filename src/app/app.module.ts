@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './pages/home/header/header.component';
 import { PhotoGridComponent } from './pages/home/photo-grid/photo-grid.component';
+import { HttpHeaderInterceptor } from './core/interceptors/http-header.interceptor';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,13 @@ import { PhotoGridComponent } from './pages/home/photo-grid/photo-grid.component
             }
         })
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpHeaderInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
