@@ -18,15 +18,13 @@ export class PhotoGridComponent implements OnInit {
     private readonly gutter: number = 5;
     private readonly minContainerWidth: number = 300; // Smaller containers always show one image per row
     private readonly maxRowHeight: number = 320;
-    private readonly baseApiUrl: string;
 
     gridItems: GridItem[];
     gridHeight: number;
 
-    constructor(photosService: PhotosService, private _environmentService: EnvironmentService) {
-        this.baseApiUrl = this._environmentService.baseApiUrl;
+    constructor(photosService: PhotosService, environmentService: EnvironmentService) {
         photosService.getPhotos().subscribe(photos => {
-            this.imageInfo = photos.map(this.mapPhotoToImageInfo);
+            this.imageInfo = photos.map(photo => this.mapPhotoToImageInfo(photo, environmentService.baseApiUrl));
             this.resizeImages();
         });
     }
@@ -43,13 +41,14 @@ export class PhotoGridComponent implements OnInit {
         this.gridHeight = grid.totalGridHeight;
     }
 
-    private mapPhotoToImageInfo(photo: Photo): GridImageInfo {
-        const image = photo.images[0];
+    private mapPhotoToImageInfo(photo: Photo, baseApiUrl: string): GridImageInfo {
+        const largestImage = photo.images.sort((a, b) => b.widthPx - a.widthPx)[0];
         return {
-            naturalWidth: image.widthPx,
-            naturalHeight: image.heightPx,
-            ratio: image.widthPx / image.heightPx,
-            imagePath: image.path
+            naturalWidth: largestImage.widthPx,
+            naturalHeight: largestImage.heightPx,
+            ratio: largestImage.widthPx / largestImage.heightPx,
+            src: baseApiUrl + largestImage.path,
+            srcset: photo.images.map(image => `${baseApiUrl}${image.path} ${image.widthPx}w`).join(',')
         };
     }
 
@@ -135,7 +134,8 @@ export class PhotoGridComponent implements OnInit {
             height,
             offsetTop,
             offsetLeft,
-            imagePath: this.baseApiUrl + image.imagePath
+            srcset: image.srcset,
+            src: image.src
         };
     }
 
@@ -148,7 +148,8 @@ export class PhotoGridComponent implements OnInit {
             height: this.getHeightByWidth(image, width),
             offsetTop,
             offsetLeft: 0,
-            imagePath: this.baseApiUrl + image.imagePath
+            srcset: image.srcset,
+            src: image.src
         };
     }
 
