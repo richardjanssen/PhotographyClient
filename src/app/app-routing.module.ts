@@ -7,9 +7,11 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { PhotoComponent } from './pages/photo/photo.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 const routes: Routes = [
+    { path: 'photo', component: PhotoComponent },
     { path: 'login', component: LoginComponent },
     {
         path: 'admin',

@@ -1,0 +1,61 @@
+@mixin small() {
+    @media screen and (max-width: 750px) {
+        @content;
+    }
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .image {
+        max-width: 90%;
+
+        @include small() {
+            max-width: 100%;
+        }
+    }
+
+    .carousel-button {
+        position: absolute;
+        fill: var(--poker-green-verylight);
+        transition-duration: 0.1s;
+
+        &:hover {
+            fill: var(--poker-green-light);
+            transform: scale(1.2);
+
+            @include small() {
+                transform: scale(1) !important;
+            }
+        }
+
+        &.close-button {
+            top: 10px;
+            right: 10px;
+        }
+
+        &.step-button {
+            top: 0;
+            bottom: 0;
+            height: 38px;
+            margin-top: auto;
+            margin-bottom: auto;
+            z-index: 100;
+
+            @include small() {
+                bottom: 1px;
+                top: auto;
+            }
+
+            &--next {
+                right: 10px;
+            }
+
+            &--previous {
+                left: 10px;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { GridImageInfo } from 'src/app/core/types/grid-image-info.type';
 import { Grid } from 'src/app/core/types/grid.type';
 import { GridItem } from 'src/app/core/types/grid-item.type';
 import { Photo } from 'src/app/core/types/photo.type';
+import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
 
 @Component({
     selector: 'app-photo-grid',
@@ -22,8 +23,13 @@ export class PhotoGridComponent implements OnInit {
     gridItems: GridItem[];
     gridHeight: number;
 
-    constructor(photosService: PhotosService, environmentService: EnvironmentService) {
+    constructor(
+        photosService: PhotosService,
+        private readonly _photoCacheService: PhotoCacheService,
+        environmentService: EnvironmentService
+    ) {
         photosService.getPhotos().subscribe(photos => {
+            this._photoCacheService.cacheAlbumPhotos(photos);
             this.imageInfo = photos.map(photo => this.mapPhotoToImageInfo(photo, environmentService.baseApiUrl));
             this.resizeImages();
         });
@@ -35,6 +41,10 @@ export class PhotoGridComponent implements OnInit {
         });
     }
 
+    onPhotoClick(photoId: number): void {
+        this._photoCacheService.activePhotoId = photoId;
+    }
+
     resizeImages(): void {
         const grid = this.getGrid(this.imageInfo);
         this.gridItems = grid.gridItems;
@@ -44,6 +54,7 @@ export class PhotoGridComponent implements OnInit {
     private mapPhotoToImageInfo(photo: Photo, baseApiUrl: string): GridImageInfo {
         const largestImage = photo.images.sort((a, b) => b.widthPx - a.widthPx)[0];
         return {
+            id: photo.id,
             naturalWidth: largestImage.widthPx,
             naturalHeight: largestImage.heightPx,
             ratio: largestImage.widthPx / largestImage.heightPx,
@@ -130,6 +141,7 @@ export class PhotoGridComponent implements OnInit {
          * Map single grid image info to a grid item, where the width is based on the height and image aspect ratio.
          */
         return {
+            id: image.id,
             width: height * image.ratio,
             height,
             offsetTop,
@@ -144,6 +156,7 @@ export class PhotoGridComponent implements OnInit {
          * Map single grid image info to a grid item, where the height is based on the width and image aspect ratio.
          */
         return {
+            id: image.id,
             width,
             height: this.getHeightByWidth(image, width),
             offsetTop,

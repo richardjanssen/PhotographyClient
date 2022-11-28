@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './pages/home/header/header.component';
 import { PhotoGridComponent } from './pages/home/photo-grid/photo-grid.component';
 import { HttpHeaderInterceptor } from './core/interceptors/http-header.interceptor';
+import { PhotoComponent } from './pages/photo/photo.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { HttpHeaderInterceptor } from './core/interceptors/http-header.intercept
         UnauthorizedComponent,
         LoginComponent,
         HeaderComponent,
-        PhotoGridComponent
+        PhotoGridComponent,
+        PhotoComponent
     ],
     imports: [
         BrowserModule,
