@@ -19,8 +19,8 @@ const routes: Routes = [
         canActivate: [AuthorizationGuard],
         data: { roles: ['PhotographyApi_Admin'] },
         children: [
-            { path: 'photosoverview', component: PhotosOverviewComponent },
-            { path: 'addphotos', component: AddPhotosComponent }
+            { path: 'photos-overview', component: PhotosOverviewComponent },
+            { path: 'add-photo', component: AddPhotosComponent }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },

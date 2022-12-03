@@ -1,12 +1,8 @@
-<p>add-photos works!</p>
-
-<input type="file" class="file-upload" (change)="onFileSelected($event)">
+<input type="file" class="file-upload" (change)="onFileSelected($event)" />
 
 <button [disabled]="!fileUploaded" (click)="onSubmit()">Submit</button>
 
-<span class="upload" *ngIf="progress > 0">
-    {{progress}}%
-  </span>
-  <span class="upload" *ngIf="message">
-    {{message}}
-  </span>
+<span class="upload" *ngIf="progress > 0"> {{ progress }}% </span>
+<span class="upload" *ngIf="message">
+    {{ message }}
+</span>

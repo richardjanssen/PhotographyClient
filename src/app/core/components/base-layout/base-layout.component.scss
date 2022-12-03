@@ -1,0 +1,8 @@
+.base-layout {
+    display: grid;
+    grid-gap: 10px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+}

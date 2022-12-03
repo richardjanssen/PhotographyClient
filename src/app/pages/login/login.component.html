@@ -1,8 +1,22 @@
-<div class="login-form login-form__container">
+<app-header></app-header>
+<div class="login login__container">
     <form [formGroup]="loginForm">
-        <input type="text" class="form-control login-form__input" name="userName" formControlName="userName" placeholder="Gebruikersnaam" />
-        <input type="password" class="form-control" name="password login-form__input" formControlName="password" placeholder="Wachtwoord" />
+        <div class="login__input-container">
+            <input type="text" class="form-control login__input" name="username" formControlName="username" placeholder="Username" />
+
+            <div *ngIf="showValidations(username)" class="alert alert-danger">
+                <div *ngIf="username?.errors?.['required']">Username is required.</div>
+            </div>
+        </div>
+
+        <div class="login__input-container">
+            <input type="password" class="form-control login__input" name="password" formControlName="password" placeholder="Password" />
+
+            <div *ngIf="showValidations(password)" class="alert alert-danger">
+                <div *ngIf="password?.errors?.['required']">Password is required.</div>
+            </div>
+        </div>
     </form>
 
-    <button class="btn-primary login-form__submit-button" (click)="submitLogin()">Login</button>
+    <button class="btn btn-primary login__submit-button" (click)="submitLogin()">Login</button>
 </div>
