@@ -16,6 +16,7 @@ import { HeaderComponent } from './pages/home/header/header.component';
 import { PhotoGridComponent } from './pages/home/photo-grid/photo-grid.component';
 import { HttpHeaderInterceptor } from './core/interceptors/http-header.interceptor';
 import { PhotoComponent } from './pages/photo/photo.component';
+import { FooterComponent } from './pages/home/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { PhotoComponent } from './pages/photo/photo.component';
         LoginComponent,
         HeaderComponent,
         PhotoGridComponent,
-        PhotoComponent
+        PhotoComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
