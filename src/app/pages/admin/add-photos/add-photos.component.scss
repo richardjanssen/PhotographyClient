@@ -1,8 +1,6 @@
-@import '../../../../styles/styles.scss';
-
 .add-photo {
     &__input {
-        margin-bottom: $spacer;
+        margin-bottom: 1rem;
     }
 
     &__submitted-spinner {
