@@ -1,6 +1,7 @@
-import { HttpEventType } from '@angular/common/http';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { PhotosService } from 'src/app/core/services/photos.service';
+import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
     selector: 'app-add-photos',
@@ -10,9 +11,11 @@ import { PhotosService } from 'src/app/core/services/photos.service';
 export class AddPhotosComponent {
     progress: number;
     message: string;
-    fileUploaded: boolean = false;
+    fileSelected: boolean = false;
+    submitted: boolean = false;
+    uploadFinished: boolean = false;
+
     file: File;
-    fileName = '';
 
     constructor(private readonly _photoService: PhotosService) {}
 
@@ -20,21 +23,29 @@ export class AddPhotosComponent {
         const file: File = event.target.files[0];
         if (file) {
             this.file = file;
-            this.fileUploaded = true;
+            this.fileSelected = true;
         }
     }
 
     onSubmit(): void {
         if (this.file) {
+            this.submitted = true;
             const formData = new FormData();
             formData.append('file', this.file, this.file.name);
-            this._photoService.uploadPhoto(formData).subscribe((event: any) => {
+            this._photoService.uploadPhoto(formData).subscribe((event: HttpEvent<Photo>) => {
                 if (event.type === HttpEventType.UploadProgress) {
-                    this.progress = Math.round((100 * event.loaded) / event.total);
+                    this.progress = event.total ? event.loaded / event.total : 0;
                 } else if (event.type === HttpEventType.Response) {
-                    this.message = 'Upload success!';
+                    if (event.ok) {
+                        this.message = 'Photo has been uploaded.';
+                    }
+                    this.uploadFinished = true;
                 }
             });
         }
+    }
+
+    reloadComponent(): void {
+        window.location.reload();
     }
 }

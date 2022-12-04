@@ -1,8 +1,32 @@
-<input type="file" class="file-upload" (change)="onFileSelected($event)" />
+<h3 class="page-title">Add photo</h3>
 
-<button [disabled]="!fileUploaded" (click)="onSubmit()">Submit</button>
+<div class="add-photo">
+    <ng-container *ngIf="!submitted">
+        <div class="add-photo__input">
+            <input type="file" (change)="onFileSelected($event)" />
+        </div>
 
-<span class="upload" *ngIf="progress > 0"> {{ progress }}% </span>
-<span class="upload" *ngIf="message">
-    {{ message }}
-</span>
+        <div class="add-photo__submit">
+            <button class="btn btn-primary" [disabled]="!fileSelected" (click)="onSubmit()">Submit</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="submitted">
+        <ng-container *ngIf="!uploadFinished">
+            <p>Uploading photo...</p>
+            <div class="add-photo__submitted-spinner">
+                <div class="spinner-border text-primary" *ngIf="!uploadFinished">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p *ngIf="progress > 0">Progress: {{ progress | percent }}</p>
+        </ng-container>
+
+        <ng-container *ngIf="uploadFinished">
+            <div class="alert alert-success" *ngIf="message">
+                {{ message }}
+            </div>
+            <button class="btn btn-primary" (click)="reloadComponent()">Add another photo</button>
+        </ng-container>
+    </ng-container>
+</div>

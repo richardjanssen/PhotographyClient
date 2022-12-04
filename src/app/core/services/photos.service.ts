@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
@@ -8,14 +8,14 @@ import { Photo } from '../types/photo.type';
     providedIn: 'root'
 })
 export class PhotosService {
-    constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) { }
+    constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     getPhotos(): Observable<Photo[]> {
         return this._http.get<Photo[]>(this._getUrl('Get'));
     }
 
-    uploadPhoto(photo: FormData): any {
-        return this._http.post(this._getUrl('UploadPhoto'), photo, {reportProgress: true, observe: 'events'});
+    uploadPhoto(photo: FormData): Observable<HttpEvent<Photo>> {
+        return this._http.post<Photo>(this._getUrl('UploadPhoto'), photo, { reportProgress: true, observe: 'events' });
     }
 
     private _getUrl(method: string): string {
