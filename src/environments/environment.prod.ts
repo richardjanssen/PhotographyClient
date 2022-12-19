@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseApiUrl: 'https://robertsvrijgezellenfeest.nl/api/',
+  baseApiUrl: 'https://riesj.com/api/',
   tokenName: 'PhotographyApi_Admin_Token'
 };

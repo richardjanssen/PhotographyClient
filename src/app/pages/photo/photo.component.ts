@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { fromEvent } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { EnvironmentService } from 'src/app/core/services/environment.service';
 import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
 import { Photo } from 'src/app/core/types/photo.type';
@@ -10,44 +9,23 @@ import { Photo } from 'src/app/core/types/photo.type';
     templateUrl: './photo.component.html',
     styleUrls: ['./photo.component.scss']
 })
-export class PhotoComponent implements OnInit, AfterViewInit {
-    @ViewChild('containerCarousel') container: ElementRef;
-    image: HTMLImageElement;
-    albumPath: string;
+export class PhotoComponent {
     photos: Photo[];
     activeIndex: number;
     activePhotoSrcSet: string;
 
-    footerHeight: number = 40;
-
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        photoCacheService: PhotoCacheService,
-        private readonly _environmentService: EnvironmentService
+        private readonly _router: Router,
+        private readonly _environmentService: EnvironmentService,
+        photoCacheService: PhotoCacheService
     ) {
-        this.route.queryParams.subscribe(() => {
-            this.photos = photoCacheService.retrieveAlbumPhotosFromCache();
-            if (!this.photos) {
-                this.router.navigateByUrl('/');
-            } else {
-                this.activeIndex = photoCacheService.activePhotoId
-                    ? this.photos.findIndex(p => p.id === photoCacheService.activePhotoId)
-                    : 0;
-                this.activePhotoSrcSet = this._getActivePhotoSrcSet();
-            }
-        });
-    }
-
-    ngOnInit(): void {
-        fromEvent(window, 'resize').subscribe(() => {
-            this._resizeImage();
-        });
-    }
-
-    ngAfterViewInit(): void {
-        this.image = this.container.nativeElement.querySelector('.image');
-        this._resizeImage();
+        this.photos = photoCacheService.retrieveAlbumPhotosFromCache();
+        if (!this.photos) {
+            this._router.navigateByUrl('/');
+        } else {
+            this.activeIndex = photoCacheService.activePhotoId ? this.photos.findIndex(p => p.id === photoCacheService.activePhotoId) : 0;
+            this.activePhotoSrcSet = this._getActivePhotoSrcSet();
+        }
     }
 
     previousPhoto(): void {
@@ -61,12 +39,7 @@ export class PhotoComponent implements OnInit, AfterViewInit {
     }
 
     close(): void {
-        this.router.navigateByUrl('/');
-    }
-
-    private _resizeImage(): void {
-        this.container.nativeElement.style.height = `${window.innerHeight}px`;
-        this.image.style.maxHeight = `${window.innerHeight - 2 * this.footerHeight}px`;
+        this._router.navigateByUrl('/');
     }
 
     private _getActivePhotoSrcSet(): string {
