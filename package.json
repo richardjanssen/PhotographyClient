@@ -6,8 +6,10 @@
     "start": "npm run lint && ng serve --open",
     "start:quick": "ng serve --open",
     "build": "ng build",
+    "build:ci": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:ci": "ng test --watch=false",
     "lint": "ng lint",
     "pre-commit-checks": "pretty-quick --staged"
   },
