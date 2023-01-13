@@ -1,0 +1,22 @@
+name: PhotographyClient-cd-pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-test-publish:
+    uses: richardjanssen/SharedWorkflow/.github/workflows/angular-build-test-publish.yml
+    with:
+      app-name: PhotographyClient
+      
+  deploy-run:
+    needs: build-test-publish
+    uses: richardjanssen/SharedWorkflows/.github/workflows/linux-vps-deploy.yml@main
+    with:
+      application-name: PhotographyClient
+    secrets:
+      host: ${{ secrets.HOST }}
+      username: ${{ secrets.USERNAME }}
+      ssh-key: ${{ secrets.SSHKEY }}
+      ssh-passphrase: ${{ secrets.SSHPASSPHRASE }}
