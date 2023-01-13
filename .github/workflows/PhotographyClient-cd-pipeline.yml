@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-test-publish:
-    uses: richardjanssen/SharedWorkflow/.github/workflows/angular-build-test-publish.yml@main
+    uses: richardjanssen/SharedWorkflows/.github/workflows/angular-build-test-publish.yml@main
     with:
       app-name: PhotographyClient
       
