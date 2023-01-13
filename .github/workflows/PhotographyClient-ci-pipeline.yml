@@ -1,0 +1,11 @@
+name: PhotographyClient-ci-pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test-publish:
+    uses: richardjanssen/SharedWorkflows/.github/workflows/angular-build-test-publish.yml@main
+    with:
+      app-name: PhotographyClient
