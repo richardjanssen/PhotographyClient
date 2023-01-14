@@ -16,7 +16,7 @@ import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
 export class PhotoGridComponent implements OnInit {
     @ViewChild('gridContainer') container: ElementRef;
     private imageInfo: GridImageInfo[];
-    private readonly gutter: number = 5; // Random comment
+    private readonly gutter: number = 5;
     private readonly minContainerWidth: number = 300; // Smaller containers always show one image per row
     private readonly maxRowHeight: number = 320;
 
