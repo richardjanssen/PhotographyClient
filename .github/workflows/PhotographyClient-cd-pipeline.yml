@@ -12,9 +12,11 @@ jobs:
       
   deploy-run:
     needs: build-test-publish
-    uses: richardjanssen/SharedWorkflows/.github/workflows/linux-vps-deploy.yml@main
+    uses: richardjanssen/SharedWorkflows/.github/workflows/linux-vps-deploy-run-v2.yml@main
     with:
-      application-name: PhotographyClient
+      app-name: PhotographyClient
+      is-service: false
+      remove-target-folder: true
     secrets:
       host: ${{ secrets.HOST }}
       username: ${{ secrets.USERNAME }}
