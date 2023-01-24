@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/core/services/authentication-service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
-    selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })

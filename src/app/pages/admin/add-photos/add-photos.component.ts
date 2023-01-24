@@ -1,10 +1,10 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { PhotosService } from 'src/app/core/services/photos.service';
+import { WindowService } from 'src/app/core/services/window.service';
 import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
-    selector: 'app-add-photos',
     templateUrl: './add-photos.component.html',
     styleUrls: ['./add-photos.component.scss']
 })
@@ -17,7 +17,7 @@ export class AddPhotosComponent {
 
     file: File;
 
-    constructor(private readonly _photoService: PhotosService) {}
+    constructor(private readonly _photoService: PhotosService, private readonly _windowService: WindowService) {}
 
     onFileSelected(event: any): void {
         const file: File = event.target.files[0];
@@ -46,6 +46,6 @@ export class AddPhotosComponent {
     }
 
     reloadComponent(): void {
-        window.location.reload();
+        this._windowService.window.location.reload();
     }
 }

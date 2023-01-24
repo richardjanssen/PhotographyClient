@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PhotosService } from 'src/app/core/services/photos.service';
 import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
-    selector: 'app-photos-overview',
     templateUrl: './photos-overview.component.html',
     styleUrls: ['./photos-overview.component.scss']
 })

@@ -1,0 +1,4 @@
+<p *ngIf="!highlights">Loading...</p>
+<div *ngIf="highlights" class="highlights-slider">
+    <app-highlight *ngFor="let highlight of highlights" [highlight]="highlight" class="highlights-slider_highlight"></app-highlight>
+</div>

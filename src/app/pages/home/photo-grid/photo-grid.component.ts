@@ -7,6 +7,7 @@ import { Grid } from 'src/app/core/types/grid.type';
 import { GridItem } from 'src/app/core/types/grid-item.type';
 import { Photo } from 'src/app/core/types/photo.type';
 import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
+import { ApplicationPaths } from 'src/app/applications-paths';
 
 @Component({
     selector: 'app-photo-grid',
@@ -14,6 +15,7 @@ import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
     styleUrls: ['./photo-grid.component.scss']
 })
 export class PhotoGridComponent implements OnInit {
+    readonly photoPath: string = ApplicationPaths.photo;
     @ViewChild('gridContainer') container: ElementRef;
     private imageInfo: GridImageInfo[];
     private readonly gutter: number = 5;

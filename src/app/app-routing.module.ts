@@ -1,27 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ApplicationPaths } from './app-paths';
+import { ApplicationPaths } from './applications-paths';
 import { AuthorizationGuard } from './core/guards/authorization.guard';
 import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
+import { HikeComponent } from './pages/hike/hike.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PhotoComponent } from './pages/photo/photo.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 const routes: Routes = [
-    { path: 'photo', component: PhotoComponent },
-    { path: 'login', component: LoginComponent },
+    { path: ApplicationPaths.photo, component: PhotoComponent },
+    { path: ApplicationPaths.hike, component: HikeComponent },
+    { path: ApplicationPaths.login, component: LoginComponent },
     {
-        path: 'admin',
+        path: ApplicationPaths.admin,
         component: AdminComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ['PhotographyApi_Admin'] },
         children: [
-            { path: '', redirectTo: 'add-photo', pathMatch: 'full' },
-            { path: 'add-photo', component: AddPhotosComponent },
-            { path: 'photos-overview', component: PhotosOverviewComponent }
+            { path: '', redirectTo: ApplicationPaths.addPhoto, pathMatch: 'full' },
+            { path: ApplicationPaths.addPhoto, component: AddPhotosComponent },
+            { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },

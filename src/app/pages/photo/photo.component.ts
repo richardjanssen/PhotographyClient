@@ -5,7 +5,6 @@ import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
 import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
-    selector: 'app-photo',
     templateUrl: './photo.component.html',
     styleUrls: ['./photo.component.scss']
 })

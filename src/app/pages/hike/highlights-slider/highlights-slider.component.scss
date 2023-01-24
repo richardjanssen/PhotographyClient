@@ -1,0 +1,18 @@
+.highlights-slider {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 15px;
+    overflow-x: scroll;
+    display: flex;
+    align-items: stretch;
+
+    &_highlight {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: content;
+        max-width: 11rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+}

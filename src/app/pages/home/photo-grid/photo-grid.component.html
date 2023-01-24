@@ -7,7 +7,7 @@
         [style.marginTop.px]="item.offsetTop"
         [style.marginLeft.px]="item.offsetLeft"
     >
-        <a (click)="onPhotoClick(item.id)" routerLink="/photo">
+        <a (click)="onPhotoClick(item.id)" [routerLink]="photoPath">
             <img class="grid-item__image" [srcset]="item.srcset" [sizes]="item.width + 'px'" />
             <div class="grid-item__image-overlay"></div>
         </a>
