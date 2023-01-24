@@ -5,6 +5,7 @@ import { AuthorizationGuard } from './core/guards/authorization.guard';
 import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
+import { HikeComponent } from './pages/hike/hike.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PhotoComponent } from './pages/photo/photo.component';
@@ -12,6 +13,7 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 
 const routes: Routes = [
     { path: ApplicationPaths.photo, component: PhotoComponent },
+    { path: ApplicationPaths.hike, component: HikeComponent },
     { path: ApplicationPaths.login, component: LoginComponent },
     {
         path: ApplicationPaths.admin,

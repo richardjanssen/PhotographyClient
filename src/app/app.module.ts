@@ -18,6 +18,9 @@ import { HttpHeaderInterceptor } from './core/interceptors/http-header.intercept
 import { PhotoComponent } from './pages/photo/photo.component';
 import { FooterComponent } from './pages/home/footer/footer.component';
 import { BaseLayoutComponent } from './core/components/base-layout/base-layout.component';
+import { HikeComponent } from './pages/hike/hike.component';
+import { HighlightsSliderComponent } from './pages/hike/highlights-slider/highlights-slider.component';
+import { HighlightComponent } from './pages/hike/highlights-slider/highlight/highlight.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +35,10 @@ import { BaseLayoutComponent } from './core/components/base-layout/base-layout.c
         PhotoGridComponent,
         PhotoComponent,
         FooterComponent,
-        BaseLayoutComponent
+        BaseLayoutComponent,
+        HikeComponent,
+        HighlightsSliderComponent,
+        HighlightComponent
     ],
     imports: [
         BrowserModule,

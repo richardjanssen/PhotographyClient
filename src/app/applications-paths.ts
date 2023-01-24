@@ -4,6 +4,7 @@ export class ApplicationPaths {
     static readonly login: string = 'login';
     static readonly admin: string = 'admin';
     static readonly unauthorized: string = 'unauthorized';
+    static readonly hike: string = 'hike';
 
     // Admin
     static readonly addPhoto: string = 'add-photo';

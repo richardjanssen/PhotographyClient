@@ -1,0 +1,12 @@
+.highlight {
+    height: 100%;
+
+    &_card-body {
+        display: flex;
+        align-items: center;
+    }
+
+    &_card-title {
+        text-align: center;
+    }
+}

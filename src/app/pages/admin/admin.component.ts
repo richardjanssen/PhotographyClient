@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApplicationPaths } from 'src/app/applications-paths';
-import { AuthenticationService } from 'src/app/core/services/authentication-service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
     templateUrl: './admin.component.html',
