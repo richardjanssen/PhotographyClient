@@ -2,8 +2,8 @@
 <app-base-layout class="admin">
     <div class="btn-toolbar admin__menu">
         <div class="btn-group me-5">
-            <button routerLink="add-photo" class="btn btn-primary">Add photo</button>
-            <button routerLink="photos-overview" class="btn btn-primary">Photos overview</button>
+            <button [routerLink]="addPhotosPath" class="btn btn-primary">Add photo</button>
+            <button [routerLink]="photosOverviewPath" class="btn btn-primary">Photos overview</button>
         </div>
         <div class="btn-group">
             <button (click)="logout()" class="btn btn-secondary">Logout</button>
