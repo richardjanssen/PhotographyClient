@@ -29,7 +29,7 @@ export class HightlightService {
             title: 'This is a location'
         },
         {
-            title: 'Here you have another place'
+            title: 'Yosemite National Park'
         },
         {
             title: 'Very beautiful'
