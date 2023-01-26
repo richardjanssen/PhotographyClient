@@ -9,6 +9,9 @@ dist/**
 # Images
 *.ico
 *.svg
+*.png
+*.jpg
+*.jpeg
 
 # Config files
 environment.ts
