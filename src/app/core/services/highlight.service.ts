@@ -20,7 +20,7 @@ export class HightlightService {
             title: 'Shorty'
         },
         {
-            title: 'Here you have another place'
+            title: 'A bay'
         },
         {
             title: 'Very beautiful'
