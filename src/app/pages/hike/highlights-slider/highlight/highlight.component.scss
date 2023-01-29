@@ -1,24 +1,38 @@
 .highlight {
     height: 100%;
 
-    &_card-body {
+    .card-body {
         padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-    }
 
-    &_card-icon {
-        max-width: 64px;
-        padding: 5px;
-        margin-bottom: 0.6rem;
-    }
+        &_icon {
+            max-width: 64px;
+            padding: 5px;
+            margin-bottom: 0.6rem;
+        }
 
-    &_card-title {
-        font-weight: 600;
-        font-size: 0.8rem;
-        text-align: center;
-        margin-bottom: 0;
+        &_title-spacer {
+            height: 1px;
+            // width: set programmatically
+
+            &--left {
+                float: left;
+            }
+
+            &--right {
+                float: right;
+            }
+        }
+
+        &_title {
+            display: block;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 0;
+        }
     }
 }
