@@ -1,6 +1,10 @@
 <div class="card highlight">
-    <div class="card-body highlight_card-body">
-        <img class="highlight_card-icon" src="../../../../../assets/icons/icon.png" />
-        <span class="card-title highlight_card-title">{{ highlight.title }}</span>
+    <div class="card-body">
+        <img class="card-body_icon" src="../../../../../assets/icons/icon.png" />
+        <div #titleContainer>
+            <div #titleSpacerRight class="card-body_title-spacer card-body_title-spacer--right" [style.width.px]="spacerWidth"></div>
+            <div #titleSpacerLeft class="card-body_title-spacer card-body_title-spacer--left" [style.width.px]="spacerWidth"></div>
+            <span #title class="card-title card-body_title">{{ highlight.title }}</span>
+        </div>
     </div>
 </div>
