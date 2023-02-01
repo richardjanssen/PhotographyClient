@@ -1,3 +1,8 @@
+@import '../../../../styles/variables.scss';
+
+$connectorBorderStyle: 2px dashed $primary;
+$connectorBorderRadius: 15px;
+
 .highlights-slider {
     max-width: 95%;
     margin-left: auto;
@@ -15,5 +20,46 @@
         min-width: 7rem;
         margin-left: 0.25rem;
         margin-right: 0.25rem;
+    }
+}
+
+.highlights-chain {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid aqua;
+
+    &_container {
+        position: relative;
+        width: fit-content;
+        min-width: 7rem;
+        max-width: 10rem;
+        margin-bottom: 1rem;
+
+        .highlights-chain_highlight {
+            position: relative;
+            z-index: 2;
+        }
+
+        .connector {
+            position: absolute;
+            top: 50%;
+            height: 75%; // Should be 50% + 1rem (margin-bottom of container)
+            z-index: 1;
+
+            &--left-to-right {
+                left: 50%;
+                border-top: $connectorBorderStyle;
+                border-right: $connectorBorderStyle;
+                border-top-right-radius: $connectorBorderRadius;
+            }
+
+            &--right-to-left {
+                right: 50%;
+                border-top: $connectorBorderStyle;
+                border-left: $connectorBorderStyle;
+                border-top-left-radius: $connectorBorderRadius;
+            }
+        }
     }
 }

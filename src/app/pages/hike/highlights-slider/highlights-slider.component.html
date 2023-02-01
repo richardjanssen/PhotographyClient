@@ -1,4 +1,8 @@
 <p *ngIf="!highlights">Loading...</p>
-<div *ngIf="highlights" class="highlights-slider">
-    <app-highlight *ngFor="let highlight of highlights" [highlight]="highlight" class="highlights-slider_highlight"></app-highlight>
+
+<div *ngIf="highlights" #highlightsChain class="highlights-chain">
+    <div #highlightContainer class="highlights-chain_container" *ngFor="let highlight of highlights">
+        <app-highlight [highlight]="highlight" class="highlights-chain_highlight"></app-highlight>
+        <div #highlightConnector class="connector"></div>
+    </div>
 </div>
