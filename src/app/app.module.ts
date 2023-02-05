@@ -19,7 +19,7 @@ import { PhotoComponent } from './pages/photo/photo.component';
 import { FooterComponent } from './pages/home/footer/footer.component';
 import { BaseLayoutComponent } from './core/components/base-layout/base-layout.component';
 import { HikeComponent } from './pages/hike/hike.component';
-import { HighlightsSliderComponent } from './pages/hike/highlights-slider/highlights-slider.component';
+import { HighlightsChainComponent } from './pages/hike/highlights-slider/highlights-chain.component';
 import { HighlightComponent } from './pages/hike/highlights-slider/highlight/highlight.component';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { HighlightComponent } from './pages/hike/highlights-slider/highlight/hig
         FooterComponent,
         BaseLayoutComponent,
         HikeComponent,
-        HighlightsSliderComponent,
+        HighlightsChainComponent,
         HighlightComponent
     ],
     imports: [

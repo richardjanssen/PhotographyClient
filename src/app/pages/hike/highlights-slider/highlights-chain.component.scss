@@ -2,25 +2,11 @@
 
 $connectorBorderStyle: 2px dashed $primary;
 $connectorBorderRadius: 15px;
+$leftCenterpoint: 0.4;
+$rightCenterpoint: 0.6;
 
-.highlights-slider {
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 15px;
-    overflow-x: scroll;
-    display: flex;
-    align-items: stretch;
-
-    &_highlight {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: content;
-        max-width: 10rem;
-        min-width: 7rem;
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
-    }
+:root {
+    --highlights-width: 100%; // Set programmatically
 }
 
 .highlights-chain {
@@ -35,31 +21,47 @@ $connectorBorderRadius: 15px;
         min-width: 7rem;
         max-width: 10rem;
         margin-bottom: 1rem;
-
-        .highlights-chain_highlight {
-            position: relative;
-            z-index: 2;
-        }
+        transform: translateX(-50%);
 
         .connector {
+            width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
             position: absolute;
             top: 50%;
             height: 75%; // Should be 50% + 1rem (margin-bottom of container)
             z-index: 1;
+        }
 
-            &--left-to-right {
+        &:nth-child(odd) {
+            margin-left: percentage($leftCenterpoint);
+
+            .connector {
                 left: 50%;
                 border-top: $connectorBorderStyle;
                 border-right: $connectorBorderStyle;
                 border-top-right-radius: $connectorBorderRadius;
             }
+        }
 
-            &--right-to-left {
+        &:nth-child(even) {
+            margin-left: percentage($rightCenterpoint);
+
+            .connector {
                 right: 50%;
                 border-top: $connectorBorderStyle;
                 border-left: $connectorBorderStyle;
                 border-top-left-radius: $connectorBorderRadius;
             }
+        }
+
+        &:last-child {
+            .connector {
+                display: none;
+            }
+        }
+
+        .highlights-chain_highlight {
+            position: relative;
+            z-index: 2;
         }
     }
 }
