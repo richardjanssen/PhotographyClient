@@ -7,7 +7,7 @@ import { Highlight } from 'src/app/core/types/highlight.type';
     styleUrls: ['./highlight.component.scss']
 })
 export class HighlightComponent {
-    @HostBinding('class.clicked') get clicked() {
+    @HostBinding('class.clicked') get clicked(): boolean {
         return this.isClicked;
     }
     @Input() highlight: Highlight;
