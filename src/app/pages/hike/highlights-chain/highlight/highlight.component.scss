@@ -1,5 +1,18 @@
+@import '../../../../../styles/variables.scss';
+
+@keyframes example {
+    // 100% { width: 100%; max-width: 100%; }
+}
+
 .highlight {
     height: 100%;
+    width: 10rem;
+    transition: width $transitionTime ease-in-out;
+
+    &--clicked {
+        width: var(--highlights-width);
+        max-width: 100%;
+    }
 
     .card-body {
         padding: 10px;

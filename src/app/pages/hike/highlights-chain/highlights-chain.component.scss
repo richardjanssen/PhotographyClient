@@ -17,25 +17,36 @@ $rightCenterpoint: 0.6;
 
     &_container {
         position: relative;
-        width: fit-content;
-        min-width: 7rem;
-        max-width: 10rem;
+        width: 100%;
         margin-bottom: 1rem;
-        transform: translateX(-50%);
 
-        .connector {
-            width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
+        .highlights-chain_highlight {
+            position: relative;
+            z-index: 2;
+            width: fit-content;
+            display: block;
+            transition: margin-left $transitionTime ease-in-out;
+
+            &.clicked {
+                margin-left: 0 !important;
+            }
+        }
+
+        .highlights-chain_connector {
+            width: percentage($rightCenterpoint - $leftCenterpoint);
+            height: calc(50% + 1rem);
             position: absolute;
             top: 50%;
-            height: 75%; // Should be 50% + 1rem (margin-bottom of container)
             z-index: 1;
         }
 
         &:nth-child(odd) {
-            margin-left: percentage($leftCenterpoint);
+            .highlights-chain_highlight {
+                margin-left: calc(percentage($leftCenterpoint) - 5rem);
+            }
 
-            .connector {
-                left: 50%;
+            .highlights-chain_connector {
+                left: percentage($leftCenterpoint);
                 border-top: $connectorBorderStyle;
                 border-right: $connectorBorderStyle;
                 border-top-right-radius: $connectorBorderRadius;
@@ -43,10 +54,12 @@ $rightCenterpoint: 0.6;
         }
 
         &:nth-child(even) {
-            margin-left: percentage($rightCenterpoint);
+            .highlights-chain_highlight {
+                margin-left: calc(percentage($rightCenterpoint) - 5rem);
+            }
 
-            .connector {
-                right: 50%;
+            .highlights-chain_connector {
+                right: percentage(1 - $rightCenterpoint);
                 border-top: $connectorBorderStyle;
                 border-left: $connectorBorderStyle;
                 border-top-left-radius: $connectorBorderRadius;
@@ -54,14 +67,9 @@ $rightCenterpoint: 0.6;
         }
 
         &:last-child {
-            .connector {
+            .highlights-chain_connector {
                 display: none;
             }
-        }
-
-        .highlights-chain_highlight {
-            position: relative;
-            z-index: 2;
         }
     }
 }
