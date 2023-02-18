@@ -12,12 +12,11 @@ export class StyleService {
         return this.getUnitlessValue(this.transitionTime);
     }
 
-    private getProperty(property: string) {
+    private getProperty(property: string): string {
         return getComputedStyle(document.documentElement).getPropertyValue(property);
     }
 
     private getUnitlessValue(value: string): number {
-        const onlyNumbersRegExp: RegExp = /\D/g;
-        return parseInt(value.replace(onlyNumbersRegExp, ''));
+        return parseInt(value.replace(/\D/g, ''), 10);
     }
 }
