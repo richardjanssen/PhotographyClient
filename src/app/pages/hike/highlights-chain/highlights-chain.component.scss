@@ -13,7 +13,6 @@ $rightCenterpoint: 0.6;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid aqua;
 
     &_container {
         position: relative;
@@ -27,7 +26,7 @@ $rightCenterpoint: 0.6;
             display: block;
             transition: margin-left $transitionTime ease-in-out;
 
-            &.clicked {
+            &.expanded {
                 margin-left: 0 !important;
             }
         }

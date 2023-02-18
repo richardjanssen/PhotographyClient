@@ -1,7 +1,17 @@
-<div class="card highlight" [ngClass]="isClicked ? 'highlight--clicked' : ''" (click)="onClick()">
+<div class="card highlight" [ngClass]="{ expandable, expanded, resizing }" (click)="toggleExpansion()">
     <div class="card-body">
-        <span #title class="card-title card-body_title">{{ highlight.title }}</span>
-        <img class="card-body_icon" src="../../../../../assets/icons/icon.png" />
-        <span class="card-body_subtitle"><i>123 km</i></span>
+        <span class="card-title card-body_title">{{ highlight.title }}</span>
+
+        <ng-container *ngIf="!expanded || resizing">
+            <img class="card-body_icon" src="../../../../../assets/icons/icon.png" />
+            <span class="card-body_subtitle"
+                ><i>{{ highlight.distance }} km</i></span
+            >
+        </ng-container>
+
+        <div *ngIf="expanded && !resizing" [ngSwitch]="highlight.type" class="card-body_details">
+            <app-photos-highlight *ngSwitchCase="highlightType.photos"></app-photos-highlight>
+            <div *ngSwitchDefault>Nothing to see here!</div>
+        </div>
     </div>
 </div>
