@@ -21,6 +21,7 @@ import { BaseLayoutComponent } from './core/components/base-layout/base-layout.c
 import { HikeComponent } from './pages/hike/hike.component';
 import { HighlightsChainComponent } from './pages/hike/highlights-chain/highlights-chain.component';
 import { HighlightComponent } from './pages/hike/highlights-chain/highlight/highlight.component';
+import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highlight/photos-highlight/photos-highlight.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { HighlightComponent } from './pages/hike/highlights-chain/highlight/high
         BaseLayoutComponent,
         HikeComponent,
         HighlightsChainComponent,
-        HighlightComponent
+        HighlightComponent,
+        PhotosHighlightComponent
     ],
     imports: [
         BrowserModule,
