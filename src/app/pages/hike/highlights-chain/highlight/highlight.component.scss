@@ -12,7 +12,7 @@ $cardPadding: 0.75rem;
     }
 
     &.resizing {
-        transition: width var(--transition-time) ease-in-out;
+        transition: width $transitionTime ease-in-out;
 
         .card-body {
             &_icon {
@@ -44,7 +44,7 @@ $cardPadding: 0.75rem;
         &_icon {
             max-width: 64px;
             padding: 5px;
-            transition: opacity var(--transition-time) ease-in-out;
+            transition: opacity $transitionTime ease-in-out;
             opacity: 1;
         }
 
@@ -58,7 +58,7 @@ $cardPadding: 0.75rem;
 
         &_subtitle {
             font-size: 0.7rem;
-            transition: opacity var(--transition-time) ease-in-out;
+            transition: opacity $transitionTime ease-in-out;
             opacity: 1;
         }
     }

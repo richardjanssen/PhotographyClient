@@ -4,19 +4,15 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StyleService {
-    get transitionTime(): string {
-        return this.getProperty('--transition-time');
-    }
-
-    get transitionTimeUnitless(): number {
-        return this.getUnitlessValue(this.transitionTime);
+    get transitionTimeMs(): number {
+        return this.getValue(this.getProperty('--transition-time-unitless'));
     }
 
     private getProperty(property: string): string {
         return getComputedStyle(document.documentElement).getPropertyValue(property);
     }
 
-    private getUnitlessValue(value: string): number {
-        return parseInt(value.replace(/\D/g, ''), 10);
+    private getValue(value: string): number {
+        return parseInt(value, 10);
     }
 }
