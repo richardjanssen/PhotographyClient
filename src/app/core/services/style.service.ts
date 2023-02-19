@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StyleService {
-    get transitionTime(): number {
+    get transitionTimeMs(): number {
         return this.getValue(this.getProperty('--transition-time-unitless'));
     }
 

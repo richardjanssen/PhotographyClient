@@ -32,6 +32,6 @@ export class HighlightComponent implements OnInit {
 
         setTimeout(() => {
             this.resizing = !this.resizing;
-        }, this._styleService.transitionTime);
+        }, this._styleService.transitionTimeMs);
     }
 }
