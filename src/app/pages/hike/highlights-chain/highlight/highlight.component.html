@@ -1,8 +1,7 @@
 <div class="card highlight" [ngClass]="{ expandable, expanded, resizing }" (click)="toggleExpansion()">
     <div class="card-body">
-        <span class="card-title card-body_title">{{ highlight.title }}</span>
-
         <ng-container *ngIf="!expanded || resizing">
+            <span class="card-title card-body_title">{{ highlight.title }}</span>
             <img class="card-body_icon" src="../../../../../assets/icons/icon.png" />
             <span class="card-body_subtitle"
                 ><i>{{ highlight.distance }} km</i></span
@@ -10,8 +9,9 @@
         </ng-container>
 
         <div *ngIf="expanded && !resizing" [ngSwitch]="highlight.type" class="card-body_details">
+            <h6 class="card-title card-body_title-details">{{ highlight.title }}</h6>
             <app-photos-highlight *ngSwitchCase="highlightType.photos"></app-photos-highlight>
-            <div *ngSwitchDefault>Nothing to see here!</div>
+            <p *ngSwitchDefault>Nothing to see here!</p>
         </div>
     </div>
 </div>

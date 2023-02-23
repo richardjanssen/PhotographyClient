@@ -15,10 +15,8 @@ $cardPadding: 0.75rem;
         transition: width $transitionTime ease-in-out;
 
         .card-body {
-            &_icon {
-                opacity: 0 !important;
-            }
-
+            &_title,
+            &_icon,
             &_subtitle {
                 opacity: 0 !important;
             }
@@ -27,7 +25,9 @@ $cardPadding: 0.75rem;
 
     &.expanded {
         width: var(--highlights-width);
-        max-width: 100%;
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .card-body {
@@ -54,6 +54,12 @@ $cardPadding: 0.75rem;
             text-align: center;
             margin-bottom: 0;
             max-width: $cardWidth - 2 * $cardPadding;
+            transition: opacity $transitionTime ease-in-out;
+        }
+
+        &_title-details {
+            font-weight: 500;
+            text-align: center;
         }
 
         &_subtitle {
