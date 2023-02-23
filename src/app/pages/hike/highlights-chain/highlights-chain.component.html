@@ -1,7 +1,7 @@
 <p *ngIf="!highlights">Loading...</p>
 
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
-    <div class="highlights-chain_container" *ngFor="let highlight of highlights">
+    <div [id]="highlight.id" class="highlights-chain_container" *ngFor="let highlight of highlights">
         <app-highlight [highlight]="highlight" class="highlights-chain_highlight"></app-highlight>
         <div class="highlights-chain_connector"></div>
     </div>
