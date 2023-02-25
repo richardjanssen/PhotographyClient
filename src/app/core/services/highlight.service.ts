@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Highlight, HighlightType } from '../types/highlight.type';
+import { Highlight, HighlightContentType, HighlightType } from '../types/highlight.type';
 
 @Injectable({
     providedIn: 'root'
@@ -9,108 +9,138 @@ export class HightlightService {
     private readonly _highlights: Highlight[] = [
         {
             id: 1,
-            title: 'This is a location',
+            title: 'This is something',
             distance: 5,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 2,
-            title: 'Here you have another place',
+            title: 'Here you have another',
             distance: 23,
-            type: HighlightType.photos,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.photos,
+            currentLocation: false,
+            children: []
         },
         {
             id: 3,
             title: 'Very beautiful',
             distance: 42,
-            type: HighlightType.town,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.town,
+            currentLocation: false,
+            children: []
         },
         {
             id: 4,
             title: 'Shorty',
             distance: 76,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 5,
             title: 'A bay',
             distance: 98,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 6,
             title: 'Very beautiful',
             distance: 100,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 7,
-            title: 'This is a location',
+            title: 'This is something else',
             distance: 123,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 8,
-            title: 'Yosemite National Park',
+            title: 'Current is current',
             distance: 130,
-            type: HighlightType.town,
-            currentLocation: true
+            type: HighlightType.place,
+            contentType: HighlightContentType.town,
+            currentLocation: true,
+            children: []
         },
         {
             id: 9,
-            title: 'Very beautiful',
+            title: 'Lorem ipsum',
             distance: 143,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 10,
-            title: 'This is a location',
+            title: 'A section in scarlet',
             distance: 150,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.section,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 11,
             title: 'You are here',
             distance: 176,
-            type: HighlightType.other,
-            currentLocation: true
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: true,
+            children: []
         },
         {
             id: 12,
             title: 'Very beautiful',
             distance: 200,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.section,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 13,
-            title: 'This is a location',
+            title: 'Section perfection',
             distance: 299,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.section,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 14,
             title: 'Here you have another place',
             distance: 309,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         },
         {
             id: 15,
-            title: 'Very beautiful',
+            title: 'Very wow',
             distance: 343,
-            type: HighlightType.other,
-            currentLocation: false
+            type: HighlightType.place,
+            contentType: HighlightContentType.other,
+            currentLocation: false,
+            children: []
         }
     ];
 

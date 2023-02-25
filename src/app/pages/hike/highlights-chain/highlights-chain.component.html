@@ -1,8 +1,30 @@
 <p *ngIf="!highlights">Loading...</p>
 
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
-    <div [id]="highlight.id" class="highlights-chain_container" *ngFor="let highlight of highlights">
-        <app-highlight [highlight]="highlight" class="highlights-chain_highlight"></app-highlight>
-        <div class="highlights-chain_connector"></div>
+    <div [id]="highlight.id" class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
+        <ng-container [ngSwitch]="highlight.type" class="card-body_details">
+            <app-highlight
+                *ngSwitchCase="highlightType.place"
+                [highlight]="highlight"
+                class="highlights-chain_highlight highlights-chain_highlight--place"
+                [ngClass]="{
+                    'highlights-chain_highlight--left': highlightAlignments[i] === alignmentType.left,
+                    'highlights-chain_highlight--right': highlightAlignments[i] === alignmentType.right
+                }"
+            ></app-highlight>
+            <app-section-highlight
+                *ngSwitchCase="highlightType.section"
+                [highlight]="highlight"
+                [alignment]="highlightAlignments[i]"
+                class="highlights-chain_highlight highlights-chain_highlight--section"
+            ></app-section-highlight>
+        </ng-container>
+        <div
+            class="highlights-chain_connector"
+            [ngClass]="{
+                'highlights-chain_connector--left': highlightAlignments[i] === alignmentType.left,
+                'highlights-chain_connector--right': highlightAlignments[i] === alignmentType.right
+            }"
+        ></div>
     </div>
 </div>
