@@ -2,7 +2,7 @@ import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { HightlightService } from 'src/app/core/services/highlight.service';
-import { Highlight } from 'src/app/core/types/highlight.type';
+import { AlignmentType, Highlight, HighlightType } from 'src/app/core/types/highlight.type';
 
 @Component({
     selector: 'app-highlights-chain',
@@ -13,13 +13,19 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
     @ViewChild('highlightsChain') highlightsChain: ElementRef;
 
     highlights: Highlight[];
+    highlightAlignments: AlignmentType[];
+    highlightType: typeof HighlightType = HighlightType;
+    alignmentType: typeof AlignmentType = AlignmentType;
 
     constructor(
         readonly highlightService: HightlightService,
         private readonly renderer: Renderer2,
         private readonly viewportScroller: ViewportScroller
     ) {
-        highlightService.getHighlights().subscribe(result => (this.highlights = result));
+        highlightService.getHighlights().subscribe(result => {
+            this.highlightAlignments = this.getHighlightAlignments(result);
+            this.highlights = result;
+        });
     }
 
     ngOnInit(): void {
@@ -48,5 +54,23 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
         if (activeHighlight) {
             this.viewportScroller.scrollToAnchor(activeHighlight.id.toString());
         }
+    }
+
+    private getHighlightAlignments(highlights: Highlight[]): AlignmentType[] {
+        let previousAlignmentType = AlignmentType.right;
+
+        return highlights.map((highlight, index) => {
+            if (highlight.type === this.highlightType.section) {
+                return previousAlignmentType === AlignmentType.right ? AlignmentType.leftIncoming : AlignmentType.rightIncoming;
+            }
+            if (index === 0 && highlight.type === this.highlightType.place) {
+                previousAlignmentType = AlignmentType.left;
+                return AlignmentType.left;
+            } else {
+                const alignmentType = previousAlignmentType === AlignmentType.right ? AlignmentType.left : AlignmentType.right;
+                previousAlignmentType = alignmentType;
+                return alignmentType;
+            }
+        });
     }
 }

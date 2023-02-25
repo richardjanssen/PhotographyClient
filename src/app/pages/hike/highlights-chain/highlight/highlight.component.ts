@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { StyleService } from 'src/app/core/services/style.service';
-import { Highlight, HighlightType } from 'src/app/core/types/highlight.type';
+import { Highlight, HighlightContentType } from 'src/app/core/types/highlight.type';
 
 @Component({
     selector: 'app-highlight',
@@ -13,13 +13,13 @@ export class HighlightComponent implements OnInit {
     resizing: boolean = false;
     expandable: boolean;
 
-    highlightType: typeof HighlightType = HighlightType;
-    expandableHighlightTypes: HighlightType[] = [HighlightType.photos, HighlightType.town];
+    highlightContentType: typeof HighlightContentType = HighlightContentType;
+    expandableHighlightTypes: HighlightContentType[] = [HighlightContentType.photos, HighlightContentType.town];
 
     constructor(private readonly _styleService: StyleService) {}
 
     ngOnInit(): void {
-        this.expandable = this.expandableHighlightTypes.includes(this.highlight.type);
+        this.expandable = this.expandableHighlightTypes.includes(this.highlight.contentType);
     }
 
     toggleExpansion(): void {

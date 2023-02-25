@@ -22,6 +22,7 @@ import { HikeComponent } from './pages/hike/hike.component';
 import { HighlightsChainComponent } from './pages/hike/highlights-chain/highlights-chain.component';
 import { HighlightComponent } from './pages/hike/highlights-chain/highlight/highlight.component';
 import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highlight/photos-highlight/photos-highlight.component';
+import { SectionHighlightComponent } from './pages/hike/highlights-chain/section-highlight/section-highlight.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highligh
         HikeComponent,
         HighlightsChainComponent,
         HighlightComponent,
-        PhotosHighlightComponent
+        PhotosHighlightComponent,
+        SectionHighlightComponent
     ],
     imports: [
         BrowserModule,
