@@ -7,7 +7,10 @@ $danger: #f2545b; // Sizzling Red
 $light: #f9f7f3; // Baby Powder
 $dark: #343a40; // Onyx
 
+$borderRadius: 3px;
 $transitionTimeUnitless: 250; // ms, unitless value needed in TS code
 $transitionTime: $transitionTimeUnitless * 1ms;
-$cardWidth: 10rem;
-$padding: 0.75rem;
+$cardWidth: 9.5rem;
+$spacing: 0.75rem;
+$padding: $spacing;
+$margin: $spacing;
