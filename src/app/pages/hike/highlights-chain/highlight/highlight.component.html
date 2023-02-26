@@ -1,4 +1,4 @@
-<div class="card highlight" [ngClass]="{ expandable, expanded, resizing }" (click)="toggleExpansion()">
+<div class="card highlight" [ngClass]="{ expandable, expanded, resizing, 'in-section': inSection }" (click)="toggleExpansion()">
     <div class="card-body">
         <ng-container *ngIf="!expanded || resizing">
             <span class="card-title card-body_title">{{ highlight.title }}</span>

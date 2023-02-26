@@ -23,6 +23,10 @@
 
     &.expanded {
         width: calc(var(--highlights-width) - 2 * var(--padding));
+
+        &.in-section {
+            width: calc(var(--highlights-width) - 4 * var(--padding));
+        }
         margin-left: auto;
         margin-right: auto;
     }
