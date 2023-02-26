@@ -10,9 +10,11 @@ $rightCenterpoint: 0.6;
 }
 
 .highlights-chain {
+    min-width: 2 * $cardWidth + 4 * $padding;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: $padding;
 
     &_container {
         position: relative;
@@ -45,24 +47,43 @@ $rightCenterpoint: 0.6;
         }
 
         .highlights-chain_connector {
-            width: percentage($rightCenterpoint - $leftCenterpoint);
-            height: calc(50% + 1rem);
             position: absolute;
-            top: 50%;
             z-index: 1;
+
+            &--left,
+            &--right {
+                width: percentage($rightCenterpoint - $leftCenterpoint);
+                height: calc(50% + 1rem);
+                top: 50%;
+                border-top: $connectorBorderStyle;
+            }
 
             &--left {
                 left: percentage($leftCenterpoint);
-                border-top: $connectorBorderStyle;
                 border-right: $connectorBorderStyle;
                 border-top-right-radius: $connectorBorderRadius;
             }
 
             &--right {
                 right: percentage(1 - $rightCenterpoint);
-                border-top: $connectorBorderStyle;
                 border-left: $connectorBorderStyle;
                 border-top-left-radius: $connectorBorderRadius;
+            }
+
+            &--left-incoming,
+            &--right-incoming {
+                width: 1px;
+                height: calc(100% + 1rem);
+                top: 0;
+                border-left: $connectorBorderStyle;
+            }
+
+            &--left-incoming {
+                left: percentage($leftCenterpoint);
+            }
+
+            &--right-incoming {
+                right: percentage(1 - $rightCenterpoint);
             }
         }
 

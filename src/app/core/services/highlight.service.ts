@@ -95,10 +95,20 @@ export class HightlightService {
             type: HighlightType.section,
             contentType: HighlightContentType.other,
             currentLocation: false,
-            children: []
+            children: [
+                {
+                    id: 11,
+                    title: 'A place in a section',
+                    distance: 161,
+                    type: HighlightType.place,
+                    contentType: HighlightContentType.town,
+                    currentLocation: false,
+                    children: []
+                }
+            ]
         },
         {
-            id: 11,
+            id: 12,
             title: 'You are here',
             distance: 176,
             type: HighlightType.place,
@@ -107,8 +117,8 @@ export class HightlightService {
             children: []
         },
         {
-            id: 12,
-            title: 'Very beautiful',
+            id: 13,
+            title: 'Highlightless section',
             distance: 200,
             type: HighlightType.section,
             contentType: HighlightContentType.other,
@@ -116,16 +126,35 @@ export class HightlightService {
             children: []
         },
         {
-            id: 13,
-            title: 'Section perfection',
+            id: 14,
+            title: 'Section perfectionn',
             distance: 299,
             type: HighlightType.section,
             contentType: HighlightContentType.other,
             currentLocation: false,
-            children: []
+            children: [
+                {
+                    id: 15,
+                    title: 'Bladiebla',
+                    distance: 301,
+                    type: HighlightType.place,
+                    contentType: HighlightContentType.town,
+                    currentLocation: false,
+                    children: []
+                },
+                {
+                    id: 16,
+                    title: 'Unknown',
+                    distance: 305,
+                    type: HighlightType.place,
+                    contentType: HighlightContentType.other,
+                    currentLocation: false,
+                    children: []
+                }
+            ]
         },
         {
-            id: 14,
+            id: 17,
             title: 'Here you have another place',
             distance: 309,
             type: HighlightType.place,
@@ -134,7 +163,7 @@ export class HightlightService {
             children: []
         },
         {
-            id: 15,
+            id: 18,
             title: 'Very wow',
             distance: 343,
             type: HighlightType.place,

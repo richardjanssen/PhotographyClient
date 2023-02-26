@@ -11,6 +11,6 @@ $theme-colors: (
     dark: $dark
 );
 
-$border-radius: 3px;
+$border-radius: $borderRadius;
 $alert-padding-y: 0.5rem;
 $alert-padding-x: 0.5rem;

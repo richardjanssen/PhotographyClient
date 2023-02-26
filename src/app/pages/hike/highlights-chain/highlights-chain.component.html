@@ -23,7 +23,9 @@
             class="highlights-chain_connector"
             [ngClass]="{
                 'highlights-chain_connector--left': highlightAlignments[i] === alignmentType.left,
-                'highlights-chain_connector--right': highlightAlignments[i] === alignmentType.right
+                'highlights-chain_connector--right': highlightAlignments[i] === alignmentType.right,
+                'highlights-chain_connector--left-incoming': highlightAlignments[i] === alignmentType.leftIncoming,
+                'highlights-chain_connector--right-incoming': highlightAlignments[i] === alignmentType.rightIncoming
             }"
         ></div>
     </div>

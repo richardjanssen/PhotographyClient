@@ -4,5 +4,45 @@
     height: 100%;
     min-height: 125px;
     width: 2 * $cardWidth + 2 * $padding;
-    border: 1px solid $info;
+    border: 1px solid lighten($primary, 30%);
+    border-radius: $borderRadius;
+    background-color: lighten($primary, 50%);
+    padding: $padding;
+
+    display: flex;
+    align-items: center;
+
+    &_info {
+        width: $cardWidth;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-icon {
+            max-width: 64px;
+            padding: 5px;
+        }
+
+        &-title {
+            color: darken($primary, 10%);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 0;
+            max-width: $cardWidth - 2 * $padding;
+        }
+    }
+
+    &_child {
+        display: block;
+        margin-bottom: $margin;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &-placeholder {
+            width: $cardWidth;
+        }
+    }
 }

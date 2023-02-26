@@ -10,6 +10,8 @@ export class SectionHighlightComponent implements OnInit {
     @Input() highlight: Highlight;
     @Input() alignment: AlignmentType;
 
+    alignmentType: typeof AlignmentType = AlignmentType;
+
     constructor() {}
 
     ngOnInit(): void {}
