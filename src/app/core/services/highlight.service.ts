@@ -76,7 +76,7 @@ export class HightlightService {
             distance: 130,
             type: HighlightType.place,
             contentType: HighlightContentType.town,
-            currentLocation: true,
+            currentLocation: false,
             children: []
         },
         {
@@ -102,7 +102,7 @@ export class HightlightService {
                     distance: 161,
                     type: HighlightType.place,
                     contentType: HighlightContentType.town,
-                    currentLocation: false,
+                    currentLocation: true,
                     children: []
                 }
             ]
@@ -113,7 +113,7 @@ export class HightlightService {
             distance: 176,
             type: HighlightType.place,
             contentType: HighlightContentType.other,
-            currentLocation: true,
+            currentLocation: false,
             children: []
         },
         {
@@ -147,7 +147,7 @@ export class HightlightService {
                     title: 'Unknown',
                     distance: 305,
                     type: HighlightType.place,
-                    contentType: HighlightContentType.other,
+                    contentType: HighlightContentType.town,
                     currentLocation: false,
                     children: []
                 }

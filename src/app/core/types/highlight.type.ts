@@ -25,3 +25,8 @@ export enum AlignmentType {
     leftIncoming = 'leftIncoming',
     rightIncoming = 'rightIncoming'
 }
+
+export interface HighlightExpansion {
+    id: number;
+    isExpanded: boolean;
+}
