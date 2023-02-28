@@ -15,28 +15,33 @@
             ></app-highlight>
             <div
                 *ngSwitchCase="highlightType.section"
-                class="highlights-chain_highlight--section section-highlight"
+                class="section-highlight"
                 [ngClass]="{ expanded: expandedSectionHighlightIds.includes(highlight.id) }"
             >
-                <div *ngIf="highlightAlignments[i] === alignmentType.rightIncoming" class="section-highlight_info">
+                <div class="section-highlight_background"></div>
+
+                <div
+                    class="section-highlight_info"
+                    [ngClass]="{
+                        'section-highlight_info--left': highlightAlignments[i] === alignmentType.rightIncoming,
+                        'section-highlight_info--right': highlightAlignments[i] === alignmentType.leftIncoming
+                    }"
+                >
                     <span class="section-highlight_info-title">{{ highlight.title }}</span>
                     <img class="section-highlight_info-icon" src="../../../../../assets/icons/icon.png" />
                 </div>
-                <div>
-                    <div *ngIf="highlight.children.length === 0" class="section-highlight_child section-highlight_child-placeholder"></div>
-                    <app-highlight
-                        *ngFor="let child of highlight.children"
-                        class="section-highlight_child"
-                        [highlight]="child"
-                        [id]="child.id"
-                        [inSection]="true"
-                        (expansion)="trackHighlightExpansion($event)"
-                    ></app-highlight>
-                </div>
-                <div *ngIf="highlightAlignments[i] === alignmentType.leftIncoming" class="section-highlight_info">
-                    <span class="section-highlight_info-title">{{ highlight.title }}</span>
-                    <img class="section-highlight_info-icon" src="../../../../../assets/icons/icon.png" />
-                </div>
+                <app-highlight
+                    *ngFor="let child of highlight.children"
+                    class="highlights-chain_highlight in-section"
+                    [ngClass]="{
+                        'highlights-chain_highlight--left': highlightAlignments[i] === alignmentType.leftIncoming,
+                        'highlights-chain_highlight--right': highlightAlignments[i] === alignmentType.rightIncoming
+                    }"
+                    [highlight]="child"
+                    [id]="child.id"
+                    [inSection]="true"
+                    (expansion)="trackHighlightExpansion($event)"
+                ></app-highlight>
             </div>
         </ng-container>
         <div
