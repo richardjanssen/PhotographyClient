@@ -14,7 +14,6 @@ $rightCenterpoint: 0.6;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: $padding;
 
     &_container {
         position: relative;
@@ -29,20 +28,26 @@ $rightCenterpoint: 0.6;
             transition: margin-left $transitionTime ease-in-out;
 
             &.expanded {
-                margin-left: 0 !important;
+                margin-left: $margin !important;
             }
 
             &--left {
-                margin-left: calc(percentage($leftCenterpoint) - 5rem);
+                margin-left: calc(percentage($leftCenterpoint) - 0.5 * $cardWidth);
             }
 
             &--right {
-                margin-left: calc(percentage($rightCenterpoint) - 5rem);
+                margin-left: calc(percentage($rightCenterpoint) - 0.5 * $cardWidth);
             }
 
-            &--section {
-                margin-left: auto;
-                margin-right: auto;
+            &.in-section {
+                padding-top: $padding;
+
+                &.expanded {
+                    margin-left: 2 * $margin !important;
+                }
+                &:last-child {
+                    padding-bottom: $padding !important;
+                }
             }
         }
 
@@ -98,46 +103,60 @@ $rightCenterpoint: 0.6;
 .section-highlight {
     height: 100%;
     min-height: 125px;
-    width: 2 * $cardWidth + 2 * $padding;
+    width: 100%;
     margin-left: 0;
     transition: width $transitionTime ease-in-out;
-    border: 1px solid lighten($primary, 30%);
-    border-radius: $borderRadius;
-    background-color: lighten($primary, 50%);
-    padding: $padding;
-
-    display: flex;
-    align-items: center;
 
     &.expanded {
-        width: calc(var(--highlights-width) - 2 * var(--padding));
-
-        .section-highlight_info {
-            width: 0;
-
-            &-icon {
-                display: none;
+        .section-highlight {
+            &_background {
+                width: calc(var(--highlights-width) - 2 * $padding);
             }
-            &-title {
-                display: none;
+            &_info {
+                &-icon {
+                    display: none;
+                }
+                &-title {
+                    display: none;
+                }
             }
-        }
-
-        .section-highlight_child {
-            &.expanded {
-                margin-left: 0;
-            }
-
-            margin-left: calc(percentage($leftCenterpoint) - 5rem);
         }
     }
 
+    &_background {
+        position: absolute;
+        width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width) + $cardWidth + 2 * $padding);
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        transition: width $transitionTime ease-in-out;
+
+        border: 1px solid lighten($primary, 30%);
+        border-radius: $borderRadius;
+        background-color: lighten($primary, 50%);
+    }
+
     &_info {
-        width: $cardWidth;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
         transition: width $transitionTime ease-in-out;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        &--left {
+            margin-left: calc($leftCenterpoint * var(--highlights-width) - 0.5 * $cardWidth);
+        }
+
+        &--right {
+            margin-left: calc(var(--highlights-width) - $rightCenterpoint * var(--highlights-width) + 0.5 * $cardWidth);
+        }
 
         &-icon {
             max-width: 64px;
@@ -151,26 +170,6 @@ $rightCenterpoint: 0.6;
             text-align: center;
             margin-bottom: 0;
             max-width: $cardWidth - 2 * $padding;
-        }
-    }
-
-    &_children {
-        width: 2 * $cardWidth + 2 * $padding;
-    }
-    &_child {
-        position: relative;
-        z-index: 2;
-        display: block;
-        margin-bottom: $margin;
-        transition: margin $transitionTime linear;
-        margin-left: 0;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        &-placeholder {
-            width: $cardWidth;
         }
     }
 }
