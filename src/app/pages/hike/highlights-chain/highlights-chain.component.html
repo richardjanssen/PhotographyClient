@@ -2,32 +2,32 @@
 
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
-        <ng-container [ngSwitch]="highlight.type" class="card-body_details">
+        <ng-container [ngSwitch]="highlight.type">
             <app-highlight
                 [id]="highlight.id"
                 *ngSwitchCase="highlightType.place"
                 [highlight]="highlight"
-                class="highlights-chain_highlight highlights-chain_highlight--place"
+                class="place-highlight"
                 [ngClass]="{
-                    'highlights-chain_highlight--left': highlightAlignments[i] === alignmentType.left,
-                    'highlights-chain_highlight--right': highlightAlignments[i] === alignmentType.right
+                    left: highlightAlignments[i] === alignmentType.left,
+                    right: highlightAlignments[i] === alignmentType.right
                 }"
             ></app-highlight>
-            <div
-                *ngSwitchCase="highlightType.section"
-                class="section-highlight"
-                [ngClass]="{ expanded: expandedSectionHighlightIds.includes(highlight.id) }"
-            >
+            <div *ngSwitchCase="highlightType.section" class="section-highlight">
                 <div
                     class="section-highlight_background"
-                    [ngClass]="{ resizing: resizingSectionHighlightIds.includes(highlight.id) }"
+                    [ngClass]="{
+                        resizing: resizingSectionHighlightIds.includes(highlight.id),
+                        expanded: expandedSectionHighlightIds.includes(highlight.id)
+                    }"
                 ></div>
-
                 <div
                     class="section-highlight_info"
                     [ngClass]="{
-                        'section-highlight_info--left': highlightAlignments[i] === alignmentType.rightIncoming,
-                        'section-highlight_info--right': highlightAlignments[i] === alignmentType.leftIncoming
+                        hidden: expandedSectionHighlightIds.includes(highlight.id) || resizingSectionHighlightIds.includes(highlight.id),
+                        left: highlightAlignments[i] === alignmentType.rightIncoming,
+                        right: highlightAlignments[i] === alignmentType.leftIncoming,
+                        'card-width': highlight.children.length === 0
                     }"
                 >
                     <span class="section-highlight_info-title">{{ highlight.title }}</span>
@@ -35,10 +35,10 @@
                 </div>
                 <app-highlight
                     *ngFor="let child of highlight.children"
-                    class="highlights-chain_highlight in-section"
+                    class="place-highlight in-section"
                     [ngClass]="{
-                        'highlights-chain_highlight--left': highlightAlignments[i] === alignmentType.leftIncoming,
-                        'highlights-chain_highlight--right': highlightAlignments[i] === alignmentType.rightIncoming
+                        left: highlightAlignments[i] === alignmentType.leftIncoming,
+                        right: highlightAlignments[i] === alignmentType.rightIncoming
                     }"
                     [highlight]="child"
                     [id]="child.id"
@@ -48,12 +48,12 @@
             </div>
         </ng-container>
         <div
-            class="highlights-chain_connector"
+            class="connector"
             [ngClass]="{
-                'highlights-chain_connector--left': highlightAlignments[i] === alignmentType.left,
-                'highlights-chain_connector--right': highlightAlignments[i] === alignmentType.right,
-                'highlights-chain_connector--left-incoming': highlightAlignments[i] === alignmentType.leftIncoming,
-                'highlights-chain_connector--right-incoming': highlightAlignments[i] === alignmentType.rightIncoming
+                left: highlightAlignments[i] === alignmentType.left,
+                right: highlightAlignments[i] === alignmentType.right,
+                'left-incoming': highlightAlignments[i] === alignmentType.leftIncoming,
+                'right-incoming': highlightAlignments[i] === alignmentType.rightIncoming
             }"
         ></div>
     </div>
