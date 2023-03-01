@@ -18,7 +18,10 @@
                 class="section-highlight"
                 [ngClass]="{ expanded: expandedSectionHighlightIds.includes(highlight.id) }"
             >
-                <div class="section-highlight_background"></div>
+                <div
+                    class="section-highlight_background"
+                    [ngClass]="{ resizing: resizingSectionHighlightIds.includes(highlight.id) }"
+                ></div>
 
                 <div
                     class="section-highlight_info"
