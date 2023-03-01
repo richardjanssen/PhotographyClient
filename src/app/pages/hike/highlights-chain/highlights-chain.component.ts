@@ -2,6 +2,7 @@ import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { HightlightService } from 'src/app/core/services/highlight.service';
+import { StyleService } from 'src/app/core/services/style.service';
 import { AlignmentType, Highlight, HighlightExpansion, HighlightType } from 'src/app/core/types/highlight.type';
 
 @Component({
@@ -16,13 +17,15 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
     highlightAlignments: AlignmentType[];
     expandedHighlightIds: number[] = [];
     expandedSectionHighlightIds: number[] = [];
+    resizingSectionHighlightIds: number[] = [];
     highlightType: typeof HighlightType = HighlightType;
     alignmentType: typeof AlignmentType = AlignmentType;
 
     constructor(
         readonly highlightService: HightlightService,
         private readonly renderer: Renderer2,
-        private readonly viewportScroller: ViewportScroller
+        private readonly viewportScroller: ViewportScroller,
+        private readonly _styleService: StyleService
     ) {
         highlightService.getHighlights().subscribe(result => {
             this.highlightAlignments = this.getHighlightAlignments(result);
@@ -69,11 +72,19 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
         // Add section highlight to expanded section highlights if at least one child is expanded and has not already been added
         if (childrenIds.some(id => this.expandedHighlightIds.includes(id))) {
             if (!this.expandedSectionHighlightIds.some(id => id === sectionHighlight!.id)) {
+                this.resizingSectionHighlightIds.push(sectionHighlight!.id);
                 this.expandedSectionHighlightIds.push(sectionHighlight!.id);
+                setTimeout(() => {
+                    this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+                }, this._styleService.transitionTimeMs);
             }
             // Remove section highlight from expanded sections highlights if no childs are expanded
         } else {
+            this.resizingSectionHighlightIds.push(sectionHighlight!.id);
             this.expandedSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+            setTimeout(() => {
+                this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+            }, this._styleService.transitionTimeMs);
         }
     }
 
