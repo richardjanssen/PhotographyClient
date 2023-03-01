@@ -10,7 +10,6 @@ $rightCenterpoint: 0.6;
 }
 
 .highlights-chain {
-    min-width: 2 * $cardWidth + 4 * $padding;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -20,7 +19,7 @@ $rightCenterpoint: 0.6;
         width: 100%;
         margin-bottom: 1rem;
 
-        .highlights-chain_highlight {
+        .place-highlight {
             position: relative;
             z-index: 2;
             width: fit-content;
@@ -31,11 +30,11 @@ $rightCenterpoint: 0.6;
                 margin-left: $margin !important;
             }
 
-            &--left {
+            &.left {
                 margin-left: calc(percentage($leftCenterpoint) - 0.5 * $cardWidth);
             }
 
-            &--right {
+            &.right {
                 margin-left: calc(percentage($rightCenterpoint) - 0.5 * $cardWidth);
             }
 
@@ -51,126 +50,118 @@ $rightCenterpoint: 0.6;
             }
         }
 
-        .highlights-chain_connector {
+        .section-highlight {
+            height: 100%;
+            min-height: 125px;
+            width: 100%;
+
+            &_background {
+                position: absolute;
+                width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width) + $cardWidth + 2 * $padding);
+                height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+
+                border: 1px solid lighten($primary, 30%);
+                border-radius: $borderRadius;
+                background-color: lighten($primary, 50%);
+
+                &.expanded {
+                    width: calc(var(--highlights-width) - 2 * $padding);
+                }
+                &.resizing {
+                    transition: width $transitionTime ease-in-out;
+                }
+            }
+
+            &_info {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 0;
+                right: 0;
+                width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                &.hidden {
+                    display: none;
+                }
+                &.card-width {
+                    width: $cardWidth;
+                }
+                &.left {
+                    margin-left: calc($leftCenterpoint * var(--highlights-width) - 0.5 * $cardWidth);
+                }
+                &.left.card-width {
+                    margin-left: calc(percentage($leftCenterpoint) - 0.5 * $cardWidth);
+                }
+                &.right {
+                    margin-left: calc(var(--highlights-width) - $rightCenterpoint * var(--highlights-width) + 0.5 * $cardWidth);
+                }
+                &.right.card-width {
+                    margin-left: calc(percentage($rightCenterpoint) - 0.5 * $cardWidth);
+                }
+
+                &-icon {
+                    max-width: 64px;
+                    padding: 5px;
+                }
+
+                &-title {
+                    color: darken($primary, 10%);
+                    font-weight: 600;
+                    font-size: 0.8rem;
+                    text-align: center;
+                    margin-bottom: 0;
+                    max-width: $cardWidth - 2 * $padding;
+                }
+            }
+        }
+
+        .connector {
             position: absolute;
             z-index: 1;
 
-            &--left,
-            &--right {
+            &.left,
+            &.right {
                 width: percentage($rightCenterpoint - $leftCenterpoint);
                 height: calc(50% + 1rem);
                 top: 50%;
                 border-top: $connectorBorderStyle;
             }
-
-            &--left {
+            &.left {
                 left: percentage($leftCenterpoint);
                 border-right: $connectorBorderStyle;
                 border-top-right-radius: $connectorBorderRadius;
             }
-
-            &--right {
+            &.right {
                 right: percentage(1 - $rightCenterpoint);
                 border-left: $connectorBorderStyle;
                 border-top-left-radius: $connectorBorderRadius;
             }
-
-            &--left-incoming,
-            &--right-incoming {
+            &.left-incoming,
+            &.right-incoming {
                 width: 1px;
                 height: calc(100% + 1rem);
                 top: 0;
                 border-left: $connectorBorderStyle;
             }
-
-            &--left-incoming {
+            &.left-incoming {
                 left: percentage($leftCenterpoint);
             }
-
-            &--right-incoming {
+            &.right-incoming {
                 right: percentage(1 - $rightCenterpoint);
             }
         }
 
         &:last-child {
-            .highlights-chain_connector {
+            .connector {
                 display: none;
             }
-        }
-    }
-}
-
-.section-highlight {
-    height: 100%;
-    min-height: 125px;
-    width: 100%;
-    margin-left: 0;
-
-    &.expanded {
-        .section-highlight {
-            &_background {
-                width: calc(var(--highlights-width) - 2 * $padding);
-            }
-            &_info {
-                &-icon {
-                    display: none;
-                }
-                &-title {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    &_background {
-        position: absolute;
-        width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width) + $cardWidth + 2 * $padding);
-        height: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-
-        border: 1px solid lighten($primary, 30%);
-        border-radius: $borderRadius;
-        background-color: lighten($primary, 50%);
-
-        &.resizing {
-            transition: width $transitionTime ease-in-out;
-        }
-    }
-
-    &_info {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0;
-        right: 0;
-        width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &--left {
-            margin-left: calc($leftCenterpoint * var(--highlights-width) - 0.5 * $cardWidth);
-        }
-
-        &--right {
-            margin-left: calc(var(--highlights-width) - $rightCenterpoint * var(--highlights-width) + 0.5 * $cardWidth);
-        }
-
-        &-icon {
-            max-width: 64px;
-            padding: 5px;
-        }
-
-        &-title {
-            color: darken($primary, 10%);
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-align: center;
-            margin-bottom: 0;
-            max-width: $cardWidth - 2 * $padding;
         }
     }
 }
