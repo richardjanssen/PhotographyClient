@@ -6,6 +6,9 @@
             <span class="card-body_subtitle"
                 ><i>{{ highlight.distance }}</i></span
             >
+            <svg *ngIf="expandable" class="card-body_expansion-icon" width="16" height="16">
+                <use xlink:href="../../../../../assets/icons/bootstrap/arrows-angle-expand.svg#arrows-angle-expand" />
+            </svg>
         </ng-container>
 
         <div *ngIf="expanded && !resizing" [ngSwitch]="highlight.contentType" class="card-body_details">

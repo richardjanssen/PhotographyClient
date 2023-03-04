@@ -16,9 +16,12 @@ $maxWidthSm: 500px;
 $borderRadius: 3px;
 $transitionTimeUnitless: 250; // ms, unitless value, used in TS
 $transitionTime: $transitionTimeUnitless * 1ms;
+$transitionTimeFast: 125ms;
+$spacingSm: 0.35rem;
 $spacing: 0.75rem;
 $padding: $spacing;
 $margin: $spacing;
+$marginSm: $spacingSm;
 
 // Highlights chain
 $leftCenterpointXs: 0.3;

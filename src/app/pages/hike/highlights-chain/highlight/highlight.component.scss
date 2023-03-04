@@ -15,7 +15,8 @@
         .card-body {
             &_title,
             &_icon,
-            &_subtitle {
+            &_subtitle,
+            &_expansion-icon {
                 opacity: 0 !important;
             }
         }
@@ -67,6 +68,21 @@
             font-size: 0.7rem;
             transition: opacity $transitionTime ease-in-out;
             opacity: 1;
+        }
+
+        &_expansion-icon {
+            position: absolute;
+            right: $marginSm;
+            bottom: $marginSm;
+            transition: transform $transitionTimeFast ease-in-out, opacity $transitionTime ease-in-out;
+            opacity: 1;
+            fill: $primary;
+        }
+
+        &:hover {
+            .card-body_expansion-icon {
+                transform: scale(1.2);
+            }
         }
     }
 }
