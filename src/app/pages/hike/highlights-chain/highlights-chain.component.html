@@ -31,7 +31,9 @@
                     }"
                 >
                     <span class="section-highlight_info-title">{{ highlight.title }}</span>
-                    <img class="section-highlight_info-icon" src="../../../../../assets/icons/icon.png" />
+                    <svg class="section-highlight_info-icon">
+                        <use xlink:href="../../../../assets/icons/icon.svg#icon-dots" />
+                    </svg>
                 </div>
                 <app-highlight
                     *ngFor="let child of highlight.children"

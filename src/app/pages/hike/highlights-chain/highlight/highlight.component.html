@@ -2,7 +2,9 @@
     <div class="card-body">
         <ng-container *ngIf="!expanded || resizing">
             <span class="card-title card-body_title">{{ highlight.title }}</span>
-            <img class="card-body_icon" src="../../../../../assets/icons/icon.png" />
+            <svg class="card-body_icon">
+                <use xlink:href="../../../../../assets/icons/icon.svg#icon-dots" />
+            </svg>
             <span class="card-body_subtitle"
                 ><i>{{ highlight.distance }}</i></span
             >
