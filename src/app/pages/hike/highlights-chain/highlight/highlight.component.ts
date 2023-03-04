@@ -11,7 +11,7 @@ export class HighlightComponent implements OnInit {
     @Input() highlight: Highlight;
     @Input() inSection: boolean = false;
     @HostBinding('class.expanded') expanded: boolean = false;
-    resizing: boolean = false;
+    @HostBinding('class.resizing') resizing: boolean = false;
     expandable: boolean;
     @Output() expansion: EventEmitter<HighlightExpansion> = new EventEmitter();
 
