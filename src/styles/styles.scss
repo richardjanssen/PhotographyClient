@@ -9,12 +9,12 @@
 @import '../app/core/components/base-layout/base-layout.component.scss';
 
 body {
-    background-color: var(--off-white);
+    background-color: $light;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 
-    .inter-bold {
-        font-weight: 700;
+    &.primary-background-color {
+        background-color: $primary-500;
     }
 }
 
@@ -26,27 +26,7 @@ h5,
 h6 {
     font-family: 'Merriweather Sans', sans-serif;
     font-weight: 400;
-}
-
-@media only screen and (max-width: 750px) {
-    .content-container {
-        max-width: 95% !important;
-    }
-}
-
-.content-container {
-    margin-top: 15px;
-    display: block;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.grid-container {
-    display: block;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    color: $dark;
 }
 
 a:link {
@@ -75,16 +55,4 @@ h3.page-title {
 .vertical-padding {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-}
-
-.poker-green-light {
-    color: var(--poker-green-light) !important;
-}
-
-.poker-green-verylight {
-    color: var(--poker-green-verylight) !important;
-}
-
-.off-white {
-    color: var(--off-white) imp !important;
 }
