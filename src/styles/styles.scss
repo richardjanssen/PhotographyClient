@@ -8,21 +8,6 @@
 
 @import '../app/core/components/base-layout/base-layout.component.scss';
 
-// Only declare variables here if they must be retrieved/set programatically from TS.
-// This should only be done when no pure CSS solution is available.
-// Declare other variables as SCSS-variables in variables.scss, and use those variables here to maintain a single source of truth.
-:root {
-    --poker-green: #30413c;
-    --poker-green-light: #475a54;
-    --poker-green-verylight: #5b716b;
-    --poker-green-dark: #172622;
-    --off-white: #f8f9fa;
-    --light-grey: #afafaf;
-
-    --transition-time-unitless: #{$transitionTimeUnitless};
-    --padding: #{$padding};
-}
-
 body {
     background-color: var(--off-white);
     font-family: 'Inter', sans-serif;

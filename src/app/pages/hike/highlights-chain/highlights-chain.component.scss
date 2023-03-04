@@ -1,14 +1,5 @@
 @import '../../../../styles/variables.scss';
 
-$connectorBorderStyle: 2px dashed $primary;
-$connectorBorderRadius: 15px;
-$leftCenterpoint: 0.4;
-$rightCenterpoint: 0.6;
-
-:root {
-    --highlights-width: 100%; // Set programmatically
-}
-
 .highlights-chain {
     max-width: 800px;
     margin-left: auto;
@@ -31,11 +22,11 @@ $rightCenterpoint: 0.6;
             }
 
             &.left {
-                margin-left: calc(percentage($leftCenterpoint) - 0.5 * $cardWidth);
+                margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
             }
 
             &.right {
-                margin-left: calc(percentage($rightCenterpoint) - 0.5 * $cardWidth);
+                margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
             }
 
             &.in-section {
@@ -57,7 +48,7 @@ $rightCenterpoint: 0.6;
 
             &_background {
                 position: absolute;
-                width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width) + $cardWidth + 2 * $padding);
+                width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width) + $cardWidth + 2 * $padding);
                 height: 100%;
                 margin-left: auto;
                 margin-right: auto;
@@ -82,7 +73,7 @@ $rightCenterpoint: 0.6;
                 transform: translateY(-50%);
                 left: 0;
                 right: 0;
-                width: calc(($rightCenterpoint - $leftCenterpoint) * var(--highlights-width));
+                width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width));
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -94,16 +85,16 @@ $rightCenterpoint: 0.6;
                     width: $cardWidth;
                 }
                 &.left {
-                    margin-left: calc($leftCenterpoint * var(--highlights-width) - 0.5 * $cardWidth);
+                    margin-left: calc(var(--left-centerpoint) * var(--highlights-width) - 0.5 * $cardWidth);
                 }
                 &.left.card-width {
-                    margin-left: calc(percentage($leftCenterpoint) - 0.5 * $cardWidth);
+                    margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
                 }
                 &.right {
-                    margin-left: calc(var(--highlights-width) - $rightCenterpoint * var(--highlights-width) + 0.5 * $cardWidth);
+                    margin-left: calc(var(--highlights-width) - var(--right-centerpoint) * var(--highlights-width) + 0.5 * $cardWidth);
                 }
                 &.right.card-width {
-                    margin-left: calc(percentage($rightCenterpoint) - 0.5 * $cardWidth);
+                    margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
                 }
 
                 &-icon {
@@ -128,18 +119,18 @@ $rightCenterpoint: 0.6;
 
             &.left,
             &.right {
-                width: percentage($rightCenterpoint - $leftCenterpoint);
+                width: calc(var(--right-centerpoint-percentage) - var(--left-centerpoint-percentage));
                 height: calc(50% + 1rem);
                 top: 50%;
                 border-top: $connectorBorderStyle;
             }
             &.left {
-                left: percentage($leftCenterpoint);
+                left: var(--left-centerpoint-percentage);
                 border-right: $connectorBorderStyle;
                 border-top-right-radius: $connectorBorderRadius;
             }
             &.right {
-                right: percentage(1 - $rightCenterpoint);
+                right: calc(100% - var(--right-centerpoint-percentage));
                 border-left: $connectorBorderStyle;
                 border-top-left-radius: $connectorBorderRadius;
             }
@@ -151,10 +142,10 @@ $rightCenterpoint: 0.6;
                 border-left: $connectorBorderStyle;
             }
             &.left-incoming {
-                left: percentage($leftCenterpoint);
+                left: var(--left-centerpoint-percentage);
             }
             &.right-incoming {
-                right: percentage(1 - $rightCenterpoint);
+                right: calc(100% - var(--right-centerpoint-percentage));
             }
         }
 

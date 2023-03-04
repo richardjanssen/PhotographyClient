@@ -1,3 +1,4 @@
+// Colors
 $primary: #41684e; // Hunter Green
 $secondary: #6f5060; // Eggplant
 $success: #90be6d; // Pistachio
@@ -7,10 +8,60 @@ $danger: #f2545b; // Sizzling Red
 $light: #f9f7f3; // Baby Powder
 $dark: #343a40; // Onyx
 
+// Breakpoints
+$maxWidthXs: 400px;
+$maxWidthSm: 500px;
+
+// Basic
 $borderRadius: 3px;
-$transitionTimeUnitless: 250; // ms, unitless value needed in TS code
+$transitionTimeUnitless: 250; // ms, unitless value, used in TS
 $transitionTime: $transitionTimeUnitless * 1ms;
-$cardWidth: 9.5rem;
 $spacing: 0.75rem;
 $padding: $spacing;
 $margin: $spacing;
+
+// Highlights chain
+$leftCenterpointXs: 0.3;
+$rightCenterpointXs: 0.7;
+$leftCenterpointSm: 0.35;
+$rightCenterpointSm: 0.65;
+$leftCenterpoint: 0.4;
+$rightCenterpoint: 0.6;
+$cardWidth: 9.5rem;
+$connectorBorderStyle: 2px dashed $primary;
+$connectorBorderRadius: 15px;
+
+// CSS variables
+// Only declare variables here if they are dynamic (i.e. different media queries) or interacted with programatically from TS.
+// Interacting with CSS from TS should only be done when no pure CSS solution is available.
+// Declare variables first as SCSS-variables, and use those variables here to maintain a single source of truth.
+:root {
+    --poker-green: #30413c; // To be replaced by SCSS variable
+    --poker-green-light: #475a54; // To be replaced by SCSS variable
+    --poker-green-verylight: #5b716b; // To be replaced by SCSS variable
+    --poker-green-dark: #172622; // To be replaced by SCSS variable
+    --off-white: #f8f9fa; // To be replaced by SCSS variable
+    --light-grey: #afafaf; // To be replaced by SCSS variable
+
+    --transition-time-unitless: #{$transitionTimeUnitless}; // Used in TS
+    --padding: #{$padding}; // To be replaced by SCSS variable
+
+    --highlights-width: 100%; // Used in TS
+
+    --left-centerpoint: #{$leftCenterpoint};
+    --right-centerpoint: #{$rightCenterpoint};
+
+    // Order of breakpoints is important here. Smallest screens satisfy all breakpoints, so last values count
+    @media screen and (max-width: #{$maxWidthSm}) {
+        --left-centerpoint: #{$leftCenterpointSm};
+        --right-centerpoint: #{$rightCenterpointSm};
+    }
+
+    @media screen and (max-width: #{$maxWidthXs}) {
+        --left-centerpoint: #{$leftCenterpointXs};
+        --right-centerpoint: #{$rightCenterpointXs};
+    }
+
+    --left-centerpoint-percentage: calc(var(--left-centerpoint) * 100%);
+    --right-centerpoint-percentage: calc(var(--right-centerpoint) * 100%);
+}
