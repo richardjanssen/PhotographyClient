@@ -4,7 +4,7 @@ import { Component, OnDestroy, Renderer2 } from '@angular/core';
     templateUrl: './hike.component.html'
 })
 export class HikeComponent implements OnDestroy {
-    backgroundClass = 'green';
+    backgroundClass = 'primary-background-color';
 
     constructor(private readonly renderer: Renderer2) {
         this.renderer.addClass(document.body, this.backgroundClass);
