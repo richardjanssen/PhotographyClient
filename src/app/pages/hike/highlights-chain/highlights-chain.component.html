@@ -1,6 +1,15 @@
 <p *ngIf="!highlights">Loading...</p>
 
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
+    <div class="highlights-chain_start">
+        <svg class="highlights-chain_start-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+            <circle id="XMLID_1_" cx="64" cy="64" r="64" />
+        </svg>
+        <div class="highlights-chain_start-content">
+            <h5 class="highlights-chain_start-content--title">START</h5>
+            <p class="highlights-chain_start-content--subtitle">Bla die bla</p>
+        </div>
+    </div>
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">
             <app-highlight
