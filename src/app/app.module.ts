@@ -23,6 +23,7 @@ import { HighlightsChainComponent } from './pages/hike/highlights-chain/highligh
 import { HighlightComponent } from './pages/hike/highlights-chain/highlight/highlight.component';
 import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highlight/photos-highlight/photos-highlight.component';
 import { SectionHighlightComponent } from './pages/hike/highlights-chain/section-highlight/section-highlight.component';
+import { BannerComponent } from './pages/hike/banner/banner.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { SectionHighlightComponent } from './pages/hike/highlights-chain/section
         HighlightsChainComponent,
         HighlightComponent,
         PhotosHighlightComponent,
-        SectionHighlightComponent
+        SectionHighlightComponent,
+        BannerComponent
     ],
     imports: [
         BrowserModule,
