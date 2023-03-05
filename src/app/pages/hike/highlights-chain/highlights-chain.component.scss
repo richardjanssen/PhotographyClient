@@ -5,6 +5,50 @@
     margin-left: auto;
     margin-right: auto;
 
+    &_start {
+        position: relative;
+        width: $startWidth;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 4 * $margin;
+
+        &-circle {
+            fill: $light;
+        }
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+
+            height: 100%;
+
+            &--title,
+            &--subtitle {
+                margin-bottom: 0;
+                text-align: center;
+            }
+
+            &--title {
+                font-size: 1rem;
+                font-weight: bold;
+                color: $secondary-600;
+            }
+
+            &--subtitle {
+                font-size: 0.8rem;
+                font-style: italic;
+            }
+        }
+    }
+
     &_container {
         position: relative;
         width: 100%;
