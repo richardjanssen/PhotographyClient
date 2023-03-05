@@ -1,0 +1,10 @@
+$bannerHeight: 400px;
+
+.banner {
+    min-height: $bannerHeight;
+    width: 100%;
+    background-position: center;
+    background-image: url('../../../../assets/images/banner.gif');
+    background-size: auto $bannerHeight;
+    background-repeat: no-repeat;
+}
