@@ -12,6 +12,7 @@ dist/**
 *.png
 *.jpg
 *.jpeg
+*.gif
 
 # Config files
 environment.ts

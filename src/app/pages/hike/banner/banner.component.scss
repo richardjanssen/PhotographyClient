@@ -1,10 +1,21 @@
-$bannerHeight: 400px;
+@import '../../../../styles/variables.scss';
 
 .banner {
-    min-height: $bannerHeight;
     width: 100%;
     background-position: center;
-    background-image: url('../../../../assets/images/banner.gif');
-    background-size: auto $bannerHeight;
     background-repeat: no-repeat;
+
+    min-height: $bannerHeight;
+    background-image: url('../../../../assets/images/banner_desktop.gif');
+    background-size: auto $bannerHeight;
+
+    @media screen and (min-width: #{$maxWidthLg + 1}) {
+        background-image: url('../../../../assets/images/banner_desktop_4k.gif');
+    }
+
+    @media screen and (max-width: #{$maxWidthSm}) {
+        min-height: $bannerHeightSm;
+        background-image: url('../../../../assets/images/banner_mobile.gif');
+        background-size: auto $bannerHeightSm;
+    }
 }
