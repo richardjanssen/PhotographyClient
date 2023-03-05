@@ -32,6 +32,7 @@ $secondary-900: darken($secondary, 40%);
 // Breakpoints
 $maxWidthXs: 400px;
 $maxWidthSm: 500px;
+$maxWidthLg: 1920px;
 
 // Basic
 $borderRadius: 3px;
@@ -43,6 +44,10 @@ $spacing: 0.75rem;
 $padding: $spacing;
 $margin: $spacing;
 $marginSm: $spacingSm;
+
+// Hike
+$bannerHeightSm: 300px;
+$bannerHeight: 470px;
 
 // Highlights chain
 $leftCenterpointXs: 0.3;
