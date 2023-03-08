@@ -27,8 +27,8 @@ const routes: Routes = [
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },
-    { path: '', component: HomeComponent }
-    // { path: '**', redirectTo: '' }
+    { path: '', component: HomeComponent },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
