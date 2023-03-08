@@ -18,4 +18,26 @@
         background-image: url('../../../../assets/images/banner_mobile.gif');
         background-size: auto $bannerHeightSm;
     }
+
+    &_text-box {
+        width: 500px;
+        max-width: 95%;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+
+        top: $bannerHeight / 2 - 80px; // Semi-random value to compensate for text box height
+        @media screen and (max-width: #{$maxWidthSm}) {
+            top: $bannerHeightSm / 2 - 80px; // Semi-random value to compensate for text box height
+        }
+
+        background-color: rgba(234, 229, 232, 0.6);
+        border-radius: $borderRadius;
+        padding: 2 * $padding;
+
+        &-line {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    }
 }
