@@ -9,6 +9,15 @@
             <h5 class="highlights-chain_start-content--title">START</h5>
             <p class="highlights-chain_start-content--subtitle">Bla die bla</p>
         </div>
+
+        <div class="highlights-chain_start-location" (click)="scrollToCurrentLocation()">
+            <svg class="highlights-chain_start-location-background" viewBox="0 0 128 128">
+                <circle class="light" id="XMLID_1_" cx="64" cy="64" r="64" />
+            </svg>
+            <svg class="highlights-chain_start-location-icon">
+                <use xlink:href="../../../../../assets/icons/current_location.svg#current-location" />
+            </svg>
+        </div>
     </div>
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">

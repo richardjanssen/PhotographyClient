@@ -42,10 +42,6 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
 
     ngAfterViewInit(): void {
         this.setHighlightsWidth();
-
-        setTimeout(() => {
-            this.scrollToActiveHighlight();
-        }, 1000);
     }
 
     trackHighlightExpansion(expansion: HighlightExpansion): void {
@@ -55,6 +51,24 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
             this.expandedHighlightIds = this.expandedHighlightIds.filter(id => id !== expansion.id);
         }
         this.updateSectionHighlightExpansions(expansion);
+    }
+
+    scrollToCurrentLocation(): void {
+        const flatHighlights = this.highlights.flatMap(highlight => {
+            if (highlight.type === HighlightType.place) {
+                return highlight;
+            }
+            if (highlight.type === HighlightType.section) {
+                return highlight.children;
+            }
+            return [];
+        });
+
+        const activeHighlight = flatHighlights.find(highlight => highlight.currentLocation);
+
+        if (activeHighlight) {
+            this.viewportScroller.scrollToAnchor(activeHighlight.id.toString());
+        }
     }
 
     private updateSectionHighlightExpansions(expansion: HighlightExpansion): void {
@@ -91,24 +105,6 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
     private setHighlightsWidth(): void {
         const containerWidth = this.highlightsChain.nativeElement.offsetWidth;
         this.renderer.setProperty(document.documentElement, 'style', `--highlights-width: ${containerWidth}px`);
-    }
-
-    private scrollToActiveHighlight(): void {
-        const flatHighlights = this.highlights.flatMap(highlight => {
-            if (highlight.type === HighlightType.place) {
-                return highlight;
-            }
-            if (highlight.type === HighlightType.section) {
-                return highlight.children;
-            }
-            return [];
-        });
-
-        const activeHighlight = flatHighlights.find(highlight => highlight.currentLocation);
-
-        if (activeHighlight) {
-            this.viewportScroller.scrollToAnchor(activeHighlight.id.toString());
-        }
     }
 
     private getHighlightAlignments(highlights: Highlight[]): AlignmentType[] {
