@@ -1,5 +1,9 @@
 @import '../../../../styles/variables.scss';
 
+$navigationCircleSize: 32px;
+$navigationPadding: 3px;
+$locationIconOffset: -75px;
+
 .highlights-chain {
     max-width: 800px;
     margin-left: auto;
@@ -45,6 +49,37 @@
             &--subtitle {
                 font-size: 0.8rem;
                 font-style: italic;
+            }
+        }
+
+        &-location {
+            position: absolute;
+            width: $navigationCircleSize;
+            height: $navigationCircleSize;
+            left: $locationIconOffset;
+            top: calc(50% - 0.5 * $navigationCircleSize);
+            transition: transform $transitionTimeFast ease-in-out;
+
+            &-background {
+                fill: $light;
+            }
+
+            &-icon {
+                position: absolute;
+                width: $navigationCircleSize - 2 * $navigationPadding;
+                height: $navigationCircleSize - 2 * $navigationPadding;
+                top: $navigationPadding;
+                left: $navigationPadding;
+                fill: $secondary-500;
+            }
+
+            &:hover {
+                transform: scale(1.1);
+                cursor: pointer;
+
+                .highlights-chain_start-location-background {
+                    fill: darken($light, 3%);
+                }
             }
         }
     }
