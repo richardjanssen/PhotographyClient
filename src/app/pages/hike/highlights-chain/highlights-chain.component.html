@@ -22,7 +22,6 @@
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">
             <app-highlight
-                [id]="highlight.id"
                 *ngSwitchCase="highlightType.place"
                 [highlight]="highlight"
                 class="place-highlight"
