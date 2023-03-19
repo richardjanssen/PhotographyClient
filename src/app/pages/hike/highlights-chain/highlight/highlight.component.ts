@@ -16,7 +16,7 @@ export class HighlightComponent implements OnInit {
     @Output() expansion: EventEmitter<HighlightExpansion> = new EventEmitter();
 
     highlightContentType: typeof HighlightContentType = HighlightContentType;
-    expandableHighlightTypes: HighlightContentType[] = [HighlightContentType.photos, HighlightContentType.town];
+    expandableHighlightTypes: HighlightContentType[] = [HighlightContentType.photo, HighlightContentType.town];
 
     constructor(private readonly _styleService: StyleService) {}
 

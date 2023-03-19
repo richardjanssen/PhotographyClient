@@ -21,7 +21,7 @@ export class HightlightService {
             title: 'Here you have another',
             distance: 23,
             type: HighlightType.place,
-            contentType: HighlightContentType.photos,
+            contentType: HighlightContentType.photo,
             currentLocation: false,
             children: []
         },

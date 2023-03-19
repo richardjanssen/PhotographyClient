@@ -2,6 +2,13 @@
 
 <div class="add-photo">
     <ng-container *ngIf="!submitted">
+        <div class="form-group add-photo__album">
+            <label for="album">Select an album (altijd geen album selecteren)</label>
+            <select [(ngModel)]="selectedAlbumId" class="form-control" id="album" required>
+                <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
+            </select>
+        </div>
+
         <div class="add-photo__input">
             <input type="file" (change)="onFileSelected($event)" />
         </div>
@@ -26,6 +33,7 @@
             <div class="alert alert-success" *ngIf="message">
                 {{ message }}
             </div>
+            <div class="alert alert-danger" *ngIf="uploadError">An error occured while uploading the photo.</div>
             <button class="btn btn-primary" (click)="reloadComponent()">Add another photo</button>
         </ng-container>
     </ng-container>
