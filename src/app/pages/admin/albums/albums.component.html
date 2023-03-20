@@ -1,0 +1,35 @@
+<h3 class="page-title">Albums</h3>
+
+<div class="card add-album">
+    <div class="card-body">
+        <h5 class="card-title">Add new album</h5>
+        <div class="form-group" *ngIf="!submitted">
+            <label for="title">Album title</label>
+            <input type="text" class="form-control add-album_title" id="title" required [(ngModel)]="albumTitle" />
+            <div>
+                <button class="btn btn-primary" [disabled]="!albumTitle" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="submitted">
+            <div class="alert alert-success" *ngIf="success">Album has been added</div>
+            <div class="alert alert-danger" *ngIf="error">An error occured while adding the album.</div>
+            <button class="btn btn-primary" (click)="reloadComponent()">Add another album</button>
+        </ng-container>
+    </div>
+</div>
+
+<div class="card albums">
+    <div class="card-body">
+        <h5 class="card-title">Album content</h5>
+        <div class="form-group">
+            <label for="album">Select an album</label>
+            <select [(ngModel)]="selectedAlbumId" class="form-control albums_select" id="album" required>
+                <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
+            </select>
+            <div>
+                <button class="btn btn-primary" [disabled]="!selectedAlbumId" (click)="onAlbumSelect()">Select</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { ApplicationPaths } from './applications-paths';
 import { AuthorizationGuard } from './core/guards/authorization.guard';
 import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { AlbumsComponent } from './pages/admin/albums/albums.component';
 import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
 import { HikeComponent } from './pages/hike/hike.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: ApplicationPaths.addPhoto, pathMatch: 'full' },
             { path: ApplicationPaths.addPhoto, component: AddPhotosComponent },
-            { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent }
+            { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent },
+            { path: ApplicationPaths.albums, component: AlbumsComponent }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },
