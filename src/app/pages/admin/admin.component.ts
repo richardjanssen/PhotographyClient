@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 export class AdminComponent {
     readonly addPhotosPath: string = ApplicationPaths.addPhoto;
     readonly photosOverviewPath: string = ApplicationPaths.photosOverview;
+    readonly albumsPath: string = ApplicationPaths.albums;
 
     constructor(private readonly _authenticationService: AuthenticationService) {}
 

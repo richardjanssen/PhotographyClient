@@ -9,4 +9,5 @@ export class ApplicationPaths {
     // Admin
     static readonly addPhoto: string = 'add-photo';
     static readonly photosOverview: string = 'photos-overview';
+    static readonly albums: string = 'albums';
 }

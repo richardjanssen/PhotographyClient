@@ -3,7 +3,7 @@
 <div class="add-photo">
     <ng-container *ngIf="!submitted">
         <div class="form-group add-photo__album">
-            <label for="album">Select an album (altijd geen album selecteren)</label>
+            <label for="album">Select an album</label>
             <select [(ngModel)]="selectedAlbumId" class="form-control" id="album" required>
                 <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
             </select>

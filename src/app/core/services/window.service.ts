@@ -5,4 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class WindowService {
     readonly window: Window = window;
+
+    reload(): void {
+        this.window.location.reload();
+    }
 }

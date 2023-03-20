@@ -1,5 +1,7 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
+import { AlbumService } from 'src/app/core/services/album.service';
 import { PhotosService } from 'src/app/core/services/photos.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { Album } from 'src/app/core/types/album.type';
@@ -19,14 +21,19 @@ export class AddPhotosComponent {
 
     file: File;
 
-    albums: Album[] = [
-        { title: 'Geen album (homepage)', id: null },
-        { title: 'Start', id: 1 },
-        { title: 'Blabla', id: 2 }
-    ];
+    albums: Album[] = [];
     selectedAlbumId: number | null = null;
 
-    constructor(private readonly _photoService: PhotosService, private readonly _windowService: WindowService) {}
+    constructor(
+        private readonly _photoService: PhotosService,
+        private readonly _windowService: WindowService,
+        private readonly _albumService: AlbumService
+    ) {
+        this._albumService
+            .getAlbums()
+            .pipe(map(albums => [{ title: 'No album (homepage)', id: null }, ...albums]))
+            .subscribe(albums => (this.albums = albums));
+    }
 
     onFileSelected(event: any): void {
         const file: File = event.target.files[0];
@@ -64,6 +71,6 @@ export class AddPhotosComponent {
     }
 
     reloadComponent(): void {
-        this._windowService.window.location.reload();
+        this._windowService.reload();
     }
 }
