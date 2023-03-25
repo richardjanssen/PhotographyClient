@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
-import { Album } from '../types/album.type';
+import { Album, AlbumDetails } from '../types/album.type';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +16,10 @@ export class AlbumService {
 
     addAlbum(album: Album): Observable<null> {
         return this._http.post<null>(this._getUrl('AddAlbum'), album);
+    }
+
+    getById(id: number): Observable<AlbumDetails> {
+        return this._http.get<AlbumDetails>(this._getUrl(`GetById?id=${id}`));
     }
 
     private _getUrl(method: string): string {
