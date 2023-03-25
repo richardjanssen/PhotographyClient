@@ -42,9 +42,12 @@ export class AlbumsComponent {
     }
 
     onAlbumSelect(): void {
-        this._albumService.getById(this.selectedAlbumId).subscribe(albumDetails => {
-            return (this.selectedAlbumPhotos = albumDetails.photos.map(photo => this.mapPhoto(photo, this._environmentService.baseApiUrl)));
-        });
+        this._albumService
+            .getById(this.selectedAlbumId)
+            .subscribe(
+                albumDetails =>
+                    (this.selectedAlbumPhotos = albumDetails.photos.map(photo => this.mapPhoto(photo, this._environmentService.baseApiUrl)))
+            );
     }
 
     reloadComponent(): void {
