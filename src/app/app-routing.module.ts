@@ -6,6 +6,7 @@ import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.componen
 import { AdminComponent } from './pages/admin/admin.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
 import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
+import { UpdatesComponent } from './pages/admin/updates/updates.component';
 import { HikeComponent } from './pages/hike/hike.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
             { path: '', redirectTo: ApplicationPaths.addPhoto, pathMatch: 'full' },
             { path: ApplicationPaths.addPhoto, component: AddPhotosComponent },
             { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent },
-            { path: ApplicationPaths.albums, component: AlbumsComponent }
+            { path: ApplicationPaths.albums, component: AlbumsComponent },
+            { path: ApplicationPaths.updates, component: UpdatesComponent }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },

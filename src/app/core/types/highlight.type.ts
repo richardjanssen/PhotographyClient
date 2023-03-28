@@ -16,6 +16,7 @@ export enum HighlightType {
 export enum HighlightContentType {
     town = 'town',
     photo = 'photo',
+    blog = 'blog',
     other = 'other'
 }
 

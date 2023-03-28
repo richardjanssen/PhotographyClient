@@ -25,6 +25,7 @@ import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highligh
 import { SectionHighlightComponent } from './pages/hike/highlights-chain/section-highlight/section-highlight.component';
 import { BannerComponent } from './pages/hike/banner/banner.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
+import { UpdatesComponent } from './pages/admin/updates/updates.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { AlbumsComponent } from './pages/admin/albums/albums.component';
         PhotosHighlightComponent,
         SectionHighlightComponent,
         BannerComponent,
-        AlbumsComponent
+        AlbumsComponent,
+        UpdatesComponent
     ],
     imports: [
         BrowserModule,
