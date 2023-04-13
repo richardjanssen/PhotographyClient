@@ -31,7 +31,7 @@ export class AlbumsComponent {
 
     onSubmit(): void {
         this.submitted = true;
-        this._albumService.addAlbum({ id: null, title: this.albumTitle }).subscribe({
+        this._albumService.addAlbum({ title: this.albumTitle }).subscribe({
             next: () => {
                 this.success = true;
             },

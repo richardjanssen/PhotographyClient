@@ -47,7 +47,6 @@ export class UpdatesComponent {
         this.submitted = true;
         this._hikerUpdateService
             .addUpdate({
-                id: null,
                 title: this.title,
                 type: this.type,
                 text: this.text,

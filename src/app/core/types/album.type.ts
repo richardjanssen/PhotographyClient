@@ -5,6 +5,10 @@ export interface Album {
     title: string;
 }
 
+export interface AddAlbum {
+    title: string;
+}
+
 export interface AlbumDetails {
     photos: Photo[];
 }
