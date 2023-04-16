@@ -34,7 +34,7 @@ export class HighlightComponent implements OnInit {
         this.expanded = !this.expanded;
 
         if (this.sectionIndex) {
-            this.expansion.emit({ pointIndex: this.highlight.highlightIndex, sectionIndex: this.sectionIndex, isExpanded: this.expanded });
+            this.expansion.emit({ pointIndex: this.highlight.highlightIndex, isExpanded: this.expanded });
         }
 
         setTimeout(() => {

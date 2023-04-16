@@ -106,6 +106,73 @@ export class HightlightService {
                     }
                 ]
             }
+        },
+        {
+            type: HighlightType.section,
+            sectionHighlight: {
+                highlightIndex: 3,
+                title: 'A second section',
+                children: [
+                    {
+                        highlightIndex: 0,
+                        distance: 143,
+                        currentLocation: false,
+                        points: [
+                            {
+                                id: 1,
+                                placeType: HighlightContentType.photo,
+                                title: 'An update'
+                            }
+                        ]
+                    },
+                    {
+                        highlightIndex: 1,
+                        distance: 150.3,
+                        currentLocation: false,
+                        points: [
+                            {
+                                id: 2,
+                                placeType: HighlightContentType.town,
+                                title: 'A beautiful place in a section'
+                            },
+                            {
+                                id: null,
+                                placeType: HighlightContentType.location,
+                                title: 'Current location'
+                            }
+                        ]
+                    },
+                    {
+                        highlightIndex: 2,
+                        distance: 176.5,
+                        currentLocation: false,
+                        points: [
+                            {
+                                id: 4,
+                                placeType: HighlightContentType.photo,
+                                title: 'Mooi hier'
+                            }
+                        ]
+                    }
+                ]
+            },
+            pointHighlight: null
+        },
+        {
+            type: HighlightType.place,
+            sectionHighlight: null,
+            pointHighlight: {
+                highlightIndex: 2,
+                distance: 201,
+                currentLocation: false,
+                points: [
+                    {
+                        id: 3,
+                        placeType: HighlightContentType.blog,
+                        title: 'Een update van mij'
+                    }
+                ]
+            }
         }
     ];
 

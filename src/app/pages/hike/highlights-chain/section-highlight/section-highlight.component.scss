@@ -1,48 +1,74 @@
 @import '../../../../../styles/variables.scss';
+@import '../../../../../styles/mixins/point-highlight-positioning.scss';
 
 .section-highlight {
-    height: 100%;
-    min-height: 125px;
-    width: 2 * $cardWidth + 2 * $padding;
-    border: 1px solid lighten($primary, 30%);
-    border-radius: $borderRadius;
-    background-color: lighten($primary, 50%);
-    padding: $padding;
+    @include pointHighlightPositioning;
 
-    display: flex;
-    align-items: center;
+    &_background {
+        position: absolute;
+        width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width) + $cardWidth + 2 * $padding);
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+
+        border: 1px solid $primary-500;
+        border-radius: $borderRadius;
+        background-color: $primary-200;
+
+        &.expanded {
+            width: calc(var(--highlights-width) - 2 * $padding);
+        }
+        &.resizing {
+            transition: width $transitionTime ease-in-out;
+        }
+    }
 
     &_info {
-        width: $cardWidth;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width));
         display: flex;
         flex-direction: column;
         align-items: center;
 
+        &.hidden {
+            display: none;
+        }
+        &.card-width {
+            width: $cardWidth;
+        }
+        &.left {
+            margin-left: calc(var(--left-centerpoint) * var(--highlights-width) - 0.5 * $cardWidth);
+        }
+        &.left.card-width {
+            margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
+        }
+        &.right {
+            margin-left: calc(var(--highlights-width) - var(--right-centerpoint) * var(--highlights-width) + 0.5 * $cardWidth);
+        }
+        &.right.card-width {
+            margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
+        }
+
         &-icon {
+            max-height: 64px;
             max-width: 64px;
+            fill: $secondary-400;
             padding: 5px;
         }
 
         &-title {
-            color: darken($primary, 10%);
+            color: darken($dark, 10%);
             font-weight: 600;
             font-size: 0.8rem;
             text-align: center;
             margin-bottom: 0;
             max-width: $cardWidth - 2 * $padding;
-        }
-    }
-
-    &_child {
-        display: block;
-        margin-bottom: $margin;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        &-placeholder {
-            width: $cardWidth;
         }
     }
 }

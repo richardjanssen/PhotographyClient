@@ -44,7 +44,6 @@ export enum AlignmentType {
 }
 
 export interface HighlightExpansion {
-    sectionIndex: number;
     pointIndex: number;
     isExpanded: boolean;
 }

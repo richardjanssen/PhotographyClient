@@ -30,43 +30,12 @@
                     right: highlightAlignments[i] === alignmentType.right
                 }"
             ></app-highlight>
-            <div *ngSwitchCase="highlightType.section" class="section-highlight">
-                <div
-                    class="section-highlight_background"
-                    [ngClass]="{
-                        resizing: resizingSectionHighlightIds.includes(highlight.sectionHighlight!.highlightIndex),
-                        expanded: expandedSectionHighlightIds.includes(highlight.sectionHighlight!.highlightIndex)
-                    }"
-                ></div>
-                <div
-                    class="section-highlight_info"
-                    [ngClass]="{
-                        hidden:
-                            expandedSectionHighlightIds.includes(highlight.sectionHighlight!.highlightIndex) ||
-                            resizingSectionHighlightIds.includes(highlight.sectionHighlight!.highlightIndex),
-                        left: highlightAlignments[i] === alignmentType.rightIncoming,
-                        right: highlightAlignments[i] === alignmentType.leftIncoming,
-                        'card-width': highlight.sectionHighlight!.children.length === 0
-                    }"
-                >
-                    <span class="section-highlight_info-title">{{ highlight.sectionHighlight!.title }}</span>
-                    <svg class="section-highlight_info-icon">
-                        <use xlink:href="../../../../assets/icons/icon.svg#icon-dots" />
-                    </svg>
-                </div>
-                <app-highlight
-                    *ngFor="let child of highlight.sectionHighlight!.children"
-                    class="place-highlight in-section"
-                    [ngClass]="{
-                        left: highlightAlignments[i] === alignmentType.leftIncoming,
-                        right: highlightAlignments[i] === alignmentType.rightIncoming
-                    }"
-                    [highlight]="child"
-                    [inSection]="true"
-                    [sectionIndex]="highlight.sectionHighlight!.highlightIndex"
-                    (expansion)="trackHighlightExpansion($event)"
-                ></app-highlight>
-            </div>
+            <app-section-highlight
+                *ngSwitchCase="highlightType.section"
+                class="section-highlight"
+                [highlight]="highlight.sectionHighlight!"
+                [alignment]="highlightAlignments[i]"
+            ></app-section-highlight>
         </ng-container>
         <div
             class="connector"
