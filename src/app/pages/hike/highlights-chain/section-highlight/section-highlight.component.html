@@ -1,14 +1,26 @@
-<!-- <div class="section-highlight">
-    <div *ngIf="alignment === alignmentType.rightIncoming" class="section-highlight_info">
+<div class="section-highlight">
+    <div class="section-highlight_background" [ngClass]="{ resizing, expanded }"></div>
+    <div
+        class="section-highlight_info"
+        [ngClass]="{
+            hidden: expanded || resizing,
+            left: alignment === alignmentType.rightIncoming,
+            right: alignment === alignmentType.leftIncoming,
+            'card-width': highlight.children.length === 0
+        }"
+    >
         <span class="section-highlight_info-title">{{ highlight.title }}</span>
-        <img class="section-highlight_info-icon" src="../../../../../assets/icons/icon.png" />
+        <svg class="section-highlight_info-icon">
+            <use xlink:href="../../../../assets/icons/icon.svg#icon-dots" />
+        </svg>
     </div>
-    <div>
-        <div *ngIf="highlight.children.length === 0" class="section-highlight_child section-highlight_child-placeholder"></div>
-        <app-highlight *ngFor="let child of highlight.children" class="section-highlight_child" [highlight]="child"></app-highlight>
-    </div>
-    <div *ngIf="alignment === alignmentType.leftIncoming" class="section-highlight_info">
-        <span class="section-highlight_info-title">{{ highlight.title }}</span>
-        <img class="section-highlight_info-icon" src="../../../../../assets/icons/icon.png" />
-    </div>
-</div> -->
+    <app-highlight
+        *ngFor="let child of highlight.children"
+        class="place-highlight in-section"
+        [ngClass]="{ left: alignment === alignmentType.leftIncoming, right: alignment === alignmentType.rightIncoming }"
+        [highlight]="child"
+        [inSection]="true"
+        [sectionIndex]="highlight.highlightIndex"
+        (expansion)="trackHighlightExpansion($event)"
+    ></app-highlight>
+</div>

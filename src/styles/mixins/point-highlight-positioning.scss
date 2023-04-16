@@ -1,0 +1,35 @@
+@mixin pointHighlightPositioning {
+    .place-highlight {
+        position: relative;
+        z-index: 2;
+        width: fit-content;
+        display: block;
+
+        &.expanded {
+            margin-left: $margin !important;
+        }
+
+        &.resizing {
+            transition: margin-left $transitionTime ease-in-out;
+        }
+
+        &.left {
+            margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
+        }
+
+        &.right {
+            margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
+        }
+
+        &.in-section {
+            padding-top: $padding;
+
+            &.expanded {
+                margin-left: 2 * $margin !important;
+            }
+            &:last-child {
+                padding-bottom: $padding !important;
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
 @import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins/point-highlight-positioning.scss';
 
 $navigationCircleSize: 32px;
 $navigationPadding: 3px;
@@ -89,112 +90,12 @@ $locationIconOffset: -75px;
         width: 100%;
         margin-bottom: 1rem;
 
-        .place-highlight {
-            position: relative;
-            z-index: 2;
-            width: fit-content;
-            display: block;
-
-            &.expanded {
-                margin-left: $margin !important;
-            }
-
-            &.resizing {
-                transition: margin-left $transitionTime ease-in-out;
-            }
-
-            &.left {
-                margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
-            }
-
-            &.right {
-                margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
-            }
-
-            &.in-section {
-                padding-top: $padding;
-
-                &.expanded {
-                    margin-left: 2 * $margin !important;
-                }
-                &:last-child {
-                    padding-bottom: $padding !important;
-                }
-            }
-        }
+        @include pointHighlightPositioning;
 
         .section-highlight {
             height: 100%;
             min-height: 125px;
             width: 100%;
-
-            &_background {
-                position: absolute;
-                width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width) + $cardWidth + 2 * $padding);
-                height: 100%;
-                margin-left: auto;
-                margin-right: auto;
-                left: 0;
-                right: 0;
-
-                border: 1px solid $primary-500;
-                border-radius: $borderRadius;
-                background-color: $primary-200;
-
-                &.expanded {
-                    width: calc(var(--highlights-width) - 2 * $padding);
-                }
-                &.resizing {
-                    transition: width $transitionTime ease-in-out;
-                }
-            }
-
-            &_info {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 0;
-                right: 0;
-                width: calc((var(--right-centerpoint) - var(--left-centerpoint)) * var(--highlights-width));
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                &.hidden {
-                    display: none;
-                }
-                &.card-width {
-                    width: $cardWidth;
-                }
-                &.left {
-                    margin-left: calc(var(--left-centerpoint) * var(--highlights-width) - 0.5 * $cardWidth);
-                }
-                &.left.card-width {
-                    margin-left: calc(var(--left-centerpoint-percentage) - 0.5 * $cardWidth);
-                }
-                &.right {
-                    margin-left: calc(var(--highlights-width) - var(--right-centerpoint) * var(--highlights-width) + 0.5 * $cardWidth);
-                }
-                &.right.card-width {
-                    margin-left: calc(var(--right-centerpoint-percentage) - 0.5 * $cardWidth);
-                }
-
-                &-icon {
-                    max-height: 64px;
-                    max-width: 64px;
-                    fill: $secondary-400;
-                    padding: 5px;
-                }
-
-                &-title {
-                    color: darken($dark, 10%);
-                    font-weight: 600;
-                    font-size: 0.8rem;
-                    text-align: center;
-                    margin-bottom: 0;
-                    max-width: $cardWidth - 2 * $padding;
-                }
-            }
         }
 
         .connector {
