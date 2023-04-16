@@ -20,7 +20,7 @@ export class UpdatesComponent {
 
     title: string;
     type: HighlightContentType;
-    albumId: number | null;
+    albumId: string | null;
     distance: number;
     text: string | null;
 
@@ -51,7 +51,7 @@ export class UpdatesComponent {
                 type: this.type,
                 text: this.text,
                 distance: this.distance,
-                albumId: this.albumId
+                albumId: this.albumId ? parseInt(this.albumId, 10) : null
             })
             .subscribe({
                 next: () => {

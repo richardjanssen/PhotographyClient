@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } fr
 import { fromEvent } from 'rxjs';
 import { HightlightService } from 'src/app/core/services/highlight.service';
 import { StyleService } from 'src/app/core/services/style.service';
-import { AlignmentType, Highlight, HighlightExpansion, HighlightType } from 'src/app/core/types/highlight.type';
+import { AlignmentType, HighlightExpansion, Highlight, HighlightType } from 'src/app/core/types/highlight.type';
 
 @Component({
     selector: 'app-highlights-chain',
@@ -15,7 +15,7 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
 
     highlights: Highlight[];
     highlightAlignments: AlignmentType[];
-    expandedHighlightIds: number[] = [];
+    private expandedPointHighlights: { sectionIndex: number; pointIndex: number }[] = [];
     expandedSectionHighlightIds: number[] = [];
     resizingSectionHighlightIds: number[] = [];
     highlightType: typeof HighlightType = HighlightType;
@@ -46,58 +46,40 @@ export class HighlightsChainComponent implements AfterViewInit, OnInit {
 
     trackHighlightExpansion(expansion: HighlightExpansion): void {
         if (expansion.isExpanded) {
-            this.expandedHighlightIds.push(expansion.id);
+            this.expandedPointHighlights.push({ sectionIndex: expansion.sectionIndex, pointIndex: expansion.pointIndex });
         } else {
-            this.expandedHighlightIds = this.expandedHighlightIds.filter(id => id !== expansion.id);
+            this.expandedPointHighlights = this.expandedPointHighlights.filter(
+                highlight => highlight.sectionIndex !== expansion.sectionIndex || highlight.pointIndex !== expansion.pointIndex
+            );
         }
         this.updateSectionHighlightExpansions(expansion);
     }
 
     scrollToCurrentLocation(): void {
-        const flatHighlights = this.highlights.flatMap(highlight => {
-            if (highlight.type === HighlightType.place) {
-                return highlight;
-            }
-            if (highlight.type === HighlightType.section) {
-                return highlight.children;
-            }
-            return [];
-        });
-
-        const activeHighlight = flatHighlights.find(highlight => highlight.currentLocation);
-
-        if (activeHighlight) {
-            this.viewportScroller.scrollToAnchor(activeHighlight.id.toString());
-        }
+        this.viewportScroller.scrollToAnchor('currentLocation');
     }
 
     private updateSectionHighlightExpansions(expansion: HighlightExpansion): void {
-        // Get section highlight for that contains toggled expansion
-        const sectionHighlight = this.highlights.find(highlight => {
-            if (highlight.type === this.highlightType.place) {
-                return false;
-            }
-            return highlight.children.map(child => child.id).includes(expansion.id);
-        });
+        // Get section highlight that contains toggled expansion
+        const sectionHighlight = this.highlights.find(highlight => highlight.sectionHighlight?.highlightIndex === expansion.sectionIndex);
+        const sectionHighlightIndex = sectionHighlight!.sectionHighlight!.highlightIndex;
 
-        // Get child highlights belonging to section highlight
-        const childrenIds = sectionHighlight ? sectionHighlight.children.map(child => child.id) : [];
-
-        // Add section highlight to expanded section highlights if at least one child is expanded and has not already been added
-        if (childrenIds.some(id => this.expandedHighlightIds.includes(id))) {
-            if (!this.expandedSectionHighlightIds.some(id => id === sectionHighlight!.id)) {
-                this.resizingSectionHighlightIds.push(sectionHighlight!.id);
-                this.expandedSectionHighlightIds.push(sectionHighlight!.id);
+        // If at least one section child is expanded and section is not already been added,
+        // then add section highlight to expanded section highlights
+        if (this.expandedPointHighlights.some(highlight => highlight.sectionIndex === sectionHighlightIndex)) {
+            if (!this.expandedSectionHighlightIds.some(id => id === sectionHighlightIndex)) {
+                this.resizingSectionHighlightIds.push(sectionHighlightIndex);
+                this.expandedSectionHighlightIds.push(sectionHighlightIndex);
                 setTimeout(() => {
-                    this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+                    this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlightIndex);
                 }, this._styleService.transitionTimeMs);
             }
             // Remove section highlight from expanded sections highlights if no childs are expanded
         } else {
-            this.resizingSectionHighlightIds.push(sectionHighlight!.id);
-            this.expandedSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+            this.resizingSectionHighlightIds.push(sectionHighlightIndex);
+            this.expandedSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlightIndex);
             setTimeout(() => {
-                this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlight!.id);
+                this.resizingSectionHighlightIds = this.expandedSectionHighlightIds.filter(id => id !== sectionHighlightIndex);
             }, this._styleService.transitionTimeMs);
         }
     }
