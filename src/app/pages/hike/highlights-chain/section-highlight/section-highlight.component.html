@@ -14,7 +14,7 @@
             <use xlink:href="../../../../assets/icons/icon.svg#icon-dots" />
         </svg>
     </div>
-    <app-highlight
+    <point-highlight
         *ngFor="let child of highlight.children"
         class="place-highlight in-section"
         [ngClass]="{ left: alignment === alignmentType.leftIncoming, right: alignment === alignmentType.rightIncoming }"
@@ -22,5 +22,5 @@
         [inSection]="true"
         [sectionIndex]="highlight.highlightIndex"
         (expansion)="trackHighlightExpansion($event)"
-    ></app-highlight>
+    ></point-highlight>
 </div>

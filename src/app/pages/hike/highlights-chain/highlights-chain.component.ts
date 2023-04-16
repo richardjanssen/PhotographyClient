@@ -5,7 +5,7 @@ import { HightlightService } from 'src/app/core/services/highlight.service';
 import { AlignmentType, Highlight, HighlightType } from 'src/app/core/types/highlight.type';
 
 @Component({
-    selector: 'app-highlights-chain',
+    selector: 'highlights-chain',
     templateUrl: './highlights-chain.component.html',
     styleUrls: ['./highlights-chain.component.scss']
 })

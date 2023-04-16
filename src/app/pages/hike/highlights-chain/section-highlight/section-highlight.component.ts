@@ -3,7 +3,7 @@ import { StyleService } from 'src/app/core/services/style.service';
 import { AlignmentType, HighlightExpansion, SectionHighlight } from 'src/app/core/types/highlight.type';
 
 @Component({
-    selector: 'app-section-highlight',
+    selector: 'section-highlight',
     templateUrl: './section-highlight.component.html',
     styleUrls: ['./section-highlight.component.scss']
 })
