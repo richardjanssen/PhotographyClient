@@ -1,11 +1,26 @@
 export interface Highlight {
-    id: number;
-    title: string;
-    distance: number;
     type: HighlightType;
-    contentType: HighlightContentType;
+    sectionHighlight: SectionHighlight | null;
+    pointHighlight: PointHighlight | null;
+}
+
+export interface SectionHighlight {
+    highlightIndex: number;
+    title: string;
+    children: PointHighlight[];
+}
+
+export interface PointHighlight {
+    highlightIndex: number;
+    distance: number;
     currentLocation: boolean;
-    children: Highlight[];
+    points: Point[];
+}
+
+export interface Point {
+    id: number | null;
+    placeType: HighlightContentType;
+    title: string;
 }
 
 export enum HighlightType {
@@ -14,9 +29,10 @@ export enum HighlightType {
 }
 
 export enum HighlightContentType {
-    town = 'town',
     photo = 'photo',
     blog = 'blog',
+    location = 'location',
+    town = 'town',
     other = 'other'
 }
 
@@ -28,6 +44,7 @@ export enum AlignmentType {
 }
 
 export interface HighlightExpansion {
-    id: number;
+    sectionIndex: number;
+    pointIndex: number;
     isExpanded: boolean;
 }
