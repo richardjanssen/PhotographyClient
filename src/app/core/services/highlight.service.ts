@@ -181,7 +181,8 @@ export class HightlightService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     getHighlights(): Observable<Highlight[]> {
-        return this._http.get<Highlight[]>(this._getUrl('GetAll'));
+        return of(this._highlights);
+        // return this._http.get<Highlight[]>(this._getUrl('GetAll'));
     }
 
     private _getUrl(method: string): string {
