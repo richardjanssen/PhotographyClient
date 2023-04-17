@@ -2,7 +2,7 @@
     <app-header></app-header>
     <div class="main-content">
         <app-banner></app-banner>
-        <app-highlights-chain class="highlights-chain"></app-highlights-chain>
+        <highlights-chain *ngIf="highlights" [highlights]="highlights" class="highlights-chain"></highlights-chain>
     </div>
 </div>
 <app-footer></app-footer>

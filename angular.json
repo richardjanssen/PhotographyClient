@@ -12,7 +12,7 @@
             },
             "root": "",
             "sourceRoot": "src",
-            "prefix": "app",
+            "prefix": "",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
@@ -93,5 +93,13 @@
     "cli": {
         "schematicCollections": ["@angular-eslint/schematics"],
         "analytics": false
+    },
+    "schematics": {
+        "@angular-eslint/schematics:application": {
+            "setParserOptionsProject": true
+        },
+        "@angular-eslint/schematics:library": {
+            "setParserOptionsProject": true
+        }
     }
 }

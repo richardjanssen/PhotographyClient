@@ -3,11 +3,11 @@ import { StyleService } from 'src/app/core/services/style.service';
 import { HighlightContentType, HighlightExpansion, PointHighlight } from 'src/app/core/types/highlight.type';
 
 @Component({
-    selector: 'app-highlight',
-    templateUrl: './highlight.component.html',
-    styleUrls: ['./highlight.component.scss']
+    selector: 'point-highlight',
+    templateUrl: './point-highlight.component.html',
+    styleUrls: ['./point-highlight.component.scss']
 })
-export class HighlightComponent implements OnInit {
+export class PointHighlightComponent implements OnInit {
     @Input() highlight: PointHighlight;
     @Input() sectionIndex: number | null;
     @Input() inSection: boolean = false;

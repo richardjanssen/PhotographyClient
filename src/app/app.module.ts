@@ -20,12 +20,14 @@ import { FooterComponent } from './pages/home/footer/footer.component';
 import { BaseLayoutComponent } from './core/components/base-layout/base-layout.component';
 import { HikeComponent } from './pages/hike/hike.component';
 import { HighlightsChainComponent } from './pages/hike/highlights-chain/highlights-chain.component';
-import { HighlightComponent } from './pages/hike/highlights-chain/highlight/highlight.component';
+import { PointHighlightComponent } from './pages/hike/highlights-chain/highlight/point-highlight.component';
 import { PhotosHighlightComponent } from './pages/hike/highlights-chain/highlight/photos-highlight/photos-highlight.component';
 import { SectionHighlightComponent } from './pages/hike/highlights-chain/section-highlight/section-highlight.component';
 import { BannerComponent } from './pages/hike/banner/banner.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
 import { UpdatesComponent } from './pages/admin/updates/updates.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,7 @@ import { UpdatesComponent } from './pages/admin/updates/updates.component';
         BaseLayoutComponent,
         HikeComponent,
         HighlightsChainComponent,
-        HighlightComponent,
+        PointHighlightComponent,
         PhotosHighlightComponent,
         SectionHighlightComponent,
         BannerComponent,
@@ -60,7 +62,9 @@ import { UpdatesComponent } from './pages/admin/updates/updates.component';
             config: {
                 tokenGetter: () => localStorage.getItem(environment.tokenName)
             }
-        })
+        }),
+        BrowserAnimationsModule,
+        CarouselModule
     ],
     providers: [
         {

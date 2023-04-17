@@ -21,7 +21,7 @@
     </div>
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">
-            <app-highlight
+            <point-highlight
                 *ngSwitchCase="highlightType.place"
                 [highlight]="highlight.pointHighlight!"
                 class="place-highlight"
@@ -29,13 +29,13 @@
                     left: highlightAlignments[i] === alignmentType.left,
                     right: highlightAlignments[i] === alignmentType.right
                 }"
-            ></app-highlight>
-            <app-section-highlight
+            ></point-highlight>
+            <section-highlight
                 *ngSwitchCase="highlightType.section"
                 class="section-highlight"
                 [highlight]="highlight.sectionHighlight!"
                 [alignment]="highlightAlignments[i]"
-            ></app-section-highlight>
+            ></section-highlight>
         </ng-container>
         <div
             class="connector"
