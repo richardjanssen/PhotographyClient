@@ -26,6 +26,8 @@ import { SectionHighlightComponent } from './pages/hike/highlights-chain/section
 import { BannerComponent } from './pages/hike/banner/banner.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
 import { UpdatesComponent } from './pages/admin/updates/updates.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
     declarations: [
@@ -60,7 +62,9 @@ import { UpdatesComponent } from './pages/admin/updates/updates.component';
             config: {
                 tokenGetter: () => localStorage.getItem(environment.tokenName)
             }
-        })
+        }),
+        BrowserAnimationsModule,
+        CarouselModule
     ],
     providers: [
         {

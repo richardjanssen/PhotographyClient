@@ -4,7 +4,8 @@
 @import 'variables.scss';
 // Bootstrap customization should always be loaded before bootstrap itself
 @import 'bootstrap-customization.scss';
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import './node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
 
 @import '../app/core/components/base-layout/base-layout.component.scss';
 
