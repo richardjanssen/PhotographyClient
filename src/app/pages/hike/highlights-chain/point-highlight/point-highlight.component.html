@@ -1,0 +1,21 @@
+<div
+    class="card highlight"
+    [ngClass]="{ expandable, expanded, resizing, 'in-section': inSection }"
+    (click)="toggleExpansion()"
+    [id]="highlight.currentLocation ? 'currentLocation' : null"
+>
+    <div class="card-body">
+        <point-highlight-summary
+            *ngIf="!expanded || resizing"
+            class="summary"
+            [highlight]="highlight"
+            [expandable]="expandable"
+        ></point-highlight-summary>
+
+        <div *ngIf="expanded && !resizing" [ngSwitch]="highlight.points[0].placeType" class="card-body_details">
+            <h6 class="card-title card-body_title-details">{{ highlight.points[0].title }}</h6>
+            <app-photos-highlight *ngSwitchCase="highlightContentType.photo"></app-photos-highlight>
+            <p *ngSwitchDefault>Nothing to see here!</p>
+        </div>
+    </div>
+</div>

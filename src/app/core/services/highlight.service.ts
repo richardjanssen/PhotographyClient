@@ -39,7 +39,7 @@ export class HightlightService {
                             {
                                 id: 1,
                                 placeType: HighlightContentType.photo,
-                                title: 'An update'
+                                title: 'An update with a long name so more lines'
                             }
                         ]
                     },
@@ -51,7 +51,7 @@ export class HightlightService {
                             {
                                 id: 2,
                                 placeType: HighlightContentType.town,
-                                title: 'A beautiful place in a section'
+                                title: 'A beautiful town'
                             },
                             {
                                 id: null,
@@ -135,7 +135,7 @@ export class HightlightService {
                             {
                                 id: 2,
                                 placeType: HighlightContentType.town,
-                                title: 'A beautiful place in a section'
+                                title: 'A beautiful place in a section put with a very long title so what do we do now?'
                             },
                             {
                                 id: null,
