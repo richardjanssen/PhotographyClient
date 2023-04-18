@@ -14,6 +14,7 @@ export class PointHighlightComponent implements OnInit {
     @HostBinding('class.expanded') expanded: boolean = false;
     @HostBinding('class.resizing') resizing: boolean = false;
     expandable: boolean;
+    multiLineTitle: boolean;
     @Output() expansion: EventEmitter<HighlightExpansion> = new EventEmitter();
 
     highlightContentType: typeof HighlightContentType = HighlightContentType;
@@ -23,6 +24,7 @@ export class PointHighlightComponent implements OnInit {
 
     ngOnInit(): void {
         this.expandable = this.highlight.points.some(point => this.expandableHighlightTypes.includes(point.placeType));
+        this.multiLineTitle = this.highlight.points.some(point => point.title.length > 20);
     }
 
     toggleExpansion(): void {

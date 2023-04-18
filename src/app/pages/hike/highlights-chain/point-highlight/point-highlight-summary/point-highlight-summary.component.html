@@ -1,0 +1,39 @@
+<div class="point-highlight-summary">
+    <ng-container *ngIf="highlight.points.length === 1">
+        <ng-container *ngTemplateOutlet="pointTitleAndIconTemplate; context: { point: highlight.points[0] }"></ng-container>
+    </ng-container>
+
+    <carousel
+        *ngIf="highlight.points.length > 1"
+        class="carousel"
+        [isAnimated]="true"
+        [noPause]="true"
+        [showIndicators]="false"
+        [interval]="2500"
+    >
+        <slide *ngFor="let point of highlight.points">
+            <ng-container *ngTemplateOutlet="pointTitleAndIconTemplate; context: { point }"></ng-container>
+        </slide>
+    </carousel>
+
+    <span class="distance">
+        <i>{{ highlight.distance }}</i>
+    </span>
+
+    <!-- TODO: Move this back to PointHighlightComponent -->
+    <svg *ngIf="expandable" class="expansion-icon" width="16" height="16">
+        <use xlink:href="../../../../../assets/icons/bootstrap/arrows-angle-expand.svg#arrows-angle-expand" />
+    </svg>
+</div>
+
+<ng-template #pointTitleAndIconTemplate let-point="point">
+    <div class="title-icon">
+        <span class="title" [ngClass]="{ 'fixed-height': fixedHeightTitle }">{{ point.title }}</span>
+        <svg *ngIf="point.placeType !== pointHighlightType.location" class="icon">
+            <use xlink:href="../../../../../assets/icons/icon.svg#icon-dots" />
+        </svg>
+        <svg *ngIf="point.placeType === pointHighlightType.location" class="icon">
+            <use xlink:href="../../../../../assets/icons/current_location.svg#current-location" />
+        </svg>
+    </div>
+</ng-template>
