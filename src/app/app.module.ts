@@ -29,6 +29,7 @@ import { UpdatesComponent } from './pages/admin/updates/updates.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PointHighlightSummaryComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-summary/point-highlight-summary.component';
+import { PointHighlightDetailsComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/point-highlight-details.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { PointHighlightSummaryComponent } from './pages/hike/highlights-chain/po
         BannerComponent,
         AlbumsComponent,
         UpdatesComponent,
-        PointHighlightSummaryComponent
+        PointHighlightSummaryComponent,
+        PointHighlightDetailsComponent
     ],
     imports: [
         BrowserModule,
