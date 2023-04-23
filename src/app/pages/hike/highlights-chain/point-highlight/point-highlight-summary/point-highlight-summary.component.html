@@ -25,8 +25,13 @@
     <div class="title-icon">
         <span class="title" [ngClass]="{ 'fixed-height': fixedHeightTitle }">{{ point.title }}</span>
         <div class="icon-container">
-            <icon *ngIf="point.placeType !== pointHighlightType.location" name="icon-dots"></icon>
-            <icon *ngIf="point.placeType === pointHighlightType.location" name="current-location"></icon>
+            <ng-container [ngSwitch]="point.placeType">
+                <icon *ngSwitchCase="pointHighlightType.location" name="current-location"></icon>
+                <icon *ngSwitchCase="pointHighlightType.photo" name="camera"></icon>
+                <icon *ngSwitchCase="pointHighlightType.blog" name="blog"></icon>
+                <icon *ngSwitchCase="pointHighlightType.town" name="lodge"></icon>
+                <icon *ngSwitchDefault name="icon-dots"></icon>
+            </ng-container>
         </div>
     </div>
 </ng-template>

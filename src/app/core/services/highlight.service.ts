@@ -80,7 +80,7 @@ export class HightlightService {
                             {
                                 id: 2,
                                 placeType: HighlightContentType.blog,
-                                title: 'string'
+                                title: 'Een goed verhaal'
                             }
                         ]
                     }
