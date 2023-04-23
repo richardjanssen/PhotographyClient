@@ -1,0 +1,13 @@
+@import '../../../../styles/variables.scss';
+
+.icon {
+    height: 100%;
+    width: 100%;
+    max-width: 64px;
+    max-height: 64px;
+    fill: $secondary-500;
+
+    &.light {
+        fill: $secondary-400;
+    }
+}

@@ -1,0 +1,9 @@
+<div class="point-highlight-details">
+    <ng-container *ngFor="let point of highlight.points">
+        <div [ngSwitch]="point.placeType" class="point">
+            <h6 class="title">{{ point.title }}</h6>
+            <app-photos-highlight *ngSwitchCase="pointHighlightType.photo"></app-photos-highlight>
+            <p *ngSwitchDefault>Nothing to see here!</p>
+        </div>
+    </ng-container>
+</div>
