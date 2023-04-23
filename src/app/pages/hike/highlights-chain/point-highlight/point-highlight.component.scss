@@ -13,15 +13,26 @@
         transition: opacity $transitionTime ease-in-out;
     }
 
+    .expansion-icon {
+        position: absolute;
+        right: $marginSm;
+        bottom: $marginSm;
+        transition: transform $transitionTimeFast ease-in-out, opacity $transitionTime ease-in-out;
+        opacity: 1;
+        fill: $primary-700;
+    }
+
+    &:hover {
+        .expansion-icon {
+            transform: scale(1.2);
+        }
+    }
+
     &.expandable {
         cursor: pointer;
 
         &:hover {
             background-color: darken($light, 3%);
-
-            .card-body_expansion-icon {
-                transform: scale(1.2);
-            }
         }
     }
 
@@ -45,6 +56,10 @@
         transition: width $transitionTime ease-in-out;
 
         .summary {
+            opacity: 0 !important;
+        }
+
+        .expansion-icon {
             opacity: 0 !important;
         }
     }

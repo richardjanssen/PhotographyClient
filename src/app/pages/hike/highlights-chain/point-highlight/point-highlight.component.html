@@ -11,5 +11,9 @@
         [expandable]="expandable"
     ></point-highlight-summary>
 
+    <svg *ngIf="expandable && !expanded" class="expansion-icon" width="16" height="16">
+        <use xlink:href="../../../../../assets/icons/bootstrap/arrows-angle-expand.svg#arrows-angle-expand" />
+    </svg>
+
     <point-highlight-details *ngIf="expanded && !resizing" [highlight]="highlight"></point-highlight-details>
 </div>

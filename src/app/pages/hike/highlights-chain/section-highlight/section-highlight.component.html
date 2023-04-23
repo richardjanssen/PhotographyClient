@@ -10,9 +10,9 @@
         }"
     >
         <span class="section-highlight_info-title">{{ highlight.title }}</span>
-        <svg class="section-highlight_info-icon">
-            <use xlink:href="../../../../assets/icons/icon.svg#icon-dots" />
-        </svg>
+        <div class="section-highlight_info-icon-container">
+            <icon name="icon-dots" [light]="true"></icon>
+        </div>
     </div>
     <point-highlight
         *ngFor="let child of highlight.children"
