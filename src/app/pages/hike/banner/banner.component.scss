@@ -26,12 +26,12 @@
         margin-left: auto;
         margin-right: auto;
 
-        top: calc($bannerHeight / 2 - 80px); // Semi-random value to compensate for text box height
+        top: calc($bannerHeight / 2 - 120px); // Semi-random value to compensate for text box height
         @media screen and (max-width: #{$maxWidthSm}) {
             top: calc($bannerHeightSm / 2 - 80px); // Semi-random value to compensate for text box height
         }
 
-        background-color: rgba(234, 229, 232, 0.6);
+        background-color: $light;
         border-radius: $borderRadius;
         padding: 2 * $padding;
 

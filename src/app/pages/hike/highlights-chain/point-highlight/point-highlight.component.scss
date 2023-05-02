@@ -6,6 +6,7 @@
     width: $cardWidth;
     padding: $padding;
     background-color: $light;
+    border-color: $borderColor;
     transition: background-color $transitionTime ease-in-out;
 
     .summary {
