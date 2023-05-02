@@ -1,0 +1,8 @@
+<ng-container *ngIf="update">
+    <p *ngIf="update.text">{{ update.text }}</p>
+    <app-photo-grid *ngIf="update.album && update.album.photos.length > 0; else noPhotos" [photos]="update.album.photos"></app-photo-grid>
+</ng-container>
+
+<ng-template #noPhotos>
+    <p *ngIf="type === highlightContentType.photo">Deze update bevat geen fotoalbum</p>
+</ng-template>

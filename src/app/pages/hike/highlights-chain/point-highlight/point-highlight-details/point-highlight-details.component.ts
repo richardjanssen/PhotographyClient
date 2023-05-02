@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Constants } from 'src/app/core/constants';
 import { HighlightContentType, PointHighlight } from 'src/app/core/types/highlight.type';
 
 @Component({
@@ -9,5 +10,6 @@ import { HighlightContentType, PointHighlight } from 'src/app/core/types/highlig
 export class PointHighlightDetailsComponent {
     @Input() highlight: PointHighlight;
 
-    pointHighlightType: typeof HighlightContentType = HighlightContentType;
+    pointHighlightType = HighlightContentType;
+    expandableHighlightTypes = Constants.expandableHighlightTypes;
 }

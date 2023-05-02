@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { EnvironmentService } from 'src/app/core/services/environment.service';
 import { PhotosService } from 'src/app/core/services/photos.service';
@@ -14,30 +14,31 @@ import { ApplicationPaths } from 'src/app/applications-paths';
     templateUrl: './photo-grid.component.html',
     styleUrls: ['./photo-grid.component.scss']
 })
-export class PhotoGridComponent implements OnInit {
+export class PhotoGridComponent implements AfterViewInit {
     readonly photoPath: string = ApplicationPaths.photo;
     @ViewChild('gridContainer') container: ElementRef;
     private imageInfo: GridImageInfo[];
     private readonly gutter: number = 5;
     private readonly minContainerWidth: number = 300; // Smaller containers always show one image per row
     private readonly maxRowHeight: number = 320;
+    @Input() photos: Photo[] | null;
 
     gridItems: GridItem[];
     gridHeight: number;
 
     constructor(
-        photosService: PhotosService,
+        private readonly photosService: PhotosService,
         private readonly _photoCacheService: PhotoCacheService,
-        environmentService: EnvironmentService
-    ) {
-        photosService.getPhotos().subscribe(photos => {
-            this._photoCacheService.cacheAlbumPhotos(photos);
-            this.imageInfo = photos.map(photo => this.mapPhotoToImageInfo(photo, environmentService.baseApiUrl));
-            this.resizeImages();
-        });
-    }
+        private readonly environmentService: EnvironmentService
+    ) {}
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
+        this.photos
+            ? this.handlePhotos(this.photos)
+            : this.photosService.getPhotos().subscribe(photos => {
+                  this.handlePhotos(photos);
+              });
+
         fromEvent(window, 'resize').subscribe(() => {
             this.resizeImages();
         });
@@ -47,7 +48,13 @@ export class PhotoGridComponent implements OnInit {
         this._photoCacheService.activePhotoId = photoId;
     }
 
-    resizeImages(): void {
+    private handlePhotos(photos: Photo[]): void {
+        this._photoCacheService.cacheAlbumPhotos(photos);
+        this.imageInfo = photos.map(photo => this.mapPhotoToImageInfo(photo, this.environmentService.baseApiUrl));
+        this.resizeImages();
+    }
+
+    private resizeImages(): void {
         const grid = this.getGrid(this.imageInfo);
         this.gridItems = grid.gridItems;
         this.gridHeight = grid.totalGridHeight;

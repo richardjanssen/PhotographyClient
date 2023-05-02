@@ -1,9 +1,13 @@
 <div class="point-highlight-details">
     <ng-container *ngFor="let point of highlight.points">
-        <div [ngSwitch]="point.placeType" class="point">
-            <h6 class="title">{{ point.title }}</h6>
-            <app-photos-highlight *ngSwitchCase="pointHighlightType.photo"></app-photos-highlight>
-            <p *ngSwitchDefault>Nothing to see here!</p>
-        </div>
+        <ng-container *ngIf="expandableHighlightTypes.includes(point.placeType)">
+            <div [ngSwitch]="point.placeType" class="point">
+                <h6 class="title">{{ point.title }}</h6>
+                <photos-highlight *ngSwitchCase="pointHighlightType.photo" [hikerUpdateId]="point.id"></photos-highlight>
+                <photos-highlight *ngSwitchCase="pointHighlightType.blog" [hikerUpdateId]="point.id"></photos-highlight>
+                <location-point *ngSwitchCase="pointHighlightType.location"></location-point>
+                <p *ngSwitchDefault>Nothing to see here!</p>
+            </div>
+        </ng-container>
     </ng-container>
 </div>

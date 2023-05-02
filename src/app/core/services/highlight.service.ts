@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Highlight, HighlightContentType, HighlightType } from '../types/highlight.type';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
 import { HttpClient } from '@angular/common/http';
+import { Photo } from '../types/photo.type';
 
 @Injectable({
     providedIn: 'root'
@@ -181,8 +182,10 @@ export class HightlightService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     getHighlights(): Observable<Highlight[]> {
-        return of(this._highlights);
         // return this._http.get<Highlight[]>(this._getUrl('GetAll'));
+
+        // This is a temporary function to get some meaningful content.
+        return of(this._highlights);
     }
 
     private _getUrl(method: string): string {

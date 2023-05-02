@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Constants } from 'src/app/core/constants';
 import { StyleService } from 'src/app/core/services/style.service';
-import { HighlightContentType, HighlightExpansion, PointHighlight } from 'src/app/core/types/highlight.type';
+import { HighlightExpansion, PointHighlight } from 'src/app/core/types/highlight.type';
 
 @Component({
     selector: 'point-highlight',
@@ -14,17 +15,12 @@ export class PointHighlightComponent implements OnInit {
     @HostBinding('class.expanded') expanded: boolean = false;
     @HostBinding('class.resizing') resizing: boolean = false;
     expandable: boolean;
-    multiLineTitle: boolean;
     @Output() expansion: EventEmitter<HighlightExpansion> = new EventEmitter();
-
-    highlightContentType: typeof HighlightContentType = HighlightContentType;
-    expandableHighlightTypes: HighlightContentType[] = [HighlightContentType.photo, HighlightContentType.town];
 
     constructor(private readonly _styleService: StyleService) {}
 
     ngOnInit(): void {
-        this.expandable = this.highlight.points.some(point => this.expandableHighlightTypes.includes(point.placeType));
-        this.multiLineTitle = this.highlight.points.some(point => point.title.length > 20);
+        this.expandable = this.highlight.points.some(point => Constants.expandableHighlightTypes.includes(point.placeType));
     }
 
     toggleExpansion(): void {
