@@ -15,7 +15,7 @@
 
         border: 1px solid $primary-500;
         border-radius: $borderRadius;
-        background-color: $primary-200;
+        background-color: $primary-250;
 
         &.expanded {
             width: calc(var(--highlights-width) - 2 * $padding);

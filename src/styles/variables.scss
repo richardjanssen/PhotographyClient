@@ -11,6 +11,7 @@ $dark: #343a40; // Onyx
 // Color variations
 $primary-100: lighten($primary, 40%);
 $primary-200: lighten($primary, 30%);
+$primary-250: lighten($primary, 25%);
 $primary-300: lighten($primary, 20%);
 $primary-400: lighten($primary, 10%);
 $primary-500: $primary;
@@ -58,8 +59,9 @@ $leftCenterpoint: 0.4;
 $rightCenterpoint: 0.6;
 $cardWidth: 9.5rem;
 $startWidth: 0.8 * $cardWidth;
-$connectorBorderStyle: 2px dashed $dark;
+$connectorBorderStyle: 2px dashed $primary-700;
 $connectorBorderRadius: 15px;
+$borderColor: $secondary-500;
 
 // CSS variables
 // Only declare variables here if they are dynamic (i.e. different media queries) or interacted with programatically from TS.

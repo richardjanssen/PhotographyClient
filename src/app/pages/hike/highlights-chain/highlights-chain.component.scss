@@ -19,6 +19,7 @@ $locationIconOffset: -75px;
 
         &-circle {
             fill: $light;
+            stroke: $borderColor;
         }
 
         &-content {
@@ -63,6 +64,7 @@ $locationIconOffset: -75px;
 
             &-background {
                 fill: $light;
+                stroke: $borderColor;
             }
 
             &-icon {
