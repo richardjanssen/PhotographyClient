@@ -21,7 +21,7 @@ import { BaseLayoutComponent } from './core/components/base-layout/base-layout.c
 import { HikeComponent } from './pages/hike/hike.component';
 import { HighlightsChainComponent } from './pages/hike/highlights-chain/highlights-chain.component';
 import { PointHighlightComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight.component';
-import { PhotosHighlightComponent } from './pages/hike/highlights-chain/point-highlight/photos-highlight/photos-highlight.component';
+import { PhotosHighlightComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/photos-highlight/photos-highlight.component';
 import { SectionHighlightComponent } from './pages/hike/highlights-chain/section-highlight/section-highlight.component';
 import { BannerComponent } from './pages/hike/banner/banner.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
@@ -31,6 +31,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PointHighlightSummaryComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-summary/point-highlight-summary.component';
 import { PointHighlightDetailsComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/point-highlight-details.component';
 import { IconComponent } from './core/components/icon/icon.component';
+import { LocationPointComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/location-point/location-point.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { IconComponent } from './core/components/icon/icon.component';
         UpdatesComponent,
         PointHighlightSummaryComponent,
         PointHighlightDetailsComponent,
-        IconComponent
+        IconComponent,
+        LocationPointComponent
     ],
     imports: [
         BrowserModule,
