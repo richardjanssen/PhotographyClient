@@ -1,23 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { marked } from 'marked';
 import { HikerUpdateService } from 'src/app/core/services/hiker-update.service';
+import { AlbumDetails } from 'src/app/core/types/album.type';
 import { HighlightContentType } from 'src/app/core/types/highlight.type';
-import { HikerUpdateDetails } from 'src/app/core/types/hiker-update.type';
 
 @Component({
     selector: 'photos-highlight',
-    templateUrl: './photos-highlight.component.html'
+    templateUrl: './photos-highlight.component.html',
+    styleUrls: ['./photos-highlight.component.scss']
 })
 export class PhotosHighlightComponent implements OnInit {
     @Input() hikerUpdateId: number | null;
     @Input() type: HighlightContentType.blog | HighlightContentType.photo;
-    update: HikerUpdateDetails;
+    album: AlbumDetails | null;
+    parsedText: string | null;
     highlightContentType = HighlightContentType;
 
     constructor(private readonly _hikerUpdateService: HikerUpdateService) {}
 
     ngOnInit(): void {
         if (this.hikerUpdateId !== null) {
-            this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => (this.update = update));
+            this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => {
+                this.album = update.album;
+                this.parsedText = update.text ? marked.parse(update.text) : null;
+            });
         }
     }
 }

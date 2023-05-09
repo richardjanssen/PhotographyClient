@@ -53,3 +53,18 @@ h3.page-title {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+
+// This is styling for html that is inserted in markdown text and thus needs to be global
+.update-text {
+    &-link {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+    }
+
+    &-image {
+        max-width: 100%;
+        max-height: 550px;
+    }
+}
