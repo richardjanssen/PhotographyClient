@@ -1,5 +1,31 @@
+@import '../../../../styles/variables.scss';
+
 .add-update {
-    .submit {
+    .form-buttons {
         margin-top: 1rem;
+
+        .form-button {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.photo-table {
+    width: 100%;
+
+    th,
+    td {
+        background-color: $primary-200;
+        border: 1px solid $light;
+        padding: 5px 10px;
+
+        &.image {
+            text-align: center;
+        }
+    }
+
+    .image {
+        max-height: 40px;
+        max-width: 40px;
     }
 }

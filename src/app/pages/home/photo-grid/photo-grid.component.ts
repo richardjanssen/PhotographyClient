@@ -106,9 +106,14 @@ export class PhotoGridComponent implements AfterViewInit {
             i = 0;
         }
 
-        // Any remaining images that do not fill the container width, get the maxRowHeight
+        // Any remaining images that do not fill the container width, get the maxRowHeight and are centered
         if (array.length > 0) {
-            gridItems = [...gridItems, ...this.getGridItemsForRowHeight(array, this.maxRowHeight, currentOffsetTop)];
+            const finalRowGridItems = this.getGridItemsForRowHeight(array, this.maxRowHeight, currentOffsetTop);
+            const finalGridItem = finalRowGridItems[finalRowGridItems.length - 1];
+            const finalRowWidth = finalGridItem.offsetLeft + finalGridItem.width;
+            const margin = containerWidth - finalRowWidth;
+            finalRowGridItems.forEach(item => (item.offsetLeft += margin / 2));
+            gridItems = [...gridItems, ...finalRowGridItems];
             currentOffsetTop += this.maxRowHeight;
         }
 
