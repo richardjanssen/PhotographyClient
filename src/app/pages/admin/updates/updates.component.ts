@@ -86,7 +86,8 @@ export class UpdatesComponent {
     }
 
     generateImgHtml(srcText: string, srcLarge: string): void {
-        this.imageHtml = `<a href="${srcLarge}" target="_blank" class="update-text-link"><img class="update-text-image" src="${srcText}"></a>`;
+        this.imageHtml =
+            `<a href="${srcLarge}" target="_blank" class="update-text-link">` + `<img class="update-text-image" src="${srcText}"></a>`;
     }
 
     private mapPhoto(photo: Photo, baseApiUrl: string): { id: number; date: Date; srcSmall: string; srcText: string; srcLarge: string } {
