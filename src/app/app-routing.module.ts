@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PhotoComponent } from './pages/photo/photo.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { LocationsComponent } from './pages/admin/locations/locations.component';
 
 const routes: Routes = [
     { path: ApplicationPaths.photo, component: PhotoComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
             { path: ApplicationPaths.addPhoto, component: AddPhotosComponent },
             { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent },
             { path: ApplicationPaths.albums, component: AlbumsComponent },
-            { path: ApplicationPaths.updates, component: UpdatesComponent }
+            { path: ApplicationPaths.updates, component: UpdatesComponent },
+            { path: ApplicationPaths.locations, component: LocationsComponent }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },

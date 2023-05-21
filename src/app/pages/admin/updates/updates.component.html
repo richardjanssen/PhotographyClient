@@ -26,8 +26,8 @@
             <p *ngIf="imageHtml">{{ imageHtml }}</p>
 
             <div class="form-buttons">
-                <button class="btn btn-secondary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
-                <button class="btn btn-primary form-button" [disabled]="!text" (click)="onPreview()">Generate text preview</button>
+                <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+                <button class="btn btn-secondary form-button" [disabled]="!text" (click)="onPreview()">Generate text preview</button>
             </div>
         </div>
 
