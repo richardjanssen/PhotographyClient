@@ -32,24 +32,6 @@
             </div>
         </div>
 
-        <ng-container *ngIf="selectedAlbumPhotos">
-            <p *ngIf="selectedAlbumPhotos.length === 0">Geen foto's gevonden</p>
-            <table *ngIf="selectedAlbumPhotos.length > 0" class="photo-table">
-                <thead>
-                    <tr>
-                        <th class="image" scope="col"></th>
-                        <th class="id" scope="col">Id</th>
-                        <th class="date" scope="col">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let photo of selectedAlbumPhotos">
-                        <td class="image"><img [src]="photo.src" class="image" /></td>
-                        <td class="id">{{ photo.id }}</td>
-                        <td class="date">{{ photo.date | date: 'dd-MM-yyyy - HH:mm' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </ng-container>
+        <photo-table *ngIf="selectedAlbumDetails" [photos]="selectedAlbumDetails.photos"></photo-table>
     </div>
 </div>

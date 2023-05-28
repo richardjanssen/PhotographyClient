@@ -33,6 +33,7 @@ import { PointHighlightDetailsComponent } from './pages/hike/highlights-chain/po
 import { IconComponent } from './core/components/icon/icon.component';
 import { LocationPointComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/location-point/location-point.component';
 import { LocationsComponent } from './pages/admin/locations/locations.component';
+import { PhotoTableComponent } from './core/components/photo-table/photo-table.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { LocationsComponent } from './pages/admin/locations/locations.component'
         PointHighlightDetailsComponent,
         IconComponent,
         LocationPointComponent,
-        LocationsComponent
+        LocationsComponent,
+        PhotoTableComponent
     ],
     imports: [
         BrowserModule,

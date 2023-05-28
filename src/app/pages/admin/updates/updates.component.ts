@@ -6,8 +6,9 @@ import { WindowService } from 'src/app/core/services/window.service';
 import { Album } from 'src/app/core/types/album.type';
 import { HighlightContentType } from 'src/app/core/types/highlight.type';
 import { marked } from 'marked';
-import { EnvironmentService } from 'src/app/core/services/environment.service';
 import { Photo } from 'src/app/core/types/photo.type';
+import { PlaceService } from 'src/app/core/services/place.service';
+import { Place } from 'src/app/core/types/place.type';
 
 @Component({
     selector: 'app-updates',
@@ -16,6 +17,7 @@ import { Photo } from 'src/app/core/types/photo.type';
 })
 export class UpdatesComponent {
     albums: Album[];
+    places: Place[];
     types: { value: HighlightContentType; name: string }[] = [
         { value: HighlightContentType.photo, name: 'Photo' },
         { value: HighlightContentType.blog, name: 'Blog' }
@@ -27,7 +29,7 @@ export class UpdatesComponent {
     distance: number;
     text: string | null;
     parsedText: string;
-    blogPhotos: { id: number; date: Date; srcSmall: string; srcText: string; srcLarge: string }[];
+    blogPhotos: Photo[];
     imageHtml: string;
 
     submitted: boolean = false;
@@ -37,20 +39,17 @@ export class UpdatesComponent {
     constructor(
         private readonly _hikerUpdateService: HikerUpdateService,
         private readonly _windowService: WindowService,
-        private readonly _albumService: AlbumService,
-        private readonly _environmentService: EnvironmentService
+        albumService: AlbumService,
+        placeService: PlaceService
     ) {
-        this._albumService
+        albumService
             .getAlbums()
             .pipe(map(albums => [{ title: 'No album', id: null }, ...albums]))
             .subscribe(albums => (this.albums = albums));
 
-        this._albumService
-            .getById(1)
-            .subscribe(
-                albumDetails =>
-                    (this.blogPhotos = albumDetails.photos.map(photo => this.mapPhoto(photo, this._environmentService.baseApiUrl)))
-            );
+        albumService.getById(1).subscribe(albumDetails => (this.blogPhotos = albumDetails.photos));
+
+        placeService.getAll().subscribe(places => (this.places = places));
     }
 
     get formInvalid(): boolean {
@@ -85,22 +84,7 @@ export class UpdatesComponent {
         this._windowService.reload();
     }
 
-    generateImgHtml(srcText: string, srcLarge: string): void {
-        this.imageHtml =
-            `<a href="${srcLarge}" target="_blank" class="update-text-link">` + `<img class="update-text-image" src="${srcText}"></a>`;
-    }
-
-    private mapPhoto(photo: Photo, baseApiUrl: string): { id: number; date: Date; srcSmall: string; srcText: string; srcLarge: string } {
-        const smallestImage = photo.images.sort((a, b) => a.widthPx - b.widthPx)[0];
-        const largestImage = photo.images.sort((a, b) => a.widthPx - b.widthPx).reverse()[0];
-        const textImage = photo.images.sort((a, b) => a.widthPx - b.widthPx).find(image => image.widthPx > 810) ?? largestImage;
-
-        return {
-            id: photo.id,
-            date: photo.date,
-            srcSmall: baseApiUrl + smallestImage.path,
-            srcText: textImage ? baseApiUrl + textImage.path : baseApiUrl + largestImage.path,
-            srcLarge: baseApiUrl + largestImage.path
-        };
+    onGenerateImgHtml(html: string): void {
+        this.imageHtml = html;
     }
 }
