@@ -1,6 +1,8 @@
 @import '../../../../styles/variables.scss';
 
 .add-update {
+    margin-bottom: 1rem;
+
     .form-buttons {
         margin-top: 1rem;
 
@@ -10,22 +12,28 @@
     }
 }
 
-.photo-table {
-    width: 100%;
+.text-preview {
+    margin-bottom: 1rem;
+}
 
-    th,
-    td {
-        background-color: $primary-200;
-        border: 1px solid $light;
-        padding: 5px 10px;
+.blog-photos {
+    .photo-table {
+        width: 100%;
 
-        &.image {
-            text-align: center;
+        th,
+        td {
+            background-color: $primary-200;
+            border: 1px solid $light;
+            padding: 5px 10px;
+
+            &.image {
+                text-align: center;
+            }
         }
-    }
 
-    .image {
-        max-height: 40px;
-        max-width: 40px;
+        .image {
+            max-height: 40px;
+            max-width: 40px;
+        }
     }
 }

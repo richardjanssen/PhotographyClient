@@ -1,0 +1,21 @@
+@import '../../../../styles/variables.scss';
+
+.photo-table {
+    width: 100%;
+
+    th,
+    td {
+        background-color: $primary-200;
+        border: 1px solid $light;
+        padding: 5px 10px;
+
+        &.image {
+            text-align: center;
+        }
+    }
+
+    .image {
+        max-height: 40px;
+        max-width: 40px;
+    }
+}
