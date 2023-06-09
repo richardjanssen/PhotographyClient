@@ -1,0 +1,14 @@
+<app-base-layout class="admin-page">
+    <h3 class="title">{{ title }}</h3>
+    <div class="btn-toolbar menu">
+        <div class="btn-group">
+            <button *ngFor="let child of children" [routerLink]="child.route" class="btn btn-secondary">{{ child.title }}</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <router-outlet class="card-text"></router-outlet>
+        </div>
+    </div>
+</app-base-layout>

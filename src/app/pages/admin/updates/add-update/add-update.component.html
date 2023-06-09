@@ -1,0 +1,65 @@
+<div class="add-update">
+    <h4>Add update</h4>
+    <div class="card update-data">
+        <div class="card-body">
+            <h5 class="card-title">Update data</h5>
+            <div class="form-group" *ngIf="!submitted">
+                <label for="title">Title</label>
+                <input id="title" type="text" class="form-control" required [(ngModel)]="title" />
+
+                <label for="type">Type</label>
+                <select id="type" [(ngModel)]="type" class="form-control" required>
+                    <option *ngFor="let type of types" [value]="type.value">{{ type.name }}</option>
+                </select>
+
+                <label for="albumId">Album</label>
+                <select id="albumId" [(ngModel)]="albumId" class="form-control" required>
+                    <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
+                </select>
+
+                <label for="place">Place</label>
+                <select id="place" [(ngModel)]="distance" class="form-control" required>
+                    <option *ngFor="let place of places" [value]="place.distance">{{ place.distance }} - {{ place.title }}</option>
+                </select>
+
+                <label for="distance">Distance (override if not at place)</label>
+                <input id="distance" type="number" min="0" class="form-control" required [(ngModel)]="distance" />
+
+                <label for="text">Text</label>
+                <textarea id="text" class="form-control" rows="5" [(ngModel)]="text"></textarea>
+
+                <p *ngIf="imageHtml">{{ imageHtml }}</p>
+
+                <div class="form-buttons">
+                    <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+                    <button class="btn btn-secondary form-button" [disabled]="!text" (click)="onPreview()">Generate text preview</button>
+                </div>
+            </div>
+
+            <ng-container *ngIf="submitted">
+                <div class="alert alert-success" *ngIf="success">Update has been added</div>
+                <div class="alert alert-danger" *ngIf="error">An error occured while adding the update.</div>
+                <button class="btn btn-primary" (click)="reloadComponent()">Add another update</button>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="parsedText" class="card text-preview">
+        <div class="card-body">
+            <h5 class="card-title">Text preview</h5>
+            <div [innerHTML]="parsedText"></div>
+        </div>
+    </div>
+
+    <div class="card blog-photos">
+        <div class="card-body">
+            <h5 class="card-title">Blog photos</h5>
+            <photo-table
+                *ngIf="blogPhotos"
+                [photos]="blogPhotos"
+                [showGenerateImageLinks]="true"
+                (imageHtml)="onGenerateImgHtml($event)"
+            ></photo-table>
+        </div>
+    </div>
+</div>
