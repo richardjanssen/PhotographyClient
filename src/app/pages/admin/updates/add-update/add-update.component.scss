@@ -1,0 +1,19 @@
+@import '../../../../../styles/variables.scss';
+
+.add-update {
+    .update-data {
+        margin-bottom: 1rem;
+
+        .form-buttons {
+            margin-top: 1rem;
+
+            .form-button {
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    .text-preview {
+        margin-bottom: 1rem;
+    }
+}

@@ -34,6 +34,9 @@ import { IconComponent } from './core/components/icon/icon.component';
 import { LocationPointComponent } from './pages/hike/highlights-chain/point-highlight/point-highlight-details/location-point/location-point.component';
 import { LocationsComponent } from './pages/admin/locations/locations.component';
 import { PhotoTableComponent } from './core/components/photo-table/photo-table.component';
+import { UpdatesOverviewComponent } from './pages/admin/updates/updates-overview/updates-overview.component';
+import { AddUpdateComponent } from './pages/admin/updates/add-update/add-update.component';
+import { AdminPageComponent } from './pages/admin/admin-page.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +65,10 @@ import { PhotoTableComponent } from './core/components/photo-table/photo-table.c
         IconComponent,
         LocationPointComponent,
         LocationsComponent,
-        PhotoTableComponent
+        PhotoTableComponent,
+        UpdatesOverviewComponent,
+        AddUpdateComponent,
+        AdminPageComponent
     ],
     imports: [
         BrowserModule,

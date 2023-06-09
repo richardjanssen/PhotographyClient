@@ -16,7 +16,7 @@ export class HikerUpdateService {
     }
 
     getUpdate(id: number): Observable<HikerUpdateDetails> {
-        // return this._http.get<HikerUpdateDetails>(this._getUrl(`Get?id=${id}`));
+        // return this._http.get<HikerUpdateDetails>(this._getUrl(`GetById?id=${id}`));
 
         // This is a temporary function to get some meaningful content from a hiker update.
         return this._http

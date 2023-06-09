@@ -12,4 +12,8 @@ export class ApplicationPaths {
     static readonly albums: string = 'albums';
     static readonly updates: string = 'updates';
     static readonly locations: string = 'locations';
+
+    // Updates
+    static readonly updatesOverview: string = 'overview';
+    static readonly addUpdate: string = 'add';
 }
