@@ -7,8 +7,6 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
     styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-    readonly addPhotosPath: string = ApplicationPaths.addPhoto;
-    readonly photosOverviewPath: string = ApplicationPaths.photosOverview;
     readonly albumsPath: string = ApplicationPaths.albums;
     readonly updatesPath: string = ApplicationPaths.updates;
     readonly locationsPath: string = ApplicationPaths.locations;

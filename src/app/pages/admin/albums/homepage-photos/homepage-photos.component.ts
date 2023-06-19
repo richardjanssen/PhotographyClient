@@ -3,9 +3,9 @@ import { PhotosService } from 'src/app/core/services/photos.service';
 import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
-    templateUrl: './photos-overview.component.html'
+    templateUrl: './homepage-photos.component.html'
 })
-export class PhotosOverviewComponent {
+export class HomepagePhotosComponent {
     photos: Photo[];
 
     constructor(photosService: PhotosService) {

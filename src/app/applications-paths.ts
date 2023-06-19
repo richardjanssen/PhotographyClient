@@ -7,11 +7,15 @@ export class ApplicationPaths {
     static readonly hike: string = 'hike';
 
     // Admin
-    static readonly addPhoto: string = 'add-photo';
-    static readonly photosOverview: string = 'photos-overview';
     static readonly albums: string = 'albums';
     static readonly updates: string = 'updates';
     static readonly locations: string = 'locations';
+
+    // Albums
+    static readonly homepagePhotos: string = 'homepage-photos';
+    static readonly albumsOverview: string = 'overview';
+    static readonly addAlbum: string = 'add';
+    static readonly addPhoto: string = 'add-photo';
 
     // Updates
     static readonly updatesOverview: string = 'overview';
