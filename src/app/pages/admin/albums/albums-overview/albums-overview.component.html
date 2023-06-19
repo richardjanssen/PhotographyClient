@@ -1,0 +1,16 @@
+<div class="card albums">
+    <div class="card-body">
+        <h5 class="card-title">Album content</h5>
+        <div class="form-group form">
+            <label for="album">Select an album</label>
+            <select [(ngModel)]="selectedAlbumId" class="form-control albums_select" id="album" required>
+                <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
+            </select>
+            <div>
+                <button class="btn btn-primary" [disabled]="!selectedAlbumId" (click)="onAlbumSelect()">Select</button>
+            </div>
+        </div>
+
+        <photo-table *ngIf="selectedAlbumDetails" [photos]="selectedAlbumDetails.photos"></photo-table>
+    </div>
+</div>

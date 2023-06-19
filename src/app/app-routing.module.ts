@@ -2,10 +2,10 @@ import { NgModule, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterModule, Routes } from '@angular/router';
 import { ApplicationPaths } from './applications-paths';
 import { AuthorizationGuard } from './core/guards/authorization.guard';
-import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.component';
+import { AddPhotoComponent } from './pages/admin/albums/add-photo/add-photo.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AlbumsComponent } from './pages/admin/albums/albums.component';
-import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
+import { HomepagePhotosComponent } from './pages/admin/albums/homepage-photos/homepage-photos.component';
 import { UpdatesComponent } from './pages/admin/updates/updates.component';
 import { HikeComponent } from './pages/hike/hike.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -15,6 +15,8 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { LocationsComponent } from './pages/admin/locations/locations.component';
 import { UpdatesOverviewComponent } from './pages/admin/updates/updates-overview/updates-overview.component';
 import { AddUpdateComponent } from './pages/admin/updates/add-update/add-update.component';
+import { AlbumsOverviewComponent } from './pages/admin/albums/albums-overview/albums-overview.component';
+import { AddAlbumComponent } from './pages/admin/albums/add-album/add-album.component';
 
 const routes: Routes = [
     { path: ApplicationPaths.photo, component: PhotoComponent },
@@ -26,10 +28,17 @@ const routes: Routes = [
         canActivate: [(route: ActivatedRouteSnapshot): boolean | Promise<boolean> => inject(AuthorizationGuard).canActivate(route)],
         data: { roles: ['PhotographyApi_Admin'] },
         children: [
-            { path: '', redirectTo: ApplicationPaths.addPhoto, pathMatch: 'full' },
-            { path: ApplicationPaths.addPhoto, component: AddPhotosComponent },
-            { path: ApplicationPaths.photosOverview, component: PhotosOverviewComponent },
-            { path: ApplicationPaths.albums, component: AlbumsComponent },
+            {
+                path: ApplicationPaths.albums,
+                component: AlbumsComponent,
+                children: [
+                    { path: '', redirectTo: ApplicationPaths.homepagePhotos, pathMatch: 'full' },
+                    { path: ApplicationPaths.homepagePhotos, component: HomepagePhotosComponent },
+                    { path: ApplicationPaths.albumsOverview, component: AlbumsOverviewComponent },
+                    { path: ApplicationPaths.addAlbum, component: AddAlbumComponent },
+                    { path: ApplicationPaths.addPhoto, component: AddPhotoComponent }
+                ]
+            },
             {
                 path: ApplicationPaths.updates,
                 component: UpdatesComponent,

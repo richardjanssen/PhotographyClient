@@ -4,8 +4,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { PhotosOverviewComponent } from './pages/admin/photos-overview/photos-overview.component';
-import { AddPhotosComponent } from './pages/admin/add-photos/add-photos.component';
+import { HomepagePhotosComponent } from './pages/admin/albums/homepage-photos/homepage-photos.component';
+import { AddPhotoComponent } from './pages/admin/albums/add-photo/add-photo.component';
 import { HomeComponent } from './pages/home/home.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
@@ -37,13 +37,15 @@ import { PhotoTableComponent } from './core/components/photo-table/photo-table.c
 import { UpdatesOverviewComponent } from './pages/admin/updates/updates-overview/updates-overview.component';
 import { AddUpdateComponent } from './pages/admin/updates/add-update/add-update.component';
 import { AdminPageComponent } from './pages/admin/admin-page.component';
+import { AlbumsOverviewComponent } from './pages/admin/albums/albums-overview/albums-overview.component';
+import { AddAlbumComponent } from './pages/admin/albums/add-album/add-album.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AdminComponent,
-        PhotosOverviewComponent,
-        AddPhotosComponent,
+        HomepagePhotosComponent,
+        AddPhotoComponent,
         HomeComponent,
         UnauthorizedComponent,
         LoginComponent,
@@ -68,7 +70,9 @@ import { AdminPageComponent } from './pages/admin/admin-page.component';
         PhotoTableComponent,
         UpdatesOverviewComponent,
         AddUpdateComponent,
-        AdminPageComponent
+        AdminPageComponent,
+        AlbumsOverviewComponent,
+        AddAlbumComponent
     ],
     imports: [
         BrowserModule,

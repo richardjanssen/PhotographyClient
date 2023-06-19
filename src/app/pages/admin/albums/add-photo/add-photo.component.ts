@@ -8,10 +8,10 @@ import { Album } from 'src/app/core/types/album.type';
 import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
-    templateUrl: './add-photos.component.html',
-    styleUrls: ['./add-photos.component.scss']
+    templateUrl: './add-photo.component.html',
+    styleUrls: ['./add-photo.component.scss']
 })
-export class AddPhotosComponent {
+export class AddPhotoComponent {
     progress: number;
     message: string;
     fileSelected: boolean = false;
