@@ -39,6 +39,8 @@ import { AddUpdateComponent } from './pages/admin/updates/add-update/add-update.
 import { AdminPageComponent } from './pages/admin/admin-page.component';
 import { AlbumsOverviewComponent } from './pages/admin/albums/albums-overview/albums-overview.component';
 import { AddAlbumComponent } from './pages/admin/albums/add-album/add-album.component';
+import { LocationsOverviewComponent } from './pages/admin/locations/locations-overview/locations-overview.component';
+import { AddLocationComponent } from './pages/admin/locations/add-location/add-location.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +74,9 @@ import { AddAlbumComponent } from './pages/admin/albums/add-album/add-album.comp
         AddUpdateComponent,
         AdminPageComponent,
         AlbumsOverviewComponent,
-        AddAlbumComponent
+        AddAlbumComponent,
+        LocationsOverviewComponent,
+        AddLocationComponent
     ],
     imports: [
         BrowserModule,

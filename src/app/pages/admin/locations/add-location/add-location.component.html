@@ -1,0 +1,21 @@
+<div class="card add-location">
+    <div class="card-body">
+        <h5 class="card-title">Manually check-in at place</h5>
+        <div class="form-group" *ngIf="!submitted">
+            <label for="place">Place</label>
+            <select id="place" [(ngModel)]="distance" class="form-control" required>
+                <option *ngFor="let place of places" [value]="place.distance">{{ place.distance }} - {{ place.title }}</option>
+            </select>
+
+            <div class="form-buttons">
+                <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="submitted">
+            <div class="alert alert-success" *ngIf="success">Update has been added</div>
+            <div class="alert alert-danger" *ngIf="error">An error occured while adding the location.</div>
+            <button class="btn btn-primary" (click)="reloadComponent()">Add another update</button>
+        </ng-container>
+    </div>
+</div>

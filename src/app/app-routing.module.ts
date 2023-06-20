@@ -17,6 +17,8 @@ import { UpdatesOverviewComponent } from './pages/admin/updates/updates-overview
 import { AddUpdateComponent } from './pages/admin/updates/add-update/add-update.component';
 import { AlbumsOverviewComponent } from './pages/admin/albums/albums-overview/albums-overview.component';
 import { AddAlbumComponent } from './pages/admin/albums/add-album/add-album.component';
+import { LocationsOverviewComponent } from './pages/admin/locations/locations-overview/locations-overview.component';
+import { AddLocationComponent } from './pages/admin/locations/add-location/add-location.component';
 
 const routes: Routes = [
     { path: ApplicationPaths.photo, component: PhotoComponent },
@@ -28,6 +30,11 @@ const routes: Routes = [
         canActivate: [(route: ActivatedRouteSnapshot): boolean | Promise<boolean> => inject(AuthorizationGuard).canActivate(route)],
         data: { roles: ['PhotographyApi_Admin'] },
         children: [
+            {
+                path: '',
+                redirectTo: ApplicationPaths.albums,
+                pathMatch: 'full'
+            },
             {
                 path: ApplicationPaths.albums,
                 component: AlbumsComponent,
@@ -48,7 +55,15 @@ const routes: Routes = [
                     { path: ApplicationPaths.addUpdate, component: AddUpdateComponent }
                 ]
             },
-            { path: ApplicationPaths.locations, component: LocationsComponent }
+            {
+                path: ApplicationPaths.locations,
+                component: LocationsComponent,
+                children: [
+                    { path: '', redirectTo: ApplicationPaths.locationsOverview, pathMatch: 'full' },
+                    { path: ApplicationPaths.locationsOverview, component: LocationsOverviewComponent },
+                    { path: ApplicationPaths.addLocation, component: AddLocationComponent }
+                ]
+            }
         ]
     },
     { path: ApplicationPaths.unauthorized, component: UnauthorizedComponent },
