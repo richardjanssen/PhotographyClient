@@ -20,4 +20,8 @@ export class ApplicationPaths {
     // Updates
     static readonly updatesOverview: string = 'overview';
     static readonly addUpdate: string = 'add';
+
+    // Updates
+    static readonly locationsOverview: string = 'overview';
+    static readonly addLocation: string = 'add';
 }
