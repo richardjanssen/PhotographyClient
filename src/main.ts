@@ -5,10 +5,12 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { HttpHeaderInterceptor } from './app/core/interceptors/http-header.interceptor';
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { APP_ROUTES } from './app/app.routes';
+import { AuthorizationGuard } from './app/core/guards/authorization.guard';
 
 if (environment.production) {
     enableProdMode();
@@ -18,7 +20,6 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(
             BrowserModule,
-            AppRoutingModule,
             FormsModule,
             ReactiveFormsModule,
             JwtModule.forRoot({
@@ -33,6 +34,8 @@ bootstrapApplication(AppComponent, {
             useClass: HttpHeaderInterceptor,
             multi: true
         },
+        AuthorizationGuard,
+        provideRouter(APP_ROUTES),
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations()
     ]

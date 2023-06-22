@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ApplicationPaths } from 'src/app/applications-paths';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BaseLayoutComponent } from '../../core/components/base-layout/base-layout.component';
 import { HeaderComponent } from '../home/header/header.component';
+import { AdminPaths } from './admin.routes';
 
 @Component({
     templateUrl: './admin.component.html',
@@ -12,9 +12,9 @@ import { HeaderComponent } from '../home/header/header.component';
     imports: [HeaderComponent, BaseLayoutComponent, RouterLink, RouterOutlet]
 })
 export class AdminComponent {
-    readonly albumsPath: string = ApplicationPaths.albums;
-    readonly updatesPath: string = ApplicationPaths.updates;
-    readonly locationsPath: string = ApplicationPaths.locations;
+    readonly albumsPath: string = AdminPaths.albums;
+    readonly updatesPath: string = AdminPaths.updates;
+    readonly locationsPath: string = AdminPaths.locations;
 
     constructor(private readonly _authenticationService: AuthenticationService) {}
 

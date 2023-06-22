@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApplicationPaths } from 'src/app/applications-paths';
 import { AdminPageComponent } from '../admin-page.component';
+import { AlbumsPaths } from './albums.routes';
 
 @Component({
     selector: 'app-albums',
@@ -10,9 +10,9 @@ import { AdminPageComponent } from '../admin-page.component';
 })
 export class AlbumsComponent {
     readonly children: { route: string; title: string }[] = [
-        { route: ApplicationPaths.homepagePhotos, title: 'Homepage' },
-        { route: ApplicationPaths.albumsOverview, title: 'Overview' },
-        { route: ApplicationPaths.addAlbum, title: 'Add album' },
-        { route: ApplicationPaths.addPhoto, title: 'Add photo' }
+        { route: AlbumsPaths.homepage, title: 'Homepage' },
+        { route: AlbumsPaths.overview, title: 'Overview' },
+        { route: AlbumsPaths.add, title: 'Add album' },
+        { route: AlbumsPaths.uploadPhoto, title: 'Add photo' }
     ];
 }
