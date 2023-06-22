@@ -3,11 +3,15 @@ import { LocationService } from 'src/app/core/services/location.service';
 import { PlaceService } from 'src/app/core/services/place.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { Place } from 'src/app/core/types/place.type';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
     selector: 'add-location',
     templateUrl: './add-location.component.html',
-    styleUrls: ['./add-location.component.scss']
+    styleUrls: ['./add-location.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor]
 })
 export class AddLocationComponent {
     submitted: boolean = false;

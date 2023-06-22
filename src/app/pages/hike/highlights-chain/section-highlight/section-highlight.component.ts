@@ -1,11 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StyleService } from 'src/app/core/services/style.service';
 import { AlignmentType, HighlightExpansion, SectionHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlightComponent } from '../point-highlight/point-highlight.component';
+import { IconComponent } from '../../../../core/components/icon/icon.component';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
     selector: 'section-highlight',
     templateUrl: './section-highlight.component.html',
-    styleUrls: ['./section-highlight.component.scss']
+    styleUrls: ['./section-highlight.component.scss'],
+    standalone: true,
+    imports: [NgClass, IconComponent, NgFor, PointHighlightComponent]
 })
 export class SectionHighlightComponent implements OnInit {
     @Input() highlight: SectionHighlight;

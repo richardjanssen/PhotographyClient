@@ -2,11 +2,16 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@an
 import { Constants } from 'src/app/core/constants';
 import { StyleService } from 'src/app/core/services/style.service';
 import { HighlightExpansion, PointHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlightDetailsComponent } from './point-highlight-details/point-highlight-details.component';
+import { PointHighlightSummaryComponent } from './point-highlight-summary/point-highlight-summary.component';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'point-highlight',
     templateUrl: './point-highlight.component.html',
-    styleUrls: ['./point-highlight.component.scss']
+    styleUrls: ['./point-highlight.component.scss'],
+    standalone: true,
+    imports: [NgClass, NgIf, PointHighlightSummaryComponent, PointHighlightDetailsComponent]
 })
 export class PointHighlightComponent implements OnInit {
     @Input() highlight: PointHighlight;

@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { ApplicationPaths } from 'src/app/applications-paths';
+import { AdminPageComponent } from '../admin-page.component';
+import { UpdatesPaths } from './updates.routes';
 
 @Component({
     selector: 'app-updates',
-    templateUrl: './updates.component.html'
+    templateUrl: './updates.component.html',
+    standalone: true,
+    imports: [AdminPageComponent]
 })
 export class UpdatesComponent {
     readonly children: { route: string; title: string }[] = [
-        { route: ApplicationPaths.updatesOverview, title: 'Overview' },
-        { route: ApplicationPaths.addUpdate, title: 'Add update' }
+        { route: UpdatesPaths.overview, title: 'Overview' },
+        { route: UpdatesPaths.add, title: 'Add update' }
     ];
 }

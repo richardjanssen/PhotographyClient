@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { EnvironmentService } from 'src/app/core/services/environment.service';
 import { PhotosService } from 'src/app/core/services/photos.service';
@@ -7,15 +7,19 @@ import { Grid } from 'src/app/core/types/grid.type';
 import { GridItem } from 'src/app/core/types/grid-item.type';
 import { Photo } from 'src/app/core/types/photo.type';
 import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
-import { ApplicationPaths } from 'src/app/applications-paths';
+import { RouterLink } from '@angular/router';
+import { NgFor } from '@angular/common';
+import { AppPaths } from 'src/app/app.routes';
 
 @Component({
     selector: 'app-photo-grid',
     templateUrl: './photo-grid.component.html',
-    styleUrls: ['./photo-grid.component.scss']
+    styleUrls: ['./photo-grid.component.scss'],
+    standalone: true,
+    imports: [NgFor, RouterLink]
 })
 export class PhotoGridComponent implements AfterViewInit {
-    readonly photoPath: string = ApplicationPaths.photo;
+    readonly photoPath: string = AppPaths.photo;
     @ViewChild('gridContainer') container: ElementRef;
     private imageInfo: GridImageInfo[];
     private readonly gutter: number = 5;

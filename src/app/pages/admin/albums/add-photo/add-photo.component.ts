@@ -6,10 +6,14 @@ import { PhotosService } from 'src/app/core/services/photos.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { Album } from 'src/app/core/types/album.type';
 import { Photo } from 'src/app/core/types/photo.type';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, PercentPipe } from '@angular/common';
 
 @Component({
     templateUrl: './add-photo.component.html',
-    styleUrls: ['./add-photo.component.scss']
+    styleUrls: ['./add-photo.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, PercentPipe]
 })
 export class AddPhotoComponent {
     progress: number;
