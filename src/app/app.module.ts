@@ -43,8 +43,20 @@ import { LocationsOverviewComponent } from './pages/admin/locations/locations-ov
 import { AddLocationComponent } from './pages/admin/locations/add-location/add-location.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem(environment.tokenName)
+            }
+        }),
+        BrowserAnimationsModule,
+        CarouselModule,
         AdminComponent,
         HomepagePhotosComponent,
         AddPhotoComponent,
@@ -77,20 +89,6 @@ import { AddLocationComponent } from './pages/admin/locations/add-location/add-l
         AddAlbumComponent,
         LocationsOverviewComponent,
         AddLocationComponent
-    ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: () => localStorage.getItem(environment.tokenName)
-            }
-        }),
-        BrowserAnimationsModule,
-        CarouselModule
     ],
     providers: [
         {

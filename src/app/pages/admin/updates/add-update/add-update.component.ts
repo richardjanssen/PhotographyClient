@@ -9,11 +9,16 @@ import { Album } from 'src/app/core/types/album.type';
 import { HighlightContentType } from 'src/app/core/types/highlight.type';
 import { Photo } from 'src/app/core/types/photo.type';
 import { Place } from 'src/app/core/types/place.type';
+import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
     selector: 'add-update',
     templateUrl: './add-update.component.html',
-    styleUrls: ['./add-update.component.scss']
+    styleUrls: ['./add-update.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, PhotoTableComponent]
 })
 export class AddUpdateComponent {
     albums: Album[];

@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Photo } from '../../types/photo.type';
 import { EnvironmentService } from '../../services/environment.service';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'photo-table',
     templateUrl: './photo-table.component.html',
-    styleUrls: ['./photo-table.component.scss']
+    styleUrls: ['./photo-table.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, DatePipe]
 })
 export class PhotoTableComponent implements OnInit {
     @Input() photos: Photo[];

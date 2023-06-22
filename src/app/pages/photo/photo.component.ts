@@ -6,7 +6,8 @@ import { Photo } from 'src/app/core/types/photo.type';
 
 @Component({
     templateUrl: './photo.component.html',
-    styleUrls: ['./photo.component.scss']
+    styleUrls: ['./photo.component.scss'],
+    standalone: true
 })
 export class PhotoComponent {
     photos: Photo[];

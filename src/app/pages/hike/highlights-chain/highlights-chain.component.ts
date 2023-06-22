@@ -1,12 +1,17 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, NgIf, NgFor, NgSwitch, NgSwitchCase, NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { AlignmentType, Highlight, HighlightType } from 'src/app/core/types/highlight.type';
+import { SectionHighlightComponent } from './section-highlight/section-highlight.component';
+import { PointHighlightComponent } from './point-highlight/point-highlight.component';
+import { IconComponent } from '../../../core/components/icon/icon.component';
 
 @Component({
     selector: 'highlights-chain',
     templateUrl: './highlights-chain.component.html',
-    styleUrls: ['./highlights-chain.component.scss']
+    styleUrls: ['./highlights-chain.component.scss'],
+    standalone: true,
+    imports: [NgIf, IconComponent, NgFor, NgSwitch, NgSwitchCase, PointHighlightComponent, NgClass, SectionHighlightComponent]
 })
 export class HighlightsChainComponent implements AfterViewInit, OnInit {
     @ViewChild('highlightsChain') highlightsChain: ElementRef;

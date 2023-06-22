@@ -3,11 +3,15 @@ import { marked } from 'marked';
 import { HikerUpdateService } from 'src/app/core/services/hiker-update.service';
 import { AlbumDetails } from 'src/app/core/types/album.type';
 import { HighlightContentType } from 'src/app/core/types/highlight.type';
+import { PhotoGridComponent } from '../../../../../home/photo-grid/photo-grid.component';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'photos-highlight',
     templateUrl: './photos-highlight.component.html',
-    styleUrls: ['./photos-highlight.component.scss']
+    styleUrls: ['./photos-highlight.component.scss'],
+    standalone: true,
+    imports: [NgIf, PhotoGridComponent]
 })
 export class PhotosHighlightComponent implements OnInit {
     @Input() hikerUpdateId: number | null;
