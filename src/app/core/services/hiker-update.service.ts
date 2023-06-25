@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
-import { HikerUpdate, HikerUpdateDetails } from '../types/hiker-update.type';
+import { HikerUpdate, HikerUpdateBasic, HikerUpdateDetails } from '../types/hiker-update.type';
 import { Photo } from '../types/photo.type';
 
 @Injectable({
@@ -22,6 +22,14 @@ export class HikerUpdateService {
         return this._http
             .get<Photo[]>(this._getPhotosUrl('Get'))
             .pipe(map(photos => ({ text: 'Dit is een stukje tekst bij een fotoalbum of een blog', album: { photos } })));
+    }
+
+    getAll(): Observable<HikerUpdateBasic[]> {
+        return this._http.get<HikerUpdateBasic[]>(this._getUrl('GetAll'));
+    }
+
+    delete(id: number): Observable<null> {
+        return this._http.delete<null>(this._getUrl('Delete'), { params: new HttpParams().set('id', id) });
     }
 
     private _getUrl(method: string): string {

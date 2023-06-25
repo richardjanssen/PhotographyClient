@@ -21,8 +21,8 @@ export class LocationsOverviewComponent {
     locationToDelete: UserLocation;
     showDeleteConfirmation: boolean;
 
-    constructor(private readonly locationService: LocationService, private readonly _windowService: WindowService) {
-        this.locationService.getAll().subscribe({
+    constructor(private readonly _locationService: LocationService, private readonly _windowService: WindowService) {
+        this._locationService.getAll().subscribe({
             next: locations => (this.locations = locations),
             error: () => (this.error = true)
         });
@@ -35,7 +35,7 @@ export class LocationsOverviewComponent {
     }
 
     confirmDelete(): void {
-        this.locationService.delete(this.locationToDelete.id).subscribe({
+        this._locationService.delete(this.locationToDelete.id).subscribe({
             next: () => this.reloadComponent(),
             error: () => (this.deleteError = true)
         });
