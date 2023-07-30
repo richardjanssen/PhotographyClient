@@ -5,19 +5,44 @@
     width: 100%;
     padding: $padding;
     background-color: $light;
+    transition: background-color $transitionTimeFast ease-in-out;
     border-color: $borderColor;
 
-    .expansion-icon {
-        position: absolute;
-        right: $marginSm;
-        bottom: $marginSm;
-        transition: transform $transitionTimeFast ease-in-out;
-        fill: $primary-700;
+    .expansion {
+        // Positioning
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -8px;
+
+        // Sizing
+        width: fit-content;
+        height: 20px;
+        padding-left: $paddingSm;
+        padding-right: $paddingSm;
+
+        // Style
+        background-color: $secondary-500;
+        border: 1px solid $secondary-600;
+        border-radius: $borderRadius;
+        transition: background-color $transitionTimeFast ease-in-out;
+
+        .expansion-icon {
+            padding-left: 3px;
+            margin-bottom: 2px;
+        }
+
+        .expansion-text {
+            font-size: 0.7rem;
+            color: $light;
+        }
     }
 
     &:hover {
-        .expansion-icon {
-            transform: scale(1.2);
+        .expansion {
+            background-color: $secondary-600;
+            border: 1px solid $secondary-700;
         }
     }
 
@@ -26,12 +51,6 @@
 
         &:hover {
             background-color: darken($light, 3%);
-        }
-    }
-
-    &.expandable.expanded {
-        &:hover {
-            background-color: $light !important;
         }
     }
 }

@@ -10,6 +10,7 @@ import { NgIf, NgClass } from '@angular/common';
 })
 export class BootstrapIconComponent implements OnInit {
     @Input() name: string;
+    @Input() light: boolean;
     path: string;
 
     ngOnInit(): void {
