@@ -1,7 +1,6 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Constants } from 'src/app/core/constants';
-import { StyleService } from 'src/app/core/services/style.service';
-import { HighlightExpansion, PointHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlight } from 'src/app/core/types/highlight.type';
 import { PointHighlightDetailsComponent } from './point-highlight-details/point-highlight-details.component';
 import { PointHighlightSummaryComponent } from './point-highlight-summary/point-highlight-summary.component';
 import { NgClass, NgIf } from '@angular/common';
@@ -20,12 +19,9 @@ export class PointHighlightComponent implements OnInit {
     @HostBinding('class.expanded') expanded: boolean = false;
     @HostBinding('class.resizing') resizing: boolean = false;
     expandable: boolean;
-    @Output() expansion: EventEmitter<HighlightExpansion> = new EventEmitter();
-
-    constructor(private readonly _styleService: StyleService) {}
 
     ngOnInit(): void {
-        this.expandable = this.highlight.points.some(point => Constants.expandableHighlightTypes.includes(point.placeType));
+        this.expandable = Constants.expandableHighlightTypes.includes(this.highlight.placeType);
     }
 
     toggleExpansion(): void {
@@ -35,13 +31,5 @@ export class PointHighlightComponent implements OnInit {
 
         this.resizing = !this.resizing;
         this.expanded = !this.expanded;
-
-        if (this.sectionIndex) {
-            this.expansion.emit({ pointIndex: this.highlight.highlightIndex, isExpanded: this.expanded });
-        }
-
-        setTimeout(() => {
-            this.resizing = !this.resizing;
-        }, this._styleService.transitionTimeMs);
     }
 }

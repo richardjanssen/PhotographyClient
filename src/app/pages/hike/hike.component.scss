@@ -12,7 +12,9 @@
     .highlights-chain {
         display: block;
         width: 100%;
+        padding-left: $paddingSm;
+        padding-right: $paddingSm;
         padding-bottom: $padding;
-        margin-top: -0.5 * $startWidth;
+        margin-top: $marginLg;
     }
 }

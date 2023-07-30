@@ -1,20 +1,47 @@
 @import '../../../../../../styles/variables.scss';
 
-:host ::ng-deep {
-    .carousel-control {
-        display: none;
-    }
-}
-
 .point-highlight-summary {
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
-    .carousel {
-        width: 100%;
+    .icon {
+        min-width: 64px;
+        min-height: 64px;
+        width: 64px;
+        height: 64px;
+        padding: $paddingSm;
+    }
+
+    .metadata {
+        padding: $paddingSm;
+
+        .attributes {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 0.7rem;
+
+            .attribute {
+                display: flex;
+                display: flex;
+                align-items: center;
+
+                margin-right: $marginLg;
+
+                @media screen and (max-width: #{$maxWidthSm}) {
+                    margin-right: $margin;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                .bs-icon {
+                    display: inline-block;
+                    padding: 2px;
+                }
+            }
+        }
     }
 
     .title-icon {
@@ -32,10 +59,6 @@
             max-width: $cardWidth - 2 * $padding;
             transition: opacity $transitionTime ease-in-out;
             overflow-y: hidden;
-
-            &.fixed-height {
-                height: 2.3rem;
-            }
         }
 
         .icon-container {

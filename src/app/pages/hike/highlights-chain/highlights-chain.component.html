@@ -1,22 +1,6 @@
 <p *ngIf="!highlights">Loading...</p>
 
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
-    <div class="highlights-chain_start">
-        <svg class="highlights-chain_start-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-            <circle id="XMLID_1_" cx="64" cy="64" r="62" />
-        </svg>
-        <div class="highlights-chain_start-content">
-            <h5 class="highlights-chain_start-content--title">START</h5>
-            <p class="highlights-chain_start-content--subtitle">Bla die bla</p>
-        </div>
-
-        <div class="highlights-chain_start-location" (click)="scrollToCurrentLocation()">
-            <svg class="highlights-chain_start-location-background" viewBox="0 0 32 32">
-                <circle class="light" id="XMLID_1_" cx="16" cy="16" r="15" />
-            </svg>
-            <icon name="current-location" class="highlights-chain_start-location-icon"></icon>
-        </div>
-    </div>
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">
             <point-highlight
@@ -35,14 +19,5 @@
                 [alignment]="highlightAlignments[i]"
             ></section-highlight>
         </ng-container>
-        <div
-            class="connector"
-            [ngClass]="{
-                left: highlightAlignments[i] === alignmentType.left,
-                right: highlightAlignments[i] === alignmentType.right,
-                'left-incoming': highlightAlignments[i] === alignmentType.leftIncoming,
-                'right-incoming': highlightAlignments[i] === alignmentType.rightIncoming
-            }"
-        ></div>
     </div>
 </div>

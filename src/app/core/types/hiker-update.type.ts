@@ -9,6 +9,13 @@ export interface HikerUpdate {
     albumId: number | null;
 }
 
+export interface HikerUpdateBasic {
+    id: number;
+    title: string;
+    type: HighlightContentType;
+    distance: number;
+}
+
 export interface HikerUpdateDetails {
     text: string | null;
     album: AlbumDetails | null;

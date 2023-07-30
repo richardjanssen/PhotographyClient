@@ -1,0 +1,14 @@
+@import '../../../../../styles/mixins/table.scss';
+@import '../../../../../styles/variables.scss';
+
+.updates-overview {
+    @include table();
+
+    .confirm {
+        margin-right: $margin;
+    }
+
+    .delete-error {
+        margin-top: $margin;
+    }
+}

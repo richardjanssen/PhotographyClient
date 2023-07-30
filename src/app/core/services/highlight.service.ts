@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { Highlight, HighlightContentType, HighlightType } from '../types/highlight.type';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
 import { HttpClient } from '@angular/common/http';
-import { Photo } from '../types/photo.type';
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +13,12 @@ export class HightlightService {
             type: HighlightType.place,
             sectionHighlight: null,
             pointHighlight: {
-                highlightIndex: 0,
-                distance: 2.5,
-                currentLocation: false,
-                points: [
-                    {
-                        id: 1,
-                        placeType: HighlightContentType.town,
-                        title: 'A beautiful place'
-                    }
-                ]
+                id: 1,
+                date: new Date(2023, 7, 24, 12, 10),
+                distance: 123,
+                isManual: false,
+                title: 'A beautiful place',
+                placeType: HighlightContentType.town
             }
         },
         {
@@ -33,57 +28,28 @@ export class HightlightService {
                 title: 'A beautiful section',
                 children: [
                     {
-                        highlightIndex: 0,
-                        distance: 12.3,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 1,
-                                placeType: HighlightContentType.photo,
-                                title: 'An update with a long name so more lines'
-                            }
-                        ]
+                        id: 1,
+                        date: new Date(2023, 7, 23, 14, 15),
+                        distance: 98,
+                        isManual: true,
+                        title: 'An update with a long name so more lines',
+                        placeType: HighlightContentType.photo
                     },
                     {
-                        highlightIndex: 1,
-                        distance: 14.8,
-                        currentLocation: true,
-                        points: [
-                            {
-                                id: 2,
-                                placeType: HighlightContentType.town,
-                                title: 'A beautiful town'
-                            },
-                            {
-                                id: null,
-                                placeType: HighlightContentType.location,
-                                title: 'Current location'
-                            }
-                        ]
+                        id: 1,
+                        date: new Date(2023, 7, 22, 12, 10),
+                        distance: 87,
+                        isManual: false,
+                        title: 'A beautiful town',
+                        placeType: HighlightContentType.town
                     },
                     {
-                        highlightIndex: 2,
-                        distance: 30,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 4,
-                                placeType: HighlightContentType.photo,
-                                title: 'Mooi hier'
-                            }
-                        ]
-                    },
-                    {
-                        highlightIndex: 3,
-                        distance: 43,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 2,
-                                placeType: HighlightContentType.blog,
-                                title: 'Een goed verhaal'
-                            }
-                        ]
+                        id: 4,
+                        date: new Date(2023, 7, 22, 10, 15),
+                        distance: 70,
+                        isManual: true,
+                        title: 'Mooi hier',
+                        placeType: HighlightContentType.photo
                     }
                 ]
             },
@@ -93,21 +59,12 @@ export class HightlightService {
             type: HighlightType.place,
             sectionHighlight: null,
             pointHighlight: {
-                highlightIndex: 2,
-                distance: 100,
-                currentLocation: false,
-                points: [
-                    {
-                        id: 3,
-                        placeType: HighlightContentType.blog,
-                        title: 'Een update van mij'
-                    },
-                    {
-                        id: 5,
-                        placeType: HighlightContentType.photo,
-                        title: 'Een berichtje op 100 km'
-                    }
-                ]
+                id: 3,
+                date: new Date(2023, 7, 20, 14, 15),
+                distance: 45,
+                isManual: true,
+                title: 'Een update van mij',
+                placeType: HighlightContentType.blog
             }
         },
         {
@@ -117,45 +74,20 @@ export class HightlightService {
                 title: 'A second section',
                 children: [
                     {
-                        highlightIndex: 0,
-                        distance: 143,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 1,
-                                placeType: HighlightContentType.photo,
-                                title: 'An update'
-                            }
-                        ]
+                        id: 1,
+                        date: new Date(2023, 7, 19, 14, 15),
+                        distance: 40,
+                        isManual: true,
+                        title: 'Een update met heule mooie fotootjes',
+                        placeType: HighlightContentType.photo
                     },
                     {
-                        highlightIndex: 1,
-                        distance: 150.3,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 2,
-                                placeType: HighlightContentType.town,
-                                title: 'A beautiful place in a section put with a very long title so what do we do now?'
-                            },
-                            {
-                                id: null,
-                                placeType: HighlightContentType.location,
-                                title: 'Current location'
-                            }
-                        ]
-                    },
-                    {
-                        highlightIndex: 2,
-                        distance: 176.5,
-                        currentLocation: false,
-                        points: [
-                            {
-                                id: 4,
-                                placeType: HighlightContentType.photo,
-                                title: 'Mooi hier'
-                            }
-                        ]
+                        id: 2,
+                        date: new Date(2023, 7, 17, 12, 10),
+                        distance: 22,
+                        isManual: false,
+                        title: 'A beautiful town',
+                        placeType: HighlightContentType.town
                     }
                 ]
             },
@@ -165,16 +97,12 @@ export class HightlightService {
             type: HighlightType.place,
             sectionHighlight: null,
             pointHighlight: {
-                highlightIndex: 2,
-                distance: 201,
-                currentLocation: false,
-                points: [
-                    {
-                        id: 3,
-                        placeType: HighlightContentType.blog,
-                        title: 'Een update van mij'
-                    }
-                ]
+                id: 3,
+                date: new Date(2023, 7, 16, 14, 15),
+                distance: 12,
+                isManual: true,
+                title: 'Een update van mij',
+                placeType: HighlightContentType.blog
             }
         }
     ];

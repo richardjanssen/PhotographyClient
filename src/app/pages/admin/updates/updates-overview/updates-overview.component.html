@@ -1,1 +1,42 @@
-<p>updates-overview works!</p>
+<div class="updates-overview">
+    <div class="alert alert-warning" *ngIf="showDeleteConfirmation">
+        <p>You are about to delete the following update:</p>
+        <ul>
+            <li><b>Id:</b> {{ updateToDelete.id }}</li>
+            <li><b>Title:</b> {{ updateToDelete.title }}</li>
+            <li><b>Distance:</b> {{ updateToDelete.distance }}</li>
+            <li><b>Type:</b> {{ updateToDelete.type | titlecase }}</li>
+        </ul>
+
+        <p>Are you sure? This action cannot be undone.</p>
+        <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
+        <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+
+        <div class="alert alert-danger delete-error" *ngIf="deleteError">An error occurred while deleting the update.</div>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="error; else updatesTable">An error occurred while loading the update overview.</div>
+    <ng-template #updatesTable>
+        <p *ngIf="updates.length === 0">No updates were found.</p>
+        <table *ngIf="updates.length > 0" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Distance</th>
+                    <th scope="col">Type</th>
+                    <th scope="col"><bs-icon name="trash"></bs-icon></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let update of updates">
+                    <td>{{ update.id }}</td>
+                    <td>{{ update.title }}</td>
+                    <td>{{ update.distance }}</td>
+                    <td>{{ update.type | titlecase }}</td>
+                    <th><bs-icon name="trash" (click)="onDelete(update)"></bs-icon></th>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+</div>
