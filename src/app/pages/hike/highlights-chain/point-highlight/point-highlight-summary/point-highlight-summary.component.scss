@@ -6,23 +6,40 @@
     align-items: center;
 
     .icon {
-        min-width: 64px;
-        min-height: 64px;
-        width: 64px;
-        height: 64px;
+        min-width: 80px;
+        min-height: 80px;
+        width: 80px;
+        height: 80px;
         padding: $paddingSm;
+
+        @media screen and (max-width: #{$maxWidthSm}) {
+            min-width: 64px;
+            min-height: 64px;
+            width: 64px;
+            height: 64px;
+        }
     }
 
     .metadata {
         padding: $paddingSm;
 
+        .title {
+            font-size: 1.4rem;
+            @media screen and (max-width: #{$maxWidthSm}) {
+                font-size: 1.1rem;
+            }
+        }
+
         .attributes {
             display: flex;
             flex-wrap: wrap;
-            font-size: 0.7rem;
+
+            font-size: 0.8rem;
+            @media screen and (max-width: #{$maxWidthSm}) {
+                font-size: 0.7rem;
+            }
 
             .attribute {
-                display: flex;
                 display: flex;
                 align-items: center;
 
@@ -42,37 +59,5 @@
                 }
             }
         }
-    }
-
-    .title-icon {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-
-        .title {
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-align: center;
-            margin-bottom: 0;
-            max-width: $cardWidth - 2 * $padding;
-            transition: opacity $transitionTime ease-in-out;
-            overflow-y: hidden;
-        }
-
-        .icon-container {
-            max-width: 64px;
-            max-height: 64px;
-            padding: 5px;
-            transition: opacity $transitionTime ease-in-out;
-            opacity: 1;
-        }
-    }
-
-    .distance {
-        font-size: 0.7rem;
-        transition: opacity $transitionTime ease-in-out;
-        opacity: 1;
     }
 }

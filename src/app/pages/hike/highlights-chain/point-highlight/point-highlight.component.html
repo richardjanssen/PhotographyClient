@@ -1,9 +1,10 @@
 <div class="card highlight" [ngClass]="{ expandable, expanded, 'in-section': inSection }" (click)="toggleExpansion()">
     <point-highlight-summary class="summary" [highlight]="highlight" [expandable]="expandable"></point-highlight-summary>
 
-    <svg *ngIf="expandable && !expanded" class="expansion-icon" width="16" height="16">
-        <use xlink:href="../../../../../assets/icons/bootstrap/arrows-angle-expand.svg#arrows-angle-expand" />
-    </svg>
+    <div class="expansion" *ngIf="expandable && !expanded">
+        <span class="expansion-text">Bekijk meer</span>
+        <bs-icon class="expansion-icon" name="chevron-compact-down" [light]="true"></bs-icon>
+    </div>
 
     <point-highlight-details *ngIf="expanded" [highlight]="highlight"></point-highlight-details>
 </div>
