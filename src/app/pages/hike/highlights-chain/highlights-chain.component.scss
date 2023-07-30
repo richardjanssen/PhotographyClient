@@ -10,83 +10,6 @@ $locationIconOffset: -75px;
     margin-left: auto;
     margin-right: auto;
 
-    &_start {
-        position: relative;
-        width: $startWidth;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 4 * $margin;
-
-        &-circle {
-            fill: $light;
-            stroke: $borderColor;
-        }
-
-        &-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin-left: auto;
-            margin-right: auto;
-
-            height: 100%;
-
-            &--title,
-            &--subtitle {
-                margin-bottom: 0;
-                text-align: center;
-            }
-
-            &--title {
-                font-size: 1rem;
-                font-weight: bold;
-                color: $secondary-600;
-            }
-
-            &--subtitle {
-                font-size: 0.8rem;
-                font-style: italic;
-            }
-        }
-
-        &-location {
-            position: absolute;
-            width: $navigationCircleSize;
-            height: $navigationCircleSize;
-            left: $locationIconOffset;
-            top: calc(50% - 0.5 * $navigationCircleSize);
-            transition: transform $transitionTimeFast ease-in-out;
-
-            &-background {
-                fill: $light;
-                stroke: $borderColor;
-            }
-
-            &-icon {
-                position: absolute;
-                width: $navigationCircleSize - 2 * $navigationPadding;
-                height: $navigationCircleSize - 2 * $navigationPadding;
-                top: $navigationPadding;
-                left: $navigationPadding;
-                fill: $secondary-500;
-            }
-
-            &:hover {
-                transform: scale(1.1);
-                cursor: pointer;
-
-                .highlights-chain_start-location-background {
-                    fill: darken($light, 3%);
-                }
-            }
-        }
-    }
-
     &_container {
         position: relative;
         width: 100%;
@@ -96,7 +19,6 @@ $locationIconOffset: -75px;
 
         .section-highlight {
             height: 100%;
-            min-height: 125px;
             width: 100%;
         }
 

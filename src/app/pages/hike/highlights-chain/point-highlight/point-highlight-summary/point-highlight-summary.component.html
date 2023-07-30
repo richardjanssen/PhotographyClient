@@ -1,37 +1,31 @@
 <div class="point-highlight-summary">
-    <ng-container *ngIf="highlight.points.length === 1">
-        <ng-container *ngTemplateOutlet="pointTitleAndIconTemplate; context: { point: highlight.points[0] }"></ng-container>
-    </ng-container>
-
-    <carousel
-        *ngIf="highlight.points.length > 1"
-        class="carousel"
-        [isAnimated]="true"
-        [noPause]="true"
-        [showIndicators]="false"
-        [interval]="2500"
-    >
-        <slide *ngFor="let point of highlight.points">
-            <ng-container *ngTemplateOutlet="pointTitleAndIconTemplate; context: { point }"></ng-container>
-        </slide>
-    </carousel>
-
-    <span class="distance">
-        <i>{{ highlight.distance }}</i>
-    </span>
-</div>
-
-<ng-template #pointTitleAndIconTemplate let-point="point">
-    <div class="title-icon">
-        <span class="title" [ngClass]="{ 'fixed-height': fixedHeightTitle }">{{ point.title }}</span>
-        <div class="icon-container">
-            <ng-container [ngSwitch]="point.placeType">
-                <icon *ngSwitchCase="pointHighlightType.location" name="current-location"></icon>
-                <icon *ngSwitchCase="pointHighlightType.photo" name="camera"></icon>
-                <icon *ngSwitchCase="pointHighlightType.blog" name="blog"></icon>
-                <icon *ngSwitchCase="pointHighlightType.town" name="lodge"></icon>
-                <icon *ngSwitchDefault name="icon-dots"></icon>
-            </ng-container>
+    <div class="icon">
+        <ng-container [ngSwitch]="highlight.placeType">
+            <icon *ngSwitchCase="pointHighlightType.location" name="current-location"></icon>
+            <icon *ngSwitchCase="pointHighlightType.photo" name="camera"></icon>
+            <icon *ngSwitchCase="pointHighlightType.blog" name="blog"></icon>
+            <icon *ngSwitchCase="pointHighlightType.town" name="lodge"></icon>
+            <icon *ngSwitchDefault name="icon-dots"></icon>
+        </ng-container>
+    </div>
+    <div class="metadata">
+        <h6 class="title">{{ highlight.title }}</h6>
+        <div class="attributes">
+            <div class="attribute">
+                <bs-icon class="bs-icon" name="calendar-week"></bs-icon>
+                <i>{{ highlight.date | date: 'dd-MM-yyyy' }}</i>
+            </div>
+            <div class="attribute">
+                <bs-icon class="bs-icon" name="clock"></bs-icon>
+                <i>{{ highlight.date | date: 'HH:mm z' }}</i>
+            </div>
+            <div class="attribute">
+                <bs-icon class="bs-icon" name="ruler"></bs-icon>
+                <i>{{ highlight.distance | distance }}</i>
+            </div>
+            <div *ngIf="!highlight.isManual" class="attribute">
+                <bs-icon class="bs-icon" name="robot"></bs-icon>
+            </div>
         </div>
     </div>
-</ng-template>
+</div>

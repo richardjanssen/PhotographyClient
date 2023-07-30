@@ -1,19 +1,5 @@
 <div class="section-highlight">
     <div class="section-highlight_background" [ngClass]="{ resizing, expanded }"></div>
-    <div
-        class="section-highlight_info"
-        [ngClass]="{
-            hidden: expanded || resizing,
-            left: alignment === alignmentType.rightIncoming,
-            right: alignment === alignmentType.leftIncoming,
-            'card-width': highlight.children.length === 0
-        }"
-    >
-        <span class="section-highlight_info-title">{{ highlight.title }}</span>
-        <div class="section-highlight_info-icon-container">
-            <icon name="icon-dots" [light]="true"></icon>
-        </div>
-    </div>
     <point-highlight
         *ngFor="let child of highlight.children"
         class="place-highlight in-section"
@@ -21,6 +7,5 @@
         [highlight]="child"
         [inSection]="true"
         [sectionIndex]="highlight.highlightIndex"
-        (expansion)="trackHighlightExpansion($event)"
     ></point-highlight>
 </div>
