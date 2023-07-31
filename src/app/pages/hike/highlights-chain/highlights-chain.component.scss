@@ -1,11 +1,8 @@
 @import '../../../../styles/variables.scss';
 @import '../../../../styles/mixins/point-highlight-positioning.scss';
 
-$navigationCircleSize: 32px;
-$navigationPadding: 3px;
-$locationIconOffset: -75px;
-
 .highlights-chain {
+    position: relative;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -21,47 +18,18 @@ $locationIconOffset: -75px;
             height: 100%;
             width: 100%;
         }
+    }
 
-        .connector {
-            position: absolute;
-            z-index: 1;
-
-            &.left,
-            &.right {
-                width: calc(var(--right-centerpoint-percentage) - var(--left-centerpoint-percentage));
-                height: calc(50% + 1rem);
-                top: 50%;
-                border-top: $connectorBorderStyle;
-            }
-            &.left {
-                left: var(--left-centerpoint-percentage);
-                border-right: $connectorBorderStyle;
-                border-top-right-radius: $connectorBorderRadius;
-            }
-            &.right {
-                right: calc(100% - var(--right-centerpoint-percentage));
-                border-left: $connectorBorderStyle;
-                border-top-left-radius: $connectorBorderRadius;
-            }
-            &.left-incoming,
-            &.right-incoming {
-                width: 1px;
-                height: calc(100% + 1rem);
-                top: 0;
-                border-left: $connectorBorderStyle;
-            }
-            &.left-incoming {
-                left: var(--left-centerpoint-percentage);
-            }
-            &.right-incoming {
-                right: calc(100% - var(--right-centerpoint-percentage));
-            }
-        }
-
-        &:last-child {
-            .connector {
-                display: none;
-            }
-        }
+    .connector {
+        height: calc(100% + $chainMarginTop);
+        width: 2px;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        position: absolute;
+        top: calc(-1 * $chainMarginTop);
+        z-index: 1;
+        border-left: 2px solid $primary-600;
     }
 }
