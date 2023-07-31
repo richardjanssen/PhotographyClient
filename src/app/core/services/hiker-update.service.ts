@@ -19,9 +19,14 @@ export class HikerUpdateService {
         // return this._http.get<HikerUpdateDetails>(this._getUrl(`GetById?id=${id}`));
 
         // This is a temporary function to get some meaningful content from a hiker update.
-        return this._http
-            .get<Photo[]>(this._getPhotosUrl('Get'))
-            .pipe(map(photos => ({ text: 'Dit is een stukje tekst bij een fotoalbum of een blog', album: { photos } })));
+        return this._http.get<Photo[]>(this._getPhotosUrl('Get')).pipe(
+            map(photos => ({
+                text: 'Dit is een stukje tekst bij een fotoalbum of een blog',
+                album: {
+                    photos
+                }
+            }))
+        );
     }
 
     getAll(): Observable<HikerUpdateBasic[]> {

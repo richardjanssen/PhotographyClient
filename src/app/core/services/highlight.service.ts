@@ -15,7 +15,7 @@ export class HightlightService {
             pointHighlight: {
                 id: 1,
                 date: new Date(2023, 7, 24, 12, 10),
-                distance: 123,
+                distance: 9909,
                 isManual: false,
                 title: 'A beautiful place',
                 placeType: HighlightContentType.town
@@ -30,7 +30,7 @@ export class HightlightService {
                     {
                         id: 1,
                         date: new Date(2023, 7, 23, 14, 15),
-                        distance: 98,
+                        distance: 9826,
                         isManual: true,
                         title: 'An update with a long name so more lines',
                         placeType: HighlightContentType.photo
@@ -38,7 +38,7 @@ export class HightlightService {
                     {
                         id: 1,
                         date: new Date(2023, 7, 22, 12, 10),
-                        distance: 87,
+                        distance: 8754,
                         isManual: false,
                         title: 'A beautiful town',
                         placeType: HighlightContentType.town
@@ -46,7 +46,7 @@ export class HightlightService {
                     {
                         id: 4,
                         date: new Date(2023, 7, 22, 10, 15),
-                        distance: 70,
+                        distance: 7067,
                         isManual: true,
                         title: 'Mooi hier',
                         placeType: HighlightContentType.photo
@@ -61,7 +61,7 @@ export class HightlightService {
             pointHighlight: {
                 id: 3,
                 date: new Date(2023, 7, 20, 14, 15),
-                distance: 45,
+                distance: 4587,
                 isManual: true,
                 title: 'Een update van mij',
                 placeType: HighlightContentType.blog
@@ -76,7 +76,7 @@ export class HightlightService {
                     {
                         id: 1,
                         date: new Date(2023, 7, 19, 14, 15),
-                        distance: 40,
+                        distance: 4009,
                         isManual: true,
                         title: 'Een update met heule mooie fotootjes',
                         placeType: HighlightContentType.photo
@@ -84,7 +84,7 @@ export class HightlightService {
                     {
                         id: 2,
                         date: new Date(2023, 7, 17, 12, 10),
-                        distance: 22,
+                        distance: 2200,
                         isManual: false,
                         title: 'A beautiful town',
                         placeType: HighlightContentType.town
@@ -99,7 +99,7 @@ export class HightlightService {
             pointHighlight: {
                 id: 3,
                 date: new Date(2023, 7, 16, 14, 15),
-                distance: 12,
+                distance: 1200,
                 isManual: true,
                 title: 'Een update van mij',
                 placeType: HighlightContentType.blog
