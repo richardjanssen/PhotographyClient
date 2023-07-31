@@ -1,5 +1,5 @@
 <div class="section-highlight">
-    <div class="section-highlight_background" [ngClass]="{ resizing, expanded }"></div>
+    <div class="background" [ngClass]="{ resizing, expanded }"></div>
     <point-highlight
         *ngFor="let child of highlight.children"
         class="place-highlight in-section"
@@ -8,4 +8,13 @@
         [inSection]="true"
         [sectionIndex]="highlight.highlightIndex"
     ></point-highlight>
+
+    <div class="information">
+        <div class="title-container">
+            <h2 class="title">{{ highlight.title }}</h2>
+        </div>
+        <div class="icon-container">
+            <icon name="icon-dots" class="icon" iconColor="primary-600"></icon>
+        </div>
+    </div>
 </div>

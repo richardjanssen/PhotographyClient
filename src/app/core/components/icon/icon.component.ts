@@ -10,7 +10,7 @@ import { NgIf, NgClass } from '@angular/common';
 })
 export class IconComponent implements OnInit {
     @Input() name: string;
-    @Input() light: boolean;
+    @Input() iconColor: string;
     path: string;
 
     ngOnInit(): void {
