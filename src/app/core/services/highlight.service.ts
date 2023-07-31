@@ -25,7 +25,7 @@ export class HightlightService {
             type: HighlightType.section,
             sectionHighlight: {
                 highlightIndex: 1,
-                title: 'A beautiful section',
+                title: 'A beautiful section but with a quite long name',
                 children: [
                     {
                         id: 1,
