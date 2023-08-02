@@ -6,6 +6,8 @@
         <bs-icon class="expansion-icon" name="chevron-compact-down" [light]="true"></bs-icon>
     </div>
 
+    <div *ngIf="expanded" class="ruler"></div>
+
     <point-highlight-details *ngIf="expanded" [highlight]="highlight"></point-highlight-details>
 
     <div class="expansion" *ngIf="expandable && expanded">

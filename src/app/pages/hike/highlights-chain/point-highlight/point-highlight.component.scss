@@ -53,4 +53,14 @@
             background-color: darken($light, 3%);
         }
     }
+
+    .ruler {
+        height: 1px;
+        width: 78%;
+        margin-top: $marginLg;
+        margin-bottom: $marginLg;
+        margin-left: auto;
+        margin-right: auto;
+        border-top: 1px solid $secondary-500;
+    }
 }
