@@ -1,6 +1,9 @@
+@import '../../../../styles/variables.scss';
+
 .footer {
     &__text {
         font-size: 0.8rem;
+        margin-top: $margin;
         margin-bottom: 0;
     }
 }

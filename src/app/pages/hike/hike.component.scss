@@ -9,6 +9,8 @@
     /* second color */
     background-size: $size $size;
 
+    border-bottom: 1px solid $secondary-500;
+
     .highlights-chain {
         display: block;
         width: 100%;
