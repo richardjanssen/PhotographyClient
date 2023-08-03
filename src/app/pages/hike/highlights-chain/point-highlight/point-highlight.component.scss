@@ -1,5 +1,9 @@
 @import '../../../../../styles/variables.scss';
 
+$expansionHeight: 20px;
+$connectorDotRadius: 6px;
+$connectorDotDiameter: 2 * $connectorDotRadius;
+
 .highlight {
     height: 100%;
     width: 100%;
@@ -18,7 +22,7 @@
 
         // Sizing
         width: fit-content;
-        height: 20px;
+        height: $expansionHeight;
         padding-left: $paddingSm;
         padding-right: $paddingSm;
 
@@ -62,5 +66,40 @@
         margin-left: auto;
         margin-right: auto;
         border-top: 1px solid $secondary-500;
+    }
+
+    .summary-container {
+        position: relative;
+
+        .highlight-connector {
+            @media screen and (max-width: #{$maxWidthSm}) {
+                display: none;
+            }
+
+            position: absolute;
+            width: calc(0.5rem * $connectorWidth + 0.5 * $padding);
+            height: 2px;
+            border-top: 2px solid $connectorColor;
+            left: calc(-0.5rem * $connectorWidth - 1.5 * $padding);
+            top: 50%;
+
+            &.expandable {
+                top: calc(50% + 0.5 * $expansionHeight);
+            }
+
+            &::before {
+                content: '';
+                display: inline-block;
+                width: $connectorDotDiameter;
+                height: $connectorDotDiameter;
+                -moz-border-radius: $connectorDotRadius;
+                -webkit-border-radius: $connectorDotRadius;
+                border-radius: $connectorDotRadius;
+                background-color: $connectorColor;
+                margin-left: -$connectorDotRadius;
+                position: absolute;
+                margin-top: -$connectorDotRadius;
+            }
+        }
     }
 }

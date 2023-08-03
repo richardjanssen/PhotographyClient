@@ -55,6 +55,8 @@ $bannerHeight: 470px;
 
 // Highlights chain
 $chainMarginTop: $marginLg;
+$connectorWidth: 2; //rem;
+$connectorWidthSm: 0;
 $leftCenterpointXs: 0.3;
 $rightCenterpointXs: 0.7;
 $leftCenterpointSm: 0.35;
@@ -66,6 +68,7 @@ $startWidth: 0.8 * $cardWidth;
 $connectorBorderStyle: 2px dashed $primary-700;
 $connectorBorderRadius: 15px;
 $borderColor: $secondary-500;
+$connectorColor: $primary-500;
 
 // CSS variables
 // Only declare variables here if they are dynamic (i.e. different media queries) or interacted with programatically from TS.
@@ -85,10 +88,13 @@ $borderColor: $secondary-500;
     --left-centerpoint: #{$leftCenterpoint};
     --right-centerpoint: #{$rightCenterpoint};
 
+    --connector-width: #{$connectorWidth};
+
     // Order of breakpoints is important here. Smallest screens satisfy all breakpoints, so last values count
     @media screen and (max-width: #{$maxWidthSm}) {
         --left-centerpoint: #{$leftCenterpointSm};
         --right-centerpoint: #{$rightCenterpointSm};
+        --connector-width: #{$connectorWidthSm};
     }
 
     @media screen and (max-width: #{$maxWidthXs}) {
