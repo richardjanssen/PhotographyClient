@@ -23,10 +23,32 @@
         justify-content: space-evenly;
         align-items: center;
         position: relative;
+        width: calc(100% - var(--connector-width) * 1rem);
+        margin-left: auto;
+        margin-right: 0;
         z-index: 2;
+
+        .title-container {
+            padding: $padding;
+            margin-left: $margin;
+            width: 50%;
+            text-align: center;
+
+            .title {
+                color: $primary-600;
+                margin-bottom: 0;
+                font-size: 1.15rem;
+
+                @media screen and (max-width: #{$maxWidthSm}) {
+                    font-size: 1rem;
+                }
+            }
+        }
 
         .icon-container {
             width: 50%;
+            margin-right: $margin;
+
             .icon {
                 display: block;
                 min-width: 80px;
@@ -42,22 +64,6 @@
                     min-height: 64px;
                     width: 64px;
                     height: 64px;
-                }
-            }
-        }
-
-        .title-container {
-            padding: $padding;
-            width: 50%;
-            text-align: center;
-
-            .title {
-                color: $primary-600;
-                margin-bottom: 0;
-                font-size: 1.15rem;
-
-                @media screen and (max-width: #{$maxWidthSm}) {
-                    font-size: 1rem;
                 }
             }
         }

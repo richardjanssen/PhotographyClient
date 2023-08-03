@@ -1,5 +1,8 @@
 <div class="card highlight" [ngClass]="{ expandable, expanded, 'in-section': inSection }" (click)="toggleExpansion()">
-    <point-highlight-summary class="summary" [highlight]="highlight" [expandable]="expandable"></point-highlight-summary>
+    <div class="summary-container">
+        <point-highlight-summary class="summary" [highlight]="highlight" [expandable]="expandable"></point-highlight-summary>
+        <div class="highlight-connector" [ngClass]="{ expandable }"></div>
+    </div>
 
     <div class="expansion" *ngIf="expandable && !expanded">
         <span class="expansion-text">Bekijk meer</span>

@@ -20,17 +20,20 @@
         }
     }
 
-    // TODO: Connector moet niet doorlopen als hike gefinished is
     .connector {
         height: calc(100% + $chainMarginTop + 1rem + $margin);
         width: 2px;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
+        margin-left: calc(0.5rem * var(--connector-width) + 0.5 * $margin);
         position: absolute;
         top: calc(-1 * $chainMarginTop);
         z-index: 1;
-        border-left: 2px solid $primary-600;
+        border-left: 2px solid $connectorColor;
+
+        @media screen and (max-width: #{$maxWidthSm}) {
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+        }
     }
 }
