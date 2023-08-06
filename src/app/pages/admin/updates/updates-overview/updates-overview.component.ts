@@ -14,7 +14,7 @@ import { HikerUpdateBasic } from 'src/app/core/types/hiker-update.type';
     imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, TitleCasePipe, BootstrapIconComponent]
 })
 export class UpdatesOverviewComponent {
-    updates: HikerUpdateBasic[];
+    updates: HikerUpdateBasic[] = [];
     error: boolean = false;
     deleteError: boolean = false;
 

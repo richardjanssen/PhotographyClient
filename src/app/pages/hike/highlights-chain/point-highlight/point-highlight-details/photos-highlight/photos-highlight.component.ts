@@ -16,6 +16,7 @@ import { NgIf } from '@angular/common';
 export class PhotosHighlightComponent implements OnInit {
     @Input() hikerUpdateId: number | null;
     @Input() type: HighlightContentType.blog | HighlightContentType.photo;
+    hasLoaded: boolean;
     album: AlbumDetails | null;
     parsedText: string | null;
     highlightContentType = HighlightContentType;
@@ -27,6 +28,7 @@ export class PhotosHighlightComponent implements OnInit {
             this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => {
                 this.album = update.album;
                 this.parsedText = update.text ? marked.parse(update.text) : null;
+                this.hasLoaded = true;
             });
         }
     }

@@ -14,7 +14,7 @@ import { UserLocation } from 'src/app/core/types/location.type';
     imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, BootstrapIconComponent]
 })
 export class LocationsOverviewComponent {
-    locations: UserLocation[];
+    locations: UserLocation[] = [];
     error: boolean = false;
     deleteError: boolean = false;
 

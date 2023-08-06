@@ -1,9 +1,8 @@
 export interface UserLocation {
     id: number;
     date: Date;
-    actualDistance: number | null;
-    roundedDistance: number | null;
     isManual: boolean;
+    placeId: number | null;
     lat: number | null;
     lon: number | null;
 }

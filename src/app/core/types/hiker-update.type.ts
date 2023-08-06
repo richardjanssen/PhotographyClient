@@ -11,6 +11,7 @@ export interface HikerUpdate {
 
 export interface HikerUpdateBasic {
     id: number;
+    date: Date;
     title: string;
     type: HighlightContentType;
     distance: number;

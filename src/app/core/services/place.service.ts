@@ -12,8 +12,8 @@ export class PlaceService {
 
     getAll(): Observable<Place[]> {
         return of([
-            { distance: 12.5, title: 'An example place' },
-            { distance: 14.2, title: 'Second place' }
+            { id: 1, distance: 12.5, title: 'An example place' },
+            { id: 2, distance: 14.2, title: 'Second place' }
         ]);
         return this._http.get<Place[]>(this._getUrl('GetAll'));
     }

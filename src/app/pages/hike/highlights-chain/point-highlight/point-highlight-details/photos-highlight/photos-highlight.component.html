@@ -1,5 +1,5 @@
-<div class="hiker-update">
-    <ng-container *ngIf="album || parsedText">
+<div class="hiker-update" *ngIf="hasLoaded">
+    <ng-container *ngIf="album || parsedText; else noDetails">
         <div *ngIf="parsedText" [innerHTML]="parsedText" class="text"></div>
         <app-photo-grid *ngIf="album && album.photos.length > 0; else noPhotos" [photos]="album.photos"></app-photo-grid>
     </ng-container>
@@ -8,3 +8,7 @@
         <p *ngIf="type === highlightContentType.photo"><i>Deze update bevat geen foto's.</i></p>
     </ng-template>
 </div>
+
+<ng-template #noDetails>
+    <p><i>Deze update bevat geen details.</i></p>
+</ng-template>
