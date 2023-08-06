@@ -10,8 +10,8 @@ import { UserLocation } from '../types/location.type';
 export class LocationService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
-    addManual(distance: number): Observable<null> {
-        return this._http.post<null>(this._getUrl('AddManual'), { distance });
+    addManual(placeId: number): Observable<null> {
+        return this._http.post<null>(this._getUrl('AddManual'), { placeId });
     }
 
     getAll(): Observable<UserLocation[]> {

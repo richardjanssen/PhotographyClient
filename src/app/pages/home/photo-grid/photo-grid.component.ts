@@ -118,7 +118,7 @@ export class PhotoGridComponent implements AfterViewInit {
             const margin = containerWidth - finalRowWidth;
             finalRowGridItems.forEach(item => (item.offsetLeft += margin / 2));
             gridItems = [...gridItems, ...finalRowGridItems];
-            currentOffsetTop += this.maxRowHeight;
+            currentOffsetTop += this.maxRowHeight + this.gutter;
         }
 
         return { gridItems, totalGridHeight: currentOffsetTop };

@@ -3,8 +3,8 @@
         <h5 class="card-title">Manually check-in at place</h5>
         <div class="form-group" *ngIf="!submitted">
             <label for="place">Place</label>
-            <select id="place" [(ngModel)]="distance" class="form-control" required>
-                <option *ngFor="let place of places" [value]="place.distance">{{ place.distance }} - {{ place.title }}</option>
+            <select id="place" [(ngModel)]="placeId" class="form-control" required>
+                <option *ngFor="let place of places" [value]="place.id">{{ place.distance }} - {{ place.title }}</option>
             </select>
 
             <div class="form-buttons">

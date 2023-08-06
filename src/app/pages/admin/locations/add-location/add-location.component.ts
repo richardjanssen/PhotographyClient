@@ -18,7 +18,7 @@ export class AddLocationComponent {
     success: boolean = false;
     error: boolean = false;
 
-    distance: number;
+    placeId: number;
     places: Place[];
 
     constructor(
@@ -30,12 +30,12 @@ export class AddLocationComponent {
     }
 
     get formInvalid(): boolean {
-        return !this.distance;
+        return !this.placeId;
     }
 
     onSubmit(): void {
         this.submitted = true;
-        this._locationService.addManual(this.distance).subscribe({
+        this._locationService.addManual(this.placeId).subscribe({
             next: () => {
                 this.success = true;
             },
