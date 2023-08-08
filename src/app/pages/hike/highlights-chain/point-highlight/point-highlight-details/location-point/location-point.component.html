@@ -1,1 +1,5 @@
-<p>location-point works!</p>
+<div *ngIf="hasLoaded && coordinate && coordinate?.lat && coordinate?.lon">
+    Ready to show a map!
+    {{ coordinate.lat }}
+    {{ coordinate.lon }}
+</div>

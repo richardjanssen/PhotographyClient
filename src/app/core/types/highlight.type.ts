@@ -1,5 +1,3 @@
-import { AlbumDetails } from './album.type';
-
 export interface Highlight {
     type: HighlightType;
     sectionHighlight: SectionHighlight | null;
@@ -17,7 +15,7 @@ export interface PointHighlight {
     date: Date;
     placeType: HighlightContentType;
     title: string;
-    distance: number;
+    distance: number | null;
     isManual: boolean;
 }
 
