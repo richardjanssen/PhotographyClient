@@ -13,6 +13,18 @@ export class HightlightService {
             type: HighlightType.place,
             sectionHighlight: null,
             pointHighlight: {
+                id: 8,
+                date: new Date(2023, 8, 5, 14, 0),
+                placeType: HighlightContentType.location,
+                title: 'Riesj is hier',
+                distance: 14.8,
+                isManual: true
+            }
+        },
+        {
+            type: HighlightType.place,
+            sectionHighlight: null,
+            pointHighlight: {
                 id: 1,
                 date: new Date(2023, 7, 24, 12, 10),
                 distance: 9909,
