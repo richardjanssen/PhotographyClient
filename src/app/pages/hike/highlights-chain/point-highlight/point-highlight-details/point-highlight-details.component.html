@@ -1,5 +1,5 @@
 <div class="point-highlight-details">
-    <ng-container *ngIf="expandableHighlightTypes.includes(highlight.placeType)">
+    <ng-container *ngIf="expandableHighlightTypes.includes(highlight.placeType) && highlight.id; else noDetails">
         <div [ngSwitch]="highlight.placeType" class="point">
             <photos-highlight
                 *ngSwitchCase="pointHighlightType.photo"
@@ -11,7 +11,8 @@
                 [hikerUpdateId]="highlight.id"
                 [type]="pointHighlightType.blog"
             ></photos-highlight>
-            <location-point *ngSwitchCase="pointHighlightType.location"></location-point>
+            <location-point *ngSwitchCase="pointHighlightType.location" [locationId]="highlight.id"></location-point>
         </div>
     </ng-container>
+    <ng-template #noDetails>Er is geen extra informatie voor deze update beschikbaar</ng-template>
 </div>
