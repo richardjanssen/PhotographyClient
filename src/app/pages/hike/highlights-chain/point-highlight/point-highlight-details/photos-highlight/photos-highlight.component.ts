@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
     imports: [NgIf, PhotoGridComponent]
 })
 export class PhotosHighlightComponent implements OnInit {
-    @Input() hikerUpdateId: number | null;
+    @Input() hikerUpdateId: number;
     @Input() type: HighlightContentType.blog | HighlightContentType.photo;
     hasLoaded: boolean;
     album: AlbumDetails | null;
@@ -24,12 +24,10 @@ export class PhotosHighlightComponent implements OnInit {
     constructor(private readonly _hikerUpdateService: HikerUpdateService) {}
 
     ngOnInit(): void {
-        if (this.hikerUpdateId !== null) {
-            this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => {
-                this.album = update.album;
-                this.parsedText = update.text ? marked.parse(update.text) : null;
-                this.hasLoaded = true;
-            });
-        }
+        this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => {
+            this.album = update.album;
+            this.parsedText = update.text ? marked.parse(update.text) : null;
+            this.hasLoaded = true;
+        });
     }
 }
