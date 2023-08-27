@@ -9,7 +9,6 @@ $connectorDotDiameter: 2 * $connectorDotRadius;
     width: 100%;
     padding: $padding;
     background-color: $light;
-    transition: background-color $transitionTimeFast ease-in-out;
     border-color: $borderColor;
 
     .expansion {
@@ -41,20 +40,10 @@ $connectorDotDiameter: 2 * $connectorDotRadius;
             font-size: 0.7rem;
             color: $light;
         }
-    }
-
-    &:hover {
-        .expansion {
+        &:hover {
+            cursor: pointer;
             background-color: $secondary-600;
             border: 1px solid $secondary-700;
-        }
-    }
-
-    &.expandable {
-        cursor: pointer;
-
-        &:hover {
-            background-color: darken($light, 3%);
         }
     }
 
