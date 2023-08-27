@@ -1,9 +1,8 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { combineLatest, delay } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { LocationService } from 'src/app/core/services/location.service';
 import { MapboxService } from 'src/app/core/services/mapbox.service';
-import { Coordinate } from 'src/app/core/types/location.type';
 import * as mapboxgl from 'mapbox-gl';
 
 @Component({
@@ -35,17 +34,48 @@ export class LocationPointComponent implements OnInit {
         });
     }
 
-    createMap(token: string, centerLat: number, centerLon: number): mapboxgl.Map {
+    createMap(token: string, lat: number, lon: number): mapboxgl.Map {
         const map = new mapboxgl.Map({
             accessToken: token,
             container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v12',
-            center: [centerLon, centerLat],
+            style: 'mapbox://styles/richardjanssen/cllt961gq009o01pj4i4z716f',
+            center: [lon, lat],
             zoom: 16
         });
 
-        // Add a scale control to the map
         map.addControl(new mapboxgl.ScaleControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+        map.on('style.load', () => {
+            map.addSource('current-location-data', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [lon, lat]
+                    },
+                    properties: {}
+                }
+            });
+
+            map.addLayer({
+                id: 'current-location',
+                type: 'circle',
+                source: 'current-location-data',
+                paint: {
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'circle-color': '#be2113',
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'circle-radius': {
+                        stops: [
+                            [10, 7],
+                            [16, 10]
+                        ] // 7px at zoom level 10 or lower, 10px at zoom level 16 or higher
+                    }
+                }
+            });
+        });
 
         return map;
     }

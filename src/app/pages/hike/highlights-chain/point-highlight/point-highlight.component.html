@@ -1,10 +1,10 @@
-<div class="card highlight" [ngClass]="{ expandable, expanded, 'in-section': inSection }" (click)="toggleExpansion()">
+<div class="card highlight" [ngClass]="{ expandable, expanded, 'in-section': inSection }">
     <div class="summary-container">
         <point-highlight-summary class="summary" [highlight]="highlight" [expandable]="expandable"></point-highlight-summary>
         <div class="highlight-connector" [ngClass]="{ expandable }"></div>
     </div>
 
-    <div class="expansion" *ngIf="expandable && !expanded">
+    <div class="expansion" *ngIf="expandable && !expanded" (click)="toggleExpansion()">
         <span class="expansion-text">Bekijk meer</span>
         <bs-icon class="expansion-icon" name="chevron-compact-down" [light]="true"></bs-icon>
     </div>
@@ -13,7 +13,7 @@
 
     <point-highlight-details *ngIf="expanded" [highlight]="highlight"></point-highlight-details>
 
-    <div class="expansion" *ngIf="expandable && expanded">
+    <div class="expansion" *ngIf="expandable && expanded" (click)="toggleExpansion()">
         <span class="expansion-text">Bekijk minder</span>
         <bs-icon class="expansion-icon" name="chevron-compact-up" [light]="true"></bs-icon>
     </div>
