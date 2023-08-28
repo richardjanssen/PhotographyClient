@@ -1,15 +1,13 @@
-import { Router } from '@angular/router';
-import { EnvironmentService } from 'src/app/core/services/environment.service';
-import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
-import { Photo } from 'src/app/core/types/photo.type';
+import { PhotoCarouselComponent } from './photo-carousel.component';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { instance, mock } from 'ts-mockito';
-import { PhotoComponent } from './photo.component';
+import { EnvironmentService } from 'src/app/core/services/environment.service';
+import { Photo } from 'src/app/core/types/photo.type';
 
-describe('PhotoComponent', () => {
-    let sut: PhotoComponent;
-    const routerMock: Router = mock(Router);
-    const photoCacheServiceMock: PhotoCacheService = mock(PhotoCacheService);
+describe('PhotoCarouselComponent', () => {
+    let sut: PhotoCarouselComponent;
     const environmentServiceMock: EnvironmentService = mock(EnvironmentService);
+    const bsModalRefMock: BsModalRef = mock(BsModalRef);
     const photos: Photo[] = [
         { id: 0, date: new Date(), images: [] },
         { id: 1, date: new Date(), images: [] },
@@ -17,7 +15,7 @@ describe('PhotoComponent', () => {
     ];
 
     beforeEach(() => {
-        sut = new PhotoComponent(instance(routerMock), instance(environmentServiceMock), instance(photoCacheServiceMock));
+        sut = new PhotoCarouselComponent(instance(bsModalRefMock), instance(environmentServiceMock));
     });
 
     [
@@ -26,10 +24,10 @@ describe('PhotoComponent', () => {
     ].forEach(testCase => {
         it(`previousPhoto should modify activeIndex from ${testCase.initialActiveIndex} to ${testCase.expectedActiveIndex}`, () => {
             sut.photos = photos;
-            sut.activeIndex = testCase.initialActiveIndex;
+            sut.activePhotoIndex = testCase.initialActiveIndex;
 
             sut.previousPhoto();
-            expect(sut.activeIndex).toBe(testCase.expectedActiveIndex);
+            expect(sut.activePhotoIndex).toBe(testCase.expectedActiveIndex);
         });
     });
 
@@ -39,10 +37,10 @@ describe('PhotoComponent', () => {
     ].forEach(testCase => {
         it(`nextPhoto should modify activeIndex from ${testCase.initialActiveIndex} to ${testCase.expectedActiveIndex}`, () => {
             sut.photos = photos;
-            sut.activeIndex = testCase.initialActiveIndex;
+            sut.activePhotoIndex = testCase.initialActiveIndex;
 
             sut.nextPhoto();
-            expect(sut.activeIndex).toBe(testCase.expectedActiveIndex);
+            expect(sut.activePhotoIndex).toBe(testCase.expectedActiveIndex);
         });
     });
 });

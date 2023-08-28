@@ -1,4 +1,4 @@
-<div #containerCarousel class="image-container">
+<div class="photo-carousel">
     <svg width="32" height="32" viewBox="-2 -2 20 20" class="carousel-button step-button step-button--previous" (click)="previousPhoto()">
         <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
     </svg>
@@ -12,6 +12,5 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
         />
     </svg>
-
-    <img class="image" [srcset]="activePhotoSrcSet" />
+    <img class="photo" [srcset]="activePhotoSrcSet" />
 </div>

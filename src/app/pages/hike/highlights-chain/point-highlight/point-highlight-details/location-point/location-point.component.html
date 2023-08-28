@@ -1,5 +1,4 @@
 <div class="location">
-    <div id="map" class="map"></div>
-
+    <location-map *ngIf="loaded" [token]="token" [lat]="lat" [lon]="lon"></location-map>
     <p *ngIf="error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
 </div>

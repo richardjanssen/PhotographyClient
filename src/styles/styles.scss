@@ -69,3 +69,16 @@ h3.page-title {
         max-height: 550px;
     }
 }
+
+.full-screen-modal {
+    height: 100vh !important;
+    width: 100vw !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+
+    .modal-content {
+        height: 100%;
+    }
+}
