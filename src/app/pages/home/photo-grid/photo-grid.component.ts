@@ -1,47 +1,39 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { EnvironmentService } from 'src/app/core/services/environment.service';
-import { PhotosService } from 'src/app/core/services/photos.service';
 import { GridImageInfo } from 'src/app/core/types/grid-image-info.type';
 import { Grid } from 'src/app/core/types/grid.type';
 import { GridItem } from 'src/app/core/types/grid-item.type';
 import { Photo } from 'src/app/core/types/photo.type';
-import { PhotoCacheService } from 'src/app/core/services/photo-cache.service';
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
-import { AppPaths } from 'src/app/app.routes';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { PhotoCarouselComponent } from './photo-carousel/photo-carousel.component';
 
 @Component({
     selector: 'app-photo-grid',
     templateUrl: './photo-grid.component.html',
     styleUrls: ['./photo-grid.component.scss'],
     standalone: true,
-    imports: [NgFor, RouterLink]
+    imports: [NgFor, RouterLink, ModalModule],
+    providers: [BsModalService]
 })
 export class PhotoGridComponent implements AfterViewInit {
-    readonly photoPath: string = AppPaths.photo;
     @ViewChild('gridContainer') container: ElementRef;
     private imageInfo: GridImageInfo[];
     private readonly gutter: number = 5;
     private readonly minContainerWidth: number = 300; // Smaller containers always show one image per row
     private readonly maxRowHeight: number = 320;
-    @Input() photos: Photo[] | null;
+    @Input() photos: Photo[];
 
     gridItems: GridItem[];
     gridHeight: number;
 
-    constructor(
-        private readonly photosService: PhotosService,
-        private readonly _photoCacheService: PhotoCacheService,
-        private readonly environmentService: EnvironmentService
-    ) {}
+    constructor(private readonly _environmentService: EnvironmentService, private readonly _bsModalService: BsModalService) {}
 
     ngAfterViewInit(): void {
-        this.photos
-            ? this.handlePhotos(this.photos)
-            : this.photosService.getPhotos().subscribe(photos => {
-                  this.handlePhotos(photos);
-              });
+        this.imageInfo = this.photos.map(photo => this.mapPhotoToImageInfo(photo, this._environmentService.baseApiUrl));
+        this.resizeImages();
 
         fromEvent(window, 'resize').subscribe(() => {
             this.resizeImages();
@@ -49,13 +41,13 @@ export class PhotoGridComponent implements AfterViewInit {
     }
 
     onPhotoClick(photoId: number): void {
-        this._photoCacheService.activePhotoId = photoId;
-    }
-
-    private handlePhotos(photos: Photo[]): void {
-        this._photoCacheService.cacheAlbumPhotos(photos);
-        this.imageInfo = photos.map(photo => this.mapPhotoToImageInfo(photo, this.environmentService.baseApiUrl));
-        this.resizeImages();
+        this._bsModalService.show(PhotoCarouselComponent, {
+            class: 'full-screen-modal',
+            initialState: {
+                photos: this.photos,
+                activePhotoId: photoId
+            }
+        });
     }
 
     private resizeImages(): void {
