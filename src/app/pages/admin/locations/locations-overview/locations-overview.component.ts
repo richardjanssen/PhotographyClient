@@ -1,31 +1,31 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
+import { inspectStatus } from 'src/app/core/helpers/rxjs-operators';
 import { NullableDisplayPipe } from 'src/app/core/pipes/nullable-display.pipe';
 import { LocationService } from 'src/app/core/services/location.service';
 import { WindowService } from 'src/app/core/services/window.service';
+import { DataStatus } from 'src/app/core/types/data-status.types';
 import { UserLocation } from 'src/app/core/types/location.type';
+import { DataStatusPipesModule } from '../../../../core/pipes/status/data-status-pipes.module';
 
 @Component({
     selector: 'locations-overview',
     templateUrl: './locations-overview.component.html',
     styleUrls: ['./locations-overview.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, BootstrapIconComponent]
+    imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, BootstrapIconComponent, AsyncPipe, DataStatusPipesModule]
 })
 export class LocationsOverviewComponent {
-    locations: UserLocation[] = [];
-    error: boolean = false;
+    locations$: Observable<DataStatus<UserLocation[]>>;
     deleteError: boolean = false;
 
     locationToDelete: UserLocation;
     showDeleteConfirmation: boolean;
 
     constructor(private readonly _locationService: LocationService, private readonly _windowService: WindowService) {
-        this._locationService.getAll().subscribe({
-            next: locations => (this.locations = locations),
-            error: () => (this.error = true)
-        });
+        this.locations$ = this._locationService.getAll().pipe(inspectStatus());
     }
 
     onDelete(location: UserLocation): void {
