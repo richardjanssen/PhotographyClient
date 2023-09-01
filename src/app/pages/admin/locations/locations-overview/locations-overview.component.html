@@ -17,32 +17,39 @@
         <div class="alert alert-danger delete-error" *ngIf="deleteError">An error occurred while deleting the location.</div>
     </div>
 
-    <div class="alert alert-danger" *ngIf="error; else locationsTable">An error occurred while loading the location overview.</div>
-    <ng-template #locationsTable>
-        <p *ngIf="locations.length === 0">No locations were found.</p>
-        <table *ngIf="locations.length > 0" class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Manual</th>
-                    <th scope="col">Place Id</th>
-                    <th scope="col">Lat</th>
-                    <th scope="col">Lon</th>
-                    <th scope="col"><bs-icon name="trash"></bs-icon></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let location of locations">
-                    <td>{{ location.id }}</td>
-                    <td>{{ location.date | date: 'dd-MM-yyyy - HH:mm' }}</td>
-                    <td>{{ location.isManual }}</td>
-                    <td>{{ location.placeId | nullableDisplay }}</td>
-                    <td>{{ location.lat | nullableDisplay }}</td>
-                    <td>{{ location.lon | nullableDisplay }}</td>
-                    <th><bs-icon name="trash" (click)="onDelete(location)"></bs-icon></th>
-                </tr>
-            </tbody>
-        </table>
-    </ng-template>
+    <ng-container *ngIf="locations$ | async as locationsResult">
+        <ng-container *ngIf="locationsResult | valid">
+            <ng-container *ngIf="locationsResult | data as locations">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Manual</th>
+                            <th scope="col">Place Id</th>
+                            <th scope="col">Lat</th>
+                            <th scope="col">Lon</th>
+                            <th scope="col"><bs-icon name="trash"></bs-icon></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="locations.length === 0">
+                            <td colspan="100">No locations were found.</td>
+                        </tr>
+                        <tr *ngFor="let location of locations">
+                            <td>{{ location.id }}</td>
+                            <td>{{ location.date | date: 'dd-MM-yyyy - HH:mm' }}</td>
+                            <td>{{ location.isManual }}</td>
+                            <td>{{ location.placeId | nullableDisplay }}</td>
+                            <td>{{ location.lat | nullableDisplay }}</td>
+                            <td>{{ location.lon | nullableDisplay }}</td>
+                            <th><bs-icon name="trash" (click)="onDelete(location)"></bs-icon></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </ng-container>
+        <p *ngIf="locationsResult | loading">Loading location data...</p>
+        <div class="alert alert-danger" *ngIf="locationsResult | error">An error occurred while loading the location overview.</div>
+    </ng-container>
 </div>
