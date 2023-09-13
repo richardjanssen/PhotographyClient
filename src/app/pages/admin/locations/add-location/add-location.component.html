@@ -1,21 +1,38 @@
 <div class="card add-location">
     <div class="card-body">
         <h5 class="card-title">Manually check-in at place</h5>
-        <div class="form-group" *ngIf="!submitted">
-            <label for="place">Place</label>
-            <select id="place" [(ngModel)]="placeId" class="form-control" required>
-                <option *ngFor="let place of places" [value]="place.id">{{ place.distance }} - {{ place.title }}</option>
-            </select>
 
-            <div class="form-buttons">
-                <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
-            </div>
-        </div>
+        <ng-container *ngIf="places$ | async as placesResult">
+            <ng-container *ngIf="placesResult | valid">
+                <ng-container *ngIf="submitResult$ | async as submitResult; else selectLocation">
+                    <success-message *ngIf="submitResult | valid">Location has been added</success-message>
+                    <loading-message *ngIf="submitResult | loading">Saving location</loading-message>
+                    <error-message *ngIf="submitResult | error">An error occurred while saving the location</error-message>
+                    <button *ngIf="(submitResult | valid) || (submitResult | error)" class="btn btn-primary" (click)="reloadComponent()">
+                        Add another location
+                    </button>
+                </ng-container>
 
-        <ng-container *ngIf="submitted">
-            <div class="alert alert-success" *ngIf="success">Location has been added</div>
-            <div class="alert alert-danger" *ngIf="error">An error occured while adding the location.</div>
-            <button class="btn btn-primary" (click)="reloadComponent()">Add another location</button>
+                <ng-template #selectLocation>
+                    <p *ngIf="(placesResult | data)?.length === 0; else form">There are no places at which you can check-in.</p>
+                    <ng-template #form>
+                        <div class="form-group">
+                            <label for="place">Place</label>
+                            <select id="place" [(ngModel)]="placeId" class="form-control" required>
+                                <option *ngFor="let place of placesResult | data" [value]="place.id">
+                                    {{ place.distance }} - {{ place.title }}
+                                </option>
+                            </select>
+
+                            <div class="form-buttons">
+                                <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </ng-container>
+            <loading-message *ngIf="placesResult | loading">Loading places</loading-message>
+            <error-message *ngIf="placesResult | error">An error occurred while loading the places</error-message>
         </ng-container>
     </div>
 </div>
