@@ -1,9 +1,11 @@
 @import '../../../../styles/variables.scss';
 
 .footer {
+    padding-top: $marginLg;
+    padding-bottom: $marginLg;
+
     &__text {
         font-size: 0.8rem;
-        margin-top: $margin;
         margin-bottom: 0;
     }
 }

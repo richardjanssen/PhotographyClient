@@ -1,7 +1,7 @@
 @import '../../../../../styles/variables.scss';
 
 $expansionHeight: 20px;
-$connectorDotRadius: 6px;
+$connectorDotRadius: 5px;
 $connectorDotDiameter: 2 * $connectorDotRadius;
 
 .highlight {
@@ -67,8 +67,8 @@ $connectorDotDiameter: 2 * $connectorDotRadius;
 
             position: absolute;
             width: calc(0.5rem * $connectorWidth + 0.5 * $padding);
-            height: 2px;
-            border-top: 2px solid $connectorColor;
+            height: $connectorBorderWidth;
+            border-top: $connectorBorderWidth solid $connectorColor;
             left: calc(-0.5rem * $connectorWidth - 1.5 * $padding);
             top: 50%;
 
