@@ -5,13 +5,24 @@ import { AlignmentType, Highlight, HighlightType } from 'src/app/core/types/high
 import { SectionHighlightComponent } from './section-highlight/section-highlight.component';
 import { PointHighlightComponent } from './point-highlight/point-highlight.component';
 import { IconComponent } from '../../../core/components/icon/icon.component';
+import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 
 @Component({
     selector: 'highlights-chain',
     templateUrl: './highlights-chain.component.html',
     styleUrls: ['./highlights-chain.component.scss'],
     standalone: true,
-    imports: [NgIf, IconComponent, NgFor, NgSwitch, NgSwitchCase, PointHighlightComponent, NgClass, SectionHighlightComponent]
+    imports: [
+        NgIf,
+        IconComponent,
+        NgFor,
+        NgSwitch,
+        NgSwitchCase,
+        PointHighlightComponent,
+        NgClass,
+        SectionHighlightComponent,
+        BootstrapIconComponent
+    ]
 })
 export class HighlightsChainComponent implements AfterViewInit, OnInit {
     @ViewChild('highlightsChain') highlightsChain: ElementRef;

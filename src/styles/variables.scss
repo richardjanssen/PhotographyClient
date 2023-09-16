@@ -31,6 +31,9 @@ $secondary-700: darken($secondary, 20%);
 $secondary-800: darken($secondary, 30%);
 $secondary-900: darken($secondary, 40%);
 
+$light-500: $light;
+$light-600: #f4f4f4;
+
 // Breakpoints
 $maxWidthXs: 400px;
 $maxWidthSm: 500px;
@@ -52,11 +55,12 @@ $marginLg: $spacingLg;
 
 // Hike
 $bannerHeightSm: 300px;
-$bannerHeight: 470px;
+$bannerHeight: 350px;
 
 // Highlights chain
 $chainMarginTop: $marginLg;
 $connectorWidth: 2; //rem;
+$connectorBorderWidth: 1px;
 $connectorWidthSm: 0;
 $leftCenterpointXs: 0.3;
 $rightCenterpointXs: 0.7;

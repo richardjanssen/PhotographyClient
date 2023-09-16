@@ -14,7 +14,10 @@
         <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
         <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
 
-        <div class="alert alert-danger delete-error" *ngIf="deleteError">An error occurred while deleting the location.</div>
+        <div class="delete-status-container" *ngIf="deleteResult$ | async as deleteResult">
+            <loading-message *ngIf="deleteResult | loading">Deleting location</loading-message>
+            <error-message *ngIf="deleteResult | error">An error occurred while deleting the location</error-message>
+        </div>
     </div>
 
     <ng-container *ngIf="locations$ | async as locationsResult">
@@ -43,13 +46,13 @@
                             <td>{{ location.placeId | nullableDisplay }}</td>
                             <td>{{ location.lat | nullableDisplay }}</td>
                             <td>{{ location.lon | nullableDisplay }}</td>
-                            <th><bs-icon name="trash" (click)="onDelete(location)"></bs-icon></th>
+                            <th><bs-icon name="trash" (click)="onPendingDelete(location)"></bs-icon></th>
                         </tr>
                     </tbody>
                 </table>
             </ng-container>
         </ng-container>
-        <p *ngIf="locationsResult | loading">Loading location data...</p>
-        <div class="alert alert-danger" *ngIf="locationsResult | error">An error occurred while loading the location overview.</div>
+        <loading-message *ngIf="locationsResult | loading">Loading locations overview</loading-message>
+        <error-message *ngIf="locationsResult | error">An error occurred while loading the locations overview</error-message>
     </ng-container>
 </div>

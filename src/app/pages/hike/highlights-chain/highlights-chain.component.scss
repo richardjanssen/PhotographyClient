@@ -21,19 +21,30 @@
     }
 
     .connector {
-        height: calc(100% + $chainMarginTop + 1rem + $margin);
-        width: 2px;
+        position: relative;
+        height: calc(100% + 0 * $bannerHeight + 1rem + $margin);
+        width: $connectorBorderWidth;
         margin-left: calc(0.5rem * var(--connector-width) + 0.5 * $margin);
         position: absolute;
-        top: calc(-1 * $chainMarginTop);
+        top: calc(-0 * $bannerHeight);
         z-index: 1;
-        border-left: 2px solid $connectorColor;
+        border-left: $connectorBorderWidth solid $connectorColor;
 
         @media screen and (max-width: #{$maxWidthSm}) {
             margin-left: auto;
             margin-right: auto;
             left: 0;
             right: 0;
+
+            .connector-top {
+                display: none;
+            }
+        }
+
+        .connector-top {
+            position: absolute;
+            left: -8px;
+            top: -12px;
         }
     }
 }
