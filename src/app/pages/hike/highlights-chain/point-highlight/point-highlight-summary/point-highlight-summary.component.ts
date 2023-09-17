@@ -14,7 +14,6 @@ import { DistancePipe } from '../../../../../core/pipes/distance.pipe';
 })
 export class PointHighlightSummaryComponent {
     @Input() highlight: PointHighlight;
-    @Input() expandable: boolean;
 
     pointHighlightType: typeof HighlightContentType = HighlightContentType;
 }

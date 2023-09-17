@@ -9,10 +9,6 @@
 
         &.in-section {
             padding-top: $padding;
-
-            &:last-child {
-                padding-bottom: $padding !important;
-            }
         }
     }
 }

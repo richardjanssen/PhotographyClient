@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Constants } from 'src/app/core/constants';
 import { PointHighlight } from 'src/app/core/types/highlight.type';
 import { PointHighlightDetailsComponent } from './point-highlight-details/point-highlight-details.component';
@@ -15,10 +15,8 @@ import { BootstrapIconComponent } from '../../../../core/components/bootstrap-ic
 })
 export class PointHighlightComponent implements OnInit {
     @Input() highlight: PointHighlight;
-    @Input() sectionIndex: number | null;
-    @Input() inSection: boolean = false;
-    @HostBinding('class.expanded') expanded: boolean = false;
-    @HostBinding('class.resizing') resizing: boolean = false;
+
+    expanded: boolean;
     expandable: boolean;
 
     ngOnInit(): void {
@@ -30,7 +28,6 @@ export class PointHighlightComponent implements OnInit {
             return;
         }
 
-        this.resizing = !this.resizing;
         this.expanded = !this.expanded;
     }
 }
