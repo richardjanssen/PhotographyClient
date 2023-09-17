@@ -1,5 +1,3 @@
-<p *ngIf="!highlights">Loading...</p>
-
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
     <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
         <ng-container [ngSwitch]="highlight.type">
@@ -7,16 +5,11 @@
                 *ngSwitchCase="highlightType.place"
                 [highlight]="highlight.pointHighlight!"
                 class="place-highlight"
-                [ngClass]="{
-                    left: highlightAlignments[i] === alignmentType.left,
-                    right: highlightAlignments[i] === alignmentType.right
-                }"
             ></point-highlight>
             <section-highlight
                 *ngSwitchCase="highlightType.section"
                 class="section-highlight"
                 [highlight]="highlight.sectionHighlight!"
-                [alignment]="highlightAlignments[i]"
             ></section-highlight>
         </ng-container>
     </div>

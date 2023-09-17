@@ -88,7 +88,7 @@ $connectorColor: $primary-500;
     --transition-time-unitless: #{$transitionTimeUnitless}; // Used in TS
     --padding: #{$padding}; // To be replaced by SCSS variable
 
-    --highlights-width: 100%; // Used in TS
+    // --highlights-width: 100%; // Used in TS
 
     --left-centerpoint: #{$leftCenterpoint};
     --right-centerpoint: #{$rightCenterpoint};
