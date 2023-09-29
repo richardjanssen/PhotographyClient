@@ -18,12 +18,12 @@
                 </select>
 
                 <label for="place">Place</label>
-                <select id="place" [(ngModel)]="distance" class="form-control" required>
-                    <option *ngFor="let place of places" [value]="place.distance">{{ place.distance }} - {{ place.title }}</option>
+                <select id="place" [(ngModel)]="placeId" class="form-control">
+                    <option *ngFor="let place of places" [value]="place.id">{{ place.distance }} - {{ place.title }}</option>
                 </select>
 
-                <label for="distance">Distance (override if not at place)</label>
-                <input id="distance" type="number" min="0" class="form-control" required [(ngModel)]="distance" />
+                <label for="distance">Distance (override if not at place - do not override if place is filled in)</label>
+                <input id="distance" type="number" min="0" class="form-control" [(ngModel)]="distance" />
 
                 <label for="text">Text</label>
                 <textarea id="text" class="form-control" rows="5" [(ngModel)]="text"></textarea>

@@ -19,11 +19,11 @@ export class LocationService {
     }
 
     getCoordinateById(id: number): Observable<Coordinate | null> {
-        return of({
-            lat: 32.5896623,
-            lon: -116.4671429
-        });
-        // return this._http.get<Coordinate>(this._getUrl(`GetCoordinateById?id=${id}`));
+        // return of({
+        //     lat: 32.5896623,
+        //     lon: -116.4671429
+        // });
+        return this._http.get<Coordinate>(this._getUrl(`GetCoordinateById?id=${id}`));
     }
 
     delete(id: number): Observable<null> {
