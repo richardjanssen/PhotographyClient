@@ -122,7 +122,7 @@ export class HightlightService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     getHighlights(): Observable<Highlight[]> {
-        // return this._http.get<Highlight[]>(this._getUrl('GetAll'));
+        return this._http.get<Highlight[]>(this._getUrl('GetAll'));
 
         // This is a temporary function to get some meaningful content.
         return of(this._highlights);

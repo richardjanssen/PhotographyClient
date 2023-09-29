@@ -31,7 +31,15 @@ export class AddUpdateComponent {
     title: string;
     type: HighlightContentType;
     albumId: string | null;
-    distance: number;
+    private _placeId: string | null;
+    public get placeId(): string | null {
+        return this._placeId;
+    }
+    public set placeId(value: string | null) {
+        this._placeId = value;
+        this.distance = (value ? this.places.find(place => place.id === parseInt(value, 10))?.distance : null) ?? null;
+    }
+    distance: number | null;
     text: string | null;
     parsedText: string;
     blogPhotos: Photo[];
@@ -62,6 +70,7 @@ export class AddUpdateComponent {
     }
 
     onPreview(): void {
+        console.log(typeof this.placeId);
         this.parsedText = this.text ? marked.parse(this.text) : '';
     }
 
@@ -73,6 +82,7 @@ export class AddUpdateComponent {
                 type: this.type,
                 text: this.text,
                 distance: this.distance,
+                placeId: this.placeId ? parseInt(this.placeId, 10) : null,
                 albumId: this.albumId ? parseInt(this.albumId, 10) : null
             })
             .subscribe({

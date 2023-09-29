@@ -5,7 +5,8 @@ export interface HikerUpdate {
     title: string;
     type: HighlightContentType;
     text: string | null;
-    distance: number;
+    distance: number | null;
+    placeId: number | null;
     albumId: number | null;
 }
 

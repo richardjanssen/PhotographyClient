@@ -19,12 +19,6 @@ export interface PointHighlight {
     isManual: boolean;
 }
 
-export interface Point {
-    id: number | null;
-    placeType: HighlightContentType;
-    title: string;
-}
-
 export enum HighlightType {
     place = 'place',
     section = 'section'
@@ -36,16 +30,4 @@ export enum HighlightContentType {
     location = 'location',
     town = 'town',
     other = 'other'
-}
-
-export enum AlignmentType {
-    left = 'left',
-    right = 'right',
-    leftIncoming = 'leftIncoming',
-    rightIncoming = 'rightIncoming'
-}
-
-export interface HighlightExpansion {
-    pointIndex: number;
-    isExpanded: boolean;
 }
