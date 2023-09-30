@@ -24,7 +24,7 @@ export class PhotosHighlightComponent implements OnInit {
     constructor(private readonly _hikerUpdateService: HikerUpdateService) {}
 
     ngOnInit(): void {
-        this._hikerUpdateService.getUpdate(this.hikerUpdateId).subscribe(update => {
+        this._hikerUpdateService.getUpdateDetails(this.hikerUpdateId).subscribe(update => {
             this.album = update.album;
             this.parsedText = update.text ? marked.parse(update.text) : null;
             this.hasLoaded = true;

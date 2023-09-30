@@ -12,6 +12,7 @@ import { Place } from 'src/app/core/types/place.type';
 import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'add-update',
@@ -28,19 +29,14 @@ export class AddUpdateComponent {
         { value: HighlightContentType.blog, name: 'Blog' }
     ];
 
+    updateId: number | null;
     title: string;
     type: HighlightContentType;
     albumId: string | null;
-    private _placeId: string | null;
-    public get placeId(): string | null {
-        return this._placeId;
-    }
-    public set placeId(value: string | null) {
-        this._placeId = value;
-        this.distance = (value ? this.places.find(place => place.id === parseInt(value, 10))?.distance : null) ?? null;
-    }
+    placeId: string | null;
     distance: number | null;
     text: string | null;
+
     parsedText: string;
     blogPhotos: Photo[];
     imageHtml: string;
@@ -53,8 +49,25 @@ export class AddUpdateComponent {
         private readonly _hikerUpdateService: HikerUpdateService,
         private readonly _windowService: WindowService,
         albumService: AlbumService,
-        placeService: PlaceService
+        placeService: PlaceService,
+        route: ActivatedRoute
     ) {
+        const updateId = route.snapshot.queryParams['updateId'];
+
+        if (updateId) {
+            this._hikerUpdateService.getUpdate(updateId).subscribe(update => {
+                if (update) {
+                    this.updateId = update.id;
+                    this.title = update.title;
+                    this.type = update.type;
+                    this.distance = update.distance;
+                    this.albumId = update.albumId?.toString() ?? null;
+                    this.placeId = update.placeId?.toString() ?? null;
+                    this.text = update.text;
+                }
+            });
+        }
+
         albumService
             .getAlbums()
             .pipe(map(albums => [{ title: 'No album', id: null }, ...albums]))
@@ -66,24 +79,44 @@ export class AddUpdateComponent {
     }
 
     get formInvalid(): boolean {
-        return !this.title || !this.type || !this.distance;
+        return !this.title || !this.type || (!this.getAlbumId() && !this.text);
     }
 
     onPreview(): void {
-        console.log(typeof this.placeId);
         this.parsedText = this.text ? marked.parse(this.text) : '';
     }
 
     onSubmit(): void {
         this.submitted = true;
+        this.updateId ? this.updateUpdate() : this.addUpdate();
+    }
+
+    onPlaceIdChange(placeId: string): void {
+        this.distance = this.places.find(place => place.id === parseInt(placeId, 10))?.distance ?? null;
+    }
+
+    reloadComponent(): void {
+        this._windowService.reload();
+    }
+
+    onGenerateImgHtml(html: string): void {
+        this.imageHtml = html;
+    }
+
+    private getAlbumId(): number | null {
+        return this.albumId ? (isNaN(+this.albumId) ? null : parseInt(this.albumId, 10)) : null;
+    }
+
+    private addUpdate(): void {
         this._hikerUpdateService
-            .addUpdate({
+            .add({
+                id: null,
                 title: this.title,
                 type: this.type,
                 text: this.text,
                 distance: this.distance,
                 placeId: this.placeId ? parseInt(this.placeId, 10) : null,
-                albumId: this.albumId ? parseInt(this.albumId, 10) : null
+                albumId: this.getAlbumId()
             })
             .subscribe({
                 next: () => {
@@ -95,11 +128,24 @@ export class AddUpdateComponent {
             });
     }
 
-    reloadComponent(): void {
-        this._windowService.reload();
-    }
-
-    onGenerateImgHtml(html: string): void {
-        this.imageHtml = html;
+    private updateUpdate(): void {
+        this._hikerUpdateService
+            .update({
+                id: this.updateId,
+                title: this.title,
+                type: this.type,
+                text: this.text,
+                distance: this.distance,
+                placeId: this.placeId ? parseInt(this.placeId, 10) : null,
+                albumId: this.getAlbumId()
+            })
+            .subscribe({
+                next: () => {
+                    this.success = true;
+                },
+                error: () => {
+                    this.error = true;
+                }
+            });
     }
 }

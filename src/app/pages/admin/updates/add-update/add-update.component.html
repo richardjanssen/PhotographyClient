@@ -1,5 +1,5 @@
 <div class="add-update">
-    <h4>Add update</h4>
+    <h4>Add or edit update</h4>
     <div class="card update-data">
         <div class="card-body">
             <h5 class="card-title">Update data</h5>
@@ -18,7 +18,7 @@
                 </select>
 
                 <label for="place">Place</label>
-                <select id="place" [(ngModel)]="placeId" class="form-control">
+                <select id="place" [(ngModel)]="placeId" (ngModelChange)="onPlaceIdChange($event)" class="form-control">
                     <option *ngFor="let place of places" [value]="place.id">{{ place.distance }} - {{ place.title }}</option>
                 </select>
 
@@ -37,8 +37,8 @@
             </div>
 
             <ng-container *ngIf="submitted">
-                <div class="alert alert-success" *ngIf="success">Update has been added</div>
-                <div class="alert alert-danger" *ngIf="error">An error occured while adding the update.</div>
+                <div class="alert alert-success" *ngIf="success">Update has been saved</div>
+                <div class="alert alert-danger" *ngIf="error">An error occured while saving the update.</div>
                 <button class="btn btn-primary" (click)="reloadComponent()">Add another update</button>
             </ng-container>
         </div>

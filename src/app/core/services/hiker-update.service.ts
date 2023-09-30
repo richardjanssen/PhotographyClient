@@ -11,12 +11,20 @@ import { Photo } from '../types/photo.type';
 export class HikerUpdateService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
-    addUpdate(update: HikerUpdate): Observable<null> {
-        return this._http.post<null>(this._getUrl('AddHikerUpdate'), update);
+    add(update: HikerUpdate): Observable<null> {
+        return this._http.post<null>(this._getUrl('Add'), update);
     }
 
-    getUpdate(id: number): Observable<HikerUpdateDetails> {
-        // return this._http.get<HikerUpdateDetails>(this._getUrl(`GetById?id=${id}`));
+    update(update: HikerUpdate): Observable<null> {
+        return this._http.put<null>(this._getUrl('Update'), update);
+    }
+
+    getUpdate(id: number): Observable<HikerUpdate | null> {
+        return this._http.get<HikerUpdate | null>(this._getUrl(`GetById?id=${id}`));
+    }
+
+    getUpdateDetails(id: number): Observable<HikerUpdateDetails> {
+        // return this._http.get<HikerUpdateDetails>(this._getUrl(`GetDetailsById?id=${id}`));
 
         // This is a temporary function to get some meaningful content from a hiker update.
         return this._http.get<Photo[]>(this._getPhotosUrl('Get')).pipe(
