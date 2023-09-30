@@ -9,6 +9,6 @@ export class DistancePipe implements PipeTransform {
         if (value === null || value === undefined) {
             return '-';
         }
-        return `${value.toString()} km`;
+        return `${Math.round(value).toString()} km`;
     }
 }
