@@ -11,10 +11,6 @@ export class PlaceService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     getAll(): Observable<Place[]> {
-        return of([
-            { id: 1, distance: 12.5, title: 'An example place' },
-            { id: 2, distance: 14.2, title: 'Second place' }
-        ]);
         return this._http.get<Place[]>(this._getUrl('GetAll'));
     }
 
