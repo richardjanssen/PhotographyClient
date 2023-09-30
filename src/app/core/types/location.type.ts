@@ -1,3 +1,7 @@
+export interface UserLocationPlace extends UserLocation {
+    place: string;
+}
+
 export interface UserLocation extends Coordinate {
     id: number;
     date: Date;

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Constants } from 'src/app/core/constants';
-import { HighlightContentType, PointHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlightType, PointHighlight } from 'src/app/core/types/highlight.type';
 import { LocationPointComponent } from './location-point/location-point.component';
 import { PhotosHighlightComponent } from './photos-highlight/photos-highlight.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
@@ -15,6 +15,6 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 export class PointHighlightDetailsComponent {
     @Input() highlight: PointHighlight;
 
-    pointHighlightType = HighlightContentType;
+    pointHighlightType = PointHighlightType;
     expandableHighlightTypes = Constants.expandableHighlightTypes;
 }

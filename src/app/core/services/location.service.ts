@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Coordinate, UserLocation } from '../types/location.type';
@@ -19,10 +19,6 @@ export class LocationService {
     }
 
     getCoordinateById(id: number): Observable<Coordinate | null> {
-        // return of({
-        //     lat: 32.5896623,
-        //     lon: -116.4671429
-        // });
         return this._http.get<Coordinate>(this._getUrl(`GetCoordinateById?id=${id}`));
     }
 

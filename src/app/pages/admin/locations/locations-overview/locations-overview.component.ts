@@ -1,16 +1,17 @@
 import { AsyncPipe, DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { Observable, ReplaySubject, of, switchMap, tap } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, map, of, switchMap, tap } from 'rxjs';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { inspectStatus } from 'src/app/core/helpers/rxjs-operators';
 import { NullableDisplayPipe } from 'src/app/core/pipes/nullable-display.pipe';
 import { LocationService } from 'src/app/core/services/location.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { DataStatus, StateStatus } from 'src/app/core/types/data-status.types';
-import { UserLocation } from 'src/app/core/types/location.type';
+import { UserLocation, UserLocationPlace } from 'src/app/core/types/location.type';
 import { DataStatusPipesModule } from '../../../../core/pipes/status/data-status-pipes.module';
 import { LoadingMessageComponent } from '../../../../core/components/loading-message/loading-message.component';
 import { ErrorMessageComponent } from '../../../../core/components/error-message/error-message.component';
+import { PlaceService } from 'src/app/core/services/place.service';
 
 @Component({
     selector: 'locations-overview',
@@ -31,15 +32,23 @@ import { ErrorMessageComponent } from '../../../../core/components/error-message
     ]
 })
 export class LocationsOverviewComponent {
-    locations$: Observable<DataStatus<UserLocation[]>>;
+    locations$: Observable<DataStatus<UserLocationPlace[]>>;
     deleted$: ReplaySubject<number | null> = new ReplaySubject<number | null>();
     deleteResult$: Observable<DataStatus<null> | null> = new Observable<null>();
 
     locationToDelete: UserLocation;
     showDeleteConfirmation: boolean;
 
-    constructor(locationService: LocationService, windowService: WindowService) {
-        this.locations$ = locationService.getAll().pipe(inspectStatus());
+    constructor(locationService: LocationService, windowService: WindowService, placeService: PlaceService) {
+        this.locations$ = combineLatest([locationService.getAll(), placeService.getAll()]).pipe(
+            map(([locations, places]) =>
+                locations.map(location => {
+                    const placeTitle = location.placeId ? places.find(place => place.id === location.placeId)?.title ?? '' : '';
+                    return { ...location, place: placeTitle };
+                })
+            ),
+            inspectStatus()
+        );
         this.deleteResult$ = this.deleted$.pipe(
             switchMap(placeId =>
                 placeId

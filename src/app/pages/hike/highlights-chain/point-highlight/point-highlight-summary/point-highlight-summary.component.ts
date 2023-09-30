@@ -1,4 +1,4 @@
-import { HighlightContentType, PointHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlightType, PointHighlight } from 'src/app/core/types/highlight.type';
 import { Component, Input } from '@angular/core';
 import { IconComponent } from '../../../../../core/components/icon/icon.component';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NgClass } from '@angular/common';
@@ -15,5 +15,5 @@ import { DistancePipe } from '../../../../../core/pipes/distance.pipe';
 export class PointHighlightSummaryComponent {
     @Input() highlight: PointHighlight;
 
-    pointHighlightType: typeof HighlightContentType = HighlightContentType;
+    pointHighlightType = PointHighlightType;
 }

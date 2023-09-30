@@ -1,10 +1,10 @@
 import { AlbumDetails } from './album.type';
-import { HighlightContentType } from './highlight.type';
+import { PointHighlightType } from './highlight.type';
 
 export interface HikerUpdate {
     id: number | null;
     title: string;
-    type: HighlightContentType;
+    type: PointHighlightType;
     text: string | null;
     distance: number | null;
     placeId: number | null;
@@ -15,7 +15,7 @@ export interface HikerUpdateBasic {
     id: number;
     date: Date;
     title: string;
-    type: HighlightContentType;
+    type: PointHighlightType;
     distance: number;
 }
 

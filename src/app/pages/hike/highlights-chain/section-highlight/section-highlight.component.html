@@ -2,7 +2,7 @@
     <div class="background"></div>
     <ng-container *ngFor="let child of highlight.children">
         <point-highlight
-            *ngIf="child.placeType !== pointHighlightType.enterSection"
+            *ngIf="child.type !== pointHighlightType.enterSection"
             class="place-highlight in-section"
             [highlight]="child"
         ></point-highlight>
