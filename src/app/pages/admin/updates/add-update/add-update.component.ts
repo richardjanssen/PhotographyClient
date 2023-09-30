@@ -6,7 +6,7 @@ import { HikerUpdateService } from 'src/app/core/services/hiker-update.service';
 import { PlaceService } from 'src/app/core/services/place.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { Album } from 'src/app/core/types/album.type';
-import { HighlightContentType } from 'src/app/core/types/highlight.type';
+import { PointHighlightType } from 'src/app/core/types/highlight.type';
 import { Photo } from 'src/app/core/types/photo.type';
 import { Place } from 'src/app/core/types/place.type';
 import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
@@ -24,14 +24,14 @@ import { ActivatedRoute } from '@angular/router';
 export class AddUpdateComponent {
     albums: Album[];
     places: Place[];
-    types: { value: HighlightContentType; name: string }[] = [
-        { value: HighlightContentType.photo, name: 'Photo' },
-        { value: HighlightContentType.blog, name: 'Blog' }
+    types: { value: PointHighlightType; name: string }[] = [
+        { value: PointHighlightType.photo, name: 'Photo' },
+        { value: PointHighlightType.blog, name: 'Blog' }
     ];
 
     updateId: number | null;
     title: string;
-    type: HighlightContentType;
+    type: PointHighlightType;
     albumId: string | null;
     placeId: string | null;
     distance: number | null;

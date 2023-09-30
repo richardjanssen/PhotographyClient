@@ -14,7 +14,7 @@ export interface SectionHighlight {
 export interface PointHighlight {
     id: number;
     date: Date;
-    placeType: HighlightContentType;
+    type: PointHighlightType;
     title: string;
     distance: number | null;
     isManual: boolean;
@@ -25,7 +25,7 @@ export enum HighlightType {
     section = 'section'
 }
 
-export enum HighlightContentType {
+export enum PointHighlightType {
     photo = 'photo',
     blog = 'blog',
     location = 'location',

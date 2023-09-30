@@ -20,7 +20,7 @@ export class PointHighlightComponent implements OnInit {
     expandable: boolean;
 
     ngOnInit(): void {
-        this.expandable = Constants.expandableHighlightTypes.includes(this.highlight.placeType);
+        this.expandable = Constants.expandableHighlightTypes.includes(this.highlight.type);
     }
 
     toggleExpansion(): void {

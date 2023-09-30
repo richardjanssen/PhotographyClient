@@ -1,6 +1,6 @@
 <div class="point-highlight-details">
-    <ng-container *ngIf="expandableHighlightTypes.includes(highlight.placeType) && highlight.id; else noDetails">
-        <div [ngSwitch]="highlight.placeType" class="point">
+    <ng-container *ngIf="expandableHighlightTypes.includes(highlight.type) && highlight.id; else noDetails">
+        <div [ngSwitch]="highlight.type" class="point">
             <photos-highlight
                 *ngSwitchCase="pointHighlightType.photo"
                 [hikerUpdateId]="highlight.id"
