@@ -6,7 +6,7 @@
 
     <div class="expansion" *ngIf="expandable && !expanded" (click)="toggleExpansion()">
         <span class="expansion-text">Bekijk meer</span>
-        <bs-icon class="expansion-icon" name="chevron-compact-down" [light]="true"></bs-icon>
+        <bs-icon class="expansion-icon" name="chevron-compact-down" iconColor="light"></bs-icon>
     </div>
 
     <ng-container *ngIf="expanded">
@@ -16,7 +16,7 @@
 
         <div class="expansion" (click)="toggleExpansion()">
             <span class="expansion-text">Bekijk minder</span>
-            <bs-icon class="expansion-icon" name="chevron-compact-up" [light]="true"></bs-icon>
+            <bs-icon class="expansion-icon" name="chevron-compact-up" iconColor="light"></bs-icon>
         </div>
     </ng-container>
 </div>

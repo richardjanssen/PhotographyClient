@@ -43,6 +43,39 @@
                     font-size: 1rem;
                 }
             }
+
+            .attributes {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                font-size: 0.8rem;
+                @media screen and (max-width: #{$maxWidthSm}) {
+                    font-size: 0.7rem;
+                }
+
+                .attribute {
+                    display: flex;
+                    align-items: center;
+
+                    margin-right: $marginLg;
+                    color: $primary-700;
+
+                    @media screen and (max-width: #{$maxWidthSm}) {
+                        margin-right: $margin;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    .bs-icon {
+                        display: inline-block;
+                        padding: 2px;
+                        margin-right: 2px;
+                    }
+                }
+            }
         }
 
         .icon-container {
@@ -60,10 +93,10 @@
                 margin-right: auto;
 
                 @media screen and (max-width: #{$maxWidthSm}) {
-                    min-width: 64px;
-                    min-height: 64px;
-                    width: 64px;
-                    height: 64px;
+                    // min-width: 64px;
+                    // min-height: 64px;
+                    // width: 64px;
+                    // height: 64px;
                 }
             }
         }

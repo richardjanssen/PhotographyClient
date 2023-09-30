@@ -5,8 +5,9 @@ export interface Highlight {
 }
 
 export interface SectionHighlight {
-    highlightIndex: number;
     title: string;
+    startDistance: number;
+    endDistance: number;
     children: PointHighlight[];
 }
 
@@ -29,5 +30,6 @@ export enum HighlightContentType {
     blog = 'blog',
     location = 'location',
     town = 'town',
+    enterSection = 'enterSection',
     other = 'other'
 }

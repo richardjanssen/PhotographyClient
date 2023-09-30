@@ -36,8 +36,9 @@ export class HightlightService {
         {
             type: HighlightType.section,
             sectionHighlight: {
-                highlightIndex: 1,
                 title: 'A beautiful section but with a quite long name',
+                startDistance: 100,
+                endDistance: 240,
                 children: [
                     {
                         id: 1,
@@ -82,8 +83,9 @@ export class HightlightService {
         {
             type: HighlightType.section,
             sectionHighlight: {
-                highlightIndex: 3,
                 title: 'A second section',
+                startDistance: 100,
+                endDistance: 240,
                 children: [
                     {
                         id: 1,
