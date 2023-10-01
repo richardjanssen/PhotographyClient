@@ -3,7 +3,6 @@ import { AdminPageComponent } from '../admin-page.component';
 import { LocationsPaths } from './locations.routes';
 
 @Component({
-    selector: 'locations',
     templateUrl: './locations.component.html',
     styleUrls: ['./locations.component.scss'],
     standalone: true,

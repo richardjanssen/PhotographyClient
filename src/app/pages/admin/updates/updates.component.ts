@@ -3,7 +3,6 @@ import { AdminPageComponent } from '../admin-page.component';
 import { UpdatesPaths } from './updates.routes';
 
 @Component({
-    selector: 'app-updates',
     templateUrl: './updates.component.html',
     standalone: true,
     imports: [AdminPageComponent]
