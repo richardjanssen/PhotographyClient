@@ -15,6 +15,7 @@ export class AdminComponent {
     readonly albumsPath: string = AdminPaths.albums;
     readonly updatesPath: string = AdminPaths.updates;
     readonly locationsPath: string = AdminPaths.locations;
+    readonly settingsPath: string = AdminPaths.settings;
 
     constructor(private readonly _authenticationService: AuthenticationService) {}
 

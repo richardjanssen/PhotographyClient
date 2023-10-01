@@ -1,0 +1,49 @@
+<div class="update-settings">
+    <h4>Edit settings</h4>
+
+    <ng-container *ngIf="settings$ | async as settingsResult">
+        <ng-container *ngIf="settingsResult | valid">
+            <div class="card settings-data">
+                <div class="card-body">
+                    <h5 class="card-title">Settings</h5>
+                    <ng-container *ngIf="submitResult$ | async as submitResult; else settingsForm">
+                        <success-message *ngIf="submitResult | valid">Settings have been updated</success-message>
+                        <loading-message *ngIf="submitResult | loading">Saving settings</loading-message>
+                        <error-message *ngIf="submitResult | error">An error occurred while saving the settings</error-message>
+                    </ng-container>
+
+                    <ng-template #settingsForm>
+                        <div class="form-group">
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="trackingEnabled"
+                                    [(ngModel)]="trackingEnabled"
+                                />
+                                <label class="form-check-label" for="trackingEnabled">Location tracking</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="mapboxEnabled"
+                                    [(ngModel)]="mapboxEnabled"
+                                />
+                                <label class="form-check-label" for="mapboxEnabled">Show Mapbox map</label>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button class="btn btn-primary form-button" (click)="onSubmit()">Submit</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </ng-container>
+        <loading-message *ngIf="settingsResult | loading">Loading settings</loading-message>
+        <error-message *ngIf="settingsResult | error">An error occurred while loading the settings</error-message>
+    </ng-container>
+</div>
