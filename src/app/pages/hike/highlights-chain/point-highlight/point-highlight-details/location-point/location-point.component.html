@@ -1,4 +1,12 @@
-<div class="location">
-    <location-map *ngIf="loaded" [token]="token" [lat]="lat" [lon]="lon"></location-map>
-    <p *ngIf="error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
+<div class="location" *ngIf="locationData$ | async as locationResult">
+    <ng-container *ngIf="locationResult | valid">
+        <ng-container *ngIf="locationResult | data as data">
+            <location-map *ngIf="data.mapboxEnabled; else noMap" [token]="data.token" [lat]="data.lat" [lon]="data.lon"></location-map>
+            <ng-template #noMap>
+                <p><i>De kaart is momenteel niet beschikbaar.</i></p>
+            </ng-template>
+        </ng-container>
+    </ng-container>
+
+    <p *ngIf="locationResult | error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
 </div>
