@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable, ReplaySubject, combineLatest, map, of, switchMap, tap } from 'rxjs';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
@@ -12,6 +12,7 @@ import { DataStatusPipesModule } from '../../../../core/pipes/status/data-status
 import { LoadingMessageComponent } from '../../../../core/components/loading-message/loading-message.component';
 import { ErrorMessageComponent } from '../../../../core/components/error-message/error-message.component';
 import { PlaceService } from 'src/app/core/services/place.service';
+import { DistancePipe } from '../../../../core/pipes/distance.pipe';
 
 @Component({
     selector: 'locations-overview',
@@ -21,14 +22,14 @@ import { PlaceService } from 'src/app/core/services/place.service';
     imports: [
         NgIf,
         NgFor,
-        JsonPipe,
         DatePipe,
         NullableDisplayPipe,
         BootstrapIconComponent,
         AsyncPipe,
         DataStatusPipesModule,
         LoadingMessageComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        DistancePipe
     ]
 })
 export class LocationsOverviewComponent {

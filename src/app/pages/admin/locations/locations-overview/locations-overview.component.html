@@ -5,7 +5,9 @@
             <li><b>Id:</b> {{ locationToDelete.id }}</li>
             <li><b>Date:</b> {{ locationToDelete.date | date: 'dd-MM-yyyy - HH:mm' }}</li>
             <li><b>Manual:</b> {{ locationToDelete.isManual }}</li>
+            <li><b>PlaceId:</b> {{ locationToDelete.distance | nullableDisplay }}</li>
             <li><b>PlaceId:</b> {{ locationToDelete.placeId | nullableDisplay }}</li>
+            <li><b>PlaceId:</b> {{ locationToDelete.sectionId | nullableDisplay }}</li>
             <li><b>Lat:</b> {{ locationToDelete.lat | nullableDisplay }}</li>
             <li><b>Lon:</b> {{ locationToDelete.lon | nullableDisplay }}</li>
         </ul>
@@ -28,8 +30,10 @@
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Distance</th>
                             <th scope="col">Manual</th>
                             <th scope="col">Place</th>
+                            <th scope="col">Section ID</th>
                             <th scope="col">Lat</th>
                             <th scope="col">Lon</th>
                             <th scope="col"><bs-icon name="trash"></bs-icon></th>
@@ -42,8 +46,10 @@
                         <tr *ngFor="let location of locations">
                             <td>{{ location.id }}</td>
                             <td>{{ location.date | date: 'dd-MM-yyyy - HH:mm' }}</td>
+                            <td>{{ location.distance | distance | nullableDisplay }}</td>
                             <td>{{ location.isManual }}</td>
                             <td>{{ location.placeId ? location.place : '-' }}</td>
+                            <td>{{ location.sectionId | nullableDisplay }}</td>
                             <td>{{ location.lat | nullableDisplay }}</td>
                             <td>{{ location.lon | nullableDisplay }}</td>
                             <th><bs-icon name="trash" (click)="onPendingDelete(location)"></bs-icon></th>

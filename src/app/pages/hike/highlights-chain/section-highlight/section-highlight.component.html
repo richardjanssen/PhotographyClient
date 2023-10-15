@@ -1,11 +1,7 @@
 <div class="section-highlight">
     <div class="background"></div>
     <ng-container *ngFor="let child of highlight.children">
-        <point-highlight
-            *ngIf="child.type !== pointHighlightType.enterSection"
-            class="place-highlight in-section"
-            [highlight]="child"
-        ></point-highlight>
+        <point-highlight class="place-highlight in-section" [highlight]="child"></point-highlight>
     </ng-container>
 
     <div class="information">
@@ -16,9 +12,9 @@
                     <bs-icon class="bs-icon" name="ruler" iconColor="primary-700"></bs-icon>
                     <i>{{ highlight.startDistance | distance }} - {{ highlight.endDistance | distance }}</i>
                 </div>
-                <div class="attribute" *ngIf="sectionEntryDate">
+                <div class="attribute" *ngIf="highlight.firstEntered">
                     <bs-icon class="bs-icon" name="box-arrow-in-right" iconColor="primary-700"></bs-icon>
-                    <i>{{ sectionEntryDate | date: 'dd-MM-yyyy' }}</i>
+                    <i>{{ highlight.firstEntered | date: 'dd-MM-yyyy' }}</i>
                 </div>
             </div>
         </div>

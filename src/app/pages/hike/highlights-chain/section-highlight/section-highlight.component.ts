@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PointHighlightType, SectionHighlight } from 'src/app/core/types/highlight.type';
+import { Component, Input } from '@angular/core';
+import { SectionHighlight } from 'src/app/core/types/highlight.type';
 import { PointHighlightComponent } from '../point-highlight/point-highlight.component';
 import { IconComponent } from '../../../../core/components/icon/icon.component';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
@@ -13,14 +13,6 @@ import { DistancePipe } from 'src/app/core/pipes/distance.pipe';
     standalone: true,
     imports: [IconComponent, BootstrapIconComponent, DistancePipe, DatePipe, NgIf, NgFor, PointHighlightComponent]
 })
-export class SectionHighlightComponent implements OnInit {
+export class SectionHighlightComponent {
     @Input() highlight: SectionHighlight;
-
-    pointHighlightType = PointHighlightType;
-    sectionEntryDate: Date | null;
-
-    ngOnInit(): void {
-        const enterSectionHighlight = this.highlight.children.find(point => point.type === this.pointHighlightType.enterSection);
-        this.sectionEntryDate = enterSectionHighlight?.date ?? null;
-    }
 }
