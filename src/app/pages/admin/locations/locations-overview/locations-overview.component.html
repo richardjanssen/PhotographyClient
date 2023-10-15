@@ -43,7 +43,7 @@
                         <tr *ngIf="locations.length === 0">
                             <td colspan="100">No locations were found.</td>
                         </tr>
-                        <tr *ngFor="let location of locations">
+                        <tr *ngFor="let location of locations.slice(0, numberOfItems)">
                             <td>{{ location.id }}</td>
                             <td>{{ location.date | date: 'dd-MM-yyyy - HH:mm' }}</td>
                             <td>{{ location.distance | distance | nullableDisplay }}</td>
@@ -56,6 +56,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <button class="btn btn-primary" (click)="increaseLocations()">Meer locaties tonen</button>
             </ng-container>
         </ng-container>
         <loading-message *ngIf="locationsResult | loading">Loading locations overview</loading-message>
