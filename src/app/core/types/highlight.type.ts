@@ -8,6 +8,7 @@ export interface SectionHighlight {
     title: string;
     startDistance: number;
     endDistance: number;
+    firstEntered: Date | null;
     children: PointHighlight[];
 }
 
@@ -30,6 +31,5 @@ export enum PointHighlightType {
     blog = 'blog',
     location = 'location',
     town = 'town',
-    enterSection = 'enterSection',
     other = 'other'
 }
