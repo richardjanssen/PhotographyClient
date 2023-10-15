@@ -36,6 +36,7 @@ export class LocationsOverviewComponent {
     locations$: Observable<DataStatus<UserLocationPlace[]>>;
     deleted$: ReplaySubject<number | null> = new ReplaySubject<number | null>();
     deleteResult$: Observable<DataStatus<null> | null> = new Observable<null>();
+    numberOfItems: number = 50;
 
     locationToDelete: UserLocation;
     showDeleteConfirmation: boolean;
@@ -64,6 +65,10 @@ export class LocationsOverviewComponent {
                     : of(null)
             )
         );
+    }
+
+    increaseLocations(): void {
+        this.numberOfItems += 50;
     }
 
     onPendingDelete(location: UserLocation): void {
