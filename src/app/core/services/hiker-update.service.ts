@@ -37,8 +37,4 @@ export class HikerUpdateService {
     private _getUrl(method: string): string {
         return this._urlBuilderHelper.constructUrlWithApiUrlPrefix('v1/HikerUpdate/' + method);
     }
-
-    private _getPhotosUrl(method: string): string {
-        return this._urlBuilderHelper.constructUrlWithApiUrlPrefix('v1/Photos/' + method);
-    }
 }
