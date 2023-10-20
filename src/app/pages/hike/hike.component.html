@@ -1,8 +1,10 @@
 <app-header></app-header>
-<div class="hike">
-    <div class="main-content">
-        <app-banner></app-banner>
-        <highlights-chain *ngIf="highlights" [highlights]="highlights" class="highlights-chain"></highlights-chain>
-    </div>
-</div>
-<app-footer></app-footer>
+<hike-banner></hike-banner>
+<ng-container *ngIf="highlights$ | async as highlightsResult">
+    <loading-animation *ngIf="highlightsResult | loading"></loading-animation>
+    <ng-container *ngIf="highlightsResult | valid">
+        <highlights-chain [highlights]="(highlightsResult | data)!" class="highlights-chain"></highlights-chain>
+        <app-footer></app-footer>
+    </ng-container>
+    <p *ngIf="highlightsResult | error"><i>Het laden is mislukt.</i></p>
+</ng-container>

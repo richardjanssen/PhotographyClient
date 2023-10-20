@@ -1,0 +1,19 @@
+@import '../../../../styles/variables.scss';
+
+.loading-animation {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $marginLg;
+
+    .image {
+        width: 100%;
+    }
+
+    .text {
+        display: block;
+        text-align: center;
+        font-size: 0.9rem;
+        color: $primary-600;
+    }
+}

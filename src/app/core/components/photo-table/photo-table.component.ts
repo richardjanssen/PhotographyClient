@@ -24,7 +24,10 @@ export class PhotoTableComponent implements OnInit {
 
     generateImgHtml(srcText: string, srcLarge: string): void {
         this.imageHtml.emit(
-            `<a href="${srcLarge}" target="_blank" class="update-text-link">` + `<img class="update-text-image" src="${srcText}"></a>`
+            `<a href="${srcLarge}" target="_blank" class="update-text-link">` +
+                `<img class="update-text-image" src="${srcText}">` +
+                '</a>' +
+                '<span class="update-text-image-caption"></span>'
         );
     }
 
