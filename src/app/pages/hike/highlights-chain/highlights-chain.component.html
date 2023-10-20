@@ -13,7 +13,7 @@
             ></section-highlight>
         </ng-container>
     </div>
-    <div class="connector">
-        <bs-icon class="connector-top" name="chevron-up"></bs-icon>
+    <div class="connector" [ngClass]="{ 'section-ending': highlights[0].sectionHighlight }">
+        <bs-icon class="connector-top" name="chevron-up" iconColor="primary-600"></bs-icon>
     </div>
 </div>

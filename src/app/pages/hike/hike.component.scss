@@ -1,14 +1,11 @@
 @import '../../../styles/variables.scss';
 
-.hike {
+.highlights-chain {
+    display: block;
+    width: 100%;
+    padding-left: $paddingSm;
+    padding-right: $paddingSm;
+    padding-bottom: $padding;
+    margin-top: $chainMarginTop;
     border-bottom: 1px solid $primary-200;
-
-    .highlights-chain {
-        display: block;
-        width: 100%;
-        padding-left: $paddingSm;
-        padding-right: $paddingSm;
-        padding-bottom: $padding;
-        margin-top: $chainMarginTop;
-    }
 }
