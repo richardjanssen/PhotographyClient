@@ -67,8 +67,8 @@ export class LocationsOverviewComponent {
         );
     }
 
-    increaseLocations(): void {
-        this.numberOfItems += 50;
+    increaseLocations(maxItems: number): void {
+        this.numberOfItems = Math.min(this.numberOfItems + 50, maxItems);
     }
 
     onPendingDelete(location: UserLocation): void {

@@ -56,7 +56,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-primary" (click)="increaseLocations()">Meer locaties tonen</button>
+                <button class="btn btn-primary" *ngIf="locations.length > numberOfItems" (click)="increaseLocations(locations.length)">
+                    Meer locaties tonen
+                </button>
             </ng-container>
         </ng-container>
         <loading-message *ngIf="locationsResult | loading">Loading locations overview</loading-message>
