@@ -9,3 +9,10 @@
     margin-top: $chainMarginTop;
     border-bottom: 1px solid $primary-200;
 }
+
+.error-message {
+    padding: $marginLg;
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+}

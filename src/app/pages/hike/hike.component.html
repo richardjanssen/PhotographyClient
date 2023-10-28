@@ -6,5 +6,5 @@
         <highlights-chain [highlights]="(highlightsResult | data)!" class="highlights-chain"></highlights-chain>
         <app-footer></app-footer>
     </ng-container>
-    <p *ngIf="highlightsResult | error"><i>Het laden is mislukt.</i></p>
+    <h6 class="error-message" *ngIf="highlightsResult | error"><i>Het laden is mislukt.</i></h6>
 </ng-container>
