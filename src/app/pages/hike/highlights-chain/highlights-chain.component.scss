@@ -25,6 +25,10 @@
         display: block;
         margin-left: auto;
         margin-right: $padding;
+
+        &.hidden {
+            height: 1px; // Makes connector full height when expand button is not shown
+        }
     }
 
     .expand-button {
