@@ -1,5 +1,5 @@
 <div *ngIf="highlights" #highlightsChain class="highlights-chain">
-    <div class="highlights-chain_container" *ngFor="let highlight of highlights; index as i">
+    <div class="highlights-chain_container" *ngFor="let highlight of highlights.slice(0, numberOfHighlights); index as i">
         <ng-container [ngSwitch]="highlight.type">
             <point-highlight
                 *ngSwitchCase="highlightType.place"
@@ -12,6 +12,11 @@
                 [highlight]="highlight.sectionHighlight!"
             ></section-highlight>
         </ng-container>
+    </div>
+    <div>
+        <button *ngIf="numberOfHighlights < highlights.length" class="btn btn-secondary expand-button" (click)="onViewMoreHighlights()">
+            Bekijk meer<bs-icon name="chevron-compact-down" iconColor="light" class="expand-icon"></bs-icon>
+        </button>
     </div>
     <div class="connector" [ngClass]="{ 'section-ending': highlights[0].sectionHighlight }">
         <bs-icon class="connector-top" name="chevron-up" iconColor="primary-600"></bs-icon>

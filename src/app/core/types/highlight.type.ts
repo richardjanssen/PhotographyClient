@@ -38,7 +38,7 @@ export enum PointHighlightType {
     mountainPass = 'mountainPass',
     mountainBypass = 'mountainBypass',
     waterfall = 'waterfall',
-    bridge = 'bridge',
+    bridgeOfTheGods = 'bridgeOfTheGods',
     terminus = 'terminus',
     laAqueduct = 'laAqueduct',
     devilsPostpile = 'devilsPostpile',

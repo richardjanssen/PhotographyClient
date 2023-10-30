@@ -20,9 +20,35 @@
         }
     }
 
+    .expand-button {
+        // Positioning
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+        z-index: 2;
+        position: relative;
+
+        // Styling
+        background-color: $secondary-500;
+        border: 1px solid $secondary-600;
+        color: $light;
+        font-size: 0.9rem;
+        transition: background-color $transitionTimeFast ease-in-out;
+
+        &:hover {
+            background-color: $secondary-600;
+            border: 1px solid $secondary-700;
+        }
+
+        .expand-icon {
+            margin-left: $spacing;
+        }
+    }
+
     .connector {
         position: relative;
-        height: calc(100% + 1rem + $margin);
+        height: calc(100% + $margin);
         width: $connectorBorderWidth;
         margin-left: calc(0.5rem * var(--connector-width) + 0.5 * $margin);
         position: absolute;
