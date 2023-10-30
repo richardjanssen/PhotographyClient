@@ -27,4 +27,9 @@ export class HighlightsChainComponent {
     @Input() highlights: Highlight[];
 
     highlightType: typeof HighlightType = HighlightType;
+    numberOfHighlights: number = 15;
+
+    onViewMoreHighlights(): void {
+        this.numberOfHighlights = Math.min(this.numberOfHighlights + 15, this.highlights.length);
+    }
 }
