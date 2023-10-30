@@ -20,6 +20,17 @@
         }
     }
 
+    .expand-button-container {
+        width: calc(100% - (2 * $padding) - (var(--connector-width) * 1rem));
+        display: block;
+        margin-left: auto;
+        margin-right: $padding;
+
+        &.hidden {
+            height: 1px; // Makes connector full height when expand button is not shown
+        }
+    }
+
     .expand-button {
         // Positioning
         display: block;

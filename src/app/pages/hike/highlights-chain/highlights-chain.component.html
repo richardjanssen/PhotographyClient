@@ -13,7 +13,7 @@
             ></section-highlight>
         </ng-container>
     </div>
-    <div>
+    <div class="expand-button-container" [ngClass]="{ hidden: numberOfHighlights === highlights.length }">
         <button *ngIf="numberOfHighlights < highlights.length" class="btn btn-secondary expand-button" (click)="onViewMoreHighlights()">
             Bekijk meer<bs-icon name="chevron-compact-down" iconColor="light" class="expand-icon"></bs-icon>
         </button>
