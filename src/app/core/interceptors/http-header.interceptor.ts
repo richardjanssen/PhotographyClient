@@ -9,14 +9,14 @@ import { SessionStorageService } from '../services/session-storage.service';
 export class HttpHeaderInterceptor implements HttpInterceptor {
     constructor(private _sessionStorageService: SessionStorageService, private readonly _environmentService: EnvironmentService) {}
 
-    public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         return this.addToken(request).pipe(
             first(),
-            mergeMap((requestWithToken: HttpRequest<any>) => next.handle(requestWithToken))
+            mergeMap((requestWithToken: HttpRequest<unknown>) => next.handle(requestWithToken))
         );
     }
 
-    private addToken(request: HttpRequest<any>): Observable<HttpRequest<any>> {
+    private addToken(request: HttpRequest<unknown>): Observable<HttpRequest<unknown>> {
         const token = this._sessionStorageService.getItem(this._environmentService.tokenName);
 
         if (token) {

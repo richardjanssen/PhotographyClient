@@ -17,11 +17,11 @@ export class LoginComponent {
         password: new FormControl('', [Validators.required])
     });
 
-    get username(): AbstractControl<any, any> | null {
+    get username(): AbstractControl<string, string> | null {
         return this.loginForm.get('username');
     }
 
-    get password(): AbstractControl<any, any> | null {
+    get password(): AbstractControl<string, string> | null {
         return this.loginForm.get('password');
     }
 
@@ -34,7 +34,7 @@ export class LoginComponent {
         this.formSubmitted = true;
     }
 
-    showValidations(formControl: AbstractControl<any, any> | null): boolean | undefined {
+    showValidations(formControl: AbstractControl<string, string> | null): boolean | undefined {
         return formControl?.invalid && (formControl?.dirty || formControl?.touched || this.formSubmitted);
     }
 }

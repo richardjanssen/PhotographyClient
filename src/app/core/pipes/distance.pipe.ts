@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     standalone: true
 })
 export class DistancePipe implements PipeTransform {
-    transform<T>(value: number | null): string {
+    transform(value: number | null): string {
         if (value === null || value === undefined) {
             return '-';
         }
