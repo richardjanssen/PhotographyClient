@@ -39,8 +39,9 @@ export class AddPhotoComponent {
             .subscribe(albums => (this.albums = albums));
     }
 
-    onFileSelected(event: any): void {
-        const file: File = event.target.files[0];
+    onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const file: File | null = input.files ? input.files[0] : null;
         if (file) {
             this.file = file;
             this.fileSelected = true;
