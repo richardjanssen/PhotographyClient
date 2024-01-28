@@ -3,7 +3,12 @@
         <ng-container *ngIf="locationResult | data as data">
             <location-map *ngIf="data.mapboxEnabled; else noMap" [token]="data.token" [lat]="data.lat" [lon]="data.lon"></location-map>
             <ng-template #noMap>
-                <p><i>De kaart is momenteel niet beschikbaar.</i></p>
+                <p>
+                    <i>
+                        De kaart is momenteel niet beschikbaar. In plaats daarvan ben ik te volgen via
+                        <a href="https://share.garmin.com/riesj" target="_blank">deze kaart</a>.
+                    </i>
+                </p>
             </ng-template>
         </ng-container>
     </ng-container>

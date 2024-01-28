@@ -31,6 +31,7 @@ export class LocationMapComponent implements OnInit {
 
         map.addControl(new mapboxgl.ScaleControl());
         map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
 
         map.on('style.load', () => {
             map.addSource('current-location-data', {
