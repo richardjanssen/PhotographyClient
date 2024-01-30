@@ -30,19 +30,19 @@
         <div class="attributes">
             <div class="attribute">
                 <bs-icon class="bs-icon" name="calendar-week"></bs-icon>
-                <i>{{ highlight.date | date: 'dd-MM-yyyy' }}</i>
+                <i>{{ highlight.date | date : 'dd-MM-yyyy' }}</i>
             </div>
             <div class="attribute">
                 <bs-icon class="bs-icon" name="clock"></bs-icon>
-                <i>{{ highlight.date | date: 'HH:mm z' }}</i>
+                <i>{{ highlight.date | date : 'HH:mm z' }}</i>
             </div>
             <div class="attribute" *ngIf="highlight.distance">
                 <bs-icon class="bs-icon" name="ruler"></bs-icon>
                 <i>{{ highlight.distance | distance }}</i>
             </div>
             <div *ngIf="!highlight.isManual" class="attribute">
-                <bs-icon class="bs-icon" name="robot"></bs-icon>
-                <i>Automatische update</i>
+                <bs-icon class="bs-icon" name="pin-map-fill"></bs-icon>
+                <i>Gps update</i>
             </div>
         </div>
     </div>
