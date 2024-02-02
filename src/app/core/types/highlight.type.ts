@@ -6,6 +6,7 @@ export interface Highlight {
 
 export interface SectionHighlight {
     title: string;
+    type: SectionHighlightType;
     startDistance: number;
     endDistance: number;
     firstEntered: Date | null;
@@ -24,6 +25,12 @@ export interface PointHighlight {
 export enum HighlightType {
     place = 'place',
     section = 'section'
+}
+
+export enum SectionHighlightType {
+    desert = 'desert',
+    sparseForest = 'sparseForest',
+    denseForest = 'denseForest'
 }
 
 export enum PointHighlightType {
