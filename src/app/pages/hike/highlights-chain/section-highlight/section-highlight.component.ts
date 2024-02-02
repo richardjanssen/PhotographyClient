@@ -37,7 +37,7 @@ export class SectionHighlightComponent implements OnInit {
             case SectionHighlightType.desert:
                 return 'icon-dots';
             case SectionHighlightType.sparseForest:
-                return 'icon-dots';
+                return 'wilderness-wide';
             case SectionHighlightType.denseForest:
                 return 'wilderness-trees';
             default:
