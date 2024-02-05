@@ -35,13 +35,13 @@ export class SectionHighlightComponent implements OnInit {
     private _getIconName(type: SectionHighlightType): string {
         switch (type) {
             case SectionHighlightType.desert:
-                return 'icon-dots';
+                return 'wilderness-desert';
             case SectionHighlightType.sparseForest:
-                return 'wilderness-wide';
+                return 'wilderness-mountains';
             case SectionHighlightType.denseForest:
-                return 'wilderness-trees';
+                return 'wilderness-mountain-trees';
             default:
-                return 'icon-dots';
+                return 'wilderness-mountains';
         }
     }
 }
