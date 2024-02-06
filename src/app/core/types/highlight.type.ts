@@ -49,7 +49,7 @@ export enum PointHighlightType {
     terminus = 'terminus',
     laAqueduct = 'laAqueduct',
     devilsPostpile = 'devilsPostpile',
-    castleCrag = 'castleCrag',
+    castleCrags = 'castleCrags',
     fiveHundred = 'fiveHundred',
     oneThousand = 'oneThousand',
     fifteenHundred = 'fifteenHundred',
