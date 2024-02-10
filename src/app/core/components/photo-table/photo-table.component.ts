@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Photo } from '../../types/photo.type';
 import { EnvironmentService } from '../../services/environment.service';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
@@ -10,7 +10,7 @@ import { NgIf, NgFor, DatePipe } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgFor, DatePipe]
 })
-export class PhotoTableComponent implements OnInit {
+export class PhotoTableComponent implements OnChanges {
     @Input() photos: Photo[];
     @Input() showGenerateImageLinks: boolean = false;
     @Output() imageHtml: EventEmitter<string> = new EventEmitter();
@@ -18,7 +18,7 @@ export class PhotoTableComponent implements OnInit {
 
     constructor(private readonly _environmentService: EnvironmentService) {}
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.tablePhotos = this.photos.map(photo => this.mapPhoto(photo, this._environmentService.baseApiUrl));
     }
 
