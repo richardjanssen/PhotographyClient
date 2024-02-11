@@ -105,8 +105,8 @@ export class AddUpdateComponent {
         this.distance = this.places.find(place => place.id === parseInt(placeId, 10))?.distance ?? null;
     }
 
-    onBlogAlbumChange(): void {
-        this.blogPhotosAlbumId$.next(this.blogPhotosAlbumId);
+    onBlogAlbumChange(albumId: string): void {
+        this.blogPhotosAlbumId$.next(albumId);
     }
 
     reloadComponent(): void {

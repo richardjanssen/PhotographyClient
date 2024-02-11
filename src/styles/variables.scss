@@ -35,15 +35,11 @@ $light-500: $light;
 $light-600: #f4f4f4;
 
 // Breakpoints
-$maxWidthXs: 400px;
 $maxWidthSm: 500px;
-$maxWidthLg: 1920px;
 
 // Basic
 $borderRadius: 3px;
-$transitionTimeUnitless: 250; // ms, unitless value, used in TS
-$transitionTime: $transitionTimeUnitless * 1ms;
-$transitionTimeFast: 125ms;
+$transitionTime: 125ms;
 $spacingSm: 0.35rem;
 $spacing: 0.75rem;
 $spacingLg: 1.5rem;
@@ -53,26 +49,10 @@ $margin: $spacing;
 $marginSm: $spacingSm;
 $marginLg: $spacingLg;
 
-// Hike
-$bannerHeightSm: 300px;
-$bannerHeight: 350px;
-
 // Highlights chain
-$chainMarginTop: $marginLg;
 $connectorWidth: 2; //rem;
+$connectorWidthSm: 0; // rem;
 $connectorBorderWidth: 1px;
-$connectorWidthSm: 0;
-$leftCenterpointXs: 0.3;
-$rightCenterpointXs: 0.7;
-$leftCenterpointSm: 0.35;
-$rightCenterpointSm: 0.65;
-$leftCenterpoint: 0.4;
-$rightCenterpoint: 0.6;
-$cardWidth: 9.5rem;
-$startWidth: 0.8 * $cardWidth;
-$connectorBorderStyle: 2px dashed $primary-700;
-$connectorBorderRadius: 15px;
-$borderColor: $secondary-500;
 $connectorColor: $primary-500;
 
 // CSS variables
@@ -80,33 +60,10 @@ $connectorColor: $primary-500;
 // Interacting with CSS from TS should only be done when no pure CSS solution is available.
 // Declare variables first as SCSS-variables, and use those variables here to maintain a single source of truth.
 :root {
-    --poker-green: #30413c; // To be replaced by SCSS variable
-    --poker-green-light: #475a54; // To be replaced by SCSS variable
-    --poker-green-verylight: #5b716b; // To be replaced by SCSS variable
-    --poker-green-dark: #172622; // To be replaced by SCSS variable
-
-    --transition-time-unitless: #{$transitionTimeUnitless}; // Used in TS
-    --padding: #{$padding}; // To be replaced by SCSS variable
-
-    // --highlights-width: 100%; // Used in TS
-
-    --left-centerpoint: #{$leftCenterpoint};
-    --right-centerpoint: #{$rightCenterpoint};
-
     --connector-width: #{$connectorWidth};
 
     // Order of breakpoints is important here. Smallest screens satisfy all breakpoints, so last values count
     @media screen and (max-width: #{$maxWidthSm}) {
-        --left-centerpoint: #{$leftCenterpointSm};
-        --right-centerpoint: #{$rightCenterpointSm};
         --connector-width: #{$connectorWidthSm};
     }
-
-    @media screen and (max-width: #{$maxWidthXs}) {
-        --left-centerpoint: #{$leftCenterpointXs};
-        --right-centerpoint: #{$rightCenterpointXs};
-    }
-
-    --left-centerpoint-percentage: calc(var(--left-centerpoint) * 100%);
-    --right-centerpoint-percentage: calc(var(--right-centerpoint) * 100%);
 }

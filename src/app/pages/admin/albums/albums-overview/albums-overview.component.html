@@ -1,14 +1,17 @@
-<div class="card albums">
+<div class="card albums" *ngIf="vm$ | async as vm">
     <div class="card-body">
         <h5 class="card-title">Album content</h5>
         <div class="form-group form">
             <label for="album">Select an album</label>
-            <select [(ngModel)]="selectedAlbumId" class="form-control albums_select" id="album" required>
-                <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
+            <select
+                [(ngModel)]="selectedAlbumId"
+                (ngModelChange)="onAlbumSelect($event)"
+                class="form-control albums_select"
+                id="album"
+                required
+            >
+                <option *ngFor="let album of vm.albums" [value]="album.id">{{ album.title }}</option>
             </select>
-            <div>
-                <button class="btn btn-primary" [disabled]="!selectedAlbumId" (click)="onAlbumSelect()">Select</button>
-            </div>
         </div>
 
         <div class="alert alert-warning" *ngIf="showDeleteConfirmation">
@@ -23,17 +26,17 @@
             <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
             <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
 
-            <div class="delete-status-container" *ngIf="deleteResult$ | async as deleteResult">
-                <loading-message *ngIf="deleteResult | loading">Deleting location</loading-message>
-                <error-message *ngIf="deleteResult | error">An error occurred while deleting the location</error-message>
+            <div class="delete-status-container" *ngIf="vm.deleteResult">
+                <loading-message *ngIf="vm.deleteResult | loading">Deleting location</loading-message>
+                <error-message *ngIf="vm.deleteResult | error">An error occurred while deleting the location</error-message>
             </div>
         </div>
 
         <photo-table
-            *ngIf="selectedAlbumDetails"
+            *ngIf="vm.selectedAlbumDetails"
             [showDeleteButton]="true"
-            (delete)="onPendingDelete($event)"
-            [photos]="selectedAlbumDetails.photos"
+            (delete)="onPendingDelete($event, vm.selectedAlbumId, vm.selectedAlbumName)"
+            [photos]="vm.selectedAlbumDetails.photos"
         ></photo-table>
     </div>
 </div>

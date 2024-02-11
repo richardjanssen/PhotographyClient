@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { AlbumService } from 'src/app/core/services/album.service';
 import { Album, AlbumDetails } from 'src/app/core/types/album.type';
 import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable, ReplaySubject, of, switchMap, tap } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest, map, of, startWith, switchMap, tap } from 'rxjs';
 import { DataStatus, StateStatus } from 'src/app/core/types/data-status.types';
 import { DataStatusPipesModule } from 'src/app/core/pipes/status/data-status-pipes.module';
 import { LoadingMessageComponent } from '../../../../core/components/loading-message/loading-message.component';
@@ -24,6 +24,7 @@ import { NullableDisplayPipe } from '../../../../core/pipes/nullable-display.pip
         NgIf,
         PhotoTableComponent,
         AsyncPipe,
+        JsonPipe,
         DataStatusPipesModule,
         LoadingMessageComponent,
         ErrorMessageComponent,
@@ -31,21 +32,35 @@ import { NullableDisplayPipe } from '../../../../core/pipes/nullable-display.pip
     ]
 })
 export class AlbumsOverviewComponent {
-    albums: Album[];
-    selectedAlbumId: string;
-    selectedAlbumDetails: AlbumDetails | null;
+    vm$: Observable<{
+        albums: Album[];
+        selectedAlbumId: number | null;
+        selectedAlbumName: string | null;
+        selectedAlbumDetails: AlbumDetails | null;
+        deleteResult: DataStatus<null> | null;
+    }>;
 
+    selectedAlbumId: string;
+    selectedAlbumId$: ReplaySubject<string> = new ReplaySubject();
     deleted$: ReplaySubject<AlbumPhotoDelete | null> = new ReplaySubject<AlbumPhotoDelete | null>();
-    deleteResult$: Observable<DataStatus<null> | null> = new Observable<null>();
-    numberOfItems: number = 50;
 
     photoToDelete: AlbumPhotoDelete;
     showDeleteConfirmation: boolean;
 
     constructor(private readonly _albumService: AlbumService, windowService: WindowService) {
-        this._albumService.getAlbums().subscribe(albums => (this.albums = albums));
-
-        this.deleteResult$ = this.deleted$.pipe(
+        const albums$ = this._albumService.getAlbums();
+        const selectedAlbumDetails$ = this.selectedAlbumId$.pipe(
+            map(albumId => this.getAlbumId(albumId)),
+            switchMap(albumId =>
+                this._albumService.getById(albumId).pipe(
+                    map(albumDetails => {
+                        return { albumDetails, albumId };
+                    })
+                )
+            ),
+            startWith(null)
+        );
+        const deleteResult$ = this.deleted$.pipe(
             switchMap(photoToDelete =>
                 photoToDelete
                     ? this._albumService.deletePhoto(photoToDelete.albumId, photoToDelete.photoId).pipe(
@@ -57,25 +72,32 @@ export class AlbumsOverviewComponent {
                           })
                       )
                     : of(null)
-            )
+            ),
+            startWith(null)
+        );
+
+        this.vm$ = combineLatest([albums$, selectedAlbumDetails$, deleteResult$]).pipe(
+            map(([albums, selectedAlbumDetails, deleteResult]) => ({
+                albums,
+                selectedAlbumId: selectedAlbumDetails?.albumId ?? null,
+                selectedAlbumDetails: selectedAlbumDetails?.albumDetails ?? null,
+                selectedAlbumName: albums.find(album => album.id === selectedAlbumDetails?.albumId)?.title ?? null,
+                deleteResult
+            }))
         );
     }
 
-    onAlbumSelect(): void {
-        this.selectedAlbumDetails = null;
+    onAlbumSelect(albumId: string): void {
         this.cancelDelete();
-        this._albumService
-            .getById(this.getAlbumId(this.selectedAlbumId))
-            .subscribe(albumDetails => (this.selectedAlbumDetails = albumDetails));
+        this.selectedAlbumId$.next(albumId);
     }
 
-    onPendingDelete(photoId: number): void {
-        const albumId = this.getAlbumId(this.selectedAlbumId);
-        this.photoToDelete = {
-            albumId: albumId,
-            albumName: this.albums.find(album => album.id === albumId)?.title ?? null,
-            photoId
-        };
+    onPendingDelete(photoId: number, albumId: number | null, albumName: string | null): void {
+        if (albumId === null || albumName === null) {
+            return;
+        }
+
+        this.photoToDelete = { albumId, albumName, photoId };
         this.showDeleteConfirmation = true;
     }
 

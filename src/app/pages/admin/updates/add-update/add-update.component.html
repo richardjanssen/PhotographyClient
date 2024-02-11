@@ -57,7 +57,13 @@
 
             <div class="album-select">
                 <label for="albumId">Album</label>
-                <select id="albumId" [(ngModel)]="blogPhotosAlbumId" (change)="onBlogAlbumChange()" class="form-control" required>
+                <select
+                    id="albumId"
+                    [(ngModel)]="blogPhotosAlbumId"
+                    (ngModelChange)="onBlogAlbumChange($event)"
+                    class="form-control"
+                    required
+                >
                     <option *ngFor="let album of blogAlbums" [value]="album.id">{{ album.title }}</option>
                 </select>
             </div>
