@@ -11,6 +11,29 @@
             </div>
         </div>
 
-        <photo-table *ngIf="selectedAlbumDetails" [photos]="selectedAlbumDetails.photos"></photo-table>
+        <div class="alert alert-warning" *ngIf="showDeleteConfirmation">
+            <p>You are about to delete the following location:</p>
+            <ul>
+                <li><b>AlbumId:</b> {{ photoToDelete.albumId }}</li>
+                <li><b>Album name:</b> {{ photoToDelete.albumName | nullableDisplay }}</li>
+                <li><b>PhotoId:</b> {{ photoToDelete.photoId }}</li>
+            </ul>
+
+            <p>Are you sure? This action cannot be undone.</p>
+            <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
+            <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+
+            <div class="delete-status-container" *ngIf="deleteResult$ | async as deleteResult">
+                <loading-message *ngIf="deleteResult | loading">Deleting location</loading-message>
+                <error-message *ngIf="deleteResult | error">An error occurred while deleting the location</error-message>
+            </div>
+        </div>
+
+        <photo-table
+            *ngIf="selectedAlbumDetails"
+            [showDeleteButton]="true"
+            (delete)="onPendingDelete($event)"
+            [photos]="selectedAlbumDetails.photos"
+        ></photo-table>
     </div>
 </div>

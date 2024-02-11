@@ -22,6 +22,10 @@ export class AlbumService {
         return this._http.get<AlbumDetails>(this._getUrl(`GetById?id=${id}`));
     }
 
+    deletePhoto(albumId: number, photoId: number): Observable<null> {
+        return this._http.delete<null>(this._getUrl('DeletePhoto'), { body: { albumId, photoId } });
+    }
+
     private _getUrl(method: string): string {
         return this._urlBuilderHelper.constructUrlWithApiUrlPrefix('v1/Album/' + method);
     }
