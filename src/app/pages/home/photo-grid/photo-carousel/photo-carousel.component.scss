@@ -30,11 +30,11 @@
 
     .carousel-button {
         position: absolute;
-        fill: var(--poker-green-verylight);
+        fill: $primary-600;
         transition-duration: 0.1s;
 
         &:hover {
-            fill: var(--poker-green-light);
+            fill: $primary-700;
             transform: scale(1.2);
 
             @include small() {

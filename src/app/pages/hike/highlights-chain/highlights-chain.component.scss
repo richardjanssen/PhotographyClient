@@ -45,7 +45,7 @@
         border: 1px solid $secondary-600;
         color: $light;
         font-size: 0.9rem;
-        transition: background-color $transitionTimeFast ease-in-out;
+        transition: background-color $transitionTime ease-in-out;
 
         &:hover {
             background-color: $secondary-600;

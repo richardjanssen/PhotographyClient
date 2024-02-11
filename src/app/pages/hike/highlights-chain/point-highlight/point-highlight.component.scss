@@ -9,7 +9,7 @@ $connectorDotDiameter: 2 * $connectorDotRadius;
     width: 100%;
     padding: $padding;
     background-color: $light;
-    border-color: $borderColor;
+    border-color: $secondary-500;
 
     .expansion {
         // Positioning
@@ -29,7 +29,7 @@ $connectorDotDiameter: 2 * $connectorDotRadius;
         background-color: $secondary-500;
         border: 1px solid $secondary-600;
         border-radius: $borderRadius;
-        transition: background-color $transitionTimeFast ease-in-out;
+        transition: background-color $transitionTime ease-in-out;
 
         .expansion-icon {
             padding-left: 3px;
