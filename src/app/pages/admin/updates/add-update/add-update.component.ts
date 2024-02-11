@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { marked } from 'marked';
-import { map } from 'rxjs';
+import { ReplaySubject, of, switchMap } from 'rxjs';
 import { AlbumService } from 'src/app/core/services/album.service';
 import { HikerUpdateService } from 'src/app/core/services/hiker-update.service';
 import { PlaceService } from 'src/app/core/services/place.service';
@@ -38,6 +38,9 @@ export class AddUpdateComponent {
     text: string | null;
 
     parsedText: string;
+    blogAlbums: Album[];
+    blogPhotosAlbumId: string | null;
+    blogPhotosAlbumId$: ReplaySubject<string | null> = new ReplaySubject();
     blogPhotos: Photo[];
     imageHtml: string;
 
@@ -68,18 +71,25 @@ export class AddUpdateComponent {
             });
         }
 
-        albumService
-            .getAlbums()
-            .pipe(map(albums => [{ title: 'No album', id: null }, ...albums]))
-            .subscribe(albums => (this.albums = albums));
+        albumService.getAlbums().subscribe(albums => {
+            this.blogAlbums = albums;
+            this.albums = [{ title: 'No album', id: null }, ...albums];
+        });
 
-        albumService.getById(1).subscribe(albumDetails => (this.blogPhotos = albumDetails.photos));
+        this.blogPhotosAlbumId$
+            .pipe(
+                switchMap(albumId => {
+                    const albumIdNumber = this.getAlbumId(albumId);
+                    return albumIdNumber ? albumService.getById(albumIdNumber) : of({ photos: [] });
+                })
+            )
+            .subscribe(albumDetails => (this.blogPhotos = albumDetails.photos));
 
         placeService.getAll().subscribe(places => (this.places = places));
     }
 
     get formInvalid(): boolean {
-        return !this.title || !this.type || (!this.getAlbumId() && !this.text);
+        return !this.title || !this.type || (!this.getAlbumId(this.albumId) && !this.text);
     }
 
     onPreview(): void {
@@ -95,6 +105,10 @@ export class AddUpdateComponent {
         this.distance = this.places.find(place => place.id === parseInt(placeId, 10))?.distance ?? null;
     }
 
+    onBlogAlbumChange(): void {
+        this.blogPhotosAlbumId$.next(this.blogPhotosAlbumId);
+    }
+
     reloadComponent(): void {
         this._windowService.reload();
     }
@@ -103,8 +117,8 @@ export class AddUpdateComponent {
         this.imageHtml = html;
     }
 
-    private getAlbumId(): number | null {
-        return this.albumId ? (isNaN(+this.albumId) ? null : parseInt(this.albumId, 10)) : null;
+    private getAlbumId(albumId: string | null): number | null {
+        return albumId ? (isNaN(+albumId) ? null : parseInt(albumId, 10)) : null;
     }
 
     private addUpdate(): void {
@@ -116,7 +130,7 @@ export class AddUpdateComponent {
                 text: this.text,
                 distance: this.distance,
                 placeId: this.placeId ? parseInt(this.placeId, 10) : null,
-                albumId: this.getAlbumId()
+                albumId: this.getAlbumId(this.albumId)
             })
             .subscribe({
                 next: () => {
@@ -137,7 +151,7 @@ export class AddUpdateComponent {
                 text: this.text,
                 distance: this.distance,
                 placeId: this.placeId ? parseInt(this.placeId, 10) : null,
-                albumId: this.getAlbumId()
+                albumId: this.getAlbumId(this.albumId)
             })
             .subscribe({
                 next: () => {

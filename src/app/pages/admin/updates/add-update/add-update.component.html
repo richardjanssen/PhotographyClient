@@ -54,6 +54,14 @@
     <div class="card blog-photos">
         <div class="card-body">
             <h5 class="card-title">Blog photos</h5>
+
+            <div class="album-select">
+                <label for="albumId">Album</label>
+                <select id="albumId" [(ngModel)]="blogPhotosAlbumId" (change)="onBlogAlbumChange()" class="form-control" required>
+                    <option *ngFor="let album of blogAlbums" [value]="album.id">{{ album.title }}</option>
+                </select>
+            </div>
+
             <photo-table
                 *ngIf="blogPhotos"
                 [photos]="blogPhotos"

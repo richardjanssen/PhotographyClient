@@ -1,6 +1,5 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { map } from 'rxjs';
 import { AlbumService } from 'src/app/core/services/album.service';
 import { PhotosService } from 'src/app/core/services/photos.service';
 import { WindowService } from 'src/app/core/services/window.service';
@@ -33,10 +32,7 @@ export class AddPhotoComponent {
         private readonly _windowService: WindowService,
         private readonly _albumService: AlbumService
     ) {
-        this._albumService
-            .getAlbums()
-            .pipe(map(albums => [{ title: 'No album (homepage)', id: null }, ...albums]))
-            .subscribe(albums => (this.albums = albums));
+        this._albumService.getAlbums().subscribe(albums => (this.albums = albums));
     }
 
     onFileSelected(event: Event): void {
