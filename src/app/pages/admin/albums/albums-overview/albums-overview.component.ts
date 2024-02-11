@@ -33,6 +33,7 @@ import { NullableDisplayPipe } from '../../../../core/pipes/nullable-display.pip
 export class AlbumsOverviewComponent {
     albums: Album[];
     selectedAlbumId: string;
+    selectedAlbumId$: ReplaySubject<string> = new ReplaySubject();
     selectedAlbumDetails: AlbumDetails | null;
 
     deleted$: ReplaySubject<AlbumPhotoDelete | null> = new ReplaySubject<AlbumPhotoDelete | null>();
@@ -44,6 +45,10 @@ export class AlbumsOverviewComponent {
 
     constructor(private readonly _albumService: AlbumService, windowService: WindowService) {
         this._albumService.getAlbums().subscribe(albums => (this.albums = albums));
+
+        this.selectedAlbumId$
+            .pipe(switchMap(albumId => this._albumService.getById(this.getAlbumId(albumId))))
+            .subscribe(albumDetails => (this.selectedAlbumDetails = albumDetails));
 
         this.deleteResult$ = this.deleted$.pipe(
             switchMap(photoToDelete =>
@@ -61,12 +66,10 @@ export class AlbumsOverviewComponent {
         );
     }
 
-    onAlbumSelect(): void {
+    onAlbumSelect(albumId: string): void {
         this.selectedAlbumDetails = null;
         this.cancelDelete();
-        this._albumService
-            .getById(this.getAlbumId(this.selectedAlbumId))
-            .subscribe(albumDetails => (this.selectedAlbumDetails = albumDetails));
+        this.selectedAlbumId$.next(albumId);
     }
 
     onPendingDelete(photoId: number): void {
