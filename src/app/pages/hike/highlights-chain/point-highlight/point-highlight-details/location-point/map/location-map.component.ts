@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as mapboxgl from 'mapbox-gl';
+import { Coordinate } from 'src/app/core/types/location.type';
 
 @Component({
     selector: 'location-map',
@@ -11,22 +12,22 @@ import * as mapboxgl from 'mapbox-gl';
 })
 export class LocationMapComponent implements OnInit {
     @Input() token: string;
-    @Input() lat: number;
-    @Input() lon: number;
+    @Input() currentLocation: Coordinate;
+    @Input() historicLocations: Coordinate[];
 
     map: mapboxgl.Map;
 
     ngOnInit(): void {
-        this.map = this.createMap(this.token, this.lat, this.lon);
+        this.map = this.createMap(this.token, this.currentLocation, this.historicLocations);
     }
 
-    createMap(token: string, lat: number, lon: number): mapboxgl.Map {
+    private createMap(token: string, currentLocation: Coordinate, historicLocations: Coordinate[]): mapboxgl.Map {
         const map = new mapboxgl.Map({
             accessToken: token,
             container: 'map',
             style: 'mapbox://styles/richardjanssen/cllt961gq009o01pj4i4z716f',
-            center: [lon, lat],
-            zoom: 16
+            center: [currentLocation.lon, currentLocation.lat],
+            zoom: 14
         });
 
         map.addControl(new mapboxgl.ScaleControl());
@@ -40,7 +41,19 @@ export class LocationMapComponent implements OnInit {
                     type: 'Feature',
                     geometry: {
                         type: 'Point',
-                        coordinates: [lon, lat]
+                        coordinates: [currentLocation.lon, currentLocation.lat]
+                    },
+                    properties: {}
+                }
+            });
+
+            map.addSource('historic-locations-data', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: historicLocations.map(coordinate => [coordinate.lon, coordinate.lat])
                     },
                     properties: {}
                 }
@@ -56,9 +69,27 @@ export class LocationMapComponent implements OnInit {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'circle-radius': {
                         stops: [
-                            [10, 7],
+                            [10, 5],
+                            [12, 7],
                             [16, 10]
-                        ] // 7px at zoom level 10 or lower, 10px at zoom level 16 or higher
+                        ] // 5px at zoom level 10 or lower, 7px at zoom lever 12, 10px at zoom level 16 or higher
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'historic-locations',
+                type: 'line',
+                source: 'historic-locations-data',
+                paint: {
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'line-color': '#be2113',
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'line-width': {
+                        stops: [
+                            [12, 2],
+                            [16, 4]
+                        ] // 2px at zoom level 12 or lower, 4px at zoom level 16 or higher
                     }
                 }
             });

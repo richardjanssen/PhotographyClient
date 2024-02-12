@@ -1,7 +1,12 @@
-<div class="location" *ngIf="locationData$ | async as locationResult">
-    <ng-container *ngIf="locationResult | valid">
-        <ng-container *ngIf="locationResult | data as data">
-            <location-map *ngIf="data.mapboxEnabled; else noMap" [token]="data.token" [lat]="data.lat" [lon]="data.lon"></location-map>
+<div class="location" *ngIf="vm$ | async as vm">
+    <ng-container *ngIf="vm | valid">
+        <ng-container *ngIf="vm | data as data">
+            <location-map
+                *ngIf="data.mapboxEnabled; else noMap"
+                [token]="data.token"
+                [currentLocation]="data.currentLocation"
+                [historicLocations]="data.historicLocations"
+            ></location-map>
             <ng-template #noMap>
                 <p>
                     <i>
@@ -13,5 +18,5 @@
         </ng-container>
     </ng-container>
 
-    <p *ngIf="locationResult | error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
+    <p *ngIf="vm | error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
 </div>
