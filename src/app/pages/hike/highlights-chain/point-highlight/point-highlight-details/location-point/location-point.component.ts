@@ -10,6 +10,7 @@ import { DataStatus } from 'src/app/core/types/data-status.types';
 import { ErrorPipe } from '../../../../../../core/pipes/status/error.pipe';
 import { ValidPipe } from '../../../../../../core/pipes/status/valid.pipe';
 import { DataPipe } from '../../../../../../core/pipes/status/data.pipe';
+import { Coordinate } from 'src/app/core/types/location.type';
 
 @Component({
     selector: 'location-point',
@@ -20,7 +21,14 @@ import { DataPipe } from '../../../../../../core/pipes/status/data.pipe';
 export class LocationPointComponent implements OnInit {
     @Input() locationId: number;
 
-    locationData$: Observable<DataStatus<{ token: string; lat: number; lon: number; mapboxEnabled: boolean }>>;
+    vm$: Observable<
+        DataStatus<{
+            token: string;
+            currentLocation: Coordinate;
+            historicLocations: Coordinate[];
+            mapboxEnabled: boolean;
+        }>
+    >;
 
     constructor(
         private readonly _locationService: LocationService,
@@ -29,14 +37,19 @@ export class LocationPointComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.locationData$ = combineLatest([
-            this._locationService.getCoordinateById(this.locationId),
+        this.vm$ = combineLatest([
+            this._locationService.getMapLocationsById(this.locationId),
             this._mapboxService.getPublicToken(),
             this._settingsService.get()
         ]).pipe(
-            map(([coordinate, token, settings]) => {
-                if (coordinate?.lat && coordinate?.lon) {
-                    return { token, lat: coordinate.lat, lon: coordinate.lon, mapboxEnabled: settings.mapboxEnabled };
+            map(([mapLocations, token, settings]) => {
+                if (mapLocations.currentLocation) {
+                    return {
+                        token,
+                        currentLocation: mapLocations.currentLocation,
+                        historicLocations: mapLocations.historicLocations,
+                        mapboxEnabled: settings.mapboxEnabled
+                    };
                 }
                 throw new Error('Coordinate was null');
             }),

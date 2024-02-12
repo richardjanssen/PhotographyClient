@@ -11,7 +11,12 @@ export interface UserLocation extends Coordinate {
     sectionId: number | null;
 }
 
+export interface MapLocations {
+    currentLocation: Coordinate | null;
+    historicLocations: Coordinate[];
+}
+
 export interface Coordinate {
-    lat: number | null;
-    lon: number | null;
+    lat: number;
+    lon: number;
 }
