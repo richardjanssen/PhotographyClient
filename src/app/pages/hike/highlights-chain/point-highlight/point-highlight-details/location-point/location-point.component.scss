@@ -1,0 +1,30 @@
+@import '../../../../../../../styles/variables.scss';
+
+.legend-container {
+    text-align: center;
+}
+.legend-item-container {
+    display: inline-block;
+    margin-right: 1.5rem;
+
+    &:last-of-type {
+        margin-right: 0;
+    }
+}
+
+.legend {
+    display: inline-block;
+    width: 1.5rem;
+    height: 0.7rem;
+    margin-right: $spacingSm;
+
+    &-pct {
+        border: 1px solid darken(#865d89, 10%);
+        background-color: #865d89;
+    }
+
+    &-route {
+        border: 1px solid darken(#be2113, 10%);
+        background-color: #be2113;
+    }
+}
