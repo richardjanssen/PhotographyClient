@@ -1,17 +1,31 @@
 <div class="location" *ngIf="vm$ | async as vm">
     <ng-container *ngIf="vm | valid">
         <ng-container *ngIf="vm | data as data">
-            <location-map
-                *ngIf="data.mapboxEnabled; else noMap"
-                [token]="data.token"
-                [currentLocation]="data.currentLocation"
-                [historicLocations]="data.historicLocations"
-            ></location-map>
+            <ng-container *ngIf="data.mapboxEnabled; else noMap">
+                <div class="legend-container">
+                    <div class="legend-item-container">
+                        <span class="legend legend-pct"></span>
+                        <span>Pacific Crest Trail</span>
+                    </div>
+
+                    <div class="legend-item-container">
+                        <span class="legend legend-route"></span>
+                        <span>Route van afgelopen 7 dagen</span>
+                    </div>
+                </div>
+
+                <location-map
+                    [token]="data.token"
+                    [currentLocation]="data.currentLocation"
+                    [historicLocations]="data.historicLocations"
+                ></location-map>
+            </ng-container>
+
             <ng-template #noMap>
                 <p>
                     <i>
                         De kaart is momenteel niet beschikbaar. In plaats daarvan ben ik te volgen via
-                        <a href="https://share.garmin.com/riesj" target="_blank">deze kaart</a>.
+                        <a href="https://share.garmin.com/riesj" target="_blank">deze link</a>.
                     </i>
                 </p>
             </ng-template>
