@@ -14,7 +14,7 @@
                 </div>
                 <div class="attribute" *ngIf="highlight.firstEntered">
                     <bs-icon class="bs-icon" name="box-arrow-in-right" iconColor="primary-700"></bs-icon>
-                    <i>{{ highlight.firstEntered | date : 'dd-MM-yyyy' }}</i>
+                    <i>{{ highlight.firstEntered | pctDate }}</i>
                 </div>
             </div>
         </div>
