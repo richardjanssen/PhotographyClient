@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { ConstantsService } from 'src/app/core/services/constants.service';
 
 @Component({
     selector: 'hike-banner',
@@ -10,9 +11,8 @@ import { Component } from '@angular/core';
 })
 export class HikeBannerComponent {
     hasStartedHike: boolean;
-    constructor() {
-        const startDate = new Date(2024, 3, 15); // 15 April 2024
-        if (Date.now() > startDate.valueOf()) {
+    constructor(constants: ConstantsService) {
+        if (Date.now() > constants.pctStartDate.valueOf()) {
             this.hasStartedHike = true;
         }
     }

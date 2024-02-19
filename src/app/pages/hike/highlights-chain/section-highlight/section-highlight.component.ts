@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SectionHighlight, SectionHighlightType } from 'src/app/core/types/highlight.type';
 import { PointHighlightComponent } from '../point-highlight/point-highlight.component';
 import { IconComponent } from '../../../../core/components/icon/icon.component';
-import { DatePipe, NgFor, NgIf, NgSwitch, NgSwitchDefault } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchDefault } from '@angular/common';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { DistancePipe } from 'src/app/core/pipes/distance.pipe';
+import { PctDatePipe } from '../../../../core/pipes/pct-date.pipe';
 
 @Component({
     selector: 'section-highlight',
@@ -15,13 +16,13 @@ import { DistancePipe } from 'src/app/core/pipes/distance.pipe';
         IconComponent,
         BootstrapIconComponent,
         DistancePipe,
-        DatePipe,
         NgIf,
         NgFor,
         NgSwitch,
         NgSwitchDefault,
         NgSwitchDefault,
-        PointHighlightComponent
+        PointHighlightComponent,
+        PctDatePipe
     ]
 })
 export class SectionHighlightComponent implements OnInit {
