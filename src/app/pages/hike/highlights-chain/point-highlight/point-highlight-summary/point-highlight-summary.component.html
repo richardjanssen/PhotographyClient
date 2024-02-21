@@ -38,7 +38,7 @@
                 <bs-icon class="bs-icon" name="clock"></bs-icon>
                 <i>{{ highlight.date | pctTime }}</i>
             </div>
-            <div class="attribute" *ngIf="highlight.distance">
+            <div class="attribute" *ngIf="highlight.distance !== null && highlight.distance !== undefined">
                 <bs-icon class="bs-icon" name="ruler"></bs-icon>
                 <i>{{ highlight.distance | distance }}</i>
             </div>
