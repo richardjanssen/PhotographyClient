@@ -13,12 +13,15 @@
             ></section-highlight>
         </ng-container>
     </div>
-    <div class="expand-button-container" [ngClass]="{ hidden: numberOfHighlights === highlights.length }">
+    <div class="expand-button-container" [ngClass]="{ hidden: numberOfHighlights >= highlights.length }">
         <button *ngIf="numberOfHighlights < highlights.length" class="btn btn-secondary expand-button" (click)="onViewMoreHighlights()">
             Bekijk meer<bs-icon name="chevron-compact-down" iconColor="light" class="expand-icon"></bs-icon>
         </button>
     </div>
-    <div class="connector" [ngClass]="{ 'section-ending': highlights[0].sectionHighlight }">
+    <div class="connector" *ngIf="highlights.length > 0" [ngClass]="{ 'section-ending': highlights[0].sectionHighlight }">
         <bs-icon class="connector-top" name="chevron-up" iconColor="primary-600"></bs-icon>
+    </div>
+    <div *ngIf="highlights.length === 0" class="no-highlights">
+        <h6 class="no-highlights_text">Hier is nu nog niks te zien, dus kom snel terug!</h6>
     </div>
 </div>

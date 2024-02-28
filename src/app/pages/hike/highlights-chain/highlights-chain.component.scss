@@ -89,4 +89,14 @@
             top: -10px;
         }
     }
+
+    .no-highlights {
+        margin-top: 35%;
+        margin-bottom: 35%;
+
+        &_text {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    }
 }
