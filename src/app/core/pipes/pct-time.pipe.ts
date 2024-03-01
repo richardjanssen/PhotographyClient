@@ -12,9 +12,14 @@ export class PctTimePipe implements PipeTransform {
     transform(date: Date): string {
         const pipe = new DatePipe('en-US');
         if (new Date(date).valueOf() > this._constants.pctStartDate.valueOf()) {
-            // Has started hike
+            // Has started hike, Pacific Daylight Saving Time
             return `${pipe.transform(date, 'HH:mm', 'PDT')} PDT`;
         }
-        return `${pipe.transform(date, 'HH:mm', 'CEST')} CEST`;
+        // Central European Daylight saving Time
+        if (new Date(date).valueOf() > new Date(2024, 2, 30).valueOf()) {
+            return `${pipe.transform(date, 'HH:mm', '+0200')} CEST`;
+        }
+        // Central European Time
+        return `${pipe.transform(date, 'HH:mm', '+0100')} CET`;
     }
 }
