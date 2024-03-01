@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Constants } from 'src/app/core/constants';
-import { PointHighlight } from 'src/app/core/types/highlight.type';
+import { PointHighlight, PointHighlightType } from 'src/app/core/types/highlight.type';
 import { PointHighlightDetailsComponent } from './point-highlight-details/point-highlight-details.component';
 import { PointHighlightSummaryComponent } from './point-highlight-summary/point-highlight-summary.component';
 import { NgClass, NgIf } from '@angular/common';
@@ -21,6 +21,7 @@ export class PointHighlightComponent implements OnInit {
 
     ngOnInit(): void {
         this.expandable = Constants.expandableHighlightTypes.includes(this.highlight.type);
+        this.expanded = this.highlight.type === PointHighlightType.location;
     }
 
     toggleExpansion(): void {
