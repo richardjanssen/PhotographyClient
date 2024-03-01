@@ -57,5 +57,6 @@ export enum PointHighlightType {
     twentyFiveHundred = 'twentyFiveHundred',
     threeThousand = 'threeThousand',
     thirtyFiveHundred = 'thirtyFiveHundred',
-    fourThousand = 'fourThousand'
+    fourThousand = 'fourThousand',
+    rotterdam = 'rotterdam'
 }
