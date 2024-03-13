@@ -16,5 +16,5 @@ export class PointHighlightDetailsComponent {
     @Input() highlight: PointHighlight;
 
     pointHighlightType = PointHighlightType;
-    expandableHighlightTypes = Constants.expandableHighlightTypes;
+    expandableHighlightTypes = [...Constants.expandableHighlightTypes, PointHighlightType.location];
 }
