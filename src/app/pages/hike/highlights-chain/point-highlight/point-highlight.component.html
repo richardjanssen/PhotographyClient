@@ -14,7 +14,7 @@
 
         <point-highlight-details [highlight]="highlight"></point-highlight-details>
 
-        <div class="expansion" (click)="toggleExpansion()">
+        <div *ngIf="expandable" class="expansion" (click)="toggleExpansion()">
             <span class="expansion-text">Bekijk minder</span>
             <bs-icon class="expansion-icon" name="chevron-compact-up" iconColor="light"></bs-icon>
         </div>
