@@ -9,16 +9,17 @@ export class AppPaths {
     static readonly admin: string = 'admin';
     static readonly unauthorized: string = 'unauthorized';
     static readonly hike: string = 'hike';
+    static readonly photos: string = 'photos';
 }
 
 export const APP_ROUTES: Routes = [
-    { path: AppPaths.hike, component: HikeComponent },
+    { path: AppPaths.photos, component: HomeComponent },
     { path: AppPaths.login, component: LoginComponent },
     {
         path: AppPaths.admin,
         loadChildren: () => import('./pages/admin/admin.routes').then(m => m.ADMIN_ROUTES)
     },
     { path: AppPaths.unauthorized, component: UnauthorizedComponent },
-    { path: '', component: HomeComponent },
+    { path: '', component: HikeComponent },
     { path: '**', redirectTo: '' }
 ];
