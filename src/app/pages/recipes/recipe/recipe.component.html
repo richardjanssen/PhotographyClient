@@ -2,6 +2,7 @@
     <b>{{ recipe.name }}</b>
 </p>
 <ng-container *ngIf="detailsVisible">
+    <p><i>Ingrediënten</i></p>
     <div *ngIf="parsedIngredients" [innerHTML]="parsedIngredients" class="text"></div>
     <p><i>Bereidingswijze</i></p>
     <div *ngIf="parsedPreparation" [innerHTML]="parsedPreparation" class="text"></div>
