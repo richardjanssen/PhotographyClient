@@ -7,6 +7,7 @@ export class AdminPaths {
     static readonly albums: string = 'albums';
     static readonly updates: string = 'updates';
     static readonly locations: string = 'locations';
+    static readonly recipes: string = 'recipes';
     static readonly settings: string = 'settings';
 }
 
@@ -33,6 +34,10 @@ export const ADMIN_ROUTES: Routes = [
             {
                 path: AdminPaths.locations,
                 loadChildren: () => import('./locations/locations.routes').then(m => m.LOCATIONS_ROUTES)
+            },
+            {
+                path: AdminPaths.recipes,
+                loadChildren: () => import('./recipes/recipes.routes').then(m => m.RECIPES_ROUTES)
             },
             {
                 path: AdminPaths.settings,

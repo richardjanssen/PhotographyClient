@@ -1,0 +1,28 @@
+<div class="add-recipe">
+    <h4>Add or edit recipe</h4>
+    <div class="card recipe-data">
+        <div class="card-body">
+            <h5 class="card-title">Recipe data</h5>
+            <div class="form-group" *ngIf="!submitted">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control" required [(ngModel)]="name" />
+
+                <label for="ingredients">Ingredients</label>
+                <textarea id="ingredients" class="form-control" rows="5" [(ngModel)]="ingredients"></textarea>
+
+                <label for="preparation">Preparation</label>
+                <textarea id="preparation" class="form-control" rows="5" [(ngModel)]="preparation"></textarea>
+
+                <div class="form-buttons">
+                    <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+                </div>
+            </div>
+
+            <ng-container *ngIf="submitted">
+                <div class="alert alert-success" *ngIf="success">Recipe has been saved</div>
+                <div class="alert alert-danger" *ngIf="error">An error occured while saving the recipe.</div>
+                <button class="btn btn-primary" (click)="reloadComponent()">Add another recipe</button>
+            </ng-container>
+        </div>
+    </div>
+</div>

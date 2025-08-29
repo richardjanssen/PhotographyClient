@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="recipes-overview">
+    <div class="alert alert-danger" *ngIf="error; else recipesList">An error occurred while loading the recipes overview.</div>
+    <ng-template #recipesList>
+        <p *ngIf="recipes.length === 0">No recipes were found.</p>
+        <ng-container *ngIf="recipes.length > 0">
+            <div class="recipe"><hr /></div>
+            <div class="recipe" *ngFor="let recipe of recipes">
+                <recipe [recipe]="recipe"></recipe>
+                <hr />
+            </div>
+        </ng-container>
+    </ng-template>
+</div>

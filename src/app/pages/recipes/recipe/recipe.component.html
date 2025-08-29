@@ -1,0 +1,8 @@
+<p (click)="toggleDetails()">
+    <b>{{ recipe.name }}</b>
+</p>
+<ng-container *ngIf="detailsVisible">
+    <div *ngIf="parsedIngredients" [innerHTML]="parsedIngredients" class="text"></div>
+    <p><i>Bereidingswijze</i></p>
+    <div *ngIf="parsedPreparation" [innerHTML]="parsedPreparation" class="text"></div>
+</ng-container>
