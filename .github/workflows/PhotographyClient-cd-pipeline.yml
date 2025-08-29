@@ -12,7 +12,7 @@ jobs:
       
   deploy-run:
     needs: build-test-publish
-    uses: richardjanssen/SharedWorkflows/.github/workflows/linux-vps-deploy-run-v2.yml@main
+    uses: richardjanssen/SharedWorkflows/.github/workflows/ubuntu-vps-deploy.yml@main
     with:
       app-name: PhotographyClient
       is-service: false
