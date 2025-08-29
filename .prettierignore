@@ -2,6 +2,7 @@
 package.json
 package-lock.json
 
+.github/**
 .husky/**
 node_modules/**
 dist/**
