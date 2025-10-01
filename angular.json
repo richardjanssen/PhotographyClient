@@ -64,6 +64,10 @@
                             "browserTarget": "PhotographyClient:build:development",
                             "port": 4200,
                             "ssl": true
+                        },
+                        "playwright": {
+                            "browserTarget": "PhotographyClient:build:development",
+                            "port": 4201
                         }
                     },
                     "defaultConfiguration": "development"
