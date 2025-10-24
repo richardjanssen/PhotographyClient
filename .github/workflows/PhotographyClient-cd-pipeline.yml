@@ -9,6 +9,8 @@ jobs:
     uses: richardjanssen/SharedWorkflows/.github/workflows/angular-build.yml@main
     with:
       app-name: PhotographyClient
+      release-build: true
+      has-playwright: true
       
   deploy-run:
     needs: build-test-publish

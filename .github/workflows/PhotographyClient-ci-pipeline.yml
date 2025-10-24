@@ -9,3 +9,5 @@ jobs:
     uses: richardjanssen/SharedWorkflows/.github/workflows/angular-build.yml@main
     with:
       app-name: PhotographyClient
+      release-build: false
+      has-playwright: true
