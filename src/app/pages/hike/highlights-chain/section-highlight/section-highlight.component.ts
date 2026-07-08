@@ -18,9 +18,6 @@ import { PctDatePipe } from '../../../../core/pipes/pct-date.pipe';
         DistancePipe,
         NgIf,
         NgFor,
-        NgSwitch,
-        NgSwitchDefault,
-        NgSwitchDefault,
         PointHighlightComponent,
         PctDatePipe
     ]
