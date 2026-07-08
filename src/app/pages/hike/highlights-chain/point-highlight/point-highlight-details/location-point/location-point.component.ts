@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, combineLatest, map } from 'rxjs';
 import { LocationService } from 'src/app/core/services/location.service';
@@ -16,7 +16,7 @@ import { Coordinate } from 'src/app/core/types/location.type';
     selector: 'location-point',
     templateUrl: './location-point.component.html',
     styleUrls: ['./location-point.component.scss'],
-    imports: [AsyncPipe, NgIf, NgClass, LocationMapComponent, ErrorPipe, ValidPipe, DataPipe]
+    imports: [AsyncPipe, NgIf, LocationMapComponent, ErrorPipe, ValidPipe, DataPipe]
 })
 export class LocationPointComponent implements OnInit {
     @Input() locationId: number;

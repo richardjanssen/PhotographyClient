@@ -1,4 +1,4 @@
-@import '../../../../../styles/variables.scss';
+@use '../../../../../styles/variables.scss';
 
 .add-update {
     .update-data {
@@ -19,7 +19,7 @@
 
     .blog-photos {
         .album-select {
-            margin-bottom: $margin;
+            margin-bottom: variables.$margin;
         }
     }
 }

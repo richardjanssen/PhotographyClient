@@ -1,4 +1,4 @@
-@import '../../../../../../styles/variables.scss';
+@use '../../../../../../styles/variables.scss';
 
 .point-highlight-summary {
     width: 100%;
@@ -10,9 +10,9 @@
         min-height: 80px;
         width: 80px;
         height: 80px;
-        padding: $paddingSm;
+        padding: variables.$paddingSm;
 
-        @media screen and (max-width: #{$maxWidthSm}) {
+        @media screen and (max-width: #{variables.$maxWidthSm}) {
             min-width: 64px;
             min-height: 64px;
             width: 64px;
@@ -21,11 +21,11 @@
     }
 
     .metadata {
-        padding: $paddingSm;
+        padding: variables.$paddingSm;
 
         .title {
             font-size: 1.4rem;
-            @media screen and (max-width: #{$maxWidthSm}) {
+            @media screen and (max-width: #{variables.$maxWidthSm}) {
                 font-size: 1.1rem;
             }
         }
@@ -35,7 +35,7 @@
             flex-wrap: wrap;
 
             font-size: 0.8rem;
-            @media screen and (max-width: #{$maxWidthSm}) {
+            @media screen and (max-width: #{variables.$maxWidthSm}) {
                 font-size: 0.7rem;
             }
 
@@ -43,10 +43,10 @@
                 display: flex;
                 align-items: center;
 
-                margin-right: $marginLg;
+                margin-right: variables.$marginLg;
 
-                @media screen and (max-width: #{$maxWidthSm}) {
-                    margin-right: $margin;
+                @media screen and (max-width: #{variables.$maxWidthSm}) {
+                    margin-right: variables.$margin;
                 }
 
                 &:last-child {

@@ -1,5 +1,5 @@
-@import '../../../../styles/variables.scss';
-@import '../../../../styles/mixins/point-highlight-positioning.scss';
+@use '../../../../styles/variables.scss';
+@use '../../../../styles/mixins/point-highlight-positioning.scss';
 
 .highlights-chain {
     position: relative;
@@ -12,7 +12,7 @@
         width: 100%;
         margin-bottom: 1rem;
 
-        @include pointHighlightPositioning;
+        @include point-highlight-positioning.pointHighlightPositioning;
 
         .section-highlight {
             height: 100%;
@@ -21,10 +21,10 @@
     }
 
     .expand-button-container {
-        width: calc(100% - (2 * $padding) - (var(--connector-width) * 1rem));
+        width: calc(100% - (2 * variables.$padding) - (var(--connector-width) * 1rem));
         display: block;
         margin-left: auto;
-        margin-right: $padding;
+        margin-right: variables.$padding;
 
         &.hidden {
             height: 1px; // Makes connector full height when expand button is not shown
@@ -41,43 +41,43 @@
         position: relative;
 
         // Styling
-        background-color: $secondary-500;
-        border: 1px solid $secondary-600;
-        color: $light;
+        background-color: variables.$secondary-500;
+        border: 1px solid variables.$secondary-600;
+        color: variables.$light;
         font-size: 0.9rem;
-        transition: background-color $transitionTime ease-in-out;
+        transition: background-color variables.$transitionTime ease-in-out;
 
         &:hover {
-            background-color: $secondary-600;
-            border: 1px solid $secondary-700;
+            background-color: variables.$secondary-600;
+            border: 1px solid variables.$secondary-700;
         }
 
         .expand-icon {
-            margin-left: $spacing;
+            margin-left: variables.$spacing;
         }
     }
 
     .connector {
-        height: calc(100% + $margin);
-        width: $connectorBorderWidth;
-        margin-left: calc(0.5rem * var(--connector-width) + 0.5 * $margin);
+        height: calc(100% + variables.$margin);
+        width: variables.$connectorBorderWidth;
+        margin-left: calc(0.5rem * var(--connector-width) + 0.5 * variables.$margin);
         position: absolute;
         top: 0;
         z-index: 1;
-        border-left: $connectorBorderWidth solid $connectorColor;
+        border-left: variables.$connectorBorderWidth solid variables.$connectorColor;
 
         &.section-ending {
-            top: $margin;
+            top: variables.$margin;
             height: calc(100% + 1rem);
         }
 
-        @media screen and (max-width: #{$maxWidthSm}) {
-            height: calc(100% + $margin + $spacing);
+        @media screen and (max-width: #{variables.$maxWidthSm}) {
+            height: calc(100% + variables.$margin + variables.$spacing);
             margin-left: auto;
             margin-right: auto;
             left: 0;
             right: 0;
-            top: calc(-1 * $spacing);
+            top: calc(-1 * variables.$spacing);
         }
 
         .connector-top {

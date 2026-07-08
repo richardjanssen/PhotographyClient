@@ -1,4 +1,5 @@
-@import '../../../../../../../styles/variables.scss';
+@use "sass:color";
+@use '../../../../../../../styles/variables.scss';
 
 .legend-container {
     text-align: center;
@@ -16,15 +17,15 @@
     display: inline-block;
     width: 1.5rem;
     height: 0.7rem;
-    margin-right: $spacingSm;
+    margin-right: variables.$spacingSm;
 
     &-pct {
-        border: 1px solid darken(#865d89, 10%);
+        border: 1px solid color.adjust(#865d89, $lightness: -10%);
         background-color: #865d89;
     }
 
     &-route {
-        border: 1px solid darken(#be2113, 10%);
+        border: 1px solid color.adjust(#be2113, $lightness: -10%);
         background-color: #be2113;
     }
 }

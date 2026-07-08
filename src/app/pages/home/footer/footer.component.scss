@@ -1,8 +1,8 @@
-@import '../../../../styles/variables.scss';
+@use '../../../../styles/variables.scss';
 
 .footer {
-    padding-top: $marginLg;
-    padding-bottom: $marginLg;
+    padding-top: variables.$marginLg;
+    padding-bottom: variables.$marginLg;
 
     &__text {
         font-size: 0.8rem;

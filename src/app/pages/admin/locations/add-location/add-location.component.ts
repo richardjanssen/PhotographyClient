@@ -4,7 +4,7 @@ import { PlaceService } from 'src/app/core/services/place.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { Place } from 'src/app/core/types/place.type';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { Observable, ReplaySubject, switchMap } from 'rxjs';
 import { DataStatus } from 'src/app/core/types/data-status.types';
 import { inspectStatus } from 'src/app/core/helpers/rxjs-operators';
@@ -25,7 +25,6 @@ import { SuccessMessageComponent } from 'src/app/core/components/success-message
         DataStatusPipesModule,
         ErrorMessageComponent,
         LoadingMessageComponent,
-        JsonPipe,
         SuccessMessageComponent
     ]
 })

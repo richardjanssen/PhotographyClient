@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables.scss';
 
 .admin-page {
     .menu {
@@ -12,6 +12,6 @@
     }
 
     .card-body {
-        padding: $padding;
+        padding: variables.$padding;
     }
 }

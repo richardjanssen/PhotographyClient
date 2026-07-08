@@ -1,17 +1,17 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables.scss';
 
 .highlights-chain {
     display: block;
     width: 100%;
-    padding-left: $paddingSm;
-    padding-right: $paddingSm;
-    padding-bottom: $padding;
-    margin-top: $marginLg;
-    border-bottom: 1px solid $primary-200;
+    padding-left: variables.$paddingSm;
+    padding-right: variables.$paddingSm;
+    padding-bottom: variables.$padding;
+    margin-top: variables.$marginLg;
+    border-bottom: 1px solid variables.$primary-200;
 }
 
 .error-message {
-    padding: $marginLg;
+    padding: variables.$marginLg;
     display: block;
     text-align: center;
     font-size: 0.9rem;

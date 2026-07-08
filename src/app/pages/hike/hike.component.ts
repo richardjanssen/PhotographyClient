@@ -3,7 +3,7 @@ import { HightlightService } from 'src/app/core/services/highlight.service';
 import { Highlight } from 'src/app/core/types/highlight.type';
 import { FooterComponent } from '../home/footer/footer.component';
 import { HighlightsChainComponent } from './highlights-chain/highlights-chain.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { HikeBannerComponent } from './banner/hike-banner.component';
 import { HeaderComponent } from '../home/header/header.component';
 import { LoadingAnimationComponent } from '../../core/components/loading-animation/loading-animation.component';
@@ -23,7 +23,6 @@ import { ErrorPipe } from '../../core/pipes/status/error.pipe';
         HeaderComponent,
         HikeBannerComponent,
         NgIf,
-        NgClass,
         HighlightsChainComponent,
         FooterComponent,
         LoadingAnimationComponent,
