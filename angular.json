@@ -58,16 +58,16 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "PhotographyClient:build:production"
+                          "buildTarget": "PhotographyClient:build:production"
                         },
                         "development": {
-                            "browserTarget": "PhotographyClient:build:development",
-                            "port": 4200,
-                            "ssl": true
+                          "port": 4200,
+                            "ssl": true,
+                            "buildTarget": "PhotographyClient:build:development"
                         },
                         "playwright": {
-                            "browserTarget": "PhotographyClient:build:development",
-                            "port": 4201
+                          "port": 4201,
+                            "buildTarget": "PhotographyClient:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "PhotographyClient:build"
+                      "buildTarget": "PhotographyClient:build"
                     }
                 },
                 "test": {
