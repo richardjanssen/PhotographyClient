@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import * as mapboxgl from 'mapbox-gl';
 import { Coordinate } from 'src/app/core/types/location.type';
 
 @Component({
     selector: 'location-map',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './location-map.component.html',
     styleUrls: ['./location-map.component.scss']
 })

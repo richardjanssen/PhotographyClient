@@ -1,4 +1,4 @@
-@import '../../../../../styles/variables.scss';
+@use '../../../../../styles/variables.scss';
 
 .albums {
     &_select {
@@ -10,10 +10,10 @@
     }
 
     .confirm {
-        margin-right: $margin;
+        margin-right: variables.$margin;
     }
 
     .delete-status-container {
-        margin-top: $margin;
+        margin-top: variables.$margin;
     }
 }

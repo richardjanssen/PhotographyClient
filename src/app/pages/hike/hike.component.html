@@ -1,10 +1,14 @@
 <app-header></app-header>
 <hike-banner></hike-banner>
-<ng-container *ngIf="highlights$ | async as highlightsResult">
-    <loading-animation *ngIf="highlightsResult | loading"></loading-animation>
-    <ng-container *ngIf="highlightsResult | valid">
-        <highlights-chain [highlights]="(highlightsResult | data)!" class="highlights-chain"></highlights-chain>
-        <app-footer></app-footer>
-    </ng-container>
-    <h6 class="error-message" *ngIf="highlightsResult | error"><i>Het laden is mislukt.</i></h6>
-</ng-container>
+@if (highlights$ | async; as highlightsResult) {
+  @if (highlightsResult | loading) {
+    <loading-animation></loading-animation>
+  }
+  @if (highlightsResult | valid) {
+    <highlights-chain [highlights]="(highlightsResult | data)!" class="highlights-chain"></highlights-chain>
+    <app-footer></app-footer>
+  }
+  @if (highlightsResult | error) {
+    <h6 class="error-message"><i>Het laden is mislukt.</i></h6>
+  }
+}

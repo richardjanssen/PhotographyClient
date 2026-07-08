@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable, ReplaySubject, combineLatest, map, of, switchMap, tap } from 'rxjs';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
@@ -18,19 +18,16 @@ import { DistancePipe } from '../../../../core/pipes/distance.pipe';
     selector: 'locations-overview',
     templateUrl: './locations-overview.component.html',
     styleUrls: ['./locations-overview.component.scss'],
-    standalone: true,
     imports: [
-        NgIf,
-        NgFor,
-        DatePipe,
-        NullableDisplayPipe,
-        BootstrapIconComponent,
-        AsyncPipe,
-        DataStatusPipesModule,
-        LoadingMessageComponent,
-        ErrorMessageComponent,
-        DistancePipe
-    ]
+    DatePipe,
+    NullableDisplayPipe,
+    BootstrapIconComponent,
+    AsyncPipe,
+    DataStatusPipesModule,
+    LoadingMessageComponent,
+    ErrorMessageComponent,
+    DistancePipe
+]
 })
 export class LocationsOverviewComponent {
     locations$: Observable<DataStatus<UserLocationPlace[]>>;

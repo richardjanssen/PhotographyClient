@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Recipe } from 'src/app/core/types/recipe/recipe.type';
 import { marked } from 'marked';
 
 @Component({
     selector: 'recipe',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './recipe.component.html'
 })
 export class RecipeComponent implements OnInit {

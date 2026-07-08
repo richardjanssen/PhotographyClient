@@ -1,40 +1,47 @@
 <h3 class="page-title">Add photo</h3>
 
 <div class="add-photo">
-    <ng-container *ngIf="!submitted">
-        <div class="form-group add-photo__album">
-            <label for="album">Select an album</label>
-            <select [(ngModel)]="selectedAlbumId" class="form-control" id="album" required>
-                <option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</option>
-            </select>
+  @if (!submitted) {
+    <div class="form-group add-photo__album">
+      <label for="album">Select an album</label>
+      <select [(ngModel)]="selectedAlbumId" class="form-control" id="album" required>
+        @for (album of albums; track album) {
+          <option [value]="album.id">{{ album.title }}</option>
+        }
+      </select>
+    </div>
+    <div class="add-photo__input">
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+    <div class="add-photo__submit">
+      <button class="btn btn-primary" [disabled]="!fileSelected" (click)="onSubmit()">Submit</button>
+    </div>
+  }
+
+  @if (submitted) {
+    @if (!uploadFinished) {
+      <p>Uploading photo...</p>
+      <div class="add-photo__submitted-spinner">
+        @if (!uploadFinished) {
+          <div class="spinner-border text-primary">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        }
+      </div>
+      @if (progress > 0) {
+        <p>Progress: {{ progress | percent }}</p>
+      }
+    }
+    @if (uploadFinished) {
+      @if (message) {
+        <div class="alert alert-success">
+          {{ message }}
         </div>
-
-        <div class="add-photo__input">
-            <input type="file" (change)="onFileSelected($event)" />
-        </div>
-
-        <div class="add-photo__submit">
-            <button class="btn btn-primary" [disabled]="!fileSelected" (click)="onSubmit()">Submit</button>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="submitted">
-        <ng-container *ngIf="!uploadFinished">
-            <p>Uploading photo...</p>
-            <div class="add-photo__submitted-spinner">
-                <div class="spinner-border text-primary" *ngIf="!uploadFinished">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-            <p *ngIf="progress > 0">Progress: {{ progress | percent }}</p>
-        </ng-container>
-
-        <ng-container *ngIf="uploadFinished">
-            <div class="alert alert-success" *ngIf="message">
-                {{ message }}
-            </div>
-            <div class="alert alert-danger" *ngIf="uploadError">An error occured while uploading the photo.</div>
-            <button class="btn btn-primary" (click)="reloadComponent()">Add another photo</button>
-        </ng-container>
-    </ng-container>
+      }
+      @if (uploadError) {
+        <div class="alert alert-danger">An error occured while uploading the photo.</div>
+      }
+      <button class="btn btn-primary" (click)="reloadComponent()">Add another photo</button>
+    }
+  }
 </div>

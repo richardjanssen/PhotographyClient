@@ -1,21 +1,21 @@
-@import '../../../../styles/variables.scss';
+@use '../../../../styles/variables.scss';
 
 .icon {
     height: 100%;
     width: 100%;
     max-width: 160px;
     max-height: 80px;
-    fill: $secondary-500;
+    fill: variables.$secondary-500;
 
     &.secondary-400 {
-        fill: $secondary-400;
+        fill: variables.$secondary-400;
     }
 
     &.primary-500 {
-        fill: $primary-500;
+        fill: variables.$primary-500;
     }
 
     &.primary-400 {
-        fill: $primary-400;
+        fill: variables.$primary-400;
     }
 }

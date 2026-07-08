@@ -21,17 +21,26 @@
             "prefix": "",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular/build:application",
                     "options": {
-                        "outputPath": "dist/",
+                        "outputPath": {
+                          "base": "dist/"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                          "src/polyfills.ts"
+                        ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": ["src/styles/styles.scss"],
-                        "scripts": []
+                        "scripts": [],
+                        "browser": "src/main.ts",
+                        "stylePreprocessorOptions": {
+                          "includePaths": [
+                            "."
+                          ]
+                        }
                     },
                     "configurations": {
                         "production": {
@@ -44,9 +53,7 @@
                             "outputHashing": "all"
                         },
                         "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
+                          "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
@@ -55,39 +62,39 @@
                     "defaultConfiguration": "production"
                 },
                 "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "builder": "@angular/build:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "PhotographyClient:build:production"
+                          "buildTarget": "PhotographyClient:build:production"
                         },
                         "development": {
-                            "browserTarget": "PhotographyClient:build:development",
-                            "port": 4200,
-                            "ssl": true
+                          "port": 4200,
+                            "ssl": true,
+                            "buildTarget": "PhotographyClient:build:development"
                         },
                         "playwright": {
-                            "browserTarget": "PhotographyClient:build:development",
-                            "port": 4201
+                          "port": 4201,
+                            "buildTarget": "PhotographyClient:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
                 },
                 "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "builder": "@angular/build:extract-i18n",
                     "options": {
-                        "browserTarget": "PhotographyClient:build"
+                      "buildTarget": "PhotographyClient:build"
                     }
                 },
                 "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
+                    "builder": "@angular/build:karma",
                     "options": {
                         "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": ["src/polyfills.ts"],
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles/styles.scss"],
+                        "styles": [],
                         "scripts": []
                     }
                 },
@@ -110,6 +117,30 @@
         },
         "@angular-eslint/schematics:library": {
             "setParserOptionsProject": true
+        },
+        "@schematics/angular:component": {
+          "type": "component"
+        },
+        "@schematics/angular:directive": {
+          "type": "directive"
+        },
+        "@schematics/angular:service": {
+          "type": "service"
+        },
+        "@schematics/angular:guard": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+          "typeSeparator": "."
         }
     }
 }

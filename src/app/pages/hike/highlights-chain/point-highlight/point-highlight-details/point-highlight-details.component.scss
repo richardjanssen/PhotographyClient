@@ -1,4 +1,4 @@
-@import '../../../../../../styles/variables.scss';
+@use '../../../../../../styles/variables.scss';
 
 $dividerHeight: 1px;
 
@@ -6,11 +6,11 @@ $dividerHeight: 1px;
     .divider {
         width: 80%;
         height: $dividerHeight;
-        margin-top: $margin;
-        margin-bottom: $margin;
+        margin-top: variables.$margin;
+        margin-bottom: variables.$margin;
         margin-left: auto;
         margin-right: auto;
-        border-top: $dividerHeight $dark solid;
+        border-top: $dividerHeight variables.$dark solid;
 
         &:first-child {
             display: none;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'add-recipe',
-    standalone: true,
-    imports: [CommonModule, NgIf, FormsModule],
+    imports: [FormsModule],
     templateUrl: './add-recipe.component.html',
     styleUrls: ['./add-recipe.component.scss']
 })

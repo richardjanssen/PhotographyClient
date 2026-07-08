@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlbumService } from 'src/app/core/services/album.service';
 import { Album, AlbumDetails } from 'src/app/core/types/album.type';
 import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
-import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, ReplaySubject, combineLatest, map, of, startWith, switchMap, tap } from 'rxjs';
 import { DataStatus, StateStatus } from 'src/app/core/types/data-status.types';
@@ -17,19 +17,15 @@ import { NullableDisplayPipe } from '../../../../core/pipes/nullable-display.pip
     selector: 'albums-overview',
     templateUrl: './albums-overview.component.html',
     styleUrls: ['./albums-overview.component.scss'],
-    standalone: true,
     imports: [
-        FormsModule,
-        NgFor,
-        NgIf,
-        PhotoTableComponent,
-        AsyncPipe,
-        JsonPipe,
-        DataStatusPipesModule,
-        LoadingMessageComponent,
-        ErrorMessageComponent,
-        NullableDisplayPipe
-    ]
+    FormsModule,
+    PhotoTableComponent,
+    AsyncPipe,
+    DataStatusPipesModule,
+    LoadingMessageComponent,
+    ErrorMessageComponent,
+    NullableDisplayPipe
+]
 })
 export class AlbumsOverviewComponent {
     vm$: Observable<{

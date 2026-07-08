@@ -1,14 +1,15 @@
+@use "sass:meta";
+// Nog niet te vervangen voor @use vanwege boostrap-customization
+@import 'variables.scss';
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap');
 
-@import 'variables.scss';
 // Bootstrap customization should always be loaded before bootstrap itself
-@import 'bootstrap-customization.scss';
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
-@import 'node_modules/mapbox-gl/dist/mapbox-gl.css';
+@include meta.load-css('bootstrap-customization.scss');
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
-@import '../app/core/components/base-layout/base-layout.component.scss';
+@include meta.load-css('../app/core/components/base-layout/base-layout.component.scss');
 
 body {
     background-color: $light-600;

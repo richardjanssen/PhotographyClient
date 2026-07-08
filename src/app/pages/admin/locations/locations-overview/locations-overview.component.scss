@@ -1,14 +1,14 @@
-@import '../../../../../styles/mixins/table.scss';
-@import '../../../../../styles/variables.scss';
+@use '../../../../../styles/variables.scss';
+@use '../../../../../styles/mixins/table.scss';
 
 .locations-overview {
-    @include table();
+    @include table.table();
 
     .confirm {
-        margin-right: $margin;
+        margin-right: variables.$margin;
     }
 
     .delete-status-container {
-        margin-top: $margin;
+        margin-top: variables.$margin;
     }
 }

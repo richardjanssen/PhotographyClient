@@ -1,42 +1,51 @@
-<div class="card albums" *ngIf="vm$ | async as vm">
+@if (vm$ | async; as vm) {
+  <div class="card albums">
     <div class="card-body">
-        <h5 class="card-title">Album content</h5>
-        <div class="form-group form">
-            <label for="album">Select an album</label>
-            <select
-                [(ngModel)]="selectedAlbumId"
-                (ngModelChange)="onAlbumSelect($event)"
-                class="form-control albums_select"
-                id="album"
-                required
-            >
-                <option *ngFor="let album of vm.albums" [value]="album.id">{{ album.title }}</option>
-            </select>
-        </div>
-
-        <div class="alert alert-warning" *ngIf="showDeleteConfirmation">
-            <p>You are about to delete the following location:</p>
-            <ul>
-                <li><b>AlbumId:</b> {{ photoToDelete.albumId }}</li>
-                <li><b>Album name:</b> {{ photoToDelete.albumName | nullableDisplay }}</li>
-                <li><b>PhotoId:</b> {{ photoToDelete.photoId }}</li>
-            </ul>
-
-            <p>Are you sure? This action cannot be undone.</p>
-            <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
-            <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
-
-            <div class="delete-status-container" *ngIf="vm.deleteResult">
-                <loading-message *ngIf="vm.deleteResult | loading">Deleting location</loading-message>
-                <error-message *ngIf="vm.deleteResult | error">An error occurred while deleting the location</error-message>
+      <h5 class="card-title">Album content</h5>
+      <div class="form-group form">
+        <label for="album">Select an album</label>
+        <select
+          [(ngModel)]="selectedAlbumId"
+          (ngModelChange)="onAlbumSelect($event)"
+          class="form-control albums_select"
+          id="album"
+          required
+          >
+          @for (album of vm.albums; track album) {
+            <option [value]="album.id">{{ album.title }}</option>
+          }
+        </select>
+      </div>
+      @if (showDeleteConfirmation) {
+        <div class="alert alert-warning">
+          <p>You are about to delete the following location:</p>
+          <ul>
+            <li><b>AlbumId:</b> {{ photoToDelete.albumId }}</li>
+            <li><b>Album name:</b> {{ photoToDelete.albumName | nullableDisplay }}</li>
+            <li><b>PhotoId:</b> {{ photoToDelete.photoId }}</li>
+          </ul>
+          <p>Are you sure? This action cannot be undone.</p>
+          <button (click)="confirmDelete()" class="btn btn-primary confirm">Confirm</button>
+          <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+          @if (vm.deleteResult) {
+            <div class="delete-status-container">
+              @if (vm.deleteResult | loading) {
+                <loading-message>Deleting location</loading-message>
+              }
+              @if (vm.deleteResult | error) {
+                <error-message>An error occurred while deleting the location</error-message>
+              }
             </div>
+          }
         </div>
-
+      }
+      @if (vm.selectedAlbumDetails) {
         <photo-table
-            *ngIf="vm.selectedAlbumDetails"
-            [showDeleteButton]="true"
-            (delete)="onPendingDelete($event, vm.selectedAlbumId, vm.selectedAlbumName)"
-            [photos]="vm.selectedAlbumDetails.photos"
+          [showDeleteButton]="true"
+          (delete)="onPendingDelete($event, vm.selectedAlbumId, vm.selectedAlbumName)"
+          [photos]="vm.selectedAlbumDetails.photos"
         ></photo-table>
+      }
     </div>
-</div>
+  </div>
+}

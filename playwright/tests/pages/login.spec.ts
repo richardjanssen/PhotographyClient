@@ -1,4 +1,5 @@
-import { test, expect } from 'playwright/base-test';
+import { expect, test } from "../../base-test";
+
 
 test('has RIESJ as title', async ({ loginPage, page }) => {
     await loginPage.goto();

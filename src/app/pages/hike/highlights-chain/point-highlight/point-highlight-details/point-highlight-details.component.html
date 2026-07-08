@@ -1,18 +1,25 @@
 <div class="point-highlight-details">
-    <ng-container *ngIf="expandableHighlightTypes.includes(highlight.type) && highlight.id; else noDetails">
-        <div [ngSwitch]="highlight.type" class="point">
-            <photos-highlight
-                *ngSwitchCase="pointHighlightType.photo"
-                [hikerUpdateId]="highlight.id"
-                [type]="pointHighlightType.photo"
-            ></photos-highlight>
-            <photos-highlight
-                *ngSwitchCase="pointHighlightType.blog"
-                [hikerUpdateId]="highlight.id"
-                [type]="pointHighlightType.blog"
-            ></photos-highlight>
-            <location-point *ngSwitchCase="pointHighlightType.location" [locationId]="highlight.id"></location-point>
-        </div>
-    </ng-container>
-    <ng-template #noDetails>Er is geen extra informatie voor deze update beschikbaar</ng-template>
+  @if (expandableHighlightTypes.includes(highlight.type) && highlight.id) {
+    <div class="point">
+      @switch (highlight.type) {
+        @case (pointHighlightType.photo) {
+          <photos-highlight
+            [hikerUpdateId]="highlight.id"
+            [type]="pointHighlightType.photo"
+          ></photos-highlight>
+        }
+        @case (pointHighlightType.blog) {
+          <photos-highlight
+            [hikerUpdateId]="highlight.id"
+            [type]="pointHighlightType.blog"
+          ></photos-highlight>
+        }
+        @case (pointHighlightType.location) {
+          <location-point [locationId]="highlight.id"></location-point>
+        }
+      }
+    </div>
+  } @else {
+    Er is geen extra informatie voor deze update beschikbaar
+  }
 </div>

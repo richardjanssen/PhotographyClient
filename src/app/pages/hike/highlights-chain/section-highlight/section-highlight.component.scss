@@ -1,8 +1,8 @@
-@import '../../../../../styles/variables.scss';
-@import '../../../../../styles/mixins/point-highlight-positioning.scss';
+@use '../../../../../styles/variables.scss';
+@use '../../../../../styles/mixins/point-highlight-positioning.scss';
 
 .section-highlight {
-    @include pointHighlightPositioning;
+    @include point-highlight-positioning.pointHighlightPositioning;
 
     .background {
         position: absolute;
@@ -13,9 +13,9 @@
         left: 0;
         right: 0;
 
-        border: 1px solid $primary-500;
-        border-radius: $borderRadius;
-        background-color: $primary-250;
+        border: 1px solid variables.$primary-500;
+        border-radius: variables.$borderRadius;
+        background-color: variables.$primary-250;
     }
 
     .information {
@@ -29,17 +29,17 @@
         z-index: 2;
 
         .title-container {
-            padding: $padding;
-            margin-left: $margin;
+            padding: variables.$padding;
+            margin-left: variables.$margin;
             width: 50%;
             text-align: center;
 
             .title {
-                color: $primary-600;
+                color: variables.$primary-600;
                 margin-bottom: 0;
                 font-size: 1.15rem;
 
-                @media screen and (max-width: #{$maxWidthSm}) {
+                @media screen and (max-width: #{variables.$maxWidthSm}) {
                     font-size: 1rem;
                 }
             }
@@ -50,7 +50,7 @@
                 justify-content: center;
 
                 font-size: 0.8rem;
-                @media screen and (max-width: #{$maxWidthSm}) {
+                @media screen and (max-width: #{variables.$maxWidthSm}) {
                     font-size: 0.7rem;
                 }
 
@@ -58,11 +58,11 @@
                     display: flex;
                     align-items: center;
 
-                    margin-right: $marginLg;
-                    color: $primary-700;
+                    margin-right: variables.$marginLg;
+                    color: variables.$primary-700;
 
-                    @media screen and (max-width: #{$maxWidthSm}) {
-                        margin-right: $margin;
+                    @media screen and (max-width: #{variables.$maxWidthSm}) {
+                        margin-right: variables.$margin;
                     }
 
                     &:last-child {
@@ -80,7 +80,7 @@
 
         .icon-container {
             width: 50%;
-            margin-right: $margin;
+            margin-right: variables.$margin;
 
             .icon {
                 display: block;
@@ -88,11 +88,11 @@
                 min-height: 80px;
                 width: 160px;
                 height: 80px;
-                padding: $paddingSm;
+                padding: variables.$paddingSm;
                 margin-left: auto;
                 margin-right: auto;
 
-                @media screen and (max-width: #{$maxWidthSm}) {
+                @media screen and (max-width: #{variables.$maxWidthSm}) {
                     // min-width: 64px;
                     // min-height: 64px;
                     // width: 64px;

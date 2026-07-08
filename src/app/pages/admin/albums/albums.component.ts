@@ -4,7 +4,6 @@ import { AlbumsPaths } from './albums.routes';
 
 @Component({
     templateUrl: './albums.component.html',
-    standalone: true,
     imports: [AdminPageComponent]
 })
 export class AlbumsComponent {

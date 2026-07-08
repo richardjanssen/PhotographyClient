@@ -1,52 +1,106 @@
 <div class="point-highlight-summary">
-    <div class="icon">
-        <ng-container [ngSwitch]="highlight.type">
-            <icon *ngSwitchCase="pointHighlightType.location" name="riesj"></icon>
-            <icon *ngSwitchCase="pointHighlightType.photo" name="camera"></icon>
-            <icon *ngSwitchCase="pointHighlightType.blog" name="blog"></icon>
-            <icon *ngSwitchCase="pointHighlightType.town" name="house"></icon>
-            <icon *ngSwitchCase="pointHighlightType.lodge" name="house"></icon>
-            <icon *ngSwitchCase="pointHighlightType.lake" name="lake"></icon>
-            <icon *ngSwitchCase="pointHighlightType.mountainPass" name="mountain-pass"></icon>
-            <icon *ngSwitchCase="pointHighlightType.mountainSummit" name="mountain-summit"></icon>
-            <icon *ngSwitchCase="pointHighlightType.mountainBypass" name="mountain-bypass"></icon>
-            <icon *ngSwitchCase="pointHighlightType.waterfall" name="waterfall"></icon>
-            <icon *ngSwitchCase="pointHighlightType.bridgeOfTheGods" name="bridge-of-the-gods"></icon>
-            <icon *ngSwitchCase="pointHighlightType.terminus" name="terminus"></icon>
-            <icon *ngSwitchCase="pointHighlightType.laAqueduct" name="aqueduct"></icon>
-            <icon *ngSwitchCase="pointHighlightType.devilsPostpile" name="devils-postpile"></icon>
-            <icon *ngSwitchCase="pointHighlightType.castleCrags" name="cliff"></icon>
-            <icon *ngSwitchCase="pointHighlightType.fiveHundred" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.oneThousand" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.fifteenHundred" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.twoThousand" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.twentyFiveHundred" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.threeThousand" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.thirtyFiveHundred" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.fourThousand" name="party"></icon>
-            <icon *ngSwitchCase="pointHighlightType.rotterdam" name="rotterdam"></icon>
-            <icon *ngSwitchDefault name="icon-dots"></icon>
-        </ng-container>
-    </div>
-    <div class="metadata">
-        <h2 class="title">{{ highlight.title }}</h2>
-        <div class="attributes">
-            <div class="attribute">
-                <bs-icon class="bs-icon" name="calendar-week"></bs-icon>
-                <i>{{ highlight.date | pctDate }}</i>
-            </div>
-            <div class="attribute">
-                <bs-icon class="bs-icon" name="clock"></bs-icon>
-                <i>{{ highlight.date | pctTime }}</i>
-            </div>
-            <div class="attribute" *ngIf="highlight.distance !== null && highlight.distance !== undefined">
-                <bs-icon class="bs-icon" name="ruler"></bs-icon>
-                <i>{{ highlight.distance | distance }}</i>
-            </div>
-            <div *ngIf="!highlight.isManual" class="attribute">
-                <bs-icon class="bs-icon" name="pin-map-fill"></bs-icon>
-                <i>Gps update</i>
-            </div>
+  <div class="icon">
+    @switch (highlight.type) {
+      @case (pointHighlightType.location) {
+        <icon name="riesj"></icon>
+      }
+      @case (pointHighlightType.photo) {
+        <icon name="camera"></icon>
+      }
+      @case (pointHighlightType.blog) {
+        <icon name="blog"></icon>
+      }
+      @case (pointHighlightType.town) {
+        <icon name="house"></icon>
+      }
+      @case (pointHighlightType.lodge) {
+        <icon name="house"></icon>
+      }
+      @case (pointHighlightType.lake) {
+        <icon name="lake"></icon>
+      }
+      @case (pointHighlightType.mountainPass) {
+        <icon name="mountain-pass"></icon>
+      }
+      @case (pointHighlightType.mountainSummit) {
+        <icon name="mountain-summit"></icon>
+      }
+      @case (pointHighlightType.mountainBypass) {
+        <icon name="mountain-bypass"></icon>
+      }
+      @case (pointHighlightType.waterfall) {
+        <icon name="waterfall"></icon>
+      }
+      @case (pointHighlightType.bridgeOfTheGods) {
+        <icon name="bridge-of-the-gods"></icon>
+      }
+      @case (pointHighlightType.terminus) {
+        <icon name="terminus"></icon>
+      }
+      @case (pointHighlightType.laAqueduct) {
+        <icon name="aqueduct"></icon>
+      }
+      @case (pointHighlightType.devilsPostpile) {
+        <icon name="devils-postpile"></icon>
+      }
+      @case (pointHighlightType.castleCrags) {
+        <icon name="cliff"></icon>
+      }
+      @case (pointHighlightType.fiveHundred) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.oneThousand) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.fifteenHundred) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.twoThousand) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.twentyFiveHundred) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.threeThousand) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.thirtyFiveHundred) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.fourThousand) {
+        <icon name="party"></icon>
+      }
+      @case (pointHighlightType.rotterdam) {
+        <icon name="rotterdam"></icon>
+      }
+      @default {
+        <icon name="icon-dots"></icon>
+      }
+    }
+  </div>
+  <div class="metadata">
+    <h2 class="title">{{ highlight.title }}</h2>
+    <div class="attributes">
+      <div class="attribute">
+        <bs-icon class="bs-icon" name="calendar-week"></bs-icon>
+        <i>{{ highlight.date | pctDate }}</i>
+      </div>
+      <div class="attribute">
+        <bs-icon class="bs-icon" name="clock"></bs-icon>
+        <i>{{ highlight.date | pctTime }}</i>
+      </div>
+      @if (highlight.distance !== null && highlight.distance !== undefined) {
+        <div class="attribute">
+          <bs-icon class="bs-icon" name="ruler"></bs-icon>
+          <i>{{ highlight.distance | distance }}</i>
         </div>
+      }
+      @if (!highlight.isManual) {
+        <div class="attribute">
+          <bs-icon class="bs-icon" name="pin-map-fill"></bs-icon>
+          <i>Gps update</i>
+        </div>
+      }
     </div>
+  </div>
 </div>

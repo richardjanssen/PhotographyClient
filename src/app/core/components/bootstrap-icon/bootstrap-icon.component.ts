@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+
 
 @Component({
     selector: 'bs-icon',
     templateUrl: './bootstrap-icon.component.html',
     styleUrls: ['./bootstrap-icon.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgClass]
+    imports: []
 })
 export class BootstrapIconComponent implements OnInit {
     @Input() name: string;

@@ -4,7 +4,6 @@ import { UpdatesPaths } from './updates.routes';
 
 @Component({
     templateUrl: './updates.component.html',
-    standalone: true,
     imports: [AdminPageComponent]
 })
 export class UpdatesComponent {

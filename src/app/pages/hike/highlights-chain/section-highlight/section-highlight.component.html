@@ -1,25 +1,27 @@
 <div class="section-highlight">
-    <div class="background"></div>
-    <ng-container *ngFor="let child of highlight.children">
-        <point-highlight class="place-highlight in-section" [highlight]="child"></point-highlight>
-    </ng-container>
+  <div class="background"></div>
+  @for (child of highlight.children; track child) {
+    <point-highlight class="place-highlight in-section" [highlight]="child"></point-highlight>
+  }
 
-    <div class="information">
-        <div class="title-container">
-            <h2 class="title">{{ highlight.title }}</h2>
-            <div class="attributes">
-                <div class="attribute">
-                    <bs-icon class="bs-icon" name="ruler" iconColor="primary-700"></bs-icon>
-                    <i>{{ highlight.startDistance | distance }} - {{ highlight.endDistance | distance }}</i>
-                </div>
-                <div class="attribute" *ngIf="highlight.firstEntered">
-                    <bs-icon class="bs-icon" name="box-arrow-in-right" iconColor="primary-700"></bs-icon>
-                    <i>{{ highlight.firstEntered | pctDate }}</i>
-                </div>
-            </div>
+  <div class="information">
+    <div class="title-container">
+      <h2 class="title">{{ highlight.title }}</h2>
+      <div class="attributes">
+        <div class="attribute">
+          <bs-icon class="bs-icon" name="ruler" iconColor="primary-700"></bs-icon>
+          <i>{{ highlight.startDistance | distance }} - {{ highlight.endDistance | distance }}</i>
         </div>
-        <div class="icon-container">
-            <icon class="icon" [name]="iconName" iconColor="primary-500"></icon>
-        </div>
+        @if (highlight.firstEntered) {
+          <div class="attribute">
+            <bs-icon class="bs-icon" name="box-arrow-in-right" iconColor="primary-700"></bs-icon>
+            <i>{{ highlight.firstEntered | pctDate }}</i>
+          </div>
+        }
+      </div>
     </div>
+    <div class="icon-container">
+      <icon class="icon" [name]="iconName" iconColor="primary-500"></icon>
+    </div>
+  </div>
 </div>

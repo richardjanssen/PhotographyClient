@@ -1,16 +1,17 @@
 <div #gridContainer class="photo-grid" [style.height.px]="gridHeight">
+  @for (item of gridItems; track item) {
     <div
-        *ngFor="let item of gridItems"
-        class="grid-item"
-        [style.width.px]="item.width"
-        [style.height.px]="item.height"
-        [style.marginTop.px]="item.offsetTop"
-        [style.marginLeft.px]="item.offsetLeft"
-        (click)="onPhotoClick(item.id)"
-    >
-        <a>
-            <img class="grid-item__image" [srcset]="item.srcset" [sizes]="item.width + 'px'" />
-            <div class="grid-item__image-overlay"></div>
-        </a>
+      class="grid-item"
+      [style.width.px]="item.width"
+      [style.height.px]="item.height"
+      [style.marginTop.px]="item.offsetTop"
+      [style.marginLeft.px]="item.offsetLeft"
+      (click)="onPhotoClick(item.id)"
+      >
+      <a>
+        <img class="grid-item__image" [srcset]="item.srcset" [sizes]="item.width + 'px'" />
+        <div class="grid-item__image-overlay"></div>
+      </a>
     </div>
+  }
 </div>
