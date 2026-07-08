@@ -7,7 +7,7 @@
 
 // Bootstrap customization should always be loaded before bootstrap itself
 @include meta.load-css('bootstrap-customization.scss');
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
 @include meta.load-css('../app/core/components/base-layout/base-layout.component.scss');
 
