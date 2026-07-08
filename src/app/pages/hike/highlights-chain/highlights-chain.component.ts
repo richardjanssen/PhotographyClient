@@ -1,4 +1,4 @@
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Highlight, HighlightType } from 'src/app/core/types/highlight.type';
 import { SectionHighlightComponent } from './section-highlight/section-highlight.component';
@@ -10,15 +10,11 @@ import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/b
     templateUrl: './highlights-chain.component.html',
     styleUrls: ['./highlights-chain.component.scss'],
     imports: [
-        NgIf,
-        NgFor,
-        NgSwitch,
-        NgSwitchCase,
-        PointHighlightComponent,
-        NgClass,
-        SectionHighlightComponent,
-        BootstrapIconComponent
-    ]
+    PointHighlightComponent,
+    NgClass,
+    SectionHighlightComponent,
+    BootstrapIconComponent
+]
 })
 export class HighlightsChainComponent {
     @Input() highlights: Highlight[];

@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Photo } from '../../types/photo.type';
 import { EnvironmentService } from '../../services/environment.service';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { BootstrapIconComponent } from '../bootstrap-icon/bootstrap-icon.component';
 
 @Component({
     selector: 'photo-table',
     templateUrl: './photo-table.component.html',
     styleUrls: ['./photo-table.component.scss'],
-    imports: [NgIf, NgFor, DatePipe, BootstrapIconComponent]
+    imports: [DatePipe, BootstrapIconComponent]
 })
 export class PhotoTableComponent implements OnChanges {
     @Input() photos: Photo[];

@@ -1,36 +1,35 @@
-<div class="location" *ngIf="vm$ | async as vm">
-    <ng-container *ngIf="vm | valid">
-        <ng-container *ngIf="vm | data as data">
-            <ng-container *ngIf="data.mapboxEnabled; else noMap">
-                <div class="legend-container">
-                    <div class="legend-item-container">
-                        <span class="legend legend-pct"></span>
-                        <span>Pacific Crest Trail</span>
-                    </div>
-
-                    <div class="legend-item-container">
-                        <span class="legend legend-route"></span>
-                        <span>Route van afgelopen 7 dagen</span>
-                    </div>
-                </div>
-
-                <location-map
-                    [token]="data.token"
-                    [currentLocation]="data.currentLocation"
-                    [historicLocations]="data.historicLocations"
-                ></location-map>
-            </ng-container>
-
-            <ng-template #noMap>
-                <p>
-                    <i>
-                        De kaart is momenteel niet beschikbaar. In plaats daarvan ben ik te volgen via
-                        <a href="https://share.garmin.com/riesj" target="_blank">deze link</a>.
-                    </i>
-                </p>
-            </ng-template>
-        </ng-container>
-    </ng-container>
-
-    <p *ngIf="vm | error"><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
-</div>
+@if (vm$ | async; as vm) {
+  <div class="location">
+    @if (vm | valid) {
+      @if (vm | data; as data) {
+        @if (data.mapboxEnabled) {
+          <div class="legend-container">
+            <div class="legend-item-container">
+              <span class="legend legend-pct"></span>
+              <span>Pacific Crest Trail</span>
+            </div>
+            <div class="legend-item-container">
+              <span class="legend legend-route"></span>
+              <span>Route van afgelopen 7 dagen</span>
+            </div>
+          </div>
+          <location-map
+            [token]="data.token"
+            [currentLocation]="data.currentLocation"
+            [historicLocations]="data.historicLocations"
+          ></location-map>
+        } @else {
+          <p>
+            <i>
+              De kaart is momenteel niet beschikbaar. In plaats daarvan ben ik te volgen via
+              <a href="https://share.garmin.com/riesj" target="_blank">deze link</a>.
+            </i>
+          </p>
+        }
+      }
+    }
+    @if (vm | error) {
+      <p><i>Er is iets fout gegaan bij het laden van de locatie.</i></p>
+    }
+  </div>
+}

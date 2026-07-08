@@ -1,3 +1,5 @@
-<svg *ngIf="path" class="icon" [class]="iconColor">
+@if (path) {
+  <svg class="icon" [class]="iconColor">
     <use [attr.xlink:href]="path" />
-</svg>
+  </svg>
+}

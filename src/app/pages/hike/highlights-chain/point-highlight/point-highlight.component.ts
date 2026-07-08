@@ -3,14 +3,14 @@ import { Constants } from 'src/app/core/constants';
 import { PointHighlight, PointHighlightType } from 'src/app/core/types/highlight.type';
 import { PointHighlightDetailsComponent } from './point-highlight-details/point-highlight-details.component';
 import { PointHighlightSummaryComponent } from './point-highlight-summary/point-highlight-summary.component';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { BootstrapIconComponent } from '../../../../core/components/bootstrap-icon/bootstrap-icon.component';
 
 @Component({
     selector: 'point-highlight',
     templateUrl: './point-highlight.component.html',
     styleUrls: ['./point-highlight.component.scss'],
-    imports: [NgClass, NgIf, PointHighlightSummaryComponent, PointHighlightDetailsComponent, BootstrapIconComponent]
+    imports: [NgClass, PointHighlightSummaryComponent, PointHighlightDetailsComponent, BootstrapIconComponent]
 })
 export class PointHighlightComponent implements OnInit {
     @Input() highlight: PointHighlight;

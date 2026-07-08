@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
-    imports: [NgIf]
+    imports: []
 })
 export class IconComponent implements OnInit {
     @Input() name: string;

@@ -11,14 +11,14 @@ import { Photo } from 'src/app/core/types/photo.type';
 import { Place } from 'src/app/core/types/place.type';
 import { PhotoTableComponent } from '../../../../core/components/photo-table/photo-table.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'add-update',
     templateUrl: './add-update.component.html',
     styleUrls: ['./add-update.component.scss'],
-    imports: [NgIf, FormsModule, NgFor, PhotoTableComponent]
+    imports: [FormsModule, PhotoTableComponent]
 })
 export class AddUpdateComponent {
     albums: Album[];

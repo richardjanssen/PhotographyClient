@@ -1,22 +1,24 @@
 <div class="card highlight">
-    <div class="summary-container">
-        <point-highlight-summary class="summary" [highlight]="highlight"></point-highlight-summary>
-        <div class="highlight-connector" [ngClass]="{ expandable }"></div>
+  <div class="summary-container">
+    <point-highlight-summary class="summary" [highlight]="highlight"></point-highlight-summary>
+    <div class="highlight-connector" [ngClass]="{ expandable }"></div>
+  </div>
+
+  @if (expandable && !expanded) {
+    <div class="expansion" (click)="toggleExpansion()">
+      <span class="expansion-text">Bekijk meer</span>
+      <bs-icon class="expansion-icon" name="chevron-compact-down" iconColor="light"></bs-icon>
     </div>
+  }
 
-    <div class="expansion" *ngIf="expandable && !expanded" (click)="toggleExpansion()">
-        <span class="expansion-text">Bekijk meer</span>
-        <bs-icon class="expansion-icon" name="chevron-compact-down" iconColor="light"></bs-icon>
-    </div>
-
-    <ng-container *ngIf="expanded">
-        <div class="ruler"></div>
-
-        <point-highlight-details [highlight]="highlight"></point-highlight-details>
-
-        <div *ngIf="expandable" class="expansion" (click)="toggleExpansion()">
-            <span class="expansion-text">Bekijk minder</span>
-            <bs-icon class="expansion-icon" name="chevron-compact-up" iconColor="light"></bs-icon>
-        </div>
-    </ng-container>
+  @if (expanded) {
+    <div class="ruler"></div>
+    <point-highlight-details [highlight]="highlight"></point-highlight-details>
+    @if (expandable) {
+      <div class="expansion" (click)="toggleExpansion()">
+        <span class="expansion-text">Bekijk minder</span>
+        <bs-icon class="expansion-icon" name="chevron-compact-up" iconColor="light"></bs-icon>
+      </div>
+    }
+  }
 </div>

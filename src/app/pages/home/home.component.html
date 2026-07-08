@@ -1,3 +1,5 @@
 <app-header></app-header>
-<app-photo-grid *ngIf="photos" [photos]="photos"></app-photo-grid>
+@if (photos) {
+  <app-photo-grid [photos]="photos"></app-photo-grid>
+}
 <app-footer></app-footer>

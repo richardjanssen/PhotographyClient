@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Settings } from 'src/app/core/types/settings.types';
 import { Observable, ReplaySubject, switchMap, tap } from 'rxjs';
@@ -15,7 +15,7 @@ import { SuccessMessageComponent } from '../../../../core/components/success-mes
     selector: 'update-settings',
     templateUrl: './update-settings.component.html',
     styleUrls: ['./update-settings.component.scss'],
-    imports: [FormsModule, NgIf, AsyncPipe, DataStatusPipesModule, LoadingMessageComponent, ErrorMessageComponent, SuccessMessageComponent]
+    imports: [FormsModule, AsyncPipe, DataStatusPipesModule, LoadingMessageComponent, ErrorMessageComponent, SuccessMessageComponent]
 })
 export class UpdateSettingsComponent {
     settings$: Observable<DataStatus<Settings>>;

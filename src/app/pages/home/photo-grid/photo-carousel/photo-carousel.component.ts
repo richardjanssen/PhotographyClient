@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Photo } from 'src/app/core/types/photo.type';
 import { EnvironmentService } from 'src/app/core/services/environment.service';
 
 @Component({
     selector: 'photo-carousel',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './photo-carousel.component.html',
     styleUrls: ['./photo-carousel.component.scss']
 })

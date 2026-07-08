@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Recipe } from 'src/app/core/types/recipe/recipe.type';
 import { RecipeComponent } from '../recipe/recipe.component';
@@ -7,7 +7,7 @@ import { HeaderComponent } from '../../home/header/header.component';
 
 @Component({
     selector: 'recipes-overview',
-    imports: [CommonModule, RecipeComponent, HeaderComponent],
+    imports: [RecipeComponent, HeaderComponent],
     templateUrl: './recipes-overview.component.html',
     styleUrls: ['./recipes-overview.component.scss']
 })

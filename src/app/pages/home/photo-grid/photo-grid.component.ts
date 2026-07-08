@@ -5,7 +5,7 @@ import { GridImageInfo } from 'src/app/core/types/grid-image-info.type';
 import { Grid } from 'src/app/core/types/grid.type';
 import { GridItem } from 'src/app/core/types/grid-item.type';
 import { Photo } from 'src/app/core/types/photo.type';
-import { NgFor } from '@angular/common';
+
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { PhotoCarouselComponent } from './photo-carousel/photo-carousel.component';
 
@@ -13,7 +13,7 @@ import { PhotoCarouselComponent } from './photo-carousel/photo-carousel.componen
     selector: 'app-photo-grid',
     templateUrl: './photo-grid.component.html',
     styleUrls: ['./photo-grid.component.scss'],
-    imports: [NgFor, ModalModule],
+    imports: [ModalModule],
     providers: [BsModalService]
 })
 export class PhotoGridComponent implements AfterViewInit {

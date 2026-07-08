@@ -1,4 +1,4 @@
-import { NgIf, NgFor, DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
@@ -12,7 +12,7 @@ import { UpdatesPaths } from '../updates.routes';
     selector: 'updates-overview',
     templateUrl: './updates-overview.component.html',
     styleUrls: ['./updates-overview.component.scss'],
-    imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, TitleCasePipe, BootstrapIconComponent]
+    imports: [DatePipe, NullableDisplayPipe, TitleCasePipe, BootstrapIconComponent]
 })
 export class UpdatesOverviewComponent {
     updates: HikerUpdateBasic[] = [];
