@@ -18,7 +18,6 @@ import { ErrorPipe } from '../../core/pipes/status/error.pipe';
 @Component({
     templateUrl: './hike.component.html',
     styleUrls: ['./hike.component.scss'],
-    standalone: true,
     imports: [
         AsyncPipe,
         HeaderComponent,

@@ -6,7 +6,6 @@ import { EnvironmentService } from 'src/app/core/services/environment.service';
 
 @Component({
     selector: 'photo-carousel',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './photo-carousel.component.html',
     styleUrls: ['./photo-carousel.component.scss']

@@ -6,7 +6,6 @@ import { ConstantsService } from 'src/app/core/services/constants.service';
     selector: 'hike-banner',
     templateUrl: './hike-banner.component.html',
     styleUrls: ['./hike-banner.component.scss'],
-    standalone: true,
     imports: [NgIf]
 })
 export class HikeBannerComponent {

@@ -4,7 +4,6 @@ import { RecipesPaths } from './recipes.routes';
 
 @Component({
     templateUrl: './recipes.component.html',
-    standalone: true,
     imports: [AdminPageComponent]
 })
 export class RecipesComponent {

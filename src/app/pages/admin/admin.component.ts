@@ -8,7 +8,6 @@ import { AdminPaths } from './admin.routes';
 @Component({
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
-    standalone: true,
     imports: [HeaderComponent, BaseLayoutComponent, RouterLink, RouterOutlet]
 })
 export class AdminComponent {

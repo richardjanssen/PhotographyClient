@@ -8,7 +8,6 @@ import { NgIf } from '@angular/common';
 
 @Component({
     templateUrl: './home.component.html',
-    standalone: true,
     imports: [HeaderComponent, PhotoGridComponent, FooterComponent, NgIf]
 })
 export class HomeComponent {

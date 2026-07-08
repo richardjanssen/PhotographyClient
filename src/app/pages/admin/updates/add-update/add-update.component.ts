@@ -18,7 +18,6 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'add-update',
     templateUrl: './add-update.component.html',
     styleUrls: ['./add-update.component.scss'],
-    standalone: true,
     imports: [NgIf, FormsModule, NgFor, PhotoTableComponent]
 })
 export class AddUpdateComponent {

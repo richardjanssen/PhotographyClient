@@ -5,7 +5,6 @@ import { marked } from 'marked';
 
 @Component({
     selector: 'recipe',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './recipe.component.html'
 })

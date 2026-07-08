@@ -17,7 +17,6 @@ import { NullableDisplayPipe } from '../../../../core/pipes/nullable-display.pip
     selector: 'albums-overview',
     templateUrl: './albums-overview.component.html',
     styleUrls: ['./albums-overview.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         NgFor,

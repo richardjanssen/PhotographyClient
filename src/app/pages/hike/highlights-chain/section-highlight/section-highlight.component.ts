@@ -11,7 +11,6 @@ import { PctDatePipe } from '../../../../core/pipes/pct-date.pipe';
     selector: 'section-highlight',
     templateUrl: './section-highlight.component.html',
     styleUrls: ['./section-highlight.component.scss'],
-    standalone: true,
     imports: [
         IconComponent,
         BootstrapIconComponent,

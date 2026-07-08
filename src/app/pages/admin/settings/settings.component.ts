@@ -5,7 +5,6 @@ import { AdminPageComponent } from '../admin-page.component';
 
 @Component({
     selector: 'settings',
-    standalone: true,
     templateUrl: './settings.component.html',
     imports: [CommonModule, AdminPageComponent]
 })

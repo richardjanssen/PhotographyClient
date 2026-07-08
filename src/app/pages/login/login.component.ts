@@ -7,7 +7,6 @@ import { HeaderComponent } from '../home/header/header.component';
 @Component({
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    standalone: true,
     imports: [HeaderComponent, FormsModule, ReactiveFormsModule, NgIf]
 })
 export class LoginComponent {

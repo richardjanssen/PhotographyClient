@@ -8,7 +8,6 @@ import { BootstrapIconComponent } from '../bootstrap-icon/bootstrap-icon.compone
     selector: 'photo-table',
     templateUrl: './photo-table.component.html',
     styleUrls: ['./photo-table.component.scss'],
-    standalone: true,
     imports: [NgIf, NgFor, DatePipe, BootstrapIconComponent]
 })
 export class PhotoTableComponent implements OnChanges {

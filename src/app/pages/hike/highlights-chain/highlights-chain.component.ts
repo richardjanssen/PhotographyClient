@@ -10,7 +10,6 @@ import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/b
     selector: 'highlights-chain',
     templateUrl: './highlights-chain.component.html',
     styleUrls: ['./highlights-chain.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         IconComponent,

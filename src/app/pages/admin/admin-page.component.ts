@@ -7,7 +7,6 @@ import { BaseLayoutComponent } from '../../core/components/base-layout/base-layo
     selector: 'admin-page',
     templateUrl: './admin-page.component.html',
     styleUrls: ['./admin-page.component.scss'],
-    standalone: true,
     imports: [BaseLayoutComponent, NgFor, RouterLink, RouterOutlet]
 })
 export class AdminPageComponent {

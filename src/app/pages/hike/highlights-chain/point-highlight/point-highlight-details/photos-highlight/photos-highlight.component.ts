@@ -10,7 +10,6 @@ import { NgIf } from '@angular/common';
     selector: 'photos-highlight',
     templateUrl: './photos-highlight.component.html',
     styleUrls: ['./photos-highlight.component.scss'],
-    standalone: true,
     imports: [NgIf, PhotoGridComponent]
 })
 export class PhotosHighlightComponent implements OnInit {

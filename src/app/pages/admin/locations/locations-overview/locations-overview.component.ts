@@ -18,7 +18,6 @@ import { DistancePipe } from '../../../../core/pipes/distance.pipe';
     selector: 'locations-overview',
     templateUrl: './locations-overview.component.html',
     styleUrls: ['./locations-overview.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         NgFor,

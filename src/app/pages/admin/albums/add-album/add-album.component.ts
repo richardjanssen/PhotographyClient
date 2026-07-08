@@ -9,7 +9,6 @@ import { NgIf } from '@angular/common';
     selector: 'add-album',
     templateUrl: './add-album.component.html',
     styleUrls: ['./add-album.component.scss'],
-    standalone: true,
     imports: [NgIf, FormsModule]
 })
 export class AddAlbumComponent {

@@ -17,7 +17,6 @@ import { SuccessMessageComponent } from 'src/app/core/components/success-message
     selector: 'add-location',
     templateUrl: './add-location.component.html',
     styleUrls: ['./add-location.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         FormsModule,

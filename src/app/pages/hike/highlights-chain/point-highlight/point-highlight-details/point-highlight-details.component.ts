@@ -9,7 +9,6 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
     selector: 'point-highlight-details',
     templateUrl: './point-highlight-details.component.html',
     styleUrls: ['./point-highlight-details.component.scss'],
-    standalone: true,
     imports: [NgFor, NgIf, NgSwitch, NgSwitchCase, PhotosHighlightComponent, LocationPointComponent]
 })
 export class PointHighlightDetailsComponent {

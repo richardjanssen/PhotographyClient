@@ -16,7 +16,6 @@ import { Coordinate } from 'src/app/core/types/location.type';
     selector: 'location-point',
     templateUrl: './location-point.component.html',
     styleUrls: ['./location-point.component.scss'],
-    standalone: true,
     imports: [AsyncPipe, NgIf, NgClass, LocationMapComponent, ErrorPipe, ValidPipe, DataPipe]
 })
 export class LocationPointComponent implements OnInit {

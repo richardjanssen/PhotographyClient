@@ -10,7 +10,6 @@ import { BootstrapIconComponent } from '../../../../core/components/bootstrap-ic
     selector: 'point-highlight',
     templateUrl: './point-highlight.component.html',
     styleUrls: ['./point-highlight.component.scss'],
-    standalone: true,
     imports: [NgClass, NgIf, PointHighlightSummaryComponent, PointHighlightDetailsComponent, BootstrapIconComponent]
 })
 export class PointHighlightComponent implements OnInit {

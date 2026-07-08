@@ -12,7 +12,6 @@ import { UpdatesPaths } from '../updates.routes';
     selector: 'updates-overview',
     templateUrl: './updates-overview.component.html',
     styleUrls: ['./updates-overview.component.scss'],
-    standalone: true,
     imports: [NgIf, NgFor, DatePipe, NullableDisplayPipe, TitleCasePipe, BootstrapIconComponent]
 })
 export class UpdatesOverviewComponent {

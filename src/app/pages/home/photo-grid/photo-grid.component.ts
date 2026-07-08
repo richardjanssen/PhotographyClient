@@ -14,7 +14,6 @@ import { PhotoCarouselComponent } from './photo-carousel/photo-carousel.componen
     selector: 'app-photo-grid',
     templateUrl: './photo-grid.component.html',
     styleUrls: ['./photo-grid.component.scss'],
-    standalone: true,
     imports: [NgFor, RouterLink, ModalModule],
     providers: [BsModalService]
 })

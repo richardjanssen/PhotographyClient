@@ -7,7 +7,6 @@ import { HeaderComponent } from '../../home/header/header.component';
 
 @Component({
     selector: 'recipes-overview',
-    standalone: true,
     imports: [CommonModule, RecipeComponent, HeaderComponent],
     templateUrl: './recipes-overview.component.html',
     styleUrls: ['./recipes-overview.component.scss']

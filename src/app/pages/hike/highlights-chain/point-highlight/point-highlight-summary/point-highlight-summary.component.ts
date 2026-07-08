@@ -11,7 +11,6 @@ import { PctDatePipe } from '../../../../../core/pipes/pct-date.pipe';
     selector: 'point-highlight-summary',
     templateUrl: './point-highlight-summary.component.html',
     styleUrls: ['./point-highlight-summary.component.scss'],
-    standalone: true,
     imports: [NgIf, NgSwitch, NgSwitchCase, IconComponent, BootstrapIconComponent, NgSwitchDefault, DistancePipe, PctTimePipe, PctDatePipe]
 })
 export class PointHighlightSummaryComponent {

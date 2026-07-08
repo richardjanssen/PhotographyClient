@@ -5,7 +5,6 @@ import { NgIf, NgClass } from '@angular/common';
     selector: 'icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
-    standalone: true,
     imports: [NgIf, NgClass]
 })
 export class IconComponent implements OnInit {

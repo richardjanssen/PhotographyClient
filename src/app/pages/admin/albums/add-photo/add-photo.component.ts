@@ -11,7 +11,6 @@ import { NgIf, NgFor, PercentPipe } from '@angular/common';
 @Component({
     templateUrl: './add-photo.component.html',
     styleUrls: ['./add-photo.component.scss'],
-    standalone: true,
     imports: [NgIf, FormsModule, NgFor, PercentPipe]
 })
 export class AddPhotoComponent {

@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'add-recipe',
-    standalone: true,
     imports: [CommonModule, NgIf, FormsModule],
     templateUrl: './add-recipe.component.html',
     styleUrls: ['./add-recipe.component.scss']

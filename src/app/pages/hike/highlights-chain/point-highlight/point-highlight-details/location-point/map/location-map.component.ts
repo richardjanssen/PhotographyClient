@@ -5,7 +5,6 @@ import { Coordinate } from 'src/app/core/types/location.type';
 
 @Component({
     selector: 'location-map',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './location-map.component.html',
     styleUrls: ['./location-map.component.scss']

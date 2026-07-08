@@ -13,7 +13,6 @@ import { SuccessMessageComponent } from '../../../../core/components/success-mes
 
 @Component({
     selector: 'update-settings',
-    standalone: true,
     templateUrl: './update-settings.component.html',
     styleUrls: ['./update-settings.component.scss'],
     imports: [FormsModule, NgIf, AsyncPipe, DataStatusPipesModule, LoadingMessageComponent, ErrorMessageComponent, SuccessMessageComponent]

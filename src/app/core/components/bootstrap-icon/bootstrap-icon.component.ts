@@ -5,7 +5,6 @@ import { NgIf, NgClass } from '@angular/common';
     selector: 'bs-icon',
     templateUrl: './bootstrap-icon.component.html',
     styleUrls: ['./bootstrap-icon.component.scss'],
-    standalone: true,
     imports: [NgIf, NgClass]
 })
 export class BootstrapIconComponent implements OnInit {
