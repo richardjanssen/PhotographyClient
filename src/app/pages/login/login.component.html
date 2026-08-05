@@ -2,29 +2,39 @@
 <div class="login login__container">
   <form [formGroup]="loginForm">
     <div class="login__input-container">
-      <input type="text" class="form-control login__input" name="username" formControlName="username" placeholder="Username" />
+      <input type="text" class="form-control login__input" name="username" formControlName="username"
+        placeholder="Username" (keyup.enter)="submitLogin()" />
 
       @if (showValidations(username)) {
-        <div class="alert alert-danger">
-          @if (username?.errors?.['required']) {
-            <div>Username is required.</div>
-          }
-        </div>
+      <div class="alert alert-danger">
+        @if (username?.errors?.['required']) {
+        <div>Username is required.</div>
+        }
+      </div>
       }
     </div>
 
     <div class="login__input-container">
-      <input type="password" class="form-control login__input" name="password" formControlName="password" placeholder="Password" />
+      <input type="password" class="form-control login__input" name="password" formControlName="password"
+        placeholder="Password" (keyup.enter)="submitLogin()" />
 
       @if (showValidations(password)) {
-        <div class="alert alert-danger">
-          @if (password?.errors?.['required']) {
-            <div>Password is required.</div>
-          }
-        </div>
+      <div class="alert alert-danger">
+        @if (password?.errors?.['required']) {
+        <div>Password is required.</div>
+        }
+      </div>
       }
     </div>
   </form>
 
-  <button class="btn btn-primary login__submit-button" (click)="submitLogin()">Login</button>
+  <button [disabled]="loading" class="btn btn-primary login__submit-button" (click)="submitLogin()"
+    (keyup.enter)="submitLogin()">{{ loading ?
+    'Laden...' : 'Inloggen' }}</button>
+
+  @if(error) {
+  <div class="alert alert-danger">
+    {{ error }}
+  </div>
+  }
 </div>
