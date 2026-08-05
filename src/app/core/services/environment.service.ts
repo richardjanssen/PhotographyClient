@@ -10,8 +10,4 @@ export class EnvironmentService {
     get baseApiUrl(): string {
         return this._environment.baseApiUrl;
     }
-
-    get tokenName(): string {
-        return this._environment.tokenName;
-    }
 }

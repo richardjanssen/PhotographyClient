@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { Recipe } from 'src/app/core/types/recipe/recipe.type';
+import { RecipeOverview } from 'src/app/core/types/recipe/recipe.type';
 import { RecipeComponent } from '../recipe/recipe.component';
 import { HeaderComponent } from '../../home/header/header.component';
 
@@ -12,7 +12,7 @@ import { HeaderComponent } from '../../home/header/header.component';
     styleUrls: ['./recipes-overview.component.scss']
 })
 export class RecipesOverviewComponent {
-    recipes: Recipe[] = [];
+    recipes: RecipeOverview[] = [];
     error: boolean = false;
 
     constructor(private readonly _recipeService: RecipeService) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { BaseLayoutComponent } from '../../core/components/base-layout/base-layout.component';
 import { HeaderComponent } from '../home/header/header.component';
 import { AdminPaths } from './admin.routes';
@@ -17,9 +17,13 @@ export class AdminComponent {
     readonly recipesPath: string = AdminPaths.recipes;
     readonly settingsPath: string = AdminPaths.settings;
 
-    constructor(private readonly _authenticationService: AuthenticationService) {}
+    constructor(private readonly _authenticationService: AuthenticationService, private readonly router: Router) {}
 
     logout(): void {
-        this._authenticationService.logout();
+        this._authenticationService.logout().subscribe({
+            next: () => {
+                this.router.navigateByUrl("");
+            }
+        });
     }
 }

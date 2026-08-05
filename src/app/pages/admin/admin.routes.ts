@@ -1,5 +1,4 @@
-import { inject } from '@angular/core';
-import { Routes, ActivatedRouteSnapshot } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AuthorizationGuard } from 'src/app/core/guards/authorization.guard';
 import { AdminComponent } from './admin.component';
 
@@ -15,8 +14,8 @@ export const ADMIN_ROUTES: Routes = [
     {
         path: '',
         component: AdminComponent,
-        canActivate: [(route: ActivatedRouteSnapshot): boolean | Promise<boolean> => inject(AuthorizationGuard).canActivate(route)],
-        data: { roles: ['PhotographyApi_Admin'] },
+        canActivate: [AuthorizationGuard],
+        data: { roles: ['PhotographyApi_Admin', 'RiesjApi_Admin'] },
         children: [
             {
                 path: '',

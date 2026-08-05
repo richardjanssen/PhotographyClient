@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { RecipesComponent } from './recipes.component';
+import { AddRecipeShellComponent } from './add-recipe/add-recipe-shell.component';
 
 export class RecipesPaths {
     static readonly overview: string = 'overview';
@@ -13,7 +13,7 @@ export const RECIPES_ROUTES: Routes = [
         component: RecipesComponent,
         children: [
             { path: '', redirectTo: RecipesPaths.add, pathMatch: 'full' },
-            { path: RecipesPaths.add, component: AddRecipeComponent }
+            { path: RecipesPaths.add, component: AddRecipeShellComponent }
         ]
     }
 ];

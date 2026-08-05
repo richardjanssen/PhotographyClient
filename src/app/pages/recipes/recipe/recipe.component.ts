@@ -1,25 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { Recipe } from 'src/app/core/types/recipe/recipe.type';
-import { marked } from 'marked';
+import { RecipeOverview } from 'src/app/core/types/recipe/recipe.type';
 
 @Component({
     selector: 'recipe',
     imports: [],
     templateUrl: './recipe.component.html'
 })
-export class RecipeComponent implements OnInit {
-    @Input() recipe: Recipe;
-    parsedIngredients: string;
-    parsedPreparation: string;
+export class RecipeComponent {
+    @Input() recipe: RecipeOverview;
 
-    detailsVisible: boolean = false;
-
-    ngOnInit(): void {
-        this.parsedIngredients = marked.parse(this.recipe.ingredients);
-        this.parsedPreparation = marked.parse(this.recipe.preparation);
-    }
     toggleDetails(): void {
-        this.detailsVisible = !this.detailsVisible;
+        
     }
 }
