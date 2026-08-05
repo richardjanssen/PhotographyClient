@@ -15,7 +15,7 @@ export const ADMIN_ROUTES: Routes = [
         path: '',
         component: AdminComponent,
         canActivate: [AuthorizationGuard],
-        data: { roles: ['PhotographyApi_Admin', 'RiesjApi_Admin'] },
+        data: { roles: ['Riesj_Admin'] },
         children: [
             {
                 path: '',
