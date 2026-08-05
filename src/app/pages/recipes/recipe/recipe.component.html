@@ -1,13 +1,3 @@
 <p (click)="toggleDetails()">
   <b>{{ recipe.name }}</b>
 </p>
-@if (detailsVisible) {
-  <p><i>Ingrediënten</i></p>
-  @if (parsedIngredients) {
-    <div [innerHTML]="parsedIngredients" class="text"></div>
-  }
-  <p><i>Bereidingswijze</i></p>
-  @if (parsedPreparation) {
-    <div [innerHTML]="parsedPreparation" class="text"></div>
-  }
-}

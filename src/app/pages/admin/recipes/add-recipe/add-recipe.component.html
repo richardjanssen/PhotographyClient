@@ -1,31 +1,91 @@
 <div class="add-recipe">
-  <h4>Add or edit recipe</h4>
-  <div class="card recipe-data">
-    <div class="card-body">
-      <h5 class="card-title">Recipe data</h5>
-      @if (!submitted) {
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input id="name" type="text" class="form-control" required [(ngModel)]="name" />
-          <label for="ingredients">Ingredients</label>
-          <textarea id="ingredients" class="form-control" rows="5" [(ngModel)]="ingredients"></textarea>
-          <label for="preparation">Preparation</label>
-          <textarea id="preparation" class="form-control" rows="5" [(ngModel)]="preparation"></textarea>
-          <div class="form-buttons">
-            <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
-          </div>
-        </div>
-      }
+  <h4 class="card-title">{{ recipe().id !== null ? 'Recept bewerken' : 'Recept toevoegen'}}</h4>
+  @if (!submitted) {
+  <form [formGroup]="recipeForm">
+    <label for="name"><b>Naam</b></label>
+    <input id="name" type="text" class="form-control" formControlName="name" />
 
-      @if (submitted) {
-        @if (success) {
-          <div class="alert alert-success">Recipe has been saved</div>
-        }
-        @if (error) {
-          <div class="alert alert-danger">An error occured while saving the recipe.</div>
-        }
-        <button class="btn btn-primary" (click)="reloadComponent()">Add another recipe</button>
+    <div formArrayName="singleIngredients">
+      <span><b>Ingrediënten</b></span>
+      <div class="ingredient-container">
+        <div><i>Hoeveelheid</i></div>
+        <div><i>Eenheid</i></div>
+        <div><i>Naam</i></div>
+      </div>
+      @for (ingredient of ingredientsArray.controls; let i = $index; track ingredient) {
+      <div [formGroupName]="i" class="ingredient-container">
+        <div>
+          <input id="quantity" type="text" class="form-control" formControlName="quantity" />
+        </div>
+        <div>
+          <input id="unit" type="text" class="form-control" formControlName="unit" />
+        </div>
+        <div>
+          <input id="name" type="text" class="form-control" formControlName="name" />
+        </div>
+      </div>
+      }
+    </div>
+  </form>
+
+   <!-- Ingredient Groups Section -->
+<div [formArray]="ingredientGroupFormsArray">
+  <span><b>Ingrediëntengroepen</b></span>
+  @for (group of ingredientGroupFormsArray.controls; let groupIndex = $index; track group) {
+  <div [formGroupName]="groupIndex" class="ingredient-group">
+    <!-- Group Name Input -->
+    <div class="group-name-container">
+      <label for="groupName-{{ groupIndex }}"><i>Groepsnaam</i></label>
+      <input 
+        [id]="'groupName-' + groupIndex" 
+        type="text" 
+        class="form-control" 
+        formControlName="name" 
+      />
+    </div>
+
+    <!-- Group Ingredients -->
+    <div [formArrayName]="'ingredients'">
+      <div class="ingredient-container">
+        <div><i>Hoeveelheid</i></div>
+        <div><i>Eenheid</i></div>
+        <div><i>Naam</i></div>
+      </div>
+      @for (ingredient of getIngredientControls(groupIndex).controls || []; let i = $index; track ingredient) {
+      <div [formGroupName]="i" class="ingredient-container">
+        <div>
+          <input id="quantity" type="text" class="form-control" formControlName="quantity" />
+        </div>
+        <div>
+          <input id="unit" type="text" class="form-control" formControlName="unit" />
+        </div>
+        <div>
+          <input id="name" type="text" class="form-control" formControlName="name" />
+        </div>
+      </div>
       }
     </div>
   </div>
+  }
+</div>
+
+  <form [formGroup]="recipeForm">
+    <label for="preparation"><b>Bereidingswijze</b></label>
+    <textarea id="preparation" rows="5" class="form-control" formControlName="preparation"></textarea>
+  </form>
+
+  <div class="form-buttons">
+    <button class="btn btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Submit</button>
+  </div>
+  }
+
+  @if (submitted) {
+  @if (success) {
+  <div class="alert alert-success">Recipe has been saved</div>
+  }
+  @if (error) {
+  <div class="alert alert-danger">An error occured while saving the recipe.</div>
+  }
+  <button class="btn btn-primary" (click)="reloadComponent()">Add another recipe</button>
+  }
 </div>

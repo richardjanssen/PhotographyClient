@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
-import { Recipe } from '../types/recipe/recipe.type';
+import { Recipe, RecipeOverview } from '../types/recipe/recipe.type';
 
 @Injectable({
     providedIn: 'root'
@@ -20,11 +20,10 @@ export class RecipeService {
     }
 
     getRecipe(id: number): Observable<Recipe | null> {
-        // Not implemented yet
         return this._http.get<Recipe | null>(this._getUrl(`GetById?id=${id}`));
     }
 
-    getAll(): Observable<Recipe[]> {
+    getAll(): Observable<RecipeOverview[]> {
         return this._http.get<Recipe[]>(this._getUrl('GetAll'));
     }
 

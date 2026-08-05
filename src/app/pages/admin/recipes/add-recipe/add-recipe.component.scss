@@ -1,13 +1,16 @@
 .add-recipe {
-    .recipe-data {
-        margin-bottom: 1rem;
+    .form-buttons {
+        margin-top: 1rem;
 
-        .form-buttons {
-            margin-top: 1rem;
-
-            .form-button {
-                margin-right: 1rem;
-            }
+        .form-button {
+            margin-right: 1rem;
         }
+    }
+
+    .ingredient-container {
+        display: grid;
+        gap: 5px;
+        grid-template-columns: 1fr 1fr 3fr;
+        margin-bottom: 5px;
     }
 }
