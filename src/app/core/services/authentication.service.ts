@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
 import { tap, catchError, finalize, take, takeUntil } from 'rxjs/operators';
 import { UserDto, LoginRequest, AuthResponse, RefreshTokenRequest } from '../types/account.type';
@@ -9,11 +9,13 @@ import { UrlBuilderHelper } from '../helpers/url-builder.helper';
     providedIn: 'root'
 })
 export class AuthenticationService implements OnDestroy {
+    private readonly http: HttpClient;
     private readonly TOKEN_KEY = 'accessToken';
     private readonly REFRESH_TOKEN_KEY = 'refreshToken';
     private readonly USER_KEY = 'user';
 
     readonly errors: string[] = [];
+    numberOfRefreshTokens: number = 0;
     // State management
     private currentUserSubject = new BehaviorSubject<UserDto | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
@@ -33,7 +35,9 @@ export class AuthenticationService implements OnDestroy {
     private readonly TOKEN_REFRESH_THRESHOLD_MS = 60000; // Refresh 1 minute before expiry
     private refreshTokenTimer: number | null;
 
-    constructor(private http: HttpClient, private readonly _urlBuilderHelper: UrlBuilderHelper) {
+    constructor(readonly httpHandler: HttpBackend, private readonly _urlBuilderHelper: UrlBuilderHelper) {
+        this.http = new HttpClient(httpHandler);
+        
         // Initialize authentication from stored tokens and set up auto-refresh
         const token = this.getAccessToken();
         const user = this.getUserFromStorage();
@@ -132,6 +136,7 @@ export class AuthenticationService implements OnDestroy {
                     this.currentUserSubject.next(response.user);
                     this.isAuthenticatedSubject.next(true);
                     this.scheduleTokenRefresh(response.accessToken);
+                    this.numberOfRefreshTokens = this.numberOfRefreshTokens + 1;
 
                     // Notify waiting requests
                     this.refreshTokenSubject.next(response.accessToken);

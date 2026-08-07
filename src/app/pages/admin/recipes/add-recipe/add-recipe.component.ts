@@ -4,6 +4,7 @@ import { RecipeService } from 'src/app/core/services/recipe.service';
 import { WindowService } from 'src/app/core/services/window.service';
 import { FormArray, FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Recipe } from 'src/app/core/types/recipe/recipe.type';
+import { BootstrapIconComponent } from "src/app/core/components/bootstrap-icon/bootstrap-icon.component";
 
 export interface IngredientGroupForm {
     name: FormControl<string | null>;
@@ -29,7 +30,7 @@ export interface RecipeForm {
 
 @Component({
     selector: 'add-recipe',
-    imports: [FormsModule, ReactiveFormsModule],
+    imports: [FormsModule, ReactiveFormsModule, BootstrapIconComponent],
     templateUrl: './add-recipe.component.html',
     styleUrls: ['./add-recipe.component.scss']
 })
@@ -65,6 +66,18 @@ export class AddRecipeComponent implements OnInit {
         console.log(this.ingredientGroupForms);
     }
 
+    addSingleIngredient(): void {
+        this.ingredientsArray.push(this.giveNewIngredient())
+    }
+
+    addIngredientGroup(): void {
+
+    }
+
+    deleteSingleIngredient(index: number): void {
+        this.ingredientsArray.removeAt(index);
+    }
+
     get ingredientsArray(): FormArray {
         return this.recipeForm.get('singleIngredients') as FormArray;
     }
@@ -74,8 +87,9 @@ export class AddRecipeComponent implements OnInit {
     }
 
     getIngredientControls(groupIndex: number): FormArray {
-        return (this.ingredientGroupForms.at(groupIndex) as FormGroup<IngredientGroupForm>)
-            .get('ingredients') as FormArray<FormGroup<IngredientForm>>;
+        return (this.ingredientGroupForms.at(groupIndex) as FormGroup<IngredientGroupForm>).get('ingredients') as FormArray<
+            FormGroup<IngredientForm>
+        >;
     }
 
     get formInvalid(): boolean {
@@ -94,18 +108,22 @@ export class AddRecipeComponent implements OnInit {
     private patchRecipeForm(): void {
         const ingredientsArray = this.recipeForm.get('singleIngredients') as FormArray<FormGroup<IngredientForm>>;
 
-        this.recipe().singleIngredients.forEach(ingredient => {
-            ingredientsArray.push(
-                new FormGroup<IngredientForm>({
-                    id: new FormControl<number | null>(ingredient.id),
-                    rowVersion: new FormControl<number | null>(ingredient.rowVersion),
-                    name: new FormControl<string | null>(ingredient.name),
-                    quantity: new FormControl<string | null>(ingredient.quantity),
-                    unit: new FormControl<string | null>(ingredient.unit),
-                    subgroup: new FormControl<string | null>(ingredient.subgroup)
-                })
-            );
-        });
+        if (this.recipe().singleIngredients.length > 0) {
+            this.recipe().singleIngredients.forEach(ingredient => {
+                ingredientsArray.push(
+                    new FormGroup<IngredientForm>({
+                        id: new FormControl<number | null>(ingredient.id),
+                        rowVersion: new FormControl<number | null>(ingredient.rowVersion),
+                        name: new FormControl<string | null>(ingredient.name),
+                        quantity: new FormControl<string | null>(ingredient.quantity),
+                        unit: new FormControl<string | null>(ingredient.unit),
+                        subgroup: new FormControl<string | null>(ingredient.subgroup)
+                    })
+                );
+            });
+        } else {
+                ingredientsArray.push(this.giveNewIngredient());
+        }
 
         this.recipeForm.patchValue({
             id: this.recipe().id,
@@ -114,6 +132,17 @@ export class AddRecipeComponent implements OnInit {
             singleIngredients: ingredientsArray.value,
             preparation: this.recipe().preparation
         });
+    }
+
+    private giveNewIngredient(): FormGroup<IngredientForm> {
+        return new FormGroup<IngredientForm>({
+                        id: new FormControl<number | null>(null),
+                        rowVersion: new FormControl<number | null>(null),
+                        name: new FormControl<string | null>(null),
+                        quantity: new FormControl<string | null>(null),
+                        unit: new FormControl<string | null>(null),
+                        subgroup: new FormControl<string | null>(null)
+                    });
     }
 
     private patchIngredientGroupForms(): void {
