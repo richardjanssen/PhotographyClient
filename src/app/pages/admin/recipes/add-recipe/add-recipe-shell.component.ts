@@ -22,7 +22,6 @@ export class AddRecipeShellComponent {
     )
 
     private createNewRecipe(): Recipe {
-        console.log('here')
         return {
             id: null,
             rowVersion: null,

@@ -42,8 +42,6 @@ export class AuthorizationGuard implements CanActivate, CanActivateChild {
 
     // Check for required roles
     const requiredRoles: string[] = route.data['roles'];
-    console.log(requiredRoles);
-    console.log(this.authenticationService.getCurrentUser());
     if (requiredRoles && requiredRoles.length > 0) {
       if (this.authenticationService.hasAnyRole(requiredRoles)) {
         return true;

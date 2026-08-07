@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         return this.loginForm.get('password');
     }
 
-    constructor(private readonly _authenticationService: AuthenticationService, private route: ActivatedRoute, private router: Router) {}
+    constructor(readonly _authenticationService: AuthenticationService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
