@@ -1,13 +1,17 @@
 <admin-page title="Settings" [children]="children"></admin-page>
 
 {{ token | json }}
-<br>
+<br><br>
 <span>Exp milliseconds: {{ expMilliseconds }}</span>
-<br>
+<br><br>
 <span>Now milliseconds: {{ nowMilliseconds }}</span>
-<br>
+<br><br>
+<span>Remaining seconds: {{ (expMilliseconds - nowMilliseconds) / 1000 }}</span>
+<br><br>
+<span>Number of refresh tokens: {{ authenticationService.numberOfRefreshTokens }}</span>
+<br><br>
 <span>Errors</span>
 @for(e of authenticationService.errors; track e) {
     <span>{{ e }}</span>
     <br>
-}
+} 
