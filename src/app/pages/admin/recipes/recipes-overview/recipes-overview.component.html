@@ -1,0 +1,16 @@
+<div class="recipes-overview">
+  @if (error) {
+    <div class="alert alert-danger">An error occurred while loading the recipes overview.</div>
+  } @else {
+    @if (recipes().length === 0) {
+      <p>No recipes were found.</p>
+    }
+    @if (recipes().length > 0) {
+      <!-- <div class="recipe"><hr /></div> -->
+      @for (recipe of recipes(); track recipe) {
+        <p><b>{{ recipe.name }}</b></p>
+        <hr />
+      }
+    }
+  }
+</div>

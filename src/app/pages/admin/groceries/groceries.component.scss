@@ -1,0 +1,17 @@
+@use '../../../../styles/variables.scss';
+
+.admin-page {
+    .menu {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .title {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .card-body {
+        padding: variables.$padding;
+    }
+}
