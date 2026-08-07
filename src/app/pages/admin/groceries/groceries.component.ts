@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RecipesPaths } from './groceries.routes';
+
 import { BaseLayoutComponent } from "src/app/core/components/base-layout/base-layout.component";
 
 @Component({
@@ -8,5 +8,4 @@ import { BaseLayoutComponent } from "src/app/core/components/base-layout/base-la
     imports: [BaseLayoutComponent]
 })
 export class GroceriesComponent {
-    readonly children: { route: string; title: string }[] = [{ route: RecipesPaths.add, title: 'Recept toevoegen' }];
 }
