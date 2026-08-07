@@ -7,5 +7,8 @@ import { RecipesPaths } from './recipes.routes';
     imports: [AdminPageComponent]
 })
 export class RecipesComponent {
-    readonly children: { route: string; title: string }[] = [{ route: RecipesPaths.add, title: 'Add recipe' }];
+    readonly children: { route: string; title: string }[] = [
+        { route: RecipesPaths.overview, title: 'Overzicht' },
+        { route: RecipesPaths.add, title: 'Nieuw recept' }
+    ];
 }
