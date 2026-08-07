@@ -38,3 +38,9 @@
   </div>
   }
 </div>
+
+<span>Errors</span>
+@for(e of _authenticationService.errors; track e) {
+    <span>{{ e }}</span>
+    <br>
+}

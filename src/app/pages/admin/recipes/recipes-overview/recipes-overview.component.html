@@ -7,9 +7,12 @@
     }
     @if (recipes().length > 0) {
       <!-- <div class="recipe"><hr /></div> -->
-      @for (recipe of recipes(); track recipe) {
+      @for (recipe of recipes(); let i = $index; track recipe) {
         <p><b>{{ recipe.name }}</b></p>
-        <hr />
+        @if(i < recipes().length - 1) {
+          <hr />
+        }
+        
       }
     }
   }

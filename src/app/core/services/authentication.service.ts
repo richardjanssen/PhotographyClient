@@ -9,11 +9,11 @@ import { UrlBuilderHelper } from '../helpers/url-builder.helper';
     providedIn: 'root'
 })
 export class AuthenticationService implements OnDestroy {
-    // private readonly API_URL = 'http://localhost:5000/api/auth';
     private readonly TOKEN_KEY = 'accessToken';
     private readonly REFRESH_TOKEN_KEY = 'refreshToken';
     private readonly USER_KEY = 'user';
 
+    readonly errors: string[] = [];
     // State management
     private currentUserSubject = new BehaviorSubject<UserDto | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
@@ -74,13 +74,13 @@ export class AuthenticationService implements OnDestroy {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     logout(): Observable<any> {
-        console.log('here');
         const refreshToken = this.getRefreshToken();
 
         // Optionally notify backend to revoke token
         const logout$ = refreshToken
             ? this.http.post(this._getUrl('Logout'), {}).pipe(
-                  catchError(() => {
+                  catchError(error => {
+                        this.handleErrorWithoutRethrow(error);
                       // Continue logout even if request fails
                       return of({});
                   })
@@ -104,7 +104,10 @@ export class AuthenticationService implements OnDestroy {
                         observer.next({ accessToken: newToken } as AuthResponse);
                         observer.complete();
                     },
-                    error: err => observer.error(err)
+                    error: err => {
+                        this.handleErrorWithoutRethrow(err);
+                        return observer.error(err);
+                    }
                 });
             });
         }
@@ -116,6 +119,7 @@ export class AuthenticationService implements OnDestroy {
         if (!refreshToken) {
             this.clearAuthState();
             this.refreshTokenInProgress = false;
+            this.errors.push('No refresh token available')
             return throwError(() => new Error('No refresh token available'));
         }
 
@@ -135,7 +139,8 @@ export class AuthenticationService implements OnDestroy {
             }),
             catchError(error => {
                 this.clearAuthState();
-                return throwError(() => error);
+                return this.handleError(error);
+                // return throwError(() => error);
             }),
             finalize(() => {
                 this.refreshTokenInProgress = false;
@@ -168,11 +173,30 @@ export class AuthenticationService implements OnDestroy {
         return localStorage.getItem(this.REFRESH_TOKEN_KEY);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    decodeToken(token: string): any {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split('')
+                    .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                    .join('')
+            );
+            return JSON.parse(jsonPayload);
+        } catch {
+            this.errors.push('Invalid token format');
+            throw new Error('Invalid token format');
+        }
+    }
+
     private attemptSilentRefresh(): void {
         this.refreshAccessToken()
             .pipe(
                 take(1),
-                catchError(() => {
+                catchError(error => {
+                    this.handleErrorWithoutRethrow(error);
                     this.clearAuthState();
                     return of(null);
                 })
@@ -198,7 +222,8 @@ export class AuthenticationService implements OnDestroy {
                 this.refreshAccessToken()
                     .pipe(
                         take(1),
-                        catchError(() => {
+                        catchError(error => {
+                            this.handleErrorWithoutRethrow(error);
                             this.clearAuthState();
                             return of(null);
                         })
@@ -222,36 +247,18 @@ export class AuthenticationService implements OnDestroy {
                 return decoded.exp * 1000; // Convert to milliseconds
             }
         } catch (error) {
+            this.errors.push(`Error decoding token: ${error}`)
             console.error('Error decoding token:', error);
         }
         return null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private decodeToken(token: string): any {
-        try {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(
-                atob(base64)
-                    .split('')
-                    .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                    .join('')
-            );
-            return JSON.parse(jsonPayload);
-        } catch {
-            throw new Error('Invalid token format');
-        }
-    }
+    
 
     private isTokenValid(token: string): boolean {
         try {
-            const decoded = this.decodeToken(token);
-            if (!decoded || !decoded.exp) {
-                return false;
-            }
-            const expirationTime = decoded.exp * 1000;
-            return expirationTime > Date.now();
+            const expirationTime = this.getTokenExpirationTime(token);
+            return !!expirationTime && expirationTime > Date.now();
         } catch {
             return false;
         }
@@ -277,6 +284,20 @@ export class AuthenticationService implements OnDestroy {
         this.clearTokenRefreshTimer();
     }
 
+
+    private handleErrorWithoutRethrow(error: HttpErrorResponse): void {
+        let errorMessage = 'An error occurred';
+
+        if (error.error instanceof ErrorEvent) {
+            errorMessage = `Error: ${error.error.message}`;
+        } else {
+            errorMessage = error.error?.message || `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+
+        console.error(errorMessage);
+        this.errors.push(errorMessage);
+    }
+
     private handleError(error: HttpErrorResponse): Observable<never> {
         let errorMessage = 'An error occurred';
 
@@ -287,6 +308,7 @@ export class AuthenticationService implements OnDestroy {
         }
 
         console.error(errorMessage);
+        this.errors.push(errorMessage);
         return throwError(() => new Error(errorMessage));
     }
 
