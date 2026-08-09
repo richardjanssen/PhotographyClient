@@ -9,6 +9,6 @@ import { RecipesPaths } from './recipes.routes';
 export class RecipesComponent {
     readonly children: { route: string; title: string }[] = [
         { route: RecipesPaths.overview, title: 'Overzicht' },
-        { route: RecipesPaths.add, title: 'Nieuw recept' }
+        { route: RecipesPaths.edit, title: 'Nieuw recept' }
     ];
 }

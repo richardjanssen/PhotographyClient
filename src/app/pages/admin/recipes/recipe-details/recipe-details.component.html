@@ -1,5 +1,14 @@
 <div class="recipe-details">
     <h5>{{ recipe().name }}</h5>
+    <!-- Recipe metadata -->
+    <div class="metadata-container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="btn btn-sm btn-primary" (click)="editRecipe()">Bewerken</button>
+        </div>
+    </div>
+
+    <!-- Ingredients -->
     <div class="ingredients-container">
         <h6>Ingrediënten</h6>
         @if(recipe().singleIngredients.length === 0 && recipe().ingredientGroups.length === 0) { Er zijn geen ingrediënten toegevoegd voor
@@ -20,6 +29,8 @@
         </ul>
         } }
     </div>
+
+    <!-- Preparation -->
     <div>
         <h6>Bereidingswijze</h6>
         @if(parsedPreparation) {

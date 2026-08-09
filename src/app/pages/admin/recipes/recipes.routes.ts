@@ -7,7 +7,7 @@ import { RecipeDetailsShellComponent } from './recipe-details/recipe-details-she
 export class RecipesPaths {
     static readonly overview: string = 'overzicht';
     static readonly details: string = 'details';
-    static readonly add: string = 'toevoegen';
+    static readonly edit: string = 'bewerken';
 }
 
 export const RECIPES_ROUTES: Routes = [
@@ -18,7 +18,7 @@ export const RECIPES_ROUTES: Routes = [
             { path: '', redirectTo: RecipesPaths.overview, pathMatch: 'full' },
             { path: RecipesPaths.overview, component: RecipesOverviewComponent },
             { path: RecipesPaths.details, component: RecipeDetailsShellComponent },
-            { path: RecipesPaths.add, component: AddRecipeShellComponent }
+            { path: RecipesPaths.edit, component: AddRecipeShellComponent }
         ]
     }
 ];
