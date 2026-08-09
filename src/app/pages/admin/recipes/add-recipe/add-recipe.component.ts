@@ -1,10 +1,10 @@
 import { Component, input, OnInit } from '@angular/core';
 
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { WindowService } from 'src/app/core/services/window.service';
 import { FormArray, FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Recipe } from 'src/app/core/types/recipe/recipe.type';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
+import { Router } from '@angular/router';
 
 export interface IngredientGroupForm {
     name: FormControl<string | null>;
@@ -14,7 +14,7 @@ export interface IngredientGroupForm {
 export interface IngredientForm {
     id: FormControl<number | null>;
     rowVersion: FormControl<number | null>;
-    name: FormControl<string | null>;
+    name: FormControl<string>;
     quantity: FormControl<string | null>;
     unit: FormControl<string | null>;
     subgroup: FormControl<string | null>;
@@ -41,18 +41,17 @@ export class AddRecipeComponent implements OnInit {
         id: new FormControl<number | null>(null),
         rowVersion: new FormControl<number | null>(null),
         name: new FormControl<string>('', { validators: [Validators.required, Validators.minLength(1)], nonNullable: true }),
-        singleIngredients: new FormArray<FormGroup<IngredientForm>>([], Validators.required),
+        singleIngredients: new FormArray<FormGroup<IngredientForm>>([]),
         preparation: new FormControl(null)
     });
 
     ingredientGroupForms: FormArray<FormGroup<IngredientGroupForm>> = new FormArray<FormGroup<IngredientGroupForm>>([]);
 
-
     submitted: boolean = false;
     success: boolean = false;
     error: boolean = false;
 
-    constructor(private readonly _recipeService: RecipeService, private readonly _windowService: WindowService) {}
+    constructor(private readonly _recipeService: RecipeService, private readonly router: Router) {}
 
     ngOnInit(): void {
         this.patchRecipeForm();
@@ -96,12 +95,18 @@ export class AddRecipeComponent implements OnInit {
     }
 
     singleIngredientName(index: number): FormControl<string | null> {
-
         const ingredientsArray = this.recipeForm.get('singleIngredients') as FormArray<FormGroup<IngredientForm>>;
         const ingredient = ingredientsArray.at(index);
-        const ingredientName = ingredient.get('name')! as FormControl<string | null>;
-        console.log(ingredientName);
-        console.log(ingredientName.touched, ingredientName.invalid);
+        return ingredient.get('name')! as FormControl<string | null>;
+    }
+
+    groupName(groupIndex: number): FormControl<string> {
+        const groupForm = this.ingredientGroupForms.at(groupIndex) as FormGroup<IngredientGroupForm>;
+        return groupForm.get('name')! as FormControl<string>;
+    }
+    groupIngredientName(groupIndex: number, index: number): FormControl<string | null> {
+        const ingredientsArray = this.getIngredientControls(groupIndex);
+        const ingredient = ingredientsArray.at(index);
         return ingredient.get('name')! as FormControl<string | null>;
     }
 
@@ -124,22 +129,14 @@ export class AddRecipeComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.submitted = true;
+        this.recipeForm.markAllAsTouched();
+        this.ingredientGroupForms.markAllAsTouched();
+
+        if (!this.recipeForm.valid || !this.ingredientGroupForms.valid) {
+            return;
+        }
+
         this.saveRecipe();
-    }
-
-    reloadComponent(): void {
-        this._windowService.reload();
-    }
-
-    private isGroupIngredientListEmpty(ingredientGroup: FormGroup<IngredientGroupForm>): boolean {
-        const ingredients = ingredientGroup.get('ingredients') as FormArray<FormGroup<IngredientForm>>;
-
-        return ingredients.controls.every(ingredient => this.isIngredientEmpty(ingredient));
-    }
-
-    private isIngredientEmpty(ingredient: FormGroup<IngredientForm>): boolean {
-        return !ingredient.get('name')!.value && !ingredient.get('quantity')!.value && !ingredient.get('unit')!.value;
     }
 
     private patchRecipeForm(): void {
@@ -151,8 +148,10 @@ export class AddRecipeComponent implements OnInit {
                     new FormGroup<IngredientForm>({
                         id: new FormControl<number | null>(ingredient.id),
                         rowVersion: new FormControl<number | null>(ingredient.rowVersion),
-                        name: new FormControl<string>(ingredient.name, 
-                            { validators: [Validators.required, Validators.minLength(1)], nonNullable: true }),
+                        name: new FormControl<string>(ingredient.name, {
+                            validators: [Validators.required, Validators.minLength(1)],
+                            nonNullable: true
+                        }),
                         quantity: new FormControl<string | null>(ingredient.quantity),
                         unit: new FormControl<string | null>(ingredient.unit),
                         subgroup: new FormControl<string | null>(ingredient.subgroup)
@@ -196,7 +195,7 @@ export class AddRecipeComponent implements OnInit {
                     new FormGroup<IngredientForm>({
                         id: new FormControl<number | null>(ingredient.id),
                         rowVersion: new FormControl<number | null>(ingredient.rowVersion),
-                        name: new FormControl<string | null>(ingredient.name),
+                        name: new FormControl<string>(ingredient.name, { nonNullable: true }),
                         quantity: new FormControl<string | null>(ingredient.quantity),
                         unit: new FormControl<string | null>(ingredient.unit),
                         subgroup: new FormControl<string | null>(ingredient.subgroup)
@@ -213,14 +212,39 @@ export class AddRecipeComponent implements OnInit {
             .add({
                 id: this.recipe()!.id,
                 rowVersion: this.recipe().rowVersion,
-                name: this.recipe()!.name,
-                singleIngredients: this.recipe()!.singleIngredients,
-                ingredientGroups: [],
+                name: this.recipeForm.get('name')!.value,
+                singleIngredients: this.ingredientsArray.controls.map(ingredientForm => {
+                    return {
+                        id: ingredientForm.get('id')!.value,
+                        rowVersion: ingredientForm.get('rowVersion')!.value,
+                        name: ingredientForm.get('name')!.value,
+                        quantity: ingredientForm.get('quantity')!.value,
+                        unit: ingredientForm.get('unit')!.value,
+                        subgroup: ingredientForm.get('subgroup')!.value
+                    };
+                }),
+                ingredientGroups: this.ingredientGroupFormsArray.controls.map(ingredientGroupForm => {
+                    const ingredientControls = ingredientGroupForm.get('ingredients') as FormArray<FormGroup<IngredientForm>>;
+
+                    return {
+                        name: ingredientGroupForm.get('name')!.value,
+                        ingredients: ingredientControls.controls.map(ingredientForm => {
+                            return {
+                                id: ingredientForm.get('id')!.value,
+                                rowVersion: ingredientForm.get('rowVersion')!.value,
+                                name: ingredientForm.get('name')!.value,
+                                quantity: ingredientForm.get('quantity')!.value,
+                                unit: ingredientForm.get('unit')!.value,
+                                subgroup: ingredientForm.get('subgroup')!.value
+                            };
+                        })
+                    };
+                }),
                 preparation: this.recipe()!.preparation
             })
             .subscribe({
                 next: () => {
-                    this.success = true;
+                    this.router.navigateByUrl('admin/recepten/overzicht');
                 },
                 error: () => {
                     this.error = true;

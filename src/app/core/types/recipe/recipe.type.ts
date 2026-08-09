@@ -8,14 +8,14 @@ export interface Recipe {
     name: string;
     singleIngredients: Ingredient[];
     ingredientGroups: IngredientGroup[];
-    preparation: string;
+    preparation: string | null;
 }
 
 export interface Ingredient {
     id: number | null;
     rowVersion: number | null;
     name: string;
-    quantity: string;
+    quantity: string | null;
     unit: string | null;
     subgroup: string | null;
 }
