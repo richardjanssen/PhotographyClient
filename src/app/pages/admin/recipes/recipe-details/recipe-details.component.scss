@@ -6,6 +6,14 @@
     grid-template-columns: 1fr;
     gap: 10px;
 
+    .metadata-container {
+        .toolbar {
+            .toolbar-button {
+                margin-right: variables.$paddingSm;
+            }
+        }
+    }
+
     .ingredients-container {
         background-color: variables.$primary-100;
         border-radius: variables.$borderRadius;
