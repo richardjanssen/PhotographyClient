@@ -52,6 +52,9 @@
                 <div class="group-name-container">
                     <label for="groupName-{{ groupIndex }}" class="group-name-label"><i>Onderdeelnaam</i></label>
                     <input [id]="'groupName-' + groupIndex" type="text" class="form-control form-control-sm" formControlName="name" />
+                    @if(groupName(groupIndex).invalid && groupName(groupIndex).touched) {
+                    <span class="validation-message">Naam is verplicht</span>
+                    }
                 </div>
 
                 <div [formArrayName]="'ingredients'" class="ingredients">
@@ -79,7 +82,9 @@
                             <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                         </div>
                     </div>
-                    }
+                    @if(groupIngredientName(groupIndex, i).invalid && groupIngredientName(groupIndex, i).touched) {
+                    <span class="validation-message">Naam is verplicht</span>
+                    } }
                     <div class="form-buttons group-form-buttons">
                         <button class="btn btn-sm btn-primary form-button" (click)="addIngredientToIngredientGroup(groupIndex)">
                             Ingrediënt toevoegen
@@ -112,11 +117,11 @@
             <button class="btn btn-sm btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Opslaan</button>
         </div>
         } @if (submitted) { @if (success) {
-        <div class="alert alert-success">Recipe has been saved</div>
+        <div class="alert alert-success">Recept is opgeslagen.</div>
         } @if (error) {
-        <div class="alert alert-danger">An error occured while saving the recipe.</div>
+        <div class="alert alert-danger">Er is iets foutgegaan bij het opslaan van het recept.</div>
         }
-        <button class="btn btn-primary" (click)="reloadComponent()">Add another recipe</button>
+        <!-- <button class="btn btn-primary" (click)="reloadComponent()">Nog een recept toevoegen.</button> -->
         }
     </div>
 </div>

@@ -14,9 +14,8 @@ export class RecipeService {
         return this._http.post<null>(this._getUrl('Add'), update);
     }
 
-    update(update: Recipe): Observable<null> {
-        // Not implemented yet
-        return this._http.put<null>(this._getUrl('Update'), update);
+    addOrUpdate(recipe: Recipe): Observable<null> {
+        return this._http.put<null>(this._getUrl('Add'), recipe);
     }
 
     getRecipe(id: number): Observable<Recipe | null> {
