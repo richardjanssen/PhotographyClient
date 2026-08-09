@@ -3,12 +3,12 @@
   <form [formGroup]="loginForm">
     <div class="login__input-container">
       <input type="text" class="form-control login__input" name="username" formControlName="username"
-        placeholder="Username" (keyup.enter)="submitLogin()" />
+        placeholder="Gebruikersnaam" (keyup.enter)="submitLogin()" />
 
       @if (showValidations(username)) {
       <div class="alert alert-danger">
         @if (username?.errors?.['required']) {
-        <div>Username is required.</div>
+        <div>Gebruikersnaam is verplicht.</div>
         }
       </div>
       }
@@ -16,12 +16,12 @@
 
     <div class="login__input-container">
       <input type="password" class="form-control login__input" name="password" formControlName="password"
-        placeholder="Password" (keyup.enter)="submitLogin()" />
+        placeholder="Wachtwoord" (keyup.enter)="submitLogin()" />
 
       @if (showValidations(password)) {
       <div class="alert alert-danger">
         @if (password?.errors?.['required']) {
-        <div>Password is required.</div>
+        <div>Wachtwoord is verplicht.</div>
         }
       </div>
       }
