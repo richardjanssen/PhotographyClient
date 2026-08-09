@@ -17,9 +17,9 @@
                     @if(ingredientsArray.controls.length > 0) {
                     <div class="ingredient-container">
                         <div></div>
-                        <div><i>Hoeveelheid</i></div>
-                        <div><i>Eenheid</i></div>
-                        <div><i>Naam</i></div>
+                        <div class="ingredient-header"><i>Aantal</i></div>
+                        <div class="ingredient-header"><i>Eenheid</i></div>
+                        <div class="ingredient-header"><i>Naam</i></div>
                     </div>
                     @for (ingredient of ingredientsArray.controls; let i = $index; track ingredient) {
                     <div [formGroupName]="i" class="ingredient-container">
@@ -45,26 +45,22 @@
             </div>
         </form>
 
-        <!-- Ingredient Groups Section -->
         @if(ingredientGroupFormsArray.controls.length > 0) {
         <div [formArray]="ingredientGroupFormsArray">
-            <!-- <span><b>Ingrediëntengroepen</b></span> -->
             @for (group of ingredientGroupFormsArray.controls; let groupIndex = $index; track group) {
             <div [formGroupName]="groupIndex" class="ingredient-group">
-                <!-- Group Name Input -->
                 <div class="group-name-container">
                     <label for="groupName-{{ groupIndex }}"><i>Onderdeelnaam</i></label>
                     <input [id]="'groupName-' + groupIndex" type="text" class="form-control" formControlName="name" />
                 </div>
 
-                <!-- Group Ingredients -->
-                <div [formArrayName]="'ingredients'">
+                <div [formArrayName]="'ingredients'" class="ingredients">
                     @if(getIngredientControls(groupIndex).controls.length > 0) {
                     <div class="ingredient-container">
                         <div></div>
-                        <div><i>Hoeveelheid</i></div>
-                        <div><i>Eenheid</i></div>
-                        <div><i>Naam</i></div>
+                        <div class="ingredient-header"><i>Aantal</i></div>
+                        <div class="ingredient-header"><i>Eenheid</i></div>
+                        <div class="ingredient-header"><i>Naam</i></div>
                     </div>
                     } @for (ingredient of getIngredientControls(groupIndex).controls || []; let i = $index; track ingredient) {
                     <div [formGroupName]="i" class="ingredient-container">
@@ -72,7 +68,6 @@
                             <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteFormGroupIngredient(groupIndex, i)">
                                 <bs-icon name="trash" />
                             </button>
-                            <!-- <bs-icon name="trash" (click)="deleteFormGroupIngredient(groupIndex, i)"></bs-icon> -->
                         </div>
                         <div>
                             <input id="quantity" type="text" class="form-control" formControlName="quantity" />
@@ -89,7 +84,11 @@
                         <button class="btn btn-sm btn-primary form-button" (click)="addIngredientToIngredientGroup(groupIndex)">
                             Ingrediënt toevoegen
                         </button>
-                        <button class="btn btn-sm btn-outline-danger form-button" style="color: black" (click)="removeIngredientGroup(groupIndex)">
+                        <button
+                            class="btn btn-sm btn-outline-danger form-button"
+                            style="color: black"
+                            (click)="removeIngredientGroup(groupIndex)"
+                        >
                             <bs-icon name="trash" /> Onderdeel verwijderen
                         </button>
                     </div>

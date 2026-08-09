@@ -1,6 +1,8 @@
 @use '../../../../../styles/variables.scss';
 
 .add-recipe {
+    overflow-x: scroll;
+
     .form-grid {
         display: grid;
         gap: 10px;
@@ -14,9 +16,9 @@
     }
 
     .form-buttons {
-
         .form-button {
             margin-right: 1rem;
+            margin-bottom: variables.$paddingSm
         }
     }
 
@@ -27,14 +29,21 @@
     .ingredient-container {
         display: grid;
         gap: 5px;
-        grid-template-columns: 1fr 3fr 6fr 12fr;
+        grid-template-columns: 2fr 3fr 6fr 12fr;
         margin-bottom: 5px;
+
+        width: 500px;
+        
 
         .icon-column {
             margin-top: auto;
             margin-bottom: auto;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .ingredient-header {
+            font-size: small;
         }
     }
 
