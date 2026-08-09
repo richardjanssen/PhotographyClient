@@ -22,4 +22,8 @@
     &.primary-700 {
         fill: variables.$primary-700;
     }
+
+    &.danger {
+        fill: variables.$danger;
+    }
 }

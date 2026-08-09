@@ -4,11 +4,12 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { BaseLayoutComponent } from '../../core/components/base-layout/base-layout.component';
 import { HeaderComponent } from '../home/header/header.component';
 import { AdminPaths } from './admin.routes';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @Component({
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
-    imports: [HeaderComponent, BaseLayoutComponent, RouterLink, RouterOutlet]
+    imports: [HeaderComponent, BaseLayoutComponent, RouterLink, RouterOutlet, BsDropdownModule]
 })
 export class AdminComponent {
     readonly menuEntries: {path: string; roles: string[]; title: string}[] = [];

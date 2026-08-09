@@ -5,6 +5,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { provideRouter } from '@angular/router';
 import { APP_ROUTES } from './app/app.routes';
 import { AuthorizationGuard } from './app/core/guards/authorization.guard';
@@ -21,7 +22,8 @@ bootstrapApplication(AppComponent, {
             BrowserModule,
             FormsModule,
             ReactiveFormsModule,
-            CarouselModule
+            CarouselModule,
+            BsDropdownModule,
         ),
         {
             provide: HTTP_INTERCEPTORS,
