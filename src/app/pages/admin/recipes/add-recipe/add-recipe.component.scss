@@ -17,7 +17,7 @@
 
     .form-buttons {
         .form-button {
-            margin-right: 1rem;
+            margin-right: variables.$paddingSm;
             margin-bottom: variables.$paddingSm
         }
     }
@@ -56,9 +56,14 @@
         border-radius: variables.$borderRadius;
         padding: variables.$padding;
         margin-top: variables.$padding;
+
+        .group-name-label {
+            font-size: small;
+        }
     }
 
     .validation-message {
         color: variables.$danger;
+        font-size: small;
     }
 }

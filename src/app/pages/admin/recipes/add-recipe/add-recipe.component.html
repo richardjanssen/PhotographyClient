@@ -6,7 +6,7 @@
             <div class="form-grid">
                 <div>
                     <label for="name"><b>Naam</b></label>
-                    <input id="name" type="text" class="form-control" formControlName="name" />
+                    <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                     @if(name.invalid && name.touched) {
                     <span class="validation-message">Naam is verplicht</span>
                     }
@@ -29,13 +29,13 @@
                             </button>
                         </div>
                         <div>
-                            <input id="quantity" type="text" class="form-control" formControlName="quantity" />
+                            <input id="quantity" type="text" class="form-control form-control-sm" formControlName="quantity" />
                         </div>
                         <div>
-                            <input id="unit" type="text" class="form-control" formControlName="unit" />
+                            <input id="unit" type="text" class="form-control form-control-sm" formControlName="unit" />
                         </div>
                         <div>
-                            <input id="name" type="text" class="form-control" formControlName="name" />
+                            <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                         </div>
                     </div>
                     @if(singleIngredientName(i).invalid && singleIngredientName(i).touched) {
@@ -50,8 +50,8 @@
             @for (group of ingredientGroupFormsArray.controls; let groupIndex = $index; track group) {
             <div [formGroupName]="groupIndex" class="ingredient-group">
                 <div class="group-name-container">
-                    <label for="groupName-{{ groupIndex }}"><i>Onderdeelnaam</i></label>
-                    <input [id]="'groupName-' + groupIndex" type="text" class="form-control" formControlName="name" />
+                    <label for="groupName-{{ groupIndex }}" class="group-name-label"><i>Onderdeelnaam</i></label>
+                    <input [id]="'groupName-' + groupIndex" type="text" class="form-control form-control-sm" formControlName="name" />
                 </div>
 
                 <div [formArrayName]="'ingredients'" class="ingredients">
@@ -70,13 +70,13 @@
                             </button>
                         </div>
                         <div>
-                            <input id="quantity" type="text" class="form-control" formControlName="quantity" />
+                            <input id="quantity" type="text" class="form-control form-control-sm" formControlName="quantity" />
                         </div>
                         <div>
-                            <input id="unit" type="text" class="form-control" formControlName="unit" />
+                            <input id="unit" type="text" class="form-control form-control-sm" formControlName="unit" />
                         </div>
                         <div>
-                            <input id="name" type="text" class="form-control" formControlName="name" />
+                            <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                         </div>
                     </div>
                     }
@@ -105,7 +105,7 @@
 
         <form [formGroup]="recipeForm">
             <label for="preparation"><b>Bereidingswijze</b></label>
-            <textarea id="preparation" rows="5" class="form-control" formControlName="preparation"></textarea>
+            <textarea id="preparation" rows="5" class="form-control form-control-sm" formControlName="preparation"></textarea>
         </form>
 
         <div class="form-buttons">
