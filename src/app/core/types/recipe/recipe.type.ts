@@ -1,4 +1,5 @@
 export interface RecipeOverview {
+    id: number;
     name: string;
 }
 

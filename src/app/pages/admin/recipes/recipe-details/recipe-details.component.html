@@ -1,0 +1,31 @@
+<div class="recipe-details">
+    <h5>{{ recipe().name }}</h5>
+    <div class="ingredients-container">
+        <h6>Ingrediënten</h6>
+        @if(recipe().singleIngredients.length === 0 && recipe().ingredientGroups.length === 0) { Er zijn geen ingrediënten toegevoegd voor
+        dit recept. } @else {
+        <ul>
+            @for(ingredient of recipe().singleIngredients; track ingredient) {
+            <li>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name | lowercase }}</li>
+            }
+        </ul>
+        @for(group of recipe().ingredientGroups; track group) {
+        <span>
+            {{ group.name }}
+        </span>
+        <ul>
+            @for(ingredient of group.ingredients; track ingredient) {
+            <li>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name | lowercase }}</li>
+            }
+        </ul>
+        } }
+    </div>
+    <div>
+        <h6>Bereidingswijze</h6>
+        @if(parsedPreparation) {
+        <div [innerHTML]="parsedPreparation" class="text"></div>
+        } @else {
+            Er is geen bereidingswijze toegevoegd voor dit recept.
+        }
+    </div>
+</div>

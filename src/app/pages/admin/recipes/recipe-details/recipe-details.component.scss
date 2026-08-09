@@ -1,0 +1,15 @@
+@use '../../../../../styles/variables.scss';
+
+.recipe-details {
+
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    .ingredients-container {
+        background-color: variables.$primary-100;
+        border-radius: variables.$borderRadius;
+        padding: variables.$paddingSm;
+    }
+
+}

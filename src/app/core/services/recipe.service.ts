@@ -23,7 +23,7 @@ export class RecipeService {
     }
 
     getAll(): Observable<RecipeOverview[]> {
-        return this._http.get<Recipe[]>(this._getUrl('GetAll'));
+        return this._http.get<RecipeOverview[]>(this._getUrl('GetAll'));
     }
 
     delete(id: number): Observable<null> {
