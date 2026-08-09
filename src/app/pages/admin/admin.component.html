@@ -1,15 +1,32 @@
 <app-header></app-header>
 <app-base-layout class="admin">
+    @if(menuEntries.length > 2) {
+    <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+            Menu <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            @for(menuEntry of menuEntries; track menuEntry) {
+            <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="menuEntry.path">{{ menuEntry.title }}</a>
+            </li>
+            }
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="logout()">Uitloggen</a></li>
+        </ul>
+    </div>
+    } @else {
     <div class="btn-toolbar menu">
         <div class="btn-group me-5">
             @for(menuEntry of menuEntries; track menuEntry) {
-                <button [routerLink]="menuEntry.path" class="btn btn-primary">{{ menuEntry.title }}</button>
+            <button [routerLink]="menuEntry.path" class="btn btn-primary">{{ menuEntry.title }}</button>
             }
         </div>
         <div class="btn-group">
             <button (click)="logout()" class="btn btn-secondary">Uitloggen</button>
         </div>
     </div>
+    }
 
     <div class="card">
         <div class="card-body">

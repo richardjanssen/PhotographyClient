@@ -1,16 +1,27 @@
+@use '../../../../../styles/variables.scss';
+
 .add-recipe {
     .form-grid {
         display: grid;
-        gap: 5px;
+        gap: 10px;
         grid-template-columns: 1fr;
     }
 
+    .form-grid--lg {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
     .form-buttons {
-        margin-top: 1rem;
 
         .form-button {
             margin-right: 1rem;
         }
+    }
+
+    .group-form-buttons {
+        margin-top: 10px;
     }
 
     .ingredient-container {
@@ -25,5 +36,20 @@
             margin-left: auto;
             margin-right: auto;
         }
+    }
+
+    .ingredient-group {
+        display: grid;
+        gap: 5px;
+        grid-template-columns: 1fr;
+
+        background-color: variables.$primary-100;
+        border-radius: variables.$borderRadius;
+        padding: variables.$padding;
+        margin-top: variables.$padding;
+    }
+
+    .validation-message {
+        color: variables.$danger;
     }
 }
