@@ -12,6 +12,11 @@
                     }
                 </div>
 
+                <div>
+                    <label for="name"><b>Aantal porties</b></label>
+                    <input id="numberOfPortions" type="number" class="form-control form-control-sm" formControlName="numberOfPortions" />
+                </div>
+
                 <div formArrayName="singleIngredients">
                     <span><b>Ingrediënten</b></span>
                     @if(ingredientsArray.controls.length > 0) {
