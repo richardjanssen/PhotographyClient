@@ -7,6 +7,7 @@ export interface Recipe {
     id: number | null;
     rowVersion: number | null;
     name: string;
+    numberOfPortions: number | null;
     singleIngredients: Ingredient[];
     ingredientGroups: IngredientGroup[];
     preparation: string | null;

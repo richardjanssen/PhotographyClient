@@ -1,12 +1,15 @@
 @use '../../../../../styles/variables.scss';
 
 .recipe-details {
-
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
 
     .metadata-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+
         .toolbar {
             .toolbar-button {
                 margin-right: variables.$paddingSm;
@@ -19,5 +22,4 @@
         border-radius: variables.$borderRadius;
         padding: variables.$paddingSm;
     }
-
 }

@@ -6,6 +6,8 @@
         <div class="toolbar">
             <button class="btn btn-sm btn-primary" (click)="editRecipe()">Bewerken</button>
         </div>
+        <div class="metadata"></div>
+        <span>Aantal porties: {{ recipe().numberOfPortions ?? '-'}}</span>
     </div>
 
     <!-- Ingredients -->

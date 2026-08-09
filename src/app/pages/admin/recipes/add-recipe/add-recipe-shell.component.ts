@@ -26,6 +26,7 @@ export class AddRecipeShellComponent {
             id: null,
             rowVersion: null,
             name: '',
+            numberOfPortions: null,
             singleIngredients: [],
             ingredientGroups: [],
             preparation: ''

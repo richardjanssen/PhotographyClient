@@ -24,6 +24,7 @@ export interface RecipeForm {
     id: FormControl<number | null>;
     rowVersion: FormControl<number | null>;
     name: FormControl<string>;
+    numberOfPortions: FormControl<number | null>;
     singleIngredients: FormArray<FormGroup<IngredientForm>>;
     preparation: FormControl<string | null>;
 }
@@ -41,6 +42,7 @@ export class AddRecipeComponent implements OnInit {
         id: new FormControl<number | null>(null),
         rowVersion: new FormControl<number | null>(null),
         name: new FormControl<string>('', { validators: [Validators.required, Validators.minLength(1)], nonNullable: true }),
+        numberOfPortions: new FormControl<number | null>(null),
         singleIngredients: new FormArray<FormGroup<IngredientForm>>([]),
         preparation: new FormControl(null)
     });
@@ -92,6 +94,10 @@ export class AddRecipeComponent implements OnInit {
 
     get name(): FormControl<string | null> {
         return this.recipeForm.get('name')! as FormControl<string | null>;
+    }
+
+    get numberOfPortions(): FormControl<number | null> {
+        return this.recipeForm.get('numberOfPortions')! as FormControl<number | null>;
     }
 
     singleIngredientName(index: number): FormControl<string | null> {
@@ -166,6 +172,7 @@ export class AddRecipeComponent implements OnInit {
             id: this.recipe().id,
             rowVersion: this.recipe().rowVersion,
             name: this.recipe().name,
+            numberOfPortions: this.recipe().numberOfPortions,
             singleIngredients: ingredientsArray.value,
             preparation: this.recipe().preparation
         });
@@ -213,6 +220,7 @@ export class AddRecipeComponent implements OnInit {
                 id: this.recipe()!.id,
                 rowVersion: this.recipe().rowVersion,
                 name: this.recipeForm.get('name')!.value,
+                numberOfPortions: this.recipeForm.get('numberOfPortions')!.value,
                 singleIngredients: this.ingredientsArray.controls.map(ingredientForm => {
                     return {
                         id: ingredientForm.get('id')!.value,
