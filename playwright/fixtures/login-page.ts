@@ -5,8 +5,8 @@ export class LoginPage {
     public readonly password: Locator;
 
     constructor(public readonly page: Page) {
-        this.username = this.page.getByPlaceholder('Username');
-        this.password = this.page.getByPlaceholder('Password');
+        this.username = this.page.getByPlaceholder('Gebruikersnaam');
+        this.password = this.page.getByPlaceholder('Wachtwoord');
     }
 
     async goto(): Promise<void> {
