@@ -50,7 +50,6 @@ export class AddRecipeComponent implements OnInit {
     ingredientGroupForms: FormArray<FormGroup<IngredientGroupForm>> = new FormArray<FormGroup<IngredientGroupForm>>([]);
 
     submitted: boolean = false;
-    success: boolean = false;
     error: boolean = false;
 
     constructor(private readonly _recipeService: RecipeService, private readonly router: Router) {}
@@ -135,6 +134,7 @@ export class AddRecipeComponent implements OnInit {
     }
 
     onSubmit(): void {
+        this.error = false;
         this.recipeForm.markAllAsTouched();
         this.ingredientGroupForms.markAllAsTouched();
 

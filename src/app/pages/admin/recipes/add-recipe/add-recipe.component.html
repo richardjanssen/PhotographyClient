@@ -1,7 +1,6 @@
 <div class="add-recipe">
     <div class="form-grid--lg">
         <h4 class="card-title">{{ recipe().id !== null ? 'Recept bewerken' : 'Recept toevoegen' }}</h4>
-        @if (!submitted) {
         <form [formGroup]="recipeForm">
             <div class="form-grid">
                 <div>
@@ -121,12 +120,8 @@
         <div class="form-buttons">
             <button class="btn btn-sm btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Opslaan</button>
         </div>
-        } @if (submitted) { @if (success) {
-        <div class="alert alert-success">Recept is opgeslagen.</div>
-        } @if (error) {
+        @if (error) {
         <div class="alert alert-danger">Er is iets foutgegaan bij het opslaan van het recept.</div>
-        }
-        <!-- <button class="btn btn-primary" (click)="reloadComponent()">Nog een recept toevoegen.</button> -->
         }
     </div>
 </div>

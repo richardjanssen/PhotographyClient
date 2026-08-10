@@ -19,11 +19,11 @@
     <div class="btn-toolbar menu">
         <div class="btn-group me-5">
             @for(menuEntry of menuEntries; track menuEntry) {
-            <button [routerLink]="menuEntry.path" class="btn btn-primary">{{ menuEntry.title }}</button>
+            <button [routerLink]="menuEntry.path" class="btn btn-sm btn-primary">{{ menuEntry.title }}</button>
             }
         </div>
         <div class="btn-group">
-            <button (click)="logout()" class="btn btn-secondary">Uitloggen</button>
+            <button (click)="logout()" class="btn btn-sm btn-secondary">Uitloggen</button>
         </div>
     </div>
     }
