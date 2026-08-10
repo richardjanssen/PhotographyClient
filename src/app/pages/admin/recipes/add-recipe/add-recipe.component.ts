@@ -248,7 +248,7 @@ export class AddRecipeComponent implements OnInit {
                         })
                     };
                 }),
-                preparation: this.recipe()!.preparation
+                preparation: this.recipeForm.get('preparation')!.value
             })
             .subscribe({
                 next: () => {
