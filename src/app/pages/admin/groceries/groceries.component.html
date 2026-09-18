@@ -1,9 +1,42 @@
 <app-base-layout class="admin-page">
-  <h3 class="title">Boodschappenlijstje</h3>
+    <h3 class="title">Boodschappenlijstje</h3>
 
-  <div class="card">
-    <div class="card-body">
-        <p>Hier komt het boodschappenlijstje</p>
+    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropProduct($event)">
+        @for (product of products(); track product) {
+        <div class="drop-list-item product-item" cdkDrag>
+            <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" />
+            <input class="product-check form-check-input" (click)="checkProduct(product.order)" type="checkbox" value="" />
+            <!-- Editable name -->
+            @if (!editingId() || editingId() !== product.order) {
+            <span class="editable-text" (click)="startEditing(product)">
+                {{ product.name }}
+            </span>
+            } @else {
+            <input
+                class="editable-input form-control form-control-sm"
+                [value]="editingValue()"
+                (change)="saveProduct(product)"
+                (blur)="saveProduct(product)"
+                (keydown.enter)="saveProductAndAddNewProduct(product)"
+                (keydown.escape)="cancelEditing()"
+                #productEditInput
+            />
+            }
+        </div>
+        }
     </div>
-  </div>
+    <hr class="divider" />
+    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropRecurringProduct($event)">
+        @for (product of recurringProducts(); track product) {
+        <div class="drop-list-item product-item recurring-product-item" cdkDrag>
+            <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
+            <input class="product-check form-check-input" (click)="checkRecurringProduct(product.order)" type="checkbox" value="" />
+            {{ product.name }}
+        </div>
+        }
+    </div>
 </app-base-layout>
+
+<span>{{ this.products() | json }}</span>
+<br /><br />
+<span>{{ this.recurringProducts() | json }}</span>
