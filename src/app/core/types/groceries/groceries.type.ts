@@ -6,7 +6,6 @@ export interface Groceries {
 export interface GroceryListProduct {
     id: number;
     name: string;
-    order: number;
     recurringProduct: boolean;
     sale: boolean;
 }

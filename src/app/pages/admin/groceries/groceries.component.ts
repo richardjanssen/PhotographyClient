@@ -7,11 +7,12 @@ import { GroceriesService } from 'src/app/core/services/groceries.service';
 import { Groceries, GroceryListProduct, GroceryListRecurringProduct } from 'src/app/core/types/groceries/groceries.type';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { JsonPipe } from '@angular/common';
+import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe]
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective]
 })
 export class GroceriesComponent {
     private readonly groceriesService = inject(GroceriesService);
@@ -27,47 +28,50 @@ export class GroceriesComponent {
         )
     );
 
-    editingId: WritableSignal<number | null> = signal<number | null>(null);
+    editingIndex: WritableSignal<number | null> = signal<number | null>(null);
     editingValue: WritableSignal<string> = signal<string>('');
 
     @ViewChild('productEditInput') productEditInput!: ElementRef<HTMLInputElement>;
 
     constructor() {
         effect(() => {
-            if (this.editingId() !== null) {
+            if (this.editingIndex() !== null) {
                 setTimeout(() => this.productEditInput?.nativeElement.focus());
             }
         });
     }
 
-    startEditing(product: GroceryListProduct): void {
-        this.editingId.set(product.order);
+    startEditing(index: number): void {
+        const product = this.products().at(index)!;
+        this.editingIndex.set(index);
         this.editingValue.set(product.name);
     }
 
-    saveProduct(product: GroceryListProduct): void {
+    saveProduct(index: number): void {
+        const product = this.products().at(index)!;
         const newName = this.productEditInput.nativeElement.value.trim();
-        if (newName) {
+        if (newName && newName !== product.name) {
+            if (product.recurringProduct) {
+                this.replaceProductInRecurringProducts(product);
+                product.recurringProduct = false;
+            }
             product.name = newName;
-            // TODO: Als dit een recurring product was, en het nieuwe product is geen recurring product, 
-            // dan het product op recurringProduct=false zetten 
-            // en het oude recurring product terug in de lijst van recurring producten plaatsen
         }
+
         this.cancelEditing();
     }
 
-    saveProductAndAddNewProduct(product: GroceryListProduct): void {
-        const index = this.products().indexOf(product);
-        this.saveProduct(product);
-        
-        // TODO: order van producten opnieuw bepalen.
-        const newProduct = { id: 0, name: '', order: 0, recurringProduct: false, sale: false };
-        this.products().splice(index + 1, 0, newProduct);
-        this.startEditing(newProduct);
+    saveProductAndAddNewProduct(index: number): void {
+        this.saveProduct(index);
+
+        const newProduct = { id: 0, name: '', recurringProduct: false, sale: false };
+        const newProductIndex = index + 1;
+        this.products().splice(newProductIndex, 0, newProduct);
+        this.startEditing(newProductIndex);
     }
 
     cancelEditing(): void {
-        this.editingId.set(null);
+        this.editingIndex.set(null);
         this.editingValue.set('');
     }
 
@@ -79,30 +83,26 @@ export class GroceriesComponent {
         moveItemInArray(this.recurringProducts(), event.previousIndex, event.currentIndex);
     }
 
-    checkProduct(order: number): void {
-        const product = this.products().find(p => p.order === order)!;
-        const index = this.products().indexOf(product);
+    checkProduct(index: number): void {
+        const product = this.products().at(index)!;
 
-        if (product?.recurringProduct) {
-            const recurringProduct = this.groceries().recurringProducts.find(rp => rp.name === product.name)!;
-            // Replace recurring product so that the recurring product order is maintained.
-            const newRecurringProductIndex = Math.max(
-                this.findClosestNegativeIndex(this.recurringProducts().map(rp => rp.order - recurringProduct.order)) + 1,
-                0
-            );
-            this.recurringProducts().splice(newRecurringProductIndex, 0, recurringProduct);
+        if (product.recurringProduct) {
+            this.replaceProductInRecurringProducts(product);
         }
 
         this.products().splice(index, 1);
     }
 
-    checkRecurringProduct(order: number): void {
-        const recurringProduct = this.recurringProducts().find(rp => rp.order === order)!;
-        const index = this.recurringProducts().indexOf(recurringProduct);
+    checkRecurringProduct(index: number): void {
+        const recurringProduct = this.recurringProducts().at(index)!;
 
-        const maxOrder = Math.max(...this.products().map(p => p.order));
-        this.products().push({ id: 0, name: recurringProduct.name, order: maxOrder + 1, recurringProduct: true, sale: false });
+        this.products().push({ id: 0, name: recurringProduct.name, recurringProduct: true, sale: false });
         this.recurringProducts().splice(index, 1);
+    }
+
+    onSwipeRight(index: number): void {
+        const product = this.products().at(index)!;
+        product.sale = !product.sale;
     }
 
     private findClosestNegativeIndex(arr: number[]): number {
@@ -122,7 +122,17 @@ export class GroceriesComponent {
         return closestIndex; // Returns -1 if no negative found
     }
 
-    private updateProductsOrder(): void {
-        
+    private replaceProductInRecurringProducts(product: GroceryListProduct): void {
+        if (!product.recurringProduct) {
+            return;
+        }
+
+        const recurringProduct = this.groceries().recurringProducts.find(rp => rp.name === product.name)!;
+        // Replace recurring product so that the recurring product order is maintained.
+        const newRecurringProductIndex = Math.max(
+            this.findClosestNegativeIndex(this.recurringProducts().map(rp => rp.order - recurringProduct.order)) + 1,
+            0
+        );
+        this.recurringProducts().splice(newRecurringProductIndex, 0, recurringProduct);
     }
 }
