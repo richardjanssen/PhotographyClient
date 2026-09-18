@@ -11,6 +11,10 @@
         fill: variables.$light;
     }
 
+    &.gray {
+        fill: gray;
+    }
+
     &.primary-500 {
         fill: variables.$primary-500;
     }

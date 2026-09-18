@@ -1,11 +1,138 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { toSignal } from '@angular/core/rxjs-interop';
 
-import { BaseLayoutComponent } from "src/app/core/components/base-layout/base-layout.component";
+import { BaseLayoutComponent } from 'src/app/core/components/base-layout/base-layout.component';
+import { GroceriesService } from 'src/app/core/services/groceries.service';
+import { Groceries, GroceryListProduct, GroceryListRecurringProduct } from 'src/app/core/types/groceries/groceries.type';
+import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
+import { JsonPipe } from '@angular/common';
+import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent]
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective]
 })
 export class GroceriesComponent {
+    private readonly groceriesService = inject(GroceriesService);
+
+    groceries: Signal<Groceries> = toSignal(this.groceriesService.get(), { initialValue: { products: [], recurringProducts: [] } });
+
+    products: Signal<GroceryListProduct[]> = computed(() => this.groceries().products);
+    recurringProducts: Signal<GroceryListRecurringProduct[]> = computed(() =>
+        this.groceries().recurringProducts.filter(rp =>
+            this.products()
+                .filter(p => p.recurringProduct)
+                .every(p => p.name !== rp.name)
+        )
+    );
+
+    editingIndex: WritableSignal<number | null> = signal<number | null>(null);
+    editingValue: WritableSignal<string> = signal<string>('');
+
+    @ViewChild('productEditInput') productEditInput!: ElementRef<HTMLInputElement>;
+
+    constructor() {
+        effect(() => {
+            if (this.editingIndex() !== null) {
+                setTimeout(() => this.productEditInput?.nativeElement.focus());
+            }
+        });
+    }
+
+    startEditing(index: number): void {
+        const product = this.products().at(index)!;
+        this.editingIndex.set(index);
+        this.editingValue.set(product.name);
+    }
+
+    saveProduct(index: number): void {
+        const product = this.products().at(index)!;
+        const newName = this.productEditInput.nativeElement.value.trim();
+        if (newName && newName !== product.name) {
+            if (product.recurringProduct) {
+                this.replaceProductInRecurringProducts(product);
+                product.recurringProduct = false;
+            }
+            product.name = newName;
+        }
+
+        this.cancelEditing();
+    }
+
+    saveProductAndAddNewProduct(index: number): void {
+        this.saveProduct(index);
+
+        const newProduct = { id: 0, name: '', recurringProduct: false, sale: false };
+        const newProductIndex = index + 1;
+        this.products().splice(newProductIndex, 0, newProduct);
+        this.startEditing(newProductIndex);
+    }
+
+    cancelEditing(): void {
+        this.editingIndex.set(null);
+        this.editingValue.set('');
+    }
+
+    dropProduct(event: CdkDragDrop<string[]>): void {
+        moveItemInArray(this.products(), event.previousIndex, event.currentIndex);
+    }
+
+    dropRecurringProduct(event: CdkDragDrop<string[]>): void {
+        moveItemInArray(this.recurringProducts(), event.previousIndex, event.currentIndex);
+    }
+
+    checkProduct(index: number): void {
+        const product = this.products().at(index)!;
+
+        if (product.recurringProduct) {
+            this.replaceProductInRecurringProducts(product);
+        }
+
+        this.products().splice(index, 1);
+    }
+
+    checkRecurringProduct(index: number): void {
+        const recurringProduct = this.recurringProducts().at(index)!;
+
+        this.products().push({ id: 0, name: recurringProduct.name, recurringProduct: true, sale: false });
+        this.recurringProducts().splice(index, 1);
+    }
+
+    onSwipeRight(index: number): void {
+        const product = this.products().at(index)!;
+        product.sale = !product.sale;
+    }
+
+    private findClosestNegativeIndex(arr: number[]): number {
+        let closestIndex = -1;
+        let closestDistance = Infinity;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] < 0) {
+                const distance = Math.abs(arr[i]);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = i;
+                }
+            }
+        }
+
+        return closestIndex; // Returns -1 if no negative found
+    }
+
+    private replaceProductInRecurringProducts(product: GroceryListProduct): void {
+        if (!product.recurringProduct) {
+            return;
+        }
+
+        const recurringProduct = this.groceries().recurringProducts.find(rp => rp.name === product.name)!;
+        // Replace recurring product so that the recurring product order is maintained.
+        const newRecurringProductIndex = Math.max(
+            this.findClosestNegativeIndex(this.recurringProducts().map(rp => rp.order - recurringProduct.order)) + 1,
+            0
+        );
+        this.recurringProducts().splice(newRecurringProductIndex, 0, recurringProduct);
+    }
 }

@@ -216,7 +216,7 @@ export class AddRecipeComponent implements OnInit {
 
     private saveRecipe(): void {
         this._recipeService
-            .add({
+            .addOrUpdate({
                 id: this.recipe()!.id,
                 rowVersion: this.recipe().rowVersion,
                 name: this.recipeForm.get('name')!.value,

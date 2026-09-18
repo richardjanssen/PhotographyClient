@@ -1,9 +1,50 @@
 <app-base-layout class="admin-page">
-  <h3 class="title">Boodschappenlijstje</h3>
+    <h3 class="title">Boodschappenlijstje</h3>
 
-  <div class="card">
-    <div class="card-body">
-        <p>Hier komt het boodschappenlijstje</p>
+    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropProduct($event)">
+        @for (product of products(); track product; let index = $index) {
+        <div class="drop-list-item product-item" cdkDrag>
+            <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" />
+            <input class="product-check form-check-input" (click)="checkProduct(index)" type="checkbox" value="" />
+            <!-- Editable name -->
+            <div appSwipe (swipeRight)="onSwipeRight(index)">
+                @if (editingIndex() !== index) {
+                <span class="editable-text" (click)="startEditing(index)">
+                    {{ product.name }}
+                </span>
+                } @else {
+                <input
+                    class="editable-input form-control form-control-sm"
+                    [value]="editingValue()"
+                    (change)="saveProduct(index)"
+                    (blur)="saveProduct(index)"
+                    (keydown.enter)="saveProductAndAddNewProduct(index)"
+                    (keydown.escape)="cancelEditing()"
+                    #productEditInput
+                />
+                }
+            </div>
+
+            <div class="product-icons">
+                @if(product.sale) {
+                <bs-icon class="sale-icon" name="tag-fill" iconColor="primary-600" />
+                }
+            </div>
+        </div>
+        }
     </div>
-  </div>
+    <hr class="divider" />
+    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropRecurringProduct($event)">
+        @for (product of recurringProducts(); track product; let index = $index) {
+        <div class="drop-list-item product-item recurring-product-item" cdkDrag>
+            <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
+            <input class="product-check form-check-input" (click)="checkRecurringProduct(index)" type="checkbox" value="" />
+            {{ product.name }}
+        </div>
+        }
+    </div>
 </app-base-layout>
+<!-- 
+<span>{{ this.products() | json }}</span>
+<br /><br />
+<span>{{ this.recurringProducts() | json }}</span> -->
