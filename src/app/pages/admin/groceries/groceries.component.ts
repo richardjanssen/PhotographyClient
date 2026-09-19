@@ -41,14 +41,13 @@ export class GroceriesComponent {
             this.enterPressed = false;
             if (this.editingIndex() !== null) {
                 setTimeout(() => {
-                    this.changeDetectorRef.detectChanges();
                     return this.productEditInput?.nativeElement.focus();
                 });
             }
         });
     }
 
-    startEditing(index: number): void {
+    startEditingProduct(index: number): void {
         const product = this.products().at(index)!;
         this.editingValue.set(product.name);
         this.editingIndex.set(index);
@@ -62,7 +61,7 @@ export class GroceriesComponent {
         }
 
         this.saveProduct(index);
-        this.cancelEditing();
+        this.cancelEditingProduct();
     }
 
     saveProductAndAddNewProduct(index: number): void {
@@ -71,10 +70,16 @@ export class GroceriesComponent {
         this.saveProduct(index);
         const newProductIndex = index + 1;
         this.addNewProduct(newProductIndex);
-        this.startEditing(newProductIndex);
+        this.startEditingProduct(newProductIndex);
     }
 
-    cancelEditing(): void {
+    addNewProductAndStartEditing(): void {
+        const newProductIndex = this.products().length;
+        this.addNewProduct(newProductIndex);
+        this.startEditingProduct(newProductIndex);
+    }
+
+    cancelEditingProduct(): void {
         this.editingIndex.set(null);
         this.editingValue.set('');
         this.enterPressed = false;
@@ -105,7 +110,7 @@ export class GroceriesComponent {
         this.recurringProducts().splice(index, 1);
     }
 
-    onSwipeRight(index: number): void {
+    onSwipeProductRight(index: number): void {
         const product = this.products().at(index)!;
         product.sale = !product.sale;
     }
