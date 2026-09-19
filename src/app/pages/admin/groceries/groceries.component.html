@@ -14,10 +14,9 @@
                 </span>
                 } @else {
                 <input
-                    class="editable-input form-control form-control-sm"
+                    class="form-control form-control-sm"
                     [value]="editingValue()"
-                    (change)="saveProduct(index)"
-                    (blur)="saveProduct(index)"
+                    (blur)="saveProductAndCancelEditing(index)"
                     (keydown.enter)="saveProductAndAddNewProduct(index)"
                     (keydown.escape)="cancelEditing()"
                     #productEditInput
@@ -44,7 +43,7 @@
         }
     </div>
 </app-base-layout>
-<!-- 
-<span>{{ this.products() | json }}</span>
+
+<!-- <span>{{ this.products() | json }}</span>
 <br /><br />
 <span>{{ this.recurringProducts() | json }}</span> -->
