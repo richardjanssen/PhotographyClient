@@ -11,7 +11,7 @@ export class RecipeService {
     constructor(private readonly _urlBuilderHelper: UrlBuilderHelper, private readonly _http: HttpClient) {}
 
     addOrUpdate(recipe: Recipe): Observable<null> {
-        return this._http.put<null>(this._getUrl('AddOrUpdate'), recipe);
+        return this._http.post<null>(this._getUrl('AddOrUpdate'), recipe);
     }
 
     getRecipe(id: number): Observable<Recipe | null> {
