@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, ElementRef, inject, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -12,10 +12,12 @@ import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective]
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroceriesComponent {
     private readonly groceriesService = inject(GroceriesService);
+    private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
     groceries: Signal<Groceries> = toSignal(this.groceriesService.get(), { initialValue: { products: [], recurringProducts: [] } });
 
@@ -30,49 +32,52 @@ export class GroceriesComponent {
 
     editingIndex: WritableSignal<number | null> = signal<number | null>(null);
     editingValue: WritableSignal<string> = signal<string>('');
+    enterPressed: boolean = false;
 
     @ViewChild('productEditInput') productEditInput!: ElementRef<HTMLInputElement>;
 
     constructor() {
         effect(() => {
+            this.enterPressed = false;
             if (this.editingIndex() !== null) {
-                setTimeout(() => this.productEditInput?.nativeElement.focus());
+                setTimeout(() => {
+                    this.changeDetectorRef.detectChanges();
+                    return this.productEditInput?.nativeElement.focus();
+                });
             }
         });
     }
 
     startEditing(index: number): void {
         const product = this.products().at(index)!;
-        this.editingIndex.set(index);
         this.editingValue.set(product.name);
+        this.editingIndex.set(index);
+        this.changeDetectorRef.detectChanges();
     }
 
-    saveProduct(index: number): void {
-        const product = this.products().at(index)!;
-        const newName = this.productEditInput.nativeElement.value.trim();
-        if (newName && newName !== product.name) {
-            if (product.recurringProduct) {
-                this.replaceProductInRecurringProducts(product);
-                product.recurringProduct = false;
-            }
-            product.name = newName;
+    saveProductAndCancelEditing(index: number): void {
+        // Leaving the field through an enter press fires also the blur event. Prevent this logic from executing.
+        if(this.enterPressed) {
+            return;
         }
 
+        this.saveProduct(index);
         this.cancelEditing();
     }
 
     saveProductAndAddNewProduct(index: number): void {
-        this.saveProduct(index);
+        this.enterPressed = true;
 
-        const newProduct = { id: 0, name: '', recurringProduct: false, sale: false };
+        this.saveProduct(index);
         const newProductIndex = index + 1;
-        this.products().splice(newProductIndex, 0, newProduct);
+        this.addNewProduct(newProductIndex);
         this.startEditing(newProductIndex);
     }
 
     cancelEditing(): void {
         this.editingIndex.set(null);
         this.editingValue.set('');
+        this.enterPressed = false;
     }
 
     dropProduct(event: CdkDragDrop<string[]>): void {
@@ -103,6 +108,23 @@ export class GroceriesComponent {
     onSwipeRight(index: number): void {
         const product = this.products().at(index)!;
         product.sale = !product.sale;
+    }
+
+    private addNewProduct(index: number): void {
+        const newProduct = { id: 0, name: '', recurringProduct: false, sale: false };
+        this.products().splice(index, 0, newProduct);
+    }
+
+    private saveProduct(index: number): void {
+        const product = this.products().at(index)!;
+        const newName = this.productEditInput.nativeElement.value.trim();
+        if (newName !== product.name) {
+            if (product.recurringProduct) {
+                this.replaceProductInRecurringProducts(product);
+                product.recurringProduct = false;
+            }
+            product.name = newName;
+        }
     }
 
     private findClosestNegativeIndex(arr: number[]): number {
