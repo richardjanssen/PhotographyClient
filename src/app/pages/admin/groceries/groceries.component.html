@@ -7,14 +7,14 @@
             <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" />
             <input class="product-check form-check-input" (click)="checkProduct(index)" type="checkbox" value="" />
             <div appSwipe (swipeRight)="onSwipeProductRight(index)" class="product-name-container">
-                @if (editingIndex() !== index) {
+                @if (productEditingIndex() !== index) {
                 <span (click)="startEditingProduct(index)" class="product-name">
                     {{ product.name }}
                 </span>
                 } @else {
                 <input
                     class="form-control form-control-sm"
-                    [value]="editingValue()"
+                    [value]="productEditingValue()"
                     (blur)="saveProductAndCancelEditing(index)"
                     (keydown.enter)="saveProductAndAddNewProduct(index)"
                     (keydown.escape)="cancelEditingProduct()"
@@ -29,30 +29,54 @@
                 }
             </div>
         </div>
-        
+
         }
         <div class="drop-list-item">
             <bs-icon class="add-product-icon" iconColor="gray" name="plus-circle" (click)="addNewProductAndStartEditing()" />
             <div class="product-name-container">
-                <span (click)="addNewProductAndStartEditing()" class="product-name add-product-name">
-                    Product toevoegen
-                </span>
+                <span (click)="addNewProductAndStartEditing()" class="product-name add-product-name"> Product toevoegen </span>
             </div>
-
         </div>
     </div>
+
     <hr class="divider" />
+
     <div cdkDropList class="drop-list" (cdkDropListDropped)="dropRecurringProduct($event)">
         @for (product of recurringProducts(); track product; let index = $index) {
         <div class="drop-list-item recurring-product-item" cdkDrag>
             <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
             <input class="product-check form-check-input" (click)="checkRecurringProduct(index)" type="checkbox" value="" />
-            {{ product.name }}
+            <div class="product-name-container">
+                @if (recurringProductEditingIndex() !== index) {
+                <span (click)="startEditingRecurringProduct(index)" class="product-name">
+                    {{ product.name }}
+                </span>
+                } @else {
+                <input
+                    class="form-control form-control-sm"
+                    [value]="recurringProductEditingValue()"
+                    (blur)="saveRecurringProductAndCancelEditing(index)"
+                    (keydown.enter)="saveRecurringProductAndAddNewProduct(index)"
+                    (keydown.escape)="cancelEditingRecurringProduct()"
+                    #recurringProductEditInput
+                />
+                }
+            </div>
         </div>
         }
+        <div class="drop-list-item">
+            <bs-icon class="add-product-icon" iconColor="gray" name="plus-circle" (click)="addNewRecurringProductAndStartEditing()" />
+            <div class="product-name-container">
+                <span (click)="addNewRecurringProductAndStartEditing()" class="product-name add-product-name">
+                    Basisproduct toevoegen
+                </span>
+            </div>
+        </div>
     </div>
 </app-base-layout>
 
 <!-- <span>{{ this.products() | json }}</span>
 <br /><br />
-<span>{{ this.recurringProducts() | json }}</span> -->
+<span>{{ this.recurringProducts() | json }}</span>
+<br /><br />
+<span>{{ this.selectedRecurringProducts() | json }}</span> -->
