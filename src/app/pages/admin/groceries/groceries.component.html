@@ -7,9 +7,9 @@
             <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" />
             <input class="product-check form-check-input" (click)="checkProduct(index)" type="checkbox" value="" />
             <!-- Editable name -->
-            <div appSwipe (swipeRight)="onSwipeRight(index)">
+            <div appSwipe (swipeRight)="onSwipeRight(index)" class="product-name-container">
                 @if (editingIndex() !== index) {
-                <span class="editable-text" (click)="startEditing(index)">
+                <span (click)="startEditing(index)" class="product-name">
                     {{ product.name }}
                 </span>
                 } @else {

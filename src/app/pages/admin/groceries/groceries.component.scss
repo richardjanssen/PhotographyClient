@@ -49,8 +49,13 @@
             margin-left: 5px;
         }
 
-        .editable-text {
-            min-width: 50%;
+        .product-name-container {
+            width: 100%;
+            min-height: 1rem;
+        }
+        .product-name {
+            display: inline-block;
+            width: 100%;
             min-height: 1rem;
         }
 
