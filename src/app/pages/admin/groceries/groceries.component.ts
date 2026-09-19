@@ -29,29 +29,52 @@ export class GroceriesComponent {
                 .every(p => p.name !== rp.name)
         )
     );
+    selectedRecurringProducts: Signal<GroceryListRecurringProduct[]> = computed(() => 
+        this.groceries().recurringProducts.filter(rp => !this.recurringProducts().includes(rp)));
 
-    editingIndex: WritableSignal<number | null> = signal<number | null>(null);
-    editingValue: WritableSignal<string> = signal<string>('');
+    productEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
+    productEditingValue: WritableSignal<string> = signal<string>('');
     enterPressed: boolean = false;
 
+    recurringProductEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
+    recurringProductEditingValue: WritableSignal<string> = signal<string>('');
+
     @ViewChild('productEditInput') productEditInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('recurringProductEditInput') recurringProductEditInput!: ElementRef<HTMLInputElement>;
 
     constructor() {
+        // Focus on input field when starting product edit
         effect(() => {
             this.enterPressed = false;
-            if (this.editingIndex() !== null) {
+            if (this.productEditingIndex() !== null) {
                 setTimeout(() => {
-                    this.changeDetectorRef.detectChanges();
                     return this.productEditInput?.nativeElement.focus();
+                });
+            }
+        });
+
+        // Focus on input field when starting recurring product edit
+        effect(() => {
+            this.enterPressed = false;
+            if (this.recurringProductEditingIndex() !== null) {
+                setTimeout(() => {
+                    return this.recurringProductEditInput?.nativeElement.focus();
                 });
             }
         });
     }
 
-    startEditing(index: number): void {
+    startEditingProduct(index: number): void {
         const product = this.products().at(index)!;
-        this.editingValue.set(product.name);
-        this.editingIndex.set(index);
+        this.productEditingValue.set(product.name);
+        this.productEditingIndex.set(index);
+        this.changeDetectorRef.detectChanges();
+    }
+
+    startEditingRecurringProduct(index: number): void {
+        const recurringProduct = this.recurringProducts().at(index)!;
+        this.recurringProductEditingValue.set(recurringProduct.name);
+        this.recurringProductEditingIndex.set(index);
         this.changeDetectorRef.detectChanges();
     }
 
@@ -62,7 +85,17 @@ export class GroceriesComponent {
         }
 
         this.saveProduct(index);
-        this.cancelEditing();
+        this.cancelEditingProduct();
+    }
+
+    saveRecurringProductAndCancelEditing(index: number): void {
+        // Leaving the field through an enter press fires also the blur event. Prevent this logic from executing.
+        if(this.enterPressed) {
+            return;
+        }
+
+        this.saveRecurringProduct(index);
+        this.cancelEditingRecurringProduct();
     }
 
     saveProductAndAddNewProduct(index: number): void {
@@ -71,12 +104,53 @@ export class GroceriesComponent {
         this.saveProduct(index);
         const newProductIndex = index + 1;
         this.addNewProduct(newProductIndex);
-        this.startEditing(newProductIndex);
+        this.startEditingProduct(newProductIndex);
     }
 
-    cancelEditing(): void {
-        this.editingIndex.set(null);
-        this.editingValue.set('');
+    saveRecurringProductAndAddNewProduct(index: number): void {
+        this.enterPressed = true;
+
+        this.saveRecurringProduct(index);
+        const currentRecurringProductOrder = this.recurringProducts().at(index)!.order;
+        const newRecurringProductOrder = currentRecurringProductOrder + 1;
+        const newRecurringProductIndex = index + 1;
+        // Alle recurring producten (selected en niet selected) hoger dan of gelijk aan newRecurringProductOrder ophogen met 1
+        this.recurringProducts().forEach(rp =>{
+            if (rp.order >= newRecurringProductOrder) {
+                rp.order += 1;
+            }
+        });
+        this.selectedRecurringProducts().forEach(rp =>{
+            if (rp.order >= newRecurringProductOrder) {
+                rp.order += 1;
+            }
+        });
+        this.addNewRecurringProduct(newRecurringProductIndex, newRecurringProductOrder);
+        this.startEditingRecurringProduct(newRecurringProductIndex);
+    }
+
+    addNewProductAndStartEditing(): void {
+        const newProductIndex = this.products().length;
+        this.addNewProduct(newProductIndex);
+        this.startEditingProduct(newProductIndex);
+    }
+
+    addNewRecurringProductAndStartEditing(): void {
+        const newRecurringProductOrder = Math.max(...[...this.recurringProducts(), ...this.recurringProducts()].map(rp => rp.order)) + 1;
+        const newRecurringProductIndex = this.recurringProducts().length;
+        this.addNewRecurringProduct(newRecurringProductIndex, newRecurringProductOrder);
+        this.startEditingRecurringProduct(newRecurringProductIndex);
+    }
+
+    cancelEditingProduct(): void {
+        this.productEditingIndex.set(null);
+        this.productEditingValue.set('');
+        this.enterPressed = false;
+    }
+
+    cancelEditingRecurringProduct(): void {
+        this.recurringProductEditingIndex.set(null);
+        this.recurringProductEditingValue.set('');
         this.enterPressed = false;
     }
 
@@ -101,11 +175,16 @@ export class GroceriesComponent {
     checkRecurringProduct(index: number): void {
         const recurringProduct = this.recurringProducts().at(index)!;
 
+        if(!recurringProduct.name) {
+            return;
+        }
+
         this.products().push({ id: 0, name: recurringProduct.name, recurringProduct: true, sale: false });
+        this.selectedRecurringProducts().push(recurringProduct);
         this.recurringProducts().splice(index, 1);
     }
 
-    onSwipeRight(index: number): void {
+    onSwipeProductRight(index: number): void {
         const product = this.products().at(index)!;
         product.sale = !product.sale;
     }
@@ -113,6 +192,11 @@ export class GroceriesComponent {
     private addNewProduct(index: number): void {
         const newProduct = { id: 0, name: '', recurringProduct: false, sale: false };
         this.products().splice(index, 0, newProduct);
+    }
+
+    private addNewRecurringProduct(index: number, order: number): void {
+        const newRecurringProduct = { id: 0, name: '', order };
+        this.recurringProducts().splice(index, 0, newRecurringProduct);
     }
 
     private saveProduct(index: number): void {
@@ -124,6 +208,14 @@ export class GroceriesComponent {
                 product.recurringProduct = false;
             }
             product.name = newName;
+        }
+    }
+
+    private saveRecurringProduct(index: number): void {
+        const recurringProduct = this.recurringProducts().at(index)!;
+        const newName = this.recurringProductEditInput.nativeElement.value.trim();
+        if (newName !== recurringProduct.name) {
+            recurringProduct.name = newName;
         }
     }
 
@@ -149,12 +241,14 @@ export class GroceriesComponent {
             return;
         }
 
-        const recurringProduct = this.groceries().recurringProducts.find(rp => rp.name === product.name)!;
+        const recurringProductIndex = this.selectedRecurringProducts().findIndex(rp => rp.name === product.name)!;
+        const recurringProduct = this.selectedRecurringProducts().at(recurringProductIndex)!;
         // Replace recurring product so that the recurring product order is maintained.
         const newRecurringProductIndex = Math.max(
             this.findClosestNegativeIndex(this.recurringProducts().map(rp => rp.order - recurringProduct.order)) + 1,
             0
         );
         this.recurringProducts().splice(newRecurringProductIndex, 0, recurringProduct);
+        this.selectedRecurringProducts().splice(recurringProductIndex, 1);
     }
 }
