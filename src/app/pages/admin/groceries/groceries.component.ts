@@ -1,4 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, ElementRef, inject, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    computed,
+    effect,
+    ElementRef,
+    inject,
+    signal,
+    Signal,
+    ViewChild,
+    WritableSignal
+} from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -29,8 +41,9 @@ export class GroceriesComponent {
                 .every(p => p.name !== rp.name)
         )
     );
-    selectedRecurringProducts: Signal<GroceryListRecurringProduct[]> = computed(() => 
-        this.groceries().recurringProducts.filter(rp => !this.recurringProducts().includes(rp)));
+    selectedRecurringProducts: Signal<GroceryListRecurringProduct[]> = computed(() =>
+        this.groceries().recurringProducts.filter(rp => !this.recurringProducts().includes(rp))
+    );
 
     productEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     productEditingValue: WritableSignal<string> = signal<string>('');
@@ -38,6 +51,8 @@ export class GroceriesComponent {
 
     recurringProductEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     recurringProductEditingValue: WritableSignal<string> = signal<string>('');
+    recurringProductShowDelete: WritableSignal<boolean> = signal<boolean>(false);
+    recurringProductDeleteIndex: WritableSignal<number | null> = signal<number | null>(null);
 
     @ViewChild('productEditInput') productEditInput!: ElementRef<HTMLInputElement>;
     @ViewChild('recurringProductEditInput') recurringProductEditInput!: ElementRef<HTMLInputElement>;
@@ -80,7 +95,7 @@ export class GroceriesComponent {
 
     saveProductAndCancelEditing(index: number): void {
         // Leaving the field through an enter press fires also the blur event. Prevent this logic from executing.
-        if(this.enterPressed) {
+        if (this.enterPressed) {
             return;
         }
 
@@ -89,8 +104,10 @@ export class GroceriesComponent {
     }
 
     saveRecurringProductAndCancelEditing(index: number): void {
+        this.resetDeleteRecurringProduct();
+
         // Leaving the field through an enter press fires also the blur event. Prevent this logic from executing.
-        if(this.enterPressed) {
+        if (this.enterPressed) {
             return;
         }
 
@@ -108,6 +125,8 @@ export class GroceriesComponent {
     }
 
     saveRecurringProductAndAddNewProduct(index: number): void {
+        this.resetDeleteRecurringProduct();
+
         this.enterPressed = true;
 
         this.saveRecurringProduct(index);
@@ -115,12 +134,12 @@ export class GroceriesComponent {
         const newRecurringProductOrder = currentRecurringProductOrder + 1;
         const newRecurringProductIndex = index + 1;
         // Alle recurring producten (selected en niet selected) hoger dan of gelijk aan newRecurringProductOrder ophogen met 1
-        this.recurringProducts().forEach(rp =>{
+        this.recurringProducts().forEach(rp => {
             if (rp.order >= newRecurringProductOrder) {
                 rp.order += 1;
             }
         });
-        this.selectedRecurringProducts().forEach(rp =>{
+        this.selectedRecurringProducts().forEach(rp => {
             if (rp.order >= newRecurringProductOrder) {
                 rp.order += 1;
             }
@@ -136,10 +155,33 @@ export class GroceriesComponent {
     }
 
     addNewRecurringProductAndStartEditing(): void {
-        const newRecurringProductOrder = Math.max(...[...this.recurringProducts(), ...this.recurringProducts()].map(rp => rp.order)) + 1;
+        this.resetDeleteRecurringProduct();
+
+        const existingRecurringProducts = [...this.recurringProducts(), ...this.recurringProducts()];
+        const newRecurringProductOrder = existingRecurringProducts.length > 0 
+            ? Math.max(...existingRecurringProducts.map(rp => rp.order)) + 1 
+            : 1;
         const newRecurringProductIndex = this.recurringProducts().length;
         this.addNewRecurringProduct(newRecurringProductIndex, newRecurringProductOrder);
         this.startEditingRecurringProduct(newRecurringProductIndex);
+    }
+
+    deleteRecurringProduct(index: number): void {
+        this.resetDeleteRecurringProduct();
+
+        const recurringProductOrder = this.recurringProducts().at(index)!.order;
+        this.recurringProducts().splice(index, 1);
+        // Alle recurring producten (selected en niet selected) hoger dan of gelijk aan newRecurringProductOrder ophogen met 1
+        this.recurringProducts().forEach(rp => {
+            if (rp.order > recurringProductOrder) {
+                rp.order -= 1;
+            }
+        });
+        this.selectedRecurringProducts().forEach(rp => {
+            if (rp.order > recurringProductOrder) {
+                rp.order -= 1;
+            }
+        });
     }
 
     cancelEditingProduct(): void {
@@ -155,10 +197,47 @@ export class GroceriesComponent {
     }
 
     dropProduct(event: CdkDragDrop<string[]>): void {
+        if (event.previousIndex === event.currentIndex) {
+            return;
+        }
+
         moveItemInArray(this.products(), event.previousIndex, event.currentIndex);
     }
 
     dropRecurringProduct(event: CdkDragDrop<string[]>): void {
+        this.resetDeleteRecurringProduct();
+
+        if (event.previousIndex === event.currentIndex) {
+            return;
+        }
+
+        const movedRecurringProduct = this.recurringProducts().at(event.previousIndex)!;
+        const movedToRecurringProduct = this.recurringProducts().at(event.currentIndex)!;
+        const newOrderForMovedProduct = movedToRecurringProduct.order;
+
+        const movedDown = event.currentIndex - event.previousIndex > 0;
+
+        // Kijk of de tussenliggende items qua volgorde een plek omhoog of omlaag moeten
+        const orderDifferenceSurrounding = movedDown ? -1 : 1;
+
+        // Verplaats tussenliggende items omhoog of omlaag, ook die geselecteerd zijn
+        this.recurringProducts().forEach((rp, index) => {
+            if (
+                index !== event.previousIndex &&
+                this.mustChangeOrder(movedRecurringProduct.order, movedToRecurringProduct.order, rp.order)
+            ) {
+                rp.order += orderDifferenceSurrounding;
+            }
+        });
+        this.selectedRecurringProducts().forEach(rp => {
+            if (this.mustChangeOrder(movedRecurringProduct.order, movedToRecurringProduct.order, rp.order)) {
+                rp.order += orderDifferenceSurrounding;
+            }
+        });
+
+        // Verander de order waarde van het huidige product
+        movedRecurringProduct.order = newOrderForMovedProduct;
+
         moveItemInArray(this.recurringProducts(), event.previousIndex, event.currentIndex);
     }
 
@@ -175,7 +254,7 @@ export class GroceriesComponent {
     checkRecurringProduct(index: number): void {
         const recurringProduct = this.recurringProducts().at(index)!;
 
-        if(!recurringProduct.name) {
+        if (!recurringProduct.name) {
             return;
         }
 
@@ -187,6 +266,14 @@ export class GroceriesComponent {
     onSwipeProductRight(index: number): void {
         const product = this.products().at(index)!;
         product.sale = !product.sale;
+    }
+
+    onSwipeRecurringProductRight(index: number): void {
+        index == this.recurringProductDeleteIndex() 
+            ? this.recurringProductShowDelete.set(!this.recurringProductShowDelete()) 
+            : this.recurringProductShowDelete.set(true);
+        this.recurringProductDeleteIndex.set(index);
+        
     }
 
     private addNewProduct(index: number): void {
@@ -250,5 +337,23 @@ export class GroceriesComponent {
         );
         this.recurringProducts().splice(newRecurringProductIndex, 0, recurringProduct);
         this.selectedRecurringProducts().splice(recurringProductIndex, 1);
+    }
+
+    private mustChangeOrder(previousOrder: number, currentOrder: number, itemOrder: number): boolean {
+        const movedDown = currentOrder - previousOrder > 0;
+        const movedUp = !movedDown;
+        const minOrder = Math.min(previousOrder, currentOrder);
+        const maxOrder = Math.max(previousOrder, currentOrder);
+
+        if ((movedDown && itemOrder > minOrder && itemOrder <= maxOrder) || (movedUp && itemOrder >= minOrder && itemOrder < maxOrder)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private resetDeleteRecurringProduct(): void {
+        this.recurringProductDeleteIndex.set(null);
+        this.recurringProductShowDelete.set(false);
     }
 }

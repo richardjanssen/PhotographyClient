@@ -25,7 +25,7 @@
 
             <div class="product-icons">
                 @if(product.sale) {
-                <bs-icon class="sale-icon" name="tag-fill" iconColor="primary-600" />
+                <bs-icon name="tag-fill" iconColor="primary-600" />
                 }
             </div>
         </div>
@@ -45,8 +45,8 @@
         @for (product of recurringProducts(); track product; let index = $index) {
         <div class="drop-list-item recurring-product-item" cdkDrag>
             <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
-            <input class="product-check form-check-input" (click)="checkRecurringProduct(index)" type="checkbox" value="" />
-            <div class="product-name-container">
+            <input class="product-check form-check-input" (click)="checkRecurringProduct(index)" [disabled]="!product.name" type="checkbox" value="" />
+            <div appSwipe (swipeRight)="onSwipeRecurringProductRight(index)" class="product-name-container">
                 @if (recurringProductEditingIndex() !== index) {
                 <span (click)="startEditingRecurringProduct(index)" class="product-name">
                     {{ product.name }}
@@ -60,6 +60,11 @@
                     (keydown.escape)="cancelEditingRecurringProduct()"
                     #recurringProductEditInput
                 />
+                }
+            </div>
+            <div class="product-icons">
+                @if (recurringProductShowDelete() && recurringProductDeleteIndex() === index) {
+                    <bs-icon (click)="deleteRecurringProduct(index)" name="x-lg" iconColor="primary-600" />
                 }
             </div>
         </div>
