@@ -20,7 +20,7 @@ import { Groceries, GroceryListProduct, GroceryListRecurringProduct } from 'src/
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { JsonPipe } from '@angular/common';
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
-import { catchError, EMPTY, interval, of, startWith, switchMap } from 'rxjs';
+import { catchError, EMPTY, interval, startWith, switchMap } from 'rxjs';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 
 @Component({
@@ -37,6 +37,7 @@ export class GroceriesComponent {
     productEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     productEditingValue: WritableSignal<string> = signal<string>('');
     enterPressed: boolean = false;
+    isMovingProduct: boolean = false;
 
     recurringProductEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     recurringProductEditingValue: WritableSignal<string> = signal<string>('');
@@ -47,8 +48,8 @@ export class GroceriesComponent {
         interval(5000).pipe(
             startWith(0),
             switchMap(() => {
-                if (this.productEditingIndex() !== null || this.recurringProductEditingIndex() !== null) {
-                    return of(this.groceries());
+                if (this.productEditingIndex() !== null || this.recurringProductEditingIndex() !== null || this.isMovingProduct) {
+                    return EMPTY;
                 }
                 return this.groceriesService.get();
             })
@@ -214,7 +215,13 @@ export class GroceriesComponent {
         this.enterPressed = false;
     }
 
+    moveProduct(): void {
+        this.isMovingProduct = true;
+    }
+    
     dropProduct(event: CdkDragDrop<string[]>): void {
+        this.isMovingProduct = false;
+
         if (event.previousIndex === event.currentIndex) {
             return;
         }
@@ -224,6 +231,7 @@ export class GroceriesComponent {
     }
 
     dropRecurringProduct(event: CdkDragDrop<string[]>): void {
+        this.isMovingProduct = true;
         this.resetDeleteRecurringProduct();
 
         if (event.previousIndex === event.currentIndex) {
