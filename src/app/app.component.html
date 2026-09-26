@@ -1,1 +1,9 @@
 <router-outlet></router-outlet>
+
+<div class="toaster-container">
+    @for (alert of toasterService.alerts(); track alert) {
+    <div>
+        <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+    </div>
+    }
+</div>
