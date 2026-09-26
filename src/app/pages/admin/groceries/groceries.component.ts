@@ -21,13 +21,12 @@ import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/b
 import { JsonPipe } from '@angular/common';
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 import { catchError, EMPTY, interval, of, startWith, switchMap } from 'rxjs';
-import { AlertComponent } from 'ngx-bootstrap/alert';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective, AlertComponent],
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroceriesComponent {
@@ -282,7 +281,9 @@ export class GroceriesComponent {
             return;
         }
 
-        this.products().push({ id: null, rowVersion: null, name: recurringProduct.name, recurringProduct: true, sale: false });
+        this.products().push(
+            { id: null, rowVersion: null, name: recurringProduct.name, recurringProduct: true, sale: false, albertHeijn: false }
+        );
         this.selectedRecurringProducts().push(recurringProduct);
         this.recurringProducts().splice(index, 1);
         this.saveGroceriesToDb();
@@ -294,6 +295,13 @@ export class GroceriesComponent {
         this.saveGroceriesToDb();
     }
 
+    onSwipeProductLeft(index: number): void {
+        const product = this.products().at(index)!;
+        product.albertHeijn = !product.albertHeijn;
+        // TODO
+        // this.saveGroceriesToDb();
+    }
+
     onSwipeRecurringProductRight(index: number): void {
         index == this.recurringProductDeleteIndex()
             ? this.recurringProductShowDelete.set(!this.recurringProductShowDelete())
@@ -302,7 +310,7 @@ export class GroceriesComponent {
     }
 
     private addNewProduct(index: number): void {
-        const newProduct = { id: null, rowVersion: null, name: '', recurringProduct: false, sale: false };
+        const newProduct = { id: null, rowVersion: null, name: '', recurringProduct: false, sale: false, albertHeijn: false };
         this.products().splice(index, 0, newProduct);
     }
 

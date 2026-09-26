@@ -29,7 +29,7 @@
                     <div [formGroupName]="i" class="ingredient-container">
                         <div class="icon-column">
                             <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteSingleIngredient(i)">
-                                <bs-icon name="trash" />
+                                <bs-icon name="trash" iconColor="dark"/>
                             </button>
                         </div>
                         <div>
@@ -73,7 +73,7 @@
                     <div [formGroupName]="i" class="ingredient-container">
                         <div class="icon-column">
                             <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteFormGroupIngredient(groupIndex, i)">
-                                <bs-icon name="trash" />
+                                <bs-icon name="trash" iconColor="dark"/>
                             </button>
                         </div>
                         <div>
@@ -98,7 +98,7 @@
                             style="color: black"
                             (click)="removeIngredientGroup(groupIndex)"
                         >
-                            <bs-icon name="trash" /> Onderdeel verwijderen
+                            <bs-icon name="trash" iconColor="dark"/> Onderdeel verwijderen
                         </button>
                     </div>
                 </div>
