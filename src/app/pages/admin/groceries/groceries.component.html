@@ -4,9 +4,9 @@
     <div cdkDropList class="drop-list" (cdkDropListDropped)="dropProduct($event)">
         @for (product of products(); track product; let index = $index) {
         <div class="drop-list-item" cdkDrag>
-            <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" />
+            <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" iconColor="dark" />
             <input class="product-check form-check-input" (click)="checkProduct(index)" type="checkbox" value="" />
-            <div appSwipe (swipeRight)="onSwipeProductRight(index)" class="product-name-container">
+            <div appSwipe (swipeRight)="onSwipeProductRight(index)" (swipeLeft)="onSwipeProductLeft(index)" class="product-name-container">
                 @if (productEditingIndex() !== index) {
                 <span (click)="startEditingProduct(index)" class="product-name">
                     {{ product.name }}
@@ -26,6 +26,9 @@
             <div class="product-icons">
                 @if(product.sale) {
                 <bs-icon name="tag-fill" iconColor="primary-600" />
+                }
+                @if(product.albertHeijn) {
+                <bs-icon name="albert-heijn" />
                 }
             </div>
         </div>

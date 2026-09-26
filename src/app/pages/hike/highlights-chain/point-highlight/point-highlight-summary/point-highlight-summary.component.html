@@ -82,22 +82,22 @@
     <h2 class="title">{{ highlight.title }}</h2>
     <div class="attributes">
       <div class="attribute">
-        <bs-icon class="bs-icon" name="calendar-week"></bs-icon>
+        <bs-icon class="bs-icon" iconColor="dark" name="calendar-week"></bs-icon>
         <i>{{ highlight.date | pctDate }}</i>
       </div>
       <div class="attribute">
-        <bs-icon class="bs-icon" name="clock"></bs-icon>
+        <bs-icon class="bs-icon" iconColor="dark" name="clock"></bs-icon>
         <i>{{ highlight.date | pctTime }}</i>
       </div>
       @if (highlight.distance !== null && highlight.distance !== undefined) {
         <div class="attribute">
-          <bs-icon class="bs-icon" name="ruler"></bs-icon>
+          <bs-icon class="bs-icon" iconColor="dark" name="ruler"></bs-icon>
           <i>{{ highlight.distance | distance }}</i>
         </div>
       }
       @if (!highlight.isManual) {
         <div class="attribute">
-          <bs-icon class="bs-icon" name="pin-map-fill"></bs-icon>
+          <bs-icon class="bs-icon" iconColor="dark" name="pin-map-fill"></bs-icon>
           <i>Gps update</i>
         </div>
       }

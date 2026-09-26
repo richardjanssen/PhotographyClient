@@ -32,8 +32,8 @@
             <th scope="col">Title</th>
             <th scope="col">Distance</th>
             <th scope="col">Type</th>
-            <th scope="col"><bs-icon name="pencil"></bs-icon></th>
-            <th scope="col"><bs-icon name="trash"></bs-icon></th>
+            <th scope="col"><bs-icon name="pencil" iconColor="dark"></bs-icon></th>
+            <th scope="col"><bs-icon name="trash" iconColor="dark"></bs-icon></th>
           </tr>
         </thead>
         <tbody>
@@ -44,8 +44,8 @@
               <td>{{ update.title }}</td>
               <td>{{ update.distance | nullableDisplay }}</td>
               <td>{{ update.type | titlecase }}</td>
-              <td><bs-icon name="pencil" (click)="onEdit(update)"></bs-icon></td>
-              <td><bs-icon name="trash" (click)="onDelete(update)"></bs-icon></td>
+              <td><bs-icon name="pencil" iconColor="dark" (click)="onEdit(update)"></bs-icon></td>
+              <td><bs-icon name="trash" iconColor="dark" (click)="onDelete(update)"></bs-icon></td>
             </tr>
           }
         </tbody>

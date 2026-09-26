@@ -5,7 +5,10 @@
     width: 16px;
     max-width: 16px;
     max-height: 16px;
-    fill: variables.$dark;
+
+    &.dark {
+        fill: variables.$dark;
+    }
 
     &.light {
         fill: variables.$light;

@@ -9,6 +9,7 @@ export interface GroceryListProduct {
     name: string;
     recurringProduct: boolean;
     sale: boolean;
+    albertHeijn: boolean;
 }
 
 export interface GroceryListRecurringProduct {

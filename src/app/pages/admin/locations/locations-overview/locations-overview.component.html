@@ -42,7 +42,7 @@
               <th scope="col">Section ID</th>
               <th scope="col">Lat</th>
               <th scope="col">Lon</th>
-              <th scope="col"><bs-icon name="trash"></bs-icon></th>
+              <th scope="col"><bs-icon name="trash" iconColor="dark"></bs-icon></th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@
                 <td>{{ location.sectionId | nullableDisplay }}</td>
                 <td>{{ location.lat | nullableDisplay }}</td>
                 <td>{{ location.lon | nullableDisplay }}</td>
-                <th><bs-icon name="trash" (click)="onPendingDelete(location)"></bs-icon></th>
+                <th><bs-icon name="trash" iconColor="dark" (click)="onPendingDelete(location)"></bs-icon></th>
               </tr>
             }
           </tbody>
