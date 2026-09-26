@@ -1,7 +1,7 @@
 <app-base-layout class="admin-page">
     <h3 class="title">Boodschappenlijstje</h3>
 
-    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropProduct($event)">
+    <div cdkDropList class="drop-list" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropProduct($event)">
         @for (product of products(); track product; let index = $index) {
         <div class="drop-list-item" cdkDrag>
             <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" iconColor="dark" />
@@ -44,7 +44,7 @@
 
     <hr class="divider" />
 
-    <div cdkDropList class="drop-list" (cdkDropListDropped)="dropRecurringProduct($event)">
+    <div cdkDropList class="drop-list" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropRecurringProduct($event)">
         @for (product of recurringProducts(); track product; let index = $index) {
         <div class="drop-list-item recurring-product-item" cdkDrag>
             <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
@@ -83,8 +83,8 @@
     </div>
 </app-base-layout>
 
-<!-- <span>{{ this.products() | json }}</span>
+<span>{{ this.products() | json }}</span>
 <br /><br />
 <span>{{ this.recurringProducts() | json }}</span>
 <br /><br />
-<span>{{ this.selectedRecurringProducts() | json }}</span> -->
+<span>{{ this.selectedRecurringProducts() | json }}</span>
