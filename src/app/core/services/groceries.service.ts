@@ -14,6 +14,10 @@ export class GroceriesService {
         return this._http.get<Groceries>(this._getUrl(`Get`));
     }
 
+    save(groceries: Groceries): Observable<null> {
+        return this._http.post<null>(this._getUrl('Save'), groceries);
+    }
+
     private _getUrl(method: string): string {
         return this._urlBuilderHelper.constructUrlWithApiUrlPrefix('v1/Groceries/' + method);
     }

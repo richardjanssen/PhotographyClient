@@ -4,14 +4,16 @@ export interface Groceries {
 }
 
 export interface GroceryListProduct {
-    id: number;
+    id: number | null;
+    rowVersion: number | null;
     name: string;
     recurringProduct: boolean;
     sale: boolean;
 }
 
 export interface GroceryListRecurringProduct {
-    id: number;
+    id: number | null;
+    rowVersion: number | null;
     name: string;
     order: number;
 }

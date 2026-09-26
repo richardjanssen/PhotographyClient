@@ -11,6 +11,10 @@
 
 @include meta.load-css('../app/core/components/base-layout/base-layout.component.scss');
 
+html, body {
+    height: 100%
+}
+
 body {
     background-color: $light-600;
     font-family: 'Inter', sans-serif;
