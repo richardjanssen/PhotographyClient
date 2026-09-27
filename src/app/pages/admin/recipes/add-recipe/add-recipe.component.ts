@@ -57,9 +57,6 @@ export class AddRecipeComponent implements OnInit {
     ngOnInit(): void {
         this.patchRecipeForm();
         this.patchIngredientGroupForms();
-
-        console.log(this.recipeForm);
-        console.log(this.ingredientGroupForms);
     }
 
     addSingleIngredient(): void {

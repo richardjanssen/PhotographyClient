@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">Toevoegen aan boodschappenlijst</h5>
+</div>
+<div class="modal-body">
+    <form [formArray]="ingredientsFormArray">
+        @if(ingredientsFormArray.controls.length > 0) {
+            @for (ingredient of ingredientsFormArray.controls; let i = $index; track ingredient) {
+            <div [formGroupName]="i" class="ingredient-container">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" [id]="i" formControlName="add">
+                <label class="form-check-label" [for]="i">
+                    {{ ingredient.get('name')!.value }}
+                </label>
+                </div>
+            </div> 
+            } 
+        }
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="close()">Annuleren</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="add()">Toevoegen</button>
+</div>

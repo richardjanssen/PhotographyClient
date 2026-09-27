@@ -4,7 +4,8 @@
     <div class="metadata-container">
         <!-- Toolbar -->
         <div class="toolbar">
-            <button class="btn btn-sm btn-primary" (click)="editRecipe()">Bewerken</button>
+            <button class="btn btn-sm btn-primary toolbar-button" (click)="editRecipe()">Bewerken</button>
+            <button class="btn btn-sm btn-primary toolbar-button" (click)="openAddGroceriesModal()">Boodschappen</button>
         </div>
         <div class="metadata"></div>
         <span>Aantal porties: {{ recipe().numberOfPortions ?? '-'}}</span>
