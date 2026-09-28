@@ -3,7 +3,7 @@
   <div class="btn-toolbar menu">
     <div class="btn-group">
       @for (child of children; track child) {
-        <button [routerLink]="child.route" class="btn btn-secondary">{{ child.title }}</button>
+        <button [routerLink]="child.route" class="btn btn-secondary btn-sm">{{ child.title }}</button>
       }
     </div>
   </div>
