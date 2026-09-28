@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">Recept verwijderen?</h5>
+</div>
+<div class="modal-body">
+    <p>Weet je zeker dat je dit recept wilt verwijderen? Dit kan niet ongedaan gemaakt worden.</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="close()">Annuleren</button>
+    <button class="btn btn-sm btn-outline-danger form-button" style="color: black" (click)="confirm()">
+        <bs-icon name="trash" iconColor="dark" /> Verwijderen
+    </button>
+</div>

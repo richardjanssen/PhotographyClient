@@ -4,11 +4,14 @@
     <div class="metadata-container">
         <!-- Toolbar -->
         <div class="toolbar">
-            <button class="btn btn-sm btn-primary toolbar-button" (click)="editRecipe()">Bewerken</button>
-            <button class="btn btn-sm btn-primary toolbar-button" (click)="openAddGroceriesModal()">Boodschappen</button>
+            <button class="btn btn-sm btn-primary" (click)="openAddGroceriesModal()">Boodschappen</button>
+            <button class="btn btn-sm btn-primary" (click)="editRecipe()">Bewerken</button>
+            <button class="btn btn-sm btn-outline-danger" style="color: black" (click)="openDeleteRecipeModal()">
+                <bs-icon name="trash" iconColor="dark" /> Verwijderen
+            </button>
         </div>
         <div class="metadata"></div>
-        <span>Aantal porties: {{ recipe().numberOfPortions ?? '-'}}</span>
+        <span>Aantal porties: {{ recipe().numberOfPortions ?? '-' }}</span>
     </div>
 
     <!-- Ingredients -->
@@ -38,8 +41,6 @@
         <h6>Bereidingswijze</h6>
         @if(parsedPreparation) {
         <div [innerHTML]="parsedPreparation" class="text"></div>
-        } @else {
-            Er is geen bereidingswijze toegevoegd voor dit recept.
-        }
+        } @else { Er is geen bereidingswijze toegevoegd voor dit recept. }
     </div>
 </div>
