@@ -44,7 +44,7 @@ export class RecipeDetailsComponent {
         this.bsModalRef = this.modalService.show(AddGroceriesModalComponent, initialState);
         this.bsModalRef.content.event.subscribe((ingredientNames: string[]) => {
             this.groceriesService
-                .add(ingredientNames)
+                .addProducts(ingredientNames)
                 .subscribe(() =>
                     this.toasterService.addAlert({ type: 'success', msg: 'Ingrediënten toegevoegd aan boodschappenlijst', timeout: 5000 })
                 );

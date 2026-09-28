@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Recipe } from 'src/app/core/types/recipe/recipe.type';
+import { Ingredient, Recipe } from 'src/app/core/types/recipe/recipe.type';
 
 export interface AddGroceriesIngredientForm {
     add: FormControl<boolean>;
@@ -27,16 +27,16 @@ export class AddGroceriesModalComponent implements OnInit {
     constructor() {}
     ngOnInit(): void {
         // Create flat array of unique ingredients
-        const ingredientNames = [...new Set([
-            ...this.recipe.singleIngredients.map(i => i.name), 
-            ...this.recipe.ingredientGroups.flatMap(ig => ig.ingredients).map(i => i.name)
-        ])];
+        const ingredients = this.deduplicateBy(
+            [...this.recipe.singleIngredients, ...this.recipe.ingredientGroups.flatMap(ig => ig.ingredients)],
+            'name'
+        ).map(i => ({ ...i, name: this.capitalizeFirstLetter(i.name) } as Ingredient));
 
         // Add form group for each ingredient
-        ingredientNames.forEach(name => {
+        ingredients.forEach(i => {
             const form = new FormGroup<AddGroceriesIngredientForm>({
                 add: new FormControl<boolean>(true, { nonNullable: true }),
-                name: new FormControl<string>(name, { nonNullable: true })
+                name: new FormControl<string>(i.name, { nonNullable: true })
             });
 
             this.ingredientsFormArray.push(form);
@@ -54,4 +54,19 @@ export class AddGroceriesModalComponent implements OnInit {
     close(): void {
         this.bsModalRef.hide();
     }
+
+    private deduplicateBy<T, K extends keyof T>(arr: T[], key: K): T[] {
+        const map = new Map<T[K], T>();
+        arr.forEach(item => {
+            if (!map.has(item[key])) {
+                map.set(item[key], item);
+            }
+        });
+        return Array.from(map.values());
+    }
+
+    private capitalizeFirstLetter(text: string): string {
+    return String(text).charAt(0).toUpperCase() + String(text).slice(1);
+}
+
 }
