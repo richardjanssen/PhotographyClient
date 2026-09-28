@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
 import { Groceries } from '../types/groceries/groceries.type';
 
@@ -18,10 +18,8 @@ export class GroceriesService {
         return this._http.post<null>(this._getUrl('Save'), groceries);
     }
 
-    add(names: string[]): Observable<null> {
-        // TODO: methode implementeren
-        console.log(names);
-        return of(null);
+    addProducts(names: string[]): Observable<null> {
+        return this._http.post<null>(this._getUrl('AddProducts'), names);
     }
 
     private _getUrl(method: string): string {
