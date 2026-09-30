@@ -1,0 +1,43 @@
+<app-base-layout class="admin-page">
+    <h3 class="title">Weekmenu</h3>
+
+    <div cdkDropList class="drop-list" (cdkDropListSorted)="moveWeekmenuDay()" (cdkDropListDropped)="dropWeekmenuDay($event)">
+        @for (day of weekmenu(); track day; let index = $index) {
+        <div class="drop-list-item" cdkDrag>
+            <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" iconColor="dark" />
+            <!-- <input class="product-check form-check-input" (click)="checkProduct(index)" type="checkbox" value="" /> -->
+             <div class="product-weekday-container"><span >{{ day.weekday | weekday }}</span></div>
+            <div class="product-name-container">
+                
+                @if (weekmenuDayEditingIndex() !== index) {
+                <span (click)="startEditingWeekmenuDay(index)" class="product-name">
+                    {{ day.name }}
+                </span>
+                } @else {
+                <input
+                    class="form-control form-control-sm"
+                    [value]="weekmenuDayEditingValue()"
+                    (blur)="saveWeekmenuDayAndCancelEditing(index)"
+                    (keydown.enter)="saveWeekmenuDayAndAddNewDay(index)"
+                    (keydown.escape)="cancelEditingWeekmenuDay()"
+                    #weekmenuDayEditInput
+                />
+                }
+            </div>
+
+
+        </div>
+
+        }
+        <div class="drop-list-item">
+            <bs-icon class="add-product-icon" iconColor="gray" name="plus-circle" (click)="addNewWeekmenuDayAndStartEditing()" />
+            <div class="product-name-container">
+                <span (click)="addNewWeekmenuDayAndStartEditing()" class="product-name add-product-name"> Dag toevoegen </span>
+            </div>
+        </div>
+    </div>
+
+</app-base-layout>
+
+
+{{ this.weekmenu() | json }}
