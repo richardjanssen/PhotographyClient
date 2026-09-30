@@ -24,12 +24,13 @@
                         <div class="ingredient-header"><i>Aantal</i></div>
                         <div class="ingredient-header"><i>Eenheid</i></div>
                         <div class="ingredient-header"><i>Naam</i></div>
+                        <div class="ingredient-header"><bs-icon name="cart-fill" iconColor="dark" /></div>
                     </div>
                     @for (ingredient of ingredientsArray.controls; let i = $index; track ingredient) {
                     <div [formGroupName]="i" class="ingredient-container">
                         <div class="icon-column">
                             <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteSingleIngredient(i)">
-                                <bs-icon name="trash" iconColor="dark"/>
+                                <bs-icon name="trash" iconColor="dark" />
                             </button>
                         </div>
                         <div>
@@ -40,6 +41,14 @@
                         </div>
                         <div>
                             <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
+                        </div>
+                        <div>
+                            <input
+                                id="addToGroceries"
+                                class="form-check-input"
+                                type="checkbox"
+                                formControlName="addToGroceries"
+                            />
                         </div>
                     </div>
                     @if(singleIngredientName(i).invalid && singleIngredientName(i).touched) {
@@ -68,14 +77,16 @@
                         <div class="ingredient-header"><i>Aantal</i></div>
                         <div class="ingredient-header"><i>Eenheid</i></div>
                         <div class="ingredient-header"><i>Naam</i></div>
+                        <div class="ingredient-header"><bs-icon name="cart-fill" iconColor="dark" /></div>
                     </div>
                     } @for (ingredient of getIngredientControls(groupIndex).controls || []; let i = $index; track ingredient) {
                     <div [formGroupName]="i" class="ingredient-container">
                         <div class="icon-column">
                             <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteFormGroupIngredient(groupIndex, i)">
-                                <bs-icon name="trash" iconColor="dark"/>
+                                <bs-icon name="trash" iconColor="dark" />
                             </button>
                         </div>
+
                         <div>
                             <input id="quantity" type="text" class="form-control form-control-sm" formControlName="quantity" />
                         </div>
@@ -84,6 +95,14 @@
                         </div>
                         <div>
                             <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
+                        </div>
+                        <div>
+                            <input
+                                id="addToGroceries"
+                                class="form-check-input"
+                                type="checkbox"
+                                formControlName="addToGroceries"
+                            />
                         </div>
                     </div>
                     @if(groupIngredientName(groupIndex, i).invalid && groupIngredientName(groupIndex, i).touched) {
@@ -98,7 +117,7 @@
                             style="color: black"
                             (click)="removeIngredientGroup(groupIndex)"
                         >
-                            <bs-icon name="trash" iconColor="dark"/> Onderdeel verwijderen
+                            <bs-icon name="trash" iconColor="dark" /> Onderdeel verwijderen
                         </button>
                     </div>
                 </div>

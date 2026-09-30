@@ -306,8 +306,7 @@ export class GroceriesComponent {
     onSwipeProductLeft(index: number): void {
         const product = this.products().at(index)!;
         product.albertHeijn = !product.albertHeijn;
-        // TODO
-        // this.saveGroceriesToDb();
+        this.saveGroceriesToDb();
     }
 
     onSwipeRecurringProductRight(index: number): void {
