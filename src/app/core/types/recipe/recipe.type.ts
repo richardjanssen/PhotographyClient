@@ -20,6 +20,7 @@ export interface Ingredient {
     quantity: string | null;
     unit: string | null;
     subgroup: string | null;
+    addToGroceries: boolean;
 }
 
 export interface IngredientGroup {

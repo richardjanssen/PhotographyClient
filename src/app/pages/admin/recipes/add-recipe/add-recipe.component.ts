@@ -17,6 +17,7 @@ export interface IngredientForm {
     name: FormControl<string>;
     quantity: FormControl<string | null>;
     unit: FormControl<string | null>;
+    addToGroceries: FormControl<boolean>;
     subgroup: FormControl<string | null>;
 }
 
@@ -157,6 +158,7 @@ export class AddRecipeComponent implements OnInit {
                         }),
                         quantity: new FormControl<string | null>(ingredient.quantity),
                         unit: new FormControl<string | null>(ingredient.unit),
+                        addToGroceries: new FormControl<boolean>(ingredient.addToGroceries, { nonNullable: true }),
                         subgroup: new FormControl<string | null>(ingredient.subgroup)
                     })
                 );
@@ -182,6 +184,7 @@ export class AddRecipeComponent implements OnInit {
             name: new FormControl<string>('', { validators: [Validators.required, Validators.minLength(1)], nonNullable: true }),
             quantity: new FormControl<string | null>(null),
             unit: new FormControl<string | null>(null),
+            addToGroceries: new FormControl<boolean>(true, { nonNullable: true }),
             subgroup: new FormControl<string | null>(null)
         });
     }
@@ -202,6 +205,7 @@ export class AddRecipeComponent implements OnInit {
                         name: new FormControl<string>(ingredient.name, { nonNullable: true }),
                         quantity: new FormControl<string | null>(ingredient.quantity),
                         unit: new FormControl<string | null>(ingredient.unit),
+                        addToGroceries: new FormControl<boolean>(ingredient.addToGroceries, { nonNullable: true }),
                         subgroup: new FormControl<string | null>(ingredient.subgroup)
                     })
                 );
@@ -216,15 +220,16 @@ export class AddRecipeComponent implements OnInit {
             .addOrUpdate({
                 id: this.recipe()!.id,
                 rowVersion: this.recipe().rowVersion,
-                name: this.recipeForm.get('name')!.value,
+                name: this.recipeForm.get('name')!.value.trim(),
                 numberOfPortions: this.recipeForm.get('numberOfPortions')!.value,
                 singleIngredients: this.ingredientsArray.controls.map(ingredientForm => {
                     return {
                         id: ingredientForm.get('id')!.value,
                         rowVersion: ingredientForm.get('rowVersion')!.value,
-                        name: ingredientForm.get('name')!.value,
+                        name: ingredientForm.get('name')!.value.trim(),
                         quantity: ingredientForm.get('quantity')!.value,
                         unit: ingredientForm.get('unit')!.value,
+                        addToGroceries: ingredientForm.get('addToGroceries')!.value,
                         subgroup: ingredientForm.get('subgroup')!.value
                     };
                 }),
@@ -232,14 +237,15 @@ export class AddRecipeComponent implements OnInit {
                     const ingredientControls = ingredientGroupForm.get('ingredients') as FormArray<FormGroup<IngredientForm>>;
 
                     return {
-                        name: ingredientGroupForm.get('name')!.value,
+                        name: ingredientGroupForm.get('name')!.value.trim(),
                         ingredients: ingredientControls.controls.map(ingredientForm => {
                             return {
                                 id: ingredientForm.get('id')!.value,
                                 rowVersion: ingredientForm.get('rowVersion')!.value,
-                                name: ingredientForm.get('name')!.value,
+                                name: ingredientForm.get('name')!.value.trim(),
                                 quantity: ingredientForm.get('quantity')!.value,
                                 unit: ingredientForm.get('unit')!.value,
+                                addToGroceries: ingredientForm.get('addToGroceries')!.value,
                                 subgroup: ingredientForm.get('subgroup')!.value
                             };
                         })

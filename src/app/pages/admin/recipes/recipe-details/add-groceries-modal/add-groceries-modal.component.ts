@@ -28,14 +28,15 @@ export class AddGroceriesModalComponent implements OnInit {
     ngOnInit(): void {
         // Create flat array of unique ingredients
         const ingredients = this.deduplicateBy(
-            [...this.recipe.singleIngredients, ...this.recipe.ingredientGroups.flatMap(ig => ig.ingredients)],
+            [...this.recipe.singleIngredients, ...this.recipe.ingredientGroups.flatMap(ig => ig.ingredients)]
+            .map(i => ({ ...i, name: this.capitalizeFirstLetter(i.name.trim()) } as Ingredient)),
             'name'
-        ).map(i => ({ ...i, name: this.capitalizeFirstLetter(i.name) } as Ingredient));
+        );
 
         // Add form group for each ingredient
         ingredients.forEach(i => {
             const form = new FormGroup<AddGroceriesIngredientForm>({
-                add: new FormControl<boolean>(true, { nonNullable: true }),
+                add: new FormControl<boolean>(i.addToGroceries, { nonNullable: true }),
                 name: new FormControl<string>(i.name, { nonNullable: true })
             });
 
