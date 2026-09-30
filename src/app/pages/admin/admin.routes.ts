@@ -9,6 +9,11 @@ export class AdminPaths {
         roles: [ApplicationRoles.Riesj_ShoppingListEdit],
         title: 'Boodschappen'
     };
+    static readonly weekmenu: { path: string; roles: string[]; title: string } = {
+        path: 'weekmenu',
+        roles: [ApplicationRoles.Riesj_ShoppingListEdit],
+        title: 'Weekmenu'
+    };
     static readonly recipes: { path: string; roles: string[]; title: string } = {
         path: 'recepten',
         roles: [ApplicationRoles.Riesj_RecipeEdit],
@@ -53,6 +58,12 @@ export const ADMIN_ROUTES: Routes = [
                 canActivate: [AuthorizationGuard],
                 data: { roles: AdminPaths.groceries.roles },
                 loadChildren: () => import('./groceries/groceries.routes').then(m => m.GROCERIES_ROUTES)
+            },
+            {
+                path: AdminPaths.weekmenu.path,
+                canActivate: [AuthorizationGuard],
+                data: { roles: AdminPaths.weekmenu.roles },
+                loadChildren: () => import('./weekmenu/weekmenu.routes').then(m => m.WEEKMENU_ROUTES)
             },
             {
                 path: AdminPaths.recipes.path,

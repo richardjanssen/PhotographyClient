@@ -18,7 +18,8 @@ export class AdminComponent {
         const userRoles = _authenticationService.getCurrentUser()!.roles;
 
         this.menuEntries = [
-            AdminPaths.groceries, 
+            AdminPaths.groceries,
+            AdminPaths.weekmenu, 
             AdminPaths.recipes,
             AdminPaths.albums, 
             AdminPaths.locations, 

@@ -18,7 +18,6 @@ import { BaseLayoutComponent } from 'src/app/core/components/base-layout/base-la
 import { GroceriesService } from 'src/app/core/services/groceries.service';
 import { Groceries, GroceryListProduct, GroceryListRecurringProduct } from 'src/app/core/types/groceries/groceries.type';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
-import { JsonPipe } from '@angular/common';
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 import { catchError, EMPTY, interval, startWith, switchMap } from 'rxjs';
 import { ToasterService } from 'src/app/core/services/toaster.service';
@@ -26,7 +25,7 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, JsonPipe, SwipeDirective],
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, SwipeDirective],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroceriesComponent {
@@ -34,11 +33,12 @@ export class GroceriesComponent {
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
     private readonly toasterService = inject(ToasterService);
 
+    private enterPressed: boolean = false;
+    private isMovingProduct: boolean = false;
+
     productEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     productEditingValue: WritableSignal<string> = signal<string>('');
-    enterPressed: boolean = false;
-    isMovingProduct: boolean = false;
-
+    
     recurringProductEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     recurringProductEditingValue: WritableSignal<string> = signal<string>('');
     recurringProductShowDelete: WritableSignal<boolean> = signal<boolean>(false);
