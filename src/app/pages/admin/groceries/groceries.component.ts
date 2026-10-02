@@ -6,6 +6,7 @@ import {
     effect,
     ElementRef,
     inject,
+    OnDestroy,
     signal,
     Signal,
     ViewChild,
@@ -19,7 +20,7 @@ import { GroceriesService } from 'src/app/core/services/groceries.service';
 import { Groceries, GroceryListProduct, GroceryListRecurringProduct } from 'src/app/core/types/groceries/groceries.type';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
-import { catchError, EMPTY, interval, startWith, switchMap } from 'rxjs';
+import { catchError, debounceTime, EMPTY, interval, Observable, retry, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 
 @Component({
@@ -28,30 +29,37 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
     imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, SwipeDirective],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GroceriesComponent {
+export class GroceriesComponent implements OnDestroy {
     private readonly groceriesService = inject(GroceriesService);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
     private readonly toasterService = inject(ToasterService);
 
+    private readonly subscriptions: Subscription = new Subscription();
+    private readonly saveSubject = new Subject<void>();
+
+    private savePending: boolean = false;
     private enterPressed: boolean = false;
     private isMovingProduct: boolean = false;
 
     productEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     productEditingValue: WritableSignal<string> = signal<string>('');
-    
+
     recurringProductEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     recurringProductEditingValue: WritableSignal<string> = signal<string>('');
     recurringProductShowDelete: WritableSignal<boolean> = signal<boolean>(false);
     recurringProductDeleteIndex: WritableSignal<number | null> = signal<number | null>(null);
 
     groceries: Signal<Groceries> = toSignal(
-        interval(5000).pipe(
+        interval(7500).pipe(
             startWith(0),
             switchMap(() => {
-                if (this.productEditingIndex() !== null || this.recurringProductEditingIndex() !== null || this.isMovingProduct) {
+                if (this.productEditingIndex() !== null 
+                || this.recurringProductEditingIndex() !== null 
+                || this.isMovingProduct 
+                || this.savePending) {
                     return EMPTY;
                 }
-                return this.groceriesService.get();
+                return this.groceriesService.get().pipe(catchError(() => EMPTY));
             })
         ),
         { initialValue: { products: [], recurringProducts: [] } }
@@ -73,6 +81,15 @@ export class GroceriesComponent {
     @ViewChild('recurringProductEditInput') recurringProductEditInput!: ElementRef<HTMLInputElement>;
 
     constructor() {
+        this.subscriptions.add(this.saveSubject
+            .pipe(
+                debounceTime(1500),
+                switchMap(() => this.performSave$())
+            )
+            .subscribe(() => {
+                return this.savePending = false;
+            }));
+
         // Focus on input field when starting product edit
         effect(() => {
             this.enterPressed = false;
@@ -92,6 +109,9 @@ export class GroceriesComponent {
                 });
             }
         });
+    }
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     startEditingProduct(index: number): void {
@@ -218,7 +238,7 @@ export class GroceriesComponent {
     moveProduct(): void {
         this.isMovingProduct = true;
     }
-    
+
     dropProduct(event: CdkDragDrop<string[]>): void {
         this.isMovingProduct = false;
 
@@ -289,9 +309,14 @@ export class GroceriesComponent {
             return;
         }
 
-        this.products().push(
-            { id: null, rowVersion: null, name: recurringProduct.name, recurringProduct: true, sale: false, albertHeijn: false }
-        );
+        this.products().push({
+            id: null,
+            rowVersion: null,
+            name: recurringProduct.name,
+            recurringProduct: true,
+            sale: false,
+            albertHeijn: false
+        });
         this.selectedRecurringProducts().push(recurringProduct);
         this.recurringProducts().splice(index, 1);
         this.saveGroceriesToDb();
@@ -397,21 +422,23 @@ export class GroceriesComponent {
         this.recurringProductShowDelete.set(false);
     }
 
-    private saveGroceriesToDb(): void {
+    private performSave$(): Observable<void> {
         const groceriesToSave: Groceries = {
             products: this.products(),
             recurringProducts: [...this.recurringProducts(), ...this.selectedRecurringProducts()]
         };
 
-        this.groceriesService
-            .save(groceriesToSave)
-            .pipe(
-                catchError(() => {
-                    this.toasterService.addAlert({ type: 'danger', msg: 'Opslaan mislukt', timeout: 3000 });
+        return this.groceriesService.save(groceriesToSave).pipe(
+            retry({ count: 2, delay: 1000 }),
+            catchError(() => {
+                this.toasterService.addAlert({ type: 'danger', msg: 'Opslaan mislukt', timeout: 3000 });
 
-                    return EMPTY;
-                })
-            )
-            .subscribe();
+                return EMPTY;
+            })
+        );
+    }
+    private saveGroceriesToDb(): void {
+        this.savePending = true;
+        this.saveSubject.next();
     }
 }

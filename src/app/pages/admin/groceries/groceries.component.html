@@ -1,7 +1,7 @@
 <app-base-layout class="admin-page">
     <h3 class="title">Boodschappenlijstje</h3>
 
-    <div cdkDropList class="drop-list" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropProduct($event)">
+    <div cdkDropList class="drop-list" cdkDropListAutoScrollStep="75" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropProduct($event)">
         @for (product of products(); track product; let index = $index) {
         <div class="drop-list-item" cdkDrag>
             <bs-icon class="drag-handle" cdkDragHandle name="grip-vertical" iconColor="dark" />

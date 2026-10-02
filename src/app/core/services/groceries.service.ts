@@ -14,12 +14,12 @@ export class GroceriesService {
         return this._http.get<Groceries>(this._getUrl(`Get`));
     }
 
-    save(groceries: Groceries): Observable<null> {
-        return this._http.post<null>(this._getUrl('Save'), groceries);
+    save(groceries: Groceries): Observable<void> {
+        return this._http.post<void>(this._getUrl('Save'), groceries);
     }
 
-    addProducts(names: string[]): Observable<null> {
-        return this._http.post<null>(this._getUrl('AddProducts'), names);
+    addProducts(names: string[]): Observable<void> {
+        return this._http.post<void>(this._getUrl('AddProducts'), names);
     }
 
     private _getUrl(method: string): string {
