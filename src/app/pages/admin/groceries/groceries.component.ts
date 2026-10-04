@@ -22,11 +22,12 @@ import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/b
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 import { catchError, debounceTime, EMPTY, interval, Observable, retry, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { ToasterService } from 'src/app/core/services/toaster.service';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 @Component({
     templateUrl: './groceries.component.html',
     styleUrls: ['./groceries.component.scss'],
-    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, SwipeDirective],
+    imports: [BaseLayoutComponent, CdkDrag, CdkDropList, BootstrapIconComponent, CdkDragHandle, SwipeDirective, CdkScrollable],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroceriesComponent implements OnDestroy {
