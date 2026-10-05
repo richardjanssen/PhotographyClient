@@ -5,7 +5,7 @@ import { Weekday } from '../types/weekmenu/weekmenu.type';
     name: 'weekday',
     standalone: true
 })
-export class DistancePipe implements PipeTransform {
+export class WeekdayPipe implements PipeTransform {
     transform(value: Weekday): string {
         switch (value) {
             case Weekday.monday:

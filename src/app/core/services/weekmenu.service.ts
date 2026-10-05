@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
-import { Groceries } from '../types/groceries/groceries.type';
 import { WeekmenuDay } from '../types/weekmenu/weekmenu.type';
 
 @Injectable({
@@ -15,8 +14,8 @@ export class WeekmenuService {
         return this._http.get<WeekmenuDay[]>(this._getUrl(`Get`));
     }
 
-    save(groceries: Groceries): Observable<null> {
-        return this._http.post<null>(this._getUrl('Save'), groceries);
+    save(weekmenu: WeekmenuDay[]): Observable<void> {
+        return this._http.post<void>(this._getUrl('Save'), weekmenu);
     }
 
     private _getUrl(method: string): string {
