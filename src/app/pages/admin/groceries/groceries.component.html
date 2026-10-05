@@ -44,7 +44,7 @@
 
     <hr class="divider" />
 
-    <div cdkDropList class="drop-list" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropRecurringProduct($event)">
+    <div cdkDropList class="drop-list" cdkScrollable cdkDropListAutoScrollStep="75" (cdkDropListSorted)="moveProduct()" (cdkDropListDropped)="dropRecurringProduct($event)">
         @for (product of recurringProducts(); track product; let index = $index) {
         <div class="drop-list-item recurring-product-item" cdkDrag>
             <bs-icon class="drag-handle" iconColor="gray" cdkDragHandle name="grip-vertical" />
