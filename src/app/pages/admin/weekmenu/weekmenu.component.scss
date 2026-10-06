@@ -10,6 +10,11 @@
         text-align: center;
         margin-bottom: 0;
     }
+
+    .ideas-label {
+        margin-top: 1rem;
+        font-size: smaller;
+    }
 }
 
 // Alle drop list styling staat buiten de .admin-page selector omdat de drag functionaliteit elementen in de root van de pagina rendert

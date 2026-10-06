@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlBuilderHelper } from '../helpers/url-builder.helper';
 import { HttpClient } from '@angular/common/http';
-import { Settings } from '../types/settings.types';
+import { Settings, SettingsWeekmenuIdeas } from '../types/settings.types';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +16,14 @@ export class SettingsService {
 
     update(settings: Settings): Observable<null> {
         return this._http.put<null>(this._getUrl('Update'), settings);
+    }
+
+    getWeekmenuIdeas(): Observable<string> {
+        return this._http.get<string>(this._getUrl('GetWeekmenuIdeas'));
+    }
+
+    updateWeekmenuIdeas(settings: SettingsWeekmenuIdeas): Observable<void> {
+        return this._http.put<void>(this._getUrl('UpdateWeekmenuIdeas'), settings);
     }
 
     private _getUrl(method: string): string {

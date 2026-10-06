@@ -34,4 +34,9 @@
         </div>
     </div>
 
+  <div class="form-group">
+    <label for="weekmenuIdeas" class="ideas-label">Weekmenu ideeën</label>
+    <textarea class="form-control form-control-sm" id="weekmenuIdeas" rows="3" [value]="weekmenuIdeas()" (focus)="onFocusWeekmenuIdeas()" (blur)="saveWeekmenuIdeas()" #weekmenuIdeasInput></textarea>
+  </div>
+
 </app-base-layout>
