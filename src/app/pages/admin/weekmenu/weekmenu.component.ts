@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, ElementRef, inject, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, debounceTime, EMPTY, interval, Observable, retry, startWith, Subject, Subscription, switchMap } from 'rxjs';
@@ -10,10 +9,11 @@ import { CdkDrag, CdkDropList, CdkDragHandle, CdkDragDrop, moveItemInArray } fro
 import { WeekdayPipe } from '../../../core/pipes/weekday.pipe';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
+import { SettingsService } from 'src/app/core/services/settings.service';
 
 @Component({
     selector: 'weekmenu',
-    imports: [JsonPipe, BaseLayoutComponent, BootstrapIconComponent, CdkDrag, CdkDropList, CdkDragHandle, WeekdayPipe, SwipeDirective],
+    imports: [BaseLayoutComponent, BootstrapIconComponent, CdkDrag, CdkDropList, CdkDragHandle, WeekdayPipe, SwipeDirective],
     templateUrl: './weekmenu.component.html',
     styleUrl: './weekmenu.component.scss'
 })
@@ -21,13 +21,18 @@ export class WeekmenuComponent {
     private readonly weekmenuService = inject(WeekmenuService);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
     private readonly toasterService = inject(ToasterService);
+    private readonly settingsService = inject(SettingsService);
 
     private readonly subscriptions: Subscription = new Subscription();
     private readonly saveSubject = new Subject<void>();
+    private readonly saveWeekmenuIdeasSubject = new Subject<void>();
 
     private savePending: boolean = false;
     private enterPressed: boolean = false;
     private isMovingWeekmenuDay: boolean = false;
+
+    private isEditingWeekmenuIdeas: boolean = false;
+    private ideasSavePending: boolean = false;
 
     weekmenuDayEditingIndex: WritableSignal<number | null> = signal<number | null>(null);
     weekmenuDayEditingValue: WritableSignal<string> = signal<string>('');
@@ -45,7 +50,21 @@ export class WeekmenuComponent {
         { initialValue: [] }
     );
 
+    weekmenuIdeas: Signal<string> = toSignal(
+        interval(10000).pipe(
+            startWith(0),
+            switchMap(() => {
+                if (this.isEditingWeekmenuIdeas || this.ideasSavePending) {
+                    return EMPTY;
+                }
+                return this.settingsService.getWeekmenuIdeas().pipe(catchError(() => EMPTY));
+            })
+        ),
+        { initialValue: '' }
+    );
+
     @ViewChild('weekmenuDayEditInput') weekmenuDayEditInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('weekmenuIdeasInput') weekmenuIdeasInput!: ElementRef<HTMLInputElement>;
 
     constructor() {
         this.subscriptions.add(
@@ -53,6 +72,17 @@ export class WeekmenuComponent {
                 .pipe(
                     debounceTime(1500),
                     switchMap(() => this.performSave$())
+                )
+                .subscribe(() => {
+                    return (this.savePending = false);
+                })
+        );
+
+        this.subscriptions.add(
+            this.saveWeekmenuIdeasSubject
+                .pipe(
+                    debounceTime(1500),
+                    switchMap(() => this.performWeekmenuIdeasSave$())
                 )
                 .subscribe(() => {
                     return (this.savePending = false);
@@ -158,7 +188,7 @@ export class WeekmenuComponent {
 
     onSwipeWeekmenuDayRight(index: number): void {
         // Only allow deleting first row
-        if(index !== 0) {
+        if (index !== 0) {
             return;
         }
 
@@ -166,6 +196,16 @@ export class WeekmenuComponent {
         this.weekmenu().splice(0, 1);
         this.saveWeekmenuToDb();
     }
+
+    onFocusWeekmenuIdeas(): void {
+        this.isEditingWeekmenuIdeas = true;
+    }
+
+    saveWeekmenuIdeas(): void {
+        this.ideasSavePending = true;
+        this.saveWeekmenuIdeasSubject.next();
+    }
+
     private mustChangeWeekday(previousIndex: number, currentIndex: number, itemIndex: number): boolean {
         const movedDown = currentIndex - previousIndex > 0;
         const movedUp = !movedDown;
@@ -196,12 +236,24 @@ export class WeekmenuComponent {
         return this.weekmenuService.save(this.weekmenu()).pipe(
             retry({ count: 2, delay: 1000 }),
             catchError(() => {
-                this.toasterService.addAlert({ type: 'danger', msg: 'Opslaan mislukt', timeout: 3000 });
+                this.toasterService.addAlert({ type: 'danger', msg: 'Weekmenu opslaan mislukt', timeout: 3000 });
 
                 return EMPTY;
             })
         );
     }
+
+    private performWeekmenuIdeasSave$(): Observable<void> {
+        return this.settingsService.updateWeekmenuIdeas({weekmenuIdeas: this.weekmenuIdeasInput.nativeElement.value.trim()}).pipe(
+            retry({ count: 2, delay: 1000 }),
+            catchError(() => {
+                this.toasterService.addAlert({ type: 'danger', msg: 'Ideeën opslaan mislukt', timeout: 3000 });
+
+                return EMPTY;
+            })
+        );
+    }
+
     private saveWeekmenuToDb(): void {
         this.savePending = true;
         this.saveSubject.next();

@@ -24,6 +24,7 @@ export class UpdateSettingsComponent {
 
     trackingEnabled: boolean;
     mapboxEnabled: boolean;
+    weekmenuIdeas: string;
 
     constructor(private readonly _settingsService: SettingsService) {
         this.settings$ = this._settingsService.get().pipe(
@@ -32,6 +33,7 @@ export class UpdateSettingsComponent {
                 if (settings.status === StateStatus.valid) {
                     this.trackingEnabled = settings.value.trackingEnabled;
                     this.mapboxEnabled = settings.value.mapboxEnabled;
+                    this.weekmenuIdeas = settings.value.weekmenuIdeas;
                 }
             })
         );
@@ -45,7 +47,8 @@ export class UpdateSettingsComponent {
     private _getSettings(): Settings {
         return {
             trackingEnabled: this.trackingEnabled,
-            mapboxEnabled: this.mapboxEnabled
+            mapboxEnabled: this.mapboxEnabled,
+            weekmenuIdeas: this.weekmenuIdeas
         };
     }
 }
