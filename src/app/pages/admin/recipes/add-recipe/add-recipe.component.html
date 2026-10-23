@@ -43,12 +43,7 @@
                             <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                         </div>
                         <div>
-                            <input
-                                id="addToGroceries"
-                                class="form-check-input"
-                                type="checkbox"
-                                formControlName="addToGroceries"
-                            />
+                            <input id="addToGroceries" class="form-check-input" type="checkbox" formControlName="addToGroceries" />
                         </div>
                     </div>
                     @if(singleIngredientName(i).invalid && singleIngredientName(i).touched) {
@@ -97,12 +92,7 @@
                             <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                         </div>
                         <div>
-                            <input
-                                id="addToGroceries"
-                                class="form-check-input"
-                                type="checkbox"
-                                formControlName="addToGroceries"
-                            />
+                            <input id="addToGroceries" class="form-check-input" type="checkbox" formControlName="addToGroceries" />
                         </div>
                     </div>
                     @if(groupIngredientName(groupIndex, i).invalid && groupIngredientName(groupIndex, i).touched) {
@@ -132,8 +122,10 @@
         </div>
 
         <form [formGroup]="recipeForm">
-            <label for="preparation"><b>Bereidingswijze</b></label>
-            <textarea id="preparation" rows="5" class="form-control form-control-sm" formControlName="preparation"></textarea>
+            <div class="preparation-container">
+                <label for="preparation"><b>Bereidingswijze</b></label>
+                <textarea id="preparation" rows="5" class="form-control form-control-sm" formControlName="preparation"></textarea>
+            </div>
         </form>
 
         <div class="form-buttons">

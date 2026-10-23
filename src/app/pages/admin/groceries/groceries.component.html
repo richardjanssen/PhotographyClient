@@ -81,4 +81,18 @@
             </div>
         </div>
     </div>
+
+    <hr class="divider" />
+
+    @if(lastCheckedProducts().length > 0) {
+    <div>
+        <span class="last-checked-products">
+            Laatste {{ lastCheckedProducts().length > 1 ? lastCheckedProducts().length : '' }} aangevinkte 
+            product{{lastCheckedProducts().length > 1 ? 'en' : '' }} (deze sessie):
+        </span>
+        @for (product of lastCheckedProducts(); track product.name) {
+            <span class="last-checked-products">{{ product.name }}</span>
+        }
+    </div>
+    }
 </app-base-layout>

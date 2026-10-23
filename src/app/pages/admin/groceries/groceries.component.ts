@@ -50,6 +50,8 @@ export class GroceriesComponent implements OnDestroy {
     recurringProductShowDelete: WritableSignal<boolean> = signal<boolean>(false);
     recurringProductDeleteIndex: WritableSignal<number | null> = signal<number | null>(null);
 
+    lastCheckedProducts: Signal<GroceryListProduct[]> = signal<GroceryListProduct[]>([]);
+
     groceries: Signal<Groceries> = toSignal(
         interval(7500).pipe(
             startWith(0),
@@ -297,6 +299,7 @@ export class GroceriesComponent implements OnDestroy {
             this.replaceProductInRecurringProducts(product);
         }
 
+        this.updateLastCheckedProducts(product);
         this.products().splice(index, 1);
         this.saveGroceriesToDb();
     }
@@ -340,6 +343,14 @@ export class GroceriesComponent implements OnDestroy {
             ? this.recurringProductShowDelete.set(!this.recurringProductShowDelete())
             : this.recurringProductShowDelete.set(true);
         this.recurringProductDeleteIndex.set(index);
+    }
+
+    private updateLastCheckedProducts(product: GroceryListProduct): void {
+        console.log(this.lastCheckedProducts().length);
+        if(this.lastCheckedProducts().length >= 3) {
+            this.lastCheckedProducts().splice(this.lastCheckedProducts.length - 1, 1);
+        }
+        this.lastCheckedProducts().splice(0, 0, product);
     }
 
     private addNewProduct(index: number): void {

@@ -14,6 +14,11 @@
     .divider {
         margin: 10px 0;
     }
+
+    .last-checked-products {
+        display: block;
+        font-size: smaller;
+    }
 }
 
 // Alle drop list styling staat buiten de .admin-page selector omdat de drag functionaliteit elementen in de root van de pagina rendert

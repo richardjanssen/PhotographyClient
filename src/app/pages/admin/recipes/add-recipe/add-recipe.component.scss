@@ -34,7 +34,6 @@
 
         width: 500px;
         
-
         .icon-column {
             margin-top: auto;
             margin-bottom: auto;
@@ -65,5 +64,9 @@
     .validation-message {
         color: variables.$danger;
         font-size: small;
+    }
+
+    .preparation-container {
+        width: 85vw;
     }
 }
