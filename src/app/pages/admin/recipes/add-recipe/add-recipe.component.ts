@@ -5,6 +5,7 @@ import { FormArray, FormControl, FormGroup, FormsModule, Validators, ReactiveFor
 import { Recipe } from 'src/app/core/types/recipe/recipe.type';
 import { BootstrapIconComponent } from 'src/app/core/components/bootstrap-icon/bootstrap-icon.component';
 import { Router } from '@angular/router';
+import { SwipeDirective } from 'src/app/core/directives/swipe.directive';
 
 export interface IngredientGroupForm {
     name: FormControl<string | null>;
@@ -32,7 +33,7 @@ export interface RecipeForm {
 
 @Component({
     selector: 'add-recipe',
-    imports: [FormsModule, ReactiveFormsModule, BootstrapIconComponent],
+    imports: [FormsModule, ReactiveFormsModule, BootstrapIconComponent, SwipeDirective],
     templateUrl: './add-recipe.component.html',
     styleUrls: ['./add-recipe.component.scss']
 })
@@ -52,6 +53,9 @@ export class AddRecipeComponent implements OnInit {
 
     submitted: boolean = false;
     error: boolean = false;
+
+    ingredientToDelete: { groupIndex: number | null; ingredientIndex: number } | null = null;
+    groupToDelete: number | null;
 
     constructor(private readonly _recipeService: RecipeService, private readonly router: Router) {}
 
@@ -79,6 +83,39 @@ export class AddRecipeComponent implements OnInit {
 
     addIngredientToIngredientGroup(groupIndex: number): void {
         this.getIngredientControls(groupIndex).push(this.giveNewIngredient());
+    }
+
+    onSwipeSingleIngredientRight(index: number): void {
+        if (
+            this.ingredientToDelete !== null &&
+            this.ingredientToDelete.groupIndex === null &&
+            this.ingredientToDelete.ingredientIndex === index
+        ) {
+            this.ingredientToDelete = null;
+            return;
+        }
+
+        this.ingredientToDelete = { groupIndex: null, ingredientIndex: index };
+    }
+
+    onSwipeGroupIngredientRight(groupIndex: number, index: number): void {
+        if (
+            this.ingredientToDelete !== null &&
+            this.ingredientToDelete.groupIndex === groupIndex &&
+            this.ingredientToDelete.ingredientIndex === index
+        ) {
+            this.ingredientToDelete = null;
+            return;
+        }
+        this.ingredientToDelete = { groupIndex, ingredientIndex: index };
+    }
+
+    onSwipeGroupNameRight(groupIndex: number): void {
+        if (this.groupToDelete === groupIndex) {
+            this.groupToDelete = null;
+            return;
+        }
+        this.groupToDelete = groupIndex;
     }
 
     deleteSingleIngredient(index: number): void {

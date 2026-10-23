@@ -346,7 +346,6 @@ export class GroceriesComponent implements OnDestroy {
     }
 
     private updateLastCheckedProducts(product: GroceryListProduct): void {
-        console.log(this.lastCheckedProducts().length);
         if(this.lastCheckedProducts().length >= 3) {
             this.lastCheckedProducts().splice(this.lastCheckedProducts.length - 1, 1);
         }
