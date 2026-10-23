@@ -3,7 +3,7 @@
         <h4 class="card-title">{{ recipe().id !== null ? 'Recept bewerken' : 'Recept toevoegen' }}</h4>
         <form [formGroup]="recipeForm">
             <div class="form-grid">
-                <div>
+                <div class="recipe-name">
                     <label for="name"><b>Naam</b></label>
                     <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                     @if(name.invalid && name.touched) {
@@ -11,7 +11,7 @@
                     }
                 </div>
 
-                <div>
+                <div class="recipe-portions">
                     <label for="name"><b>Aantal porties</b></label>
                     <input id="numberOfPortions" type="number" class="form-control form-control-sm" formControlName="numberOfPortions" />
                 </div>
@@ -20,19 +20,14 @@
                     <span><b>Ingrediënten</b></span>
                     @if(ingredientsArray.controls.length > 0) {
                     <div class="ingredient-container">
-                        <div></div>
                         <div class="ingredient-header"><i>Aantal</i></div>
                         <div class="ingredient-header"><i>Eenheid</i></div>
                         <div class="ingredient-header"><i>Naam</i></div>
                         <div class="ingredient-header"><bs-icon name="cart-fill" iconColor="dark" /></div>
+                        <div></div>
                     </div>
                     @for (ingredient of ingredientsArray.controls; let i = $index; track ingredient) {
-                    <div [formGroupName]="i" class="ingredient-container">
-                        <div class="icon-column">
-                            <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteSingleIngredient(i)">
-                                <bs-icon name="trash" iconColor="dark" />
-                            </button>
-                        </div>
+                    <div [formGroupName]="i" class="ingredient-container" appSwipe (swipeRight)="onSwipeSingleIngredientRight(i)">
                         <div>
                             <input id="quantity" type="text" class="form-control form-control-sm" formControlName="quantity" />
                         </div>
@@ -44,6 +39,14 @@
                         </div>
                         <div>
                             <input id="addToGroceries" class="form-check-input" type="checkbox" formControlName="addToGroceries" />
+                        </div>
+                        <div class="icon-column">
+                            @if(ingredientToDelete !== null && ingredientToDelete.groupIndex === null && ingredientToDelete.ingredientIndex
+                            === i) {
+                            <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteSingleIngredient(i)">
+                                <bs-icon name="trash" iconColor="dark" />
+                            </button>
+                            }
                         </div>
                     </div>
                     @if(singleIngredientName(i).invalid && singleIngredientName(i).touched) {
@@ -53,35 +56,52 @@
             </div>
         </form>
 
+        <div class="form-buttons">
+            <button class="btn btn-sm btn-primary form-button" (click)="addSingleIngredient()">Los ingrediënt toevoegen</button>
+        </div>
+
         @if(ingredientGroupFormsArray.controls.length > 0) {
         <div [formArray]="ingredientGroupFormsArray">
             @for (group of ingredientGroupFormsArray.controls; let groupIndex = $index; track group) {
             <div [formGroupName]="groupIndex" class="ingredient-group">
-                <div class="group-name-container">
-                    <label for="groupName-{{ groupIndex }}" class="group-name-label"><i>Onderdeelnaam</i></label>
-                    <input [id]="'groupName-' + groupIndex" type="text" class="form-control form-control-sm" formControlName="name" />
-                    @if(groupName(groupIndex).invalid && groupName(groupIndex).touched) {
-                    <span class="validation-message">Naam is verplicht</span>
-                    }
+                <div class="group-name-toolbar" appSwipe (swipeRight)="onSwipeGroupNameRight(groupIndex)">
+                    <div class="group-name-container">
+                        <label for="groupName-{{ groupIndex }}" class="group-name-label"><i>Onderdeelnaam</i></label>
+                        <input [id]="'groupName-' + groupIndex" type="text" class="form-control form-control-sm" formControlName="name" />
+                        @if(groupName(groupIndex).invalid && groupName(groupIndex).touched) {
+                        <span class="validation-message">Naam is verplicht</span>
+                        }
+                    </div>
+                    <div>
+                        @if(groupToDelete === groupIndex) {
+                        <button
+                            class="btn btn-sm btn-outline-danger form-button remove-button"
+                            style="color: black"
+                            (click)="removeIngredientGroup(groupIndex)"
+                        >
+                            <bs-icon name="trash" iconColor="dark" />
+                        </button>
+                        }
+
+                    </div>
                 </div>
 
                 <div [formArrayName]="'ingredients'" class="ingredients">
                     @if(getIngredientControls(groupIndex).controls.length > 0) {
                     <div class="ingredient-container">
-                        <div></div>
                         <div class="ingredient-header"><i>Aantal</i></div>
                         <div class="ingredient-header"><i>Eenheid</i></div>
                         <div class="ingredient-header"><i>Naam</i></div>
                         <div class="ingredient-header"><bs-icon name="cart-fill" iconColor="dark" /></div>
+                        <div></div>
                     </div>
                     } @for (ingredient of getIngredientControls(groupIndex).controls || []; let i = $index; track ingredient) {
-                    <div [formGroupName]="i" class="ingredient-container">
-                        <div class="icon-column">
-                            <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteFormGroupIngredient(groupIndex, i)">
-                                <bs-icon name="trash" iconColor="dark" />
-                            </button>
-                        </div>
-
+                    <div
+                        [formGroupName]="i"
+                        class="ingredient-container"
+                        appSwipe
+                        (swipeRight)="onSwipeGroupIngredientRight(groupIndex, i)"
+                    >
                         <div>
                             <input id="quantity" type="text" class="form-control form-control-sm" formControlName="quantity" />
                         </div>
@@ -94,6 +114,14 @@
                         <div>
                             <input id="addToGroceries" class="form-check-input" type="checkbox" formControlName="addToGroceries" />
                         </div>
+                        <div class="icon-column">
+                            @if(ingredientToDelete !== null && ingredientToDelete.groupIndex === groupIndex &&
+                            ingredientToDelete.ingredientIndex === i) {
+                            <button class="btn btn-outline-danger btn-sm form-button" (click)="deleteFormGroupIngredient(groupIndex, i)">
+                                <bs-icon name="trash" iconColor="dark" />
+                            </button>
+                            }
+                        </div>
                     </div>
                     @if(groupIngredientName(groupIndex, i).invalid && groupIngredientName(groupIndex, i).touched) {
                     <span class="validation-message">Naam is verplicht</span>
@@ -101,13 +129,6 @@
                     <div class="form-buttons group-form-buttons">
                         <button class="btn btn-sm btn-primary form-button" (click)="addIngredientToIngredientGroup(groupIndex)">
                             Ingrediënt toevoegen
-                        </button>
-                        <button
-                            class="btn btn-sm btn-outline-danger form-button"
-                            style="color: black"
-                            (click)="removeIngredientGroup(groupIndex)"
-                        >
-                            <bs-icon name="trash" iconColor="dark" /> Onderdeel verwijderen
                         </button>
                     </div>
                 </div>
@@ -117,7 +138,6 @@
         }
 
         <div class="form-buttons">
-            <button class="btn btn-sm btn-primary form-button" (click)="addSingleIngredient()">Los ingrediënt toevoegen</button>
             <button class="btn btn-sm btn-primary form-button" (click)="addIngredientGroup()">Onderdeel toevoegen</button>
         </div>
 
@@ -129,7 +149,7 @@
         </form>
 
         <div class="form-buttons">
-            <button class="btn btn-sm btn-primary form-button" [disabled]="formInvalid" (click)="onSubmit()">Opslaan</button>
+            <button class="btn btn-sm btn-secondary form-button" [disabled]="formInvalid" (click)="onSubmit()">Opslaan</button>
         </div>
         @if (error) {
         <div class="alert alert-danger">Er is iets foutgegaan bij het opslaan van het recept.</div>

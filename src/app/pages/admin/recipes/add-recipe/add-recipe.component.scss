@@ -3,6 +3,13 @@
 .add-recipe {
     overflow-x: scroll;
 
+    .recipe-name {
+        width: 85vw;
+    }
+
+    .recipe-portions {
+        width: 85vw;
+    }
     .form-grid {
         display: grid;
         gap: 10px;
@@ -18,7 +25,6 @@
     .form-buttons {
         .form-button {
             margin-right: variables.$paddingSm;
-            margin-bottom: variables.$paddingSm
         }
     }
 
@@ -29,11 +35,11 @@
     .ingredient-container {
         display: grid;
         gap: 5px;
-        grid-template-columns: 2fr 4fr 6fr 12fr 2fr;
+        grid-template-columns: 4fr 6fr 12fr 2fr 2fr;
         margin-bottom: 5px;
 
         width: 500px;
-        
+
         .icon-column {
             margin-top: auto;
             margin-bottom: auto;
@@ -56,6 +62,15 @@
         padding: variables.$padding;
         margin-top: variables.$padding;
 
+        .group-name-toolbar {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: 6fr 1fr;
+
+            .remove-button {
+                margin-top: 1.4rem;
+            }
+        }
         .group-name-label {
             font-size: small;
         }
