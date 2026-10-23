@@ -3,7 +3,7 @@
         <h4 class="card-title">{{ recipe().id !== null ? 'Recept bewerken' : 'Recept toevoegen' }}</h4>
         <form [formGroup]="recipeForm">
             <div class="form-grid">
-                <div>
+                <div class="recipe-name">
                     <label for="name"><b>Naam</b></label>
                     <input id="name" type="text" class="form-control form-control-sm" formControlName="name" />
                     @if(name.invalid && name.touched) {
@@ -11,7 +11,7 @@
                     }
                 </div>
 
-                <div>
+                <div class="recipe-portions">
                     <label for="name"><b>Aantal porties</b></label>
                     <input id="numberOfPortions" type="number" class="form-control form-control-sm" formControlName="numberOfPortions" />
                 </div>

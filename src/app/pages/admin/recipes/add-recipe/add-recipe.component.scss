@@ -3,6 +3,13 @@
 .add-recipe {
     overflow-x: scroll;
 
+    .recipe-name {
+        width: 85vw;
+    }
+
+    .recipe-portions {
+        width: 85vw;
+    }
     .form-grid {
         display: grid;
         gap: 10px;
@@ -32,7 +39,7 @@
         margin-bottom: 5px;
 
         width: 500px;
-        
+
         .icon-column {
             margin-top: auto;
             margin-bottom: auto;
